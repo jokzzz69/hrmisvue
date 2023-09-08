@@ -1,0 +1,99 @@
+<template>
+    <div class="row">
+        <div class="col-12 p-title mb-2">
+            <h2>Contact Info</h2>
+        </div>
+    </div>
+    <form v-on:submit.prevent="saveOfficeRecord" v-if="officerecord.pdspersonalinformation">
+        <div class="row mb-2">            
+            <div class="col-12 mb-2">                
+                <div class="form-floating">
+                    <input type="text" name="telephone_no" placeholder="enter first name" id="telephone_no" class="form-control" v-model="officerecord.pdspersonalinformation.telephone_no">
+                    <label for="name" class="form-label">Telephone Number</label>
+                </div>         
+            </div>  
+            <div class="col-12 mb-2">                
+                <div class="form-floating">
+                    <input type="text" name="contactnumber" placeholder="enter middle name" id="contactnumber" class="form-control" v-model="officerecord.pdspersonalinformation.mobile_no">
+                    <label for="name" class="form-label">Mobile Number</label>
+                </div>
+            </div> 
+            <div class="col-12 mb-2">                
+                <div class="form-floating">
+                    <input type="text" name="emailaddress" placeholder="enter middle name" id="emailaddress" class="form-control" v-model="officerecord.pdspersonalinformation.emailaddress"  :class="errors['employee.emailaddress'] ? 'error-input' : ''">
+                    <label for="name" class="form-label">Email Address</label>                    
+                    <span v-if="errors['emailaddress']" class="text-danger m-error">{{errors['emailaddress'][0]}}</span>
+                </div>
+            </div>                
+        </div> 
+        <div class="form-row">
+            <div class="col mt-3 text-end">
+                <router-link :to="{name: 'recordpersonal.show'}" class="btn btn-secondary me-1">Cancel</router-link>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </div>  
+     </form>
+
+</template>
+
+<script>
+
+import { onMounted, ref, inject, reactive} from 'vue';
+
+
+import useOfficerecord from '@/composables/composables-record';
+
+
+import moment from 'moment'
+
+export default{
+
+    props: {
+        id: {
+            required: true,
+            type: String
+        }
+    },
+
+    setup (props){
+        const swal = inject('$swal')
+        const {officerecord, getPersonalRecord, updateContact, errors}= useOfficerecord()
+
+        onMounted(() => {   
+            getPersonalRecord(props.id)
+
+        })
+
+        const saveOfficeRecord = async () => {
+            await updateContact(props.id).then(() => {
+                if(!errors.value){
+                    swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        title: 'Successfully Updated',
+                        showConfirmButton: false,            
+                        icon: 'success',
+                        width: '300',
+                        padding: '.5em 1em',
+                        timerProgressBar: true,
+                        timer:1500,
+                        customClass: {
+                            container: 'swaltopright'
+                        }
+                    })
+                }
+            })
+        }
+
+        return{
+            errors,
+            officerecord,
+            saveOfficeRecord,
+            moment
+        
+        }
+    }
+}
+
+
+</script>
