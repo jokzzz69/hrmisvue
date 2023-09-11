@@ -9,7 +9,7 @@
 			<div class="row">
 				<div class="col xs-100 sm-50 xxs-100 col-sm-6 col-md-3">
 					<div class="mb-2 form-floating">
-			            <select class="form-select border-blue" name="dtremployeetype" v-model="form.dtremployeetype">
+			            <select class="form-select border-blue" name="dtremployeetype" id="dtremployeetype" v-model="form.dtremployeetype">
 			                <option disabled value="">Select Type</option>
 			                <option value="0" >Permanent</option>
 			                <option value="1" >Job Order</option>
@@ -17,7 +17,7 @@
 			            <label class="form-label" for="dtremployeetype">Employee Type</label> 
 			        </div>
 			        <div class="mb-2 form-floating">
-			            <select class="form-select border-blue" name="dtrmonthtype" v-model="form.dtrmonthtype">
+			            <select class="form-select border-blue" name="dtrmonthtype" id="dtrmonthtype" v-model="form.dtrmonthtype">
 			                <option disabled value="">Select Range</option>
 			                <option value="1" >1st Half</option>
 			                <option value="2" >2nd Half</option>
@@ -32,14 +32,14 @@
 			        	<ul class="ulbtn-generate">
 				            <li>
 					           <a :href="'/hrmis/api/export/employeesdtr/'+form.dtremployeetype+','+form.dtrmonthtype+','+form.monthpicked.month+','+form.monthpicked.year+'&'+selected" type="button" class="btn btn-outline-danger btn-exportEmps" title="Export Data to PDF"><i class="fa-regular fa-file-pdf"></i> Download</a>
-
+					           <button class="btn btn-outline-danger btn-exportEmps" @click.prevent="downloadselectedDTR">Download VUE</button>
 				            </li>		
 				        </ul>
 			        </template>		        
 				</div>
 				<div class="col xs-100 sm-50 xxs-100 col-sm-6 col-md-2">
 					<div class="officesSelect" >
-						<label class="form-label fm"><strong>Offices</strong></label>
+						<span class="form-label fm mb-2"><strong>Offices</strong></span>
 
 						<div class="form-check form-switch">
 						  <input class="form-check-input" @change='updateCheck()' type="checkbox" id="alloffice"  v-model="allSelected" value="alloffice">
@@ -131,7 +131,7 @@
 
 
 			const {employees, getEmployees} = useEmployees()
-			const {generateEmployeesDTRfromData,employeesdatagenerated} = useGeneratedtr()
+			const {generateEmployeesDTRfromData,employeesdatagenerated, downloadpdfDTR} = useGeneratedtr()
 			const {getcustomLocations, customlocations} = useLocations()
 
 			const searchQuery = ref("");
@@ -222,7 +222,11 @@
 	                filteredEmployees.value.sort((a, b) => (a[columnName] < b[columnName] ? 1 : -1));
 	            }
 	        }
-	    
+	    	const downloadselectedDTR = async() => {
+	    		form.selected = selected.value;
+	    		await downloadpdfDTR({...form});
+	    		// <a :href="'/hrmis/api/export/employeesdtr/'+form.dtremployeetype+','+form.dtrmonthtype+','+form.monthpicked.month+','+form.monthpicked.year+'&'+selected" type="button" class="btn btn-outline-danger btn-exportEmps" title="Export Data to PDF"><i class="fa-regular fa-file-pdf"></i> Download</a>
+	    	}
 	        const checkStatus = () =>{
 	        	
 	        	
@@ -251,6 +255,7 @@
 				selectCheck,
 				downloadpdf,
 				checkStatus,
+				downloadselectedDTR
 			}
 		}
 	}

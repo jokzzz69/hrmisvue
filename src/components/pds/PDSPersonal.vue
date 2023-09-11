@@ -402,22 +402,21 @@ import useCountry from '@/composables/composables-country';
 import RightNavigation from '@/components/navigation/RightNavigation.vue';
 import { onMounted, ref, inject, onUpdated } from 'vue';
 import moment from 'moment'
+import { useAuthStore } from '@/stores/store.js'
 
 export default{
-
-    props: {
-        id: {
-            required: true,
-            type: String
-        }
-    },
     components: {
         RightNavigation
     },
-    setup (props){
+    setup (){
 
         const swal = inject('$swal')
         const resMun = ref([]);
+
+        
+        const store = useAuthStore();
+        const id = ref(store.details[0]);
+
 
         const {errors, updateMypds, officerecord, getPersonalRecord } = useOfficerecord()
 
@@ -426,7 +425,7 @@ export default{
         const {  provinces, getProvinces} = useProvince();
 
         onMounted(() => {   
-            getPersonalRecord(props.id).then(() => {
+            getPersonalRecord(id.value).then(() => {
                 if(officerecord.value.pdsaddress){
                     if(officerecord.value.pdsaddress.residential_province){
                         getProvMun(officerecord.value.pdsaddress.residential_province);
@@ -458,7 +457,7 @@ export default{
             }
         }
         const savepds = async () => {
-            await updateMypds(props.id).then(() => {
+            await updateMypds(id.value).then(() => {
                 if(!errors.value){
                     swal.fire({
                         toast: true,
@@ -477,7 +476,7 @@ export default{
                 }
 
             })
-            await getPersonalRecord(props.id)
+            await getPersonalRecord(id.value)
         }
 
         return{
@@ -494,7 +493,8 @@ export default{
             perProv,
             moment,
             countries,
-            twoDec
+            twoDec,
+            id
 
         
         }

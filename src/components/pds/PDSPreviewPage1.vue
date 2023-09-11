@@ -35,7 +35,7 @@
 
             <tr>
                 <td  class="bgw fa8 f8 fmp bl1" colspan="10"> Print legibly. Tick appropriate boxes
-                (<input type="checkbox" disabled>) and use separate sheet if necessary. Indicate N/A if not applicable.<span class="t700">DO NOT ABBREVIATE.</span>
+                (<input type="checkbox" disabled id="chktopprint">) and use separate sheet if necessary. Indicate N/A if not applicable.<span class="t700">DO NOT ABBREVIATE.</span>
                 </td>
                 <td class="fa8 bggd bl5 fmp bt5 br5">1. CS ID No.</td>
                 <td colspan="3" class="fa8 fmp bt5 tr nbl br1"> <span></span>(Do not fill up. For CSC use only) </td>
@@ -112,7 +112,7 @@
                                 <input type="checkbox" id="filipino" disabled />
                             </template>
                     </template>            
-                    <label style="padding-left: 5px;" for="filipino">Filipino</label>
+                    <span style="padding-left: 5px;" for="filipino">Filipino</span>
                 </td>
                 <td colspan="3" class="tc bgw br1">
                     <template v-if="officerecord.pdspersonalinformation">
@@ -123,7 +123,7 @@
                             <input type="checkbox" id="dual" disabled />
                         </template>
                     </template>
-                    <label style="padding-left: 5px;"  for="dual">Dual Citizenship</label>
+                    <span style="padding-left: 5px;"  for="dual">Dual Citizenship</span>
                 </td>
             </tr>
             <tr class="h20">
@@ -144,7 +144,7 @@
                             <input type="checkbox" id="dualc" disabled />
                         </template>
                     </template>
-                    <label for="dualc">by birth</label>
+                    <span for="dualc">by birth</span>
                 </td>
 
                 <td class="bgw tc br1" colspan="2">
@@ -157,7 +157,7 @@
                             <input type="checkbox" id="dualnaturalc" disabled />
                         </template>
                     </template>
-                    <label for="natural"> by naturalization</label>
+                    <span for="natural"> by naturalization</span>
                 </td>
                
             </tr>
@@ -195,9 +195,9 @@
 
                 <td colspan="3" class="fa8 tc bgg bl5" style="border-right: 0.5pt solid black"> please indicate the details. </td>
                 <td align="left" colspan="5" style="border-right: 1px solid black;">
-                    <select class="form-select nbra" disabled>
+                    <select class="form-select nbra" disabled id="nbra">
                         <template v-if="officerecord.pdspersonalinformation">
-                            <option class="tc" v-if="officerecord.pdspersonalinformation.pdsaddress_country" selected :value="officerecord.pdspersonalinformation.pdsaddress_country.id">{{officerecord.pdspersonalinformation.pdsaddress_country.name}}</option>
+                            <option class="tc" v-if="officerecord.pdspersonalinformation.pdsaddress_country" name="selectedcountry" id="selectedcountry" selected :value="officerecord.pdspersonalinformation.pdsaddress_country.id">{{officerecord.pdspersonalinformation.pdsaddress_country.name}}</option>
                         </template>
                         
                     </select>

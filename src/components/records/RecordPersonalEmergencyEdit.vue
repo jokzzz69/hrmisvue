@@ -41,27 +41,23 @@ import useOfficerecord from '@/composables/composables-record';
 
 
 import moment from 'moment'
+import { useAuthStore } from '@/stores/store.js'
 
 export default{
 
-    props: {
-        id: {
-            required: true,
-            type: String
-        }
-    },
-
-    setup (props){
+    setup (){
         const swal = inject('$swal')
         const {officerecord, getPersonalRecord, updateEmergencyContact, errors}= useOfficerecord()
+        const store = useAuthStore();
+        const id = ref(store.details[0]);
 
         onMounted(() => {   
-            getPersonalRecord(props.id)
+            getPersonalRecord(id.value)
 
         })
 
         const saveOfficeRecord = async () => {
-            await updateEmergencyContact(props.id).then(() => {
+            await updateEmergencyContact(id.value).then(() => {
                 if(!errors.value){
                     swal.fire({
                         toast: true,

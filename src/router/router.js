@@ -1,12 +1,5 @@
 import {createRouter, createWebHistory} from 'vue-router';
-
 import { useAuthStore } from '@/stores/store.js'
-
-
-
-
-
-const userEmpID = '215';
 
 const routes = [
   {
@@ -34,7 +27,16 @@ const routes = [
     }
   },
 
-
+  { 
+    path: '/:pathMatch(.*)*', 
+    name: 'force.index', 
+    component: () => import('@/components/errors/force.vue'),
+  },
+  { 
+    path: '/403', 
+    name: 'forbidden.index', 
+    component: () => import('@/components/errors/forbidden.vue'),
+  },
   
   {
     path: '/about',
@@ -184,9 +186,6 @@ const routes = [
       path: '/mydailytimerecord',
       name: 'monitoring.employee',
       component: () => import('@/components/monitoring/MonitoringEmployee.vue'),
-      props: {
-        id: userEmpID
-      },
       meta: {
         middleware: ['hr','super-admin','admin','employee','office-head']
       }
@@ -195,9 +194,6 @@ const routes = [
       path: '/updatepassword',
       name: 'changepasswordlogin.index',
       component: () => import('@/components/users/ChangePassword.vue'),
-      props: {
-        id: userEmpID
-      },
       meta: {
         middleware: ['hr','super-admin','admin','employee','office-head']
       }
@@ -360,9 +356,6 @@ const routes = [
     name: 'recordpersonal.show',
     component: () => import('@/components/records/RecordPersonal.vue'),
     alias: ['/'],
-    props: {
-      id: userEmpID
-    },
     meta: {
       middleware: ['hr','super-admin','admin','employee','office-head']
     }
@@ -371,9 +364,6 @@ const routes = [
     path: `/myinfo/name`,
     name: 'recordpersonalname.edit',
     component: () => import('@/components/records/RecordPersonalNameEdit.vue'),
-    props: {
-      id: userEmpID
-    },
     meta: {
       middleware: ['hr','super-admin','admin','employee','office-head']
     }
@@ -382,9 +372,6 @@ const routes = [
     path: `/myinfo/birthdaygender`,
     name: 'recordpersonalbirthdaygender.edit',
     component: () => import('@/components/records/RecordPersonalBirthdayGenderEdit.vue'),
-    props: {
-      id: userEmpID
-    },
     meta: {
       middleware: ['hr','super-admin','admin','employee','office-head']
     }
@@ -393,9 +380,6 @@ const routes = [
     path: `/myinfo/contactperson`,
     name: 'recordpersonalcontactperson.edit',
     component: () => import('@/components/records/RecordPersonalEmergencyEdit.vue'),
-    props: {
-      id: userEmpID
-    },
     meta: {
       middleware: ['hr','super-admin','admin','employee','office-head']
     }
@@ -404,9 +388,6 @@ const routes = [
     path: `/myinfo/contact`,
     name: 'recordpersonalcontact.edit',
     component: () => import('@/components/records/RecordPersonalContactEdit.vue'),
-    props: {
-      id: userEmpID
-    },
     meta: {
       middleware: ['hr','super-admin','admin','employee','office-head']
     }
@@ -415,9 +396,6 @@ const routes = [
       path: '/profile',
       name: 'profile.edit',
       component: () => import('@/components/profile/ProfileEdit.vue'),
-      props: {
-        id: userEmpID
-      },
       meta: {
         middleware: ['hr','super-admin','admin','employee','office-head']
       }
@@ -444,9 +422,6 @@ const routes = [
     path: '/mypds',
     name: 'pdsmydata.show',
     component: () => import('@/components/pds/PDSMyData.vue'),
-    props: {
-        id: userEmpID
-      },
     meta: {
       middleware: ['super-admin','admin','hr','employee','office-head']
     }
@@ -455,9 +430,6 @@ const routes = [
     path: '/mypdspersonalinformation',
     name: 'pdspersonal.show',
     component: () => import('@/components/pds/PDSPersonal.vue'),
-    props: {
-        id: userEmpID
-      },
     meta: {
       middleware: ['super-admin','admin','hr','employee','office-head']
     }
@@ -466,9 +438,6 @@ const routes = [
     path: '/mypdsfamilybackground',
     name: 'pdspersonalfamilybackground.show',
     component: () => import('@/components/pds/PDSPersonalFamilyBackground.vue'),
-    props: {
-        id: userEmpID
-      },
     meta: {
       middleware: ['super-admin','admin','hr','employee','office-head']
     }
@@ -477,9 +446,6 @@ const routes = [
     path: '/mypdseducationalbackground',
     name: 'pdspersonaleducationalbackground.show',
     component: () => import('@/components/pds/PDSPersonalEducationalBackground.vue'),
-    props: {
-        id: userEmpID
-      },
     meta: {
       middleware: ['super-admin','admin','hr','employee','office-head']
     }
@@ -488,9 +454,6 @@ const routes = [
     path: '/mypdseligibility',
     name: 'pdseligibility.show',
     component: () => import('@/components/pds/PDScsc.vue'),
-    props: {
-        id: userEmpID
-      },
     meta: {
       middleware: ['super-admin','admin','hr','employee','office-head']
     }
@@ -499,9 +462,6 @@ const routes = [
     path: '/mypdsworkexperience',
     name: 'pdsworkexperience.show',
     component: () => import('@/components/pds/PDSWorkExperience.vue'),
-    props: {
-        id: userEmpID
-      },
     meta: {
       middleware: ['super-admin','admin','hr','employee','office-head']
     }
@@ -510,9 +470,6 @@ const routes = [
     path: '/mypdsvoluntarywork',
     name: 'pdsvoluntarywork.show',
     component: () => import('@/components/pds/PDSVoluntaryWork.vue'),
-    props: {
-        id: userEmpID
-      },
     meta: {
       middleware: ['super-admin','admin','hr','employee','office-head']
     }
@@ -521,9 +478,6 @@ const routes = [
     path: '/mypdslearninganddevelopment',
     name: 'pdslearninganddevelopment.show',
     component: () => import('@/components/pds/PDSLearningandDevelopment.vue'),
-    props: {
-        id: userEmpID
-      },
     meta: {
       middleware: ['super-admin','admin','hr','employee','office-head']
     }
@@ -532,9 +486,6 @@ const routes = [
     path: '/mypdsotherinformation',
     name: 'pdsotherinformation.show',
     component: () => import('@/components/pds/PDSOtherInformation.vue'),
-    props: {
-        id: userEmpID
-      },
     meta: {
       middleware: ['super-admin','admin','hr','employee','office-head']
     }
@@ -543,9 +494,6 @@ const routes = [
     path: '/mypdslastinformation',
     name: 'pdslastinformation.show',
     component: () => import('@/components/pds/PDSLastInformation.vue'),
-    props: {
-        id: userEmpID
-      },
     meta: {
       middleware: ['super-admin','admin','hr','employee','office-head']
     }
@@ -560,12 +508,10 @@ const routes = [
     }
   },
   {
-    path: '/viewmydata/',
+    path: '/viewmydata/:id',
     name: 'viewmydata.show',
     component:  () => import('@/components/pds/PDSPreview.vue'),
-    props: {
-      id: userEmpID
-    },
+    props: true,
     meta: {
       middleware: ['super-admin','admin','hr','employee','office-head']
     }
@@ -632,9 +578,6 @@ const routes = [
     path: `/mytravels`,
     name: 'mytravels.index',
     component: () => import('@/components/travels/TravelEmployeeIndex.vue'),
-    props: {
-      id: userEmpID
-    },
     meta: {
       middleware: ['hr','super-admin','admin','employee','office-head']
     }
@@ -702,16 +645,7 @@ const routes = [
       name: 'login.index',
       component: () => import('@/components/auth/LoginView.vue'),
   },
-  { 
-    path: '/:pathMatch(.*)*', 
-    name: 'force.index', 
-    component: () => import('@/components/errors/force.vue'),
-  },
-  { 
-    path: '/403', 
-    name: 'forbidden.index', 
-    component: () => import('@/components/errors/forbidden.vue'),
-  },
+  
 ]
 
 
@@ -764,5 +698,18 @@ router.beforeEach((to, from, next) => {
 
 
 });
+
+router.beforeResolve((to, from, next) => {
+  // If this isn't an initial page load.
+  if (to.name) {
+      // Start the route progress bar.
+     // console.log('start')
+  }
+  next()
+})
+router.afterEach(() => {
+  // Complete the animation of the route progress bar.
+  // console.log('done');
+})
 
 export default router

@@ -59,15 +59,13 @@
 
 import useUsers from '@/composables/userscomposables'
 import { onMounted,ref, reactive, inject} from 'vue';
+import { useAuthStore } from '@/stores/store.js'
 
 export default{
-    props: {
-        id: {
-            required: true,
-            type: String
-        }
-    },
-    setup(props){
+    setup(){
+        const store = useAuthStore();
+        const id = ref(store.details[0]);
+
         const form = reactive({
             'currentpassword': '',
             'newpassword': '',
@@ -89,7 +87,7 @@ export default{
         const swal = inject('$swal')
         const { getUserProfile, profile, errors, updateProfile } = useUsers()
 
-        onMounted(() => getUserProfile(props.id))
+        onMounted(() => getUserProfile(id.value))
         
         const checkUpper = (str) => {
             return /[A-Z]/.test(str)
@@ -137,7 +135,7 @@ export default{
         }
 
         const saveProfile = async () => {
-            await updateProfile(props.id,{...form}).then(() => {
+            await updateProfile(id.value,{...form}).then(() => {
                 if(!errors.value){
                     swal.fire({
                         toast: true,

@@ -101,7 +101,7 @@ import useUsers from '@/composables/userscomposables';
 import { onMounted, ref, inject, reactive} from 'vue';
 import useOffices from '@/composables/composables-office';
 import useRoles from '@/composables/composables-role';
-
+import { useAuthStore } from '@/stores/store.js'
 export default{
 
     props: {
@@ -117,6 +117,10 @@ export default{
         const {errors, user, updateUser, getUser, authuser, getAuthuser} = useUsers()
         const {getOffices, offices} = useOffices()
         const {roles, getRoles} = useRoles()
+
+        const store = useAuthStore();
+
+        const userrole = ref(store.details[1]);
 
         const form = reactive({
             'userrole': '',
@@ -173,7 +177,8 @@ export default{
             getOffices,
             user,
             authuser,
-            form
+            form,
+            userrole
         
         }
     }

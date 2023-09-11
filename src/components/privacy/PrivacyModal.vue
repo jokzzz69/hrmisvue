@@ -35,9 +35,9 @@
                 </form>                
               </li>
           		<li>
-          			<form v-on:submit.prevent="logoutFunc">
-          				<button class="btn btn-outline-danger">I do not agree</button>
-          			</form>          			
+  
+          				<button class="btn btn-outline-danger" @click="logoutFunc">I do not agree</button>
+     			
           		</li>
           	</ul>
           </div>
@@ -49,8 +49,17 @@
 <script>
 	import useUsers from '@/composables/userscomposables';
   import {ref, onMounted} from 'vue';
+
+  import useAuthenticate from '@/composables/composables-authenticate';
+  import useEventsBus from '@/components/helper/Eventbus';
+
+
+
+
 	export default {
 		setup(){
+      const {bus,emit}=useEventsBus()
+      const {logout} = useAuthenticate();
 
 			const {logoutuser,acceptPrivacy, getUser, user, privacy, getPrivacy} = useUsers()
       const showModal = ref(false)
@@ -73,11 +82,12 @@
           await acceptPrivacy('')  
           showModal.value = false
       }
-			const logoutFunc = async () => {
-        await logoutuser('')
-        //window.location.href = "/hrmis/login";
-          
 
+
+			const logoutFunc = async () => {
+        await logout().then(res => {
+          emit('isLoggedin', false);
+        });
       }
 
 

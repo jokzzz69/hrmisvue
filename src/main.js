@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
 import './assets/app.css'
+import './assets/nprogress.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -41,20 +42,25 @@ app.mount('#app')
 // app.config.globalProperties.authid = usercont;
 
 
+
 axios.interceptors.request.use(config => {
   nProgress.start()
+
   return config
 })
 
 axios.interceptors.response.use(function (response) {
+
 	nProgress.done()
+
 	return response;
+
 }, function (error) {
 
 	if(error.response.status === 401) {
 	    // redirect to login page
-	    localStorage.clear()
-       window.location.href = "/login";
+	   localStorage.clear()
+     window.location.href = "/login";
 	}
 	return Promise.reject(error);
 });

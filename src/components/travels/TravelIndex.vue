@@ -17,8 +17,8 @@
 		    		</div>
 		    	</div>
 		    	<div class="col-auto">
-		    		<label class="col-form-label col-12" for="fdate">Filter</label> 
-		    		<select class="form-select form-blue-select" v-model="form.type" @change="getTravelbyMonth">
+		    		<label class="col-form-label col-12" for="filterMonth">Filter</label> 
+		    		<select class="form-select form-blue-select" v-model="form.type" @change="getTravelbyMonth" id="filterMonth">
 		    			<option value="1">All Travel</option>
 		    			<option value="2">My Travels</option>
 		    		</select>

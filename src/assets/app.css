@@ -4,8 +4,12 @@ body{
 	font-size: .9rem;
 
 }
+.btn{
+	font-size: .9rem;
+}
 #nprogress .bar {
   height: 3px !important;
+  background-color: #ff0000;
 }
 #nprogress .spinner-icon {
   width: 25px;
@@ -72,12 +76,16 @@ body{
 	min-height: 3rem;
 	max-height: 55px;
 }
+.dropdown-menu.dropdown-menu-end{
+	font-size: .9rem;
+}
 #navbarDropdown{
 	color: #fff;
 }
 .navbar-brand{
 	min-width: 13rem;
 	color: #fff;
+	font-size: 1.135rem;
 	text-align: center;
 	margin-right: 0px;
 }

@@ -105,17 +105,13 @@ import useOfficerecord from '@/composables/composables-record';
 
 
 import moment from 'moment'
+import { useAuthStore } from '@/stores/store.js'
 
 export default{
+    setup (){
+        const store = useAuthStore();
+        const id = ref(store.details[0]);
 
-    props: {
-        id: {
-            required: true,
-            type: String
-        }
-    },
-
-    setup (props){
         const swal = inject('$swal')
         const {officerecord, getPersonalRecord, updateBinfo, errors}= useOfficerecord()
         const newBday = ref('');
@@ -127,7 +123,7 @@ export default{
             'placeofbirth': ''
         })
         onMounted(() => {   
-            getPersonalRecord(props.id).then(res => {
+            getPersonalRecord(id.value).then(res => {
                 if(officerecord.value.pdspersonalinformation.birthdate){
                     const currentDate = new Date(officerecord.value.pdspersonalinformation.birthdate);
                     form.month = currentDate.getMonth();
@@ -147,7 +143,7 @@ export default{
         }
 
         const saveOfficeRecord = async () => {
-            await updateBinfo(props.id,{...form}).then(() => {
+            await updateBinfo(id.value,{...form}).then(() => {
                 if(!errors.value){
                     swal.fire({
                         toast: true,

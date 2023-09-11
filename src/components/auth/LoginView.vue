@@ -80,10 +80,7 @@
             });
 
             const AuthLogin = async() =>{
-                await login({...auth}).then(() =>{
-                  emit('isLoggedin', true);
-
-                });
+                await login({...auth});
 
             }
             const password_show_hide = async() =>{

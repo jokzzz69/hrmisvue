@@ -110,7 +110,7 @@
   export default{
     setup(){
       const store = useAuthStore();
-      const userSlug = ref(store.details);
+      
 
       return{
         

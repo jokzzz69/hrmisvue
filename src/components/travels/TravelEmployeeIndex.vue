@@ -110,17 +110,13 @@
     import {useRouter} from 'vue-router'
     import moment from 'moment';
     import { useAuthStore } from '@/stores/store.js'
-
+    import { useAuthStore } from '@/stores/store.js'
 
     export default{
+        setup(){
 
-        props: {
-            id: {
-                required: true,
-                type: String
-            }
-        },
-        setup(props){
+            const store = useAuthStore();
+            const id = ref(store.details[0]);
             const store = useAuthStore();
             const userrole = ref(store.getdetails[1]);
             const authid = ref(store.getdetails[0]);
@@ -135,7 +131,7 @@
             const sortDirection = ref(1);
             const arrowIconName = ref("arrow_drop_up");     
             onMounted(() => {
-                getMyTravels(props.id).then(res => {
+                getMyTravels(id.value).then(res => {
                     console.log(travels)
                 });
             })  
@@ -182,7 +178,7 @@
                 })
                 if (x > 0) {
                     await destroyTravel(id);
-                    await getMyTravels(props.id).then(() => {
+                    await getMyTravels(id.value).then(() => {
                         swal.fire({
                             toast: true,
                             position: 'top-end',

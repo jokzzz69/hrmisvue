@@ -52,13 +52,13 @@
                 <div class="col mb-2">
                     <div class="form-floating">
                         <input type="text" name="emergency_contactperson" placeholder="enter contact person" id="emergency_contactperson" class="form-control" v-model="form.emergency_contactperson" :class="errors['employee.emergency_contactperson'] ? 'error-input' : ''">
-                        <label for="name" class="form-label">Contact Person</label>
+                        <label for="emergency_contactperson" class="form-label">Contact Person</label>
                     </div> 
                 </div>
                 <div class="col mb-2">
                     <div class="form-floating">
                         <input type="number" name="emergency_contactnumber" placeholder="enter contact number" id="emergency_contactnumber" class="form-control" v-model="form.emergency_contactnumber">
-                        <label for="name" class="form-label">Contact Number</label>
+                        <label for="emergency_contactnumber" class="form-label">Contact Number</label>
                     </div>
                 </div>
             </div>

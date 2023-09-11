@@ -25,13 +25,13 @@
                             <td>
                                 <ul class="ls-frmbutton text-end">
                                     <li>
-                                        <router-link :to="{ name: 'viewmydata.show',id: props.id}" class="btn btn-outline-success"><i class="fa-regular fa-file-lines"></i> View</router-link>
+                                        <router-link :to="{ name: 'viewmydata.show',params: { id: id }}" class="btn btn-outline-success"><i class="fa-regular fa-file-lines"></i> View</router-link>
                                     </li>
                                     <li>
                                         <router-link :to="{ name: 'pdspersonal.show'}" class="btn btn-violet" title="Edit Data"><i class="fa-solid fa-file-pen"></i> Edit</router-link>
                                     </li>
                                     <li>
-                                        <a :href="'/hrmis/api/export/pds/'+props.id" type="button" class="btn btn-outline-danger btn-exportEmps" title="Export Data to PDF" ><i class="fa-solid fa-download"></i> Download</a>
+                                        <button @click="downloadpds(id)" class="btn btn-outline-danger btn-exportEmps" title="Export Data to PDF" ><i class="fa-solid fa-download"></i> Download</button>
                                     </li>         
                                     <li>
                                         <button title="Reset Data" class="btn btn-teal" @click="resetPDS(officerecord.employee_id)">
@@ -54,19 +54,26 @@
 <script>
 
 import useOfficerecord from '@/composables/composables-record';
+import usePDS from '@/composables/composables-pds'
+
 import { onMounted, ref, inject, onUpdated } from 'vue';
 import moment from 'moment'
 
+import { useAuthStore } from '@/stores/store.js'
+import { useNavigationStore } from '@/stores/navigationstore.js'
+
+
 export default{
+    setup (){
 
-    props: {
-        id: {
-            required: true,
-            type: String
-        }
-    },
+        const {downloadPDS} = usePDS();
 
-    setup (props){
+
+        const store = useAuthStore();
+        const navigationstore = useNavigationStore();
+
+        const id = ref(store.details[0]);
+        const name = ref(navigationstore.name);
 
         const swal = inject('$swal')
         const resMun = ref([]);
@@ -74,7 +81,7 @@ export default{
         const { errors,resetMyPds, officerecord, getPersonalRecord } = useOfficerecord()
 
         onMounted(() => {   
-            getPersonalRecord(props.id)
+            getPersonalRecord(id.value)
 
         })
         const resetPDS = async(id) => {
@@ -114,11 +121,15 @@ export default{
                     });
                 }
         }
+        const downloadpds = async(id) =>{
+            await downloadPDS(id,name.value);
+        }
         return{
             officerecord,
             moment,
             resetPDS,
-            props
+            id,
+            downloadpds
         }
     }
 }

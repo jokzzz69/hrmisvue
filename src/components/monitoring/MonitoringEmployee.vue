@@ -126,19 +126,19 @@
     import {useRouter} from 'vue-router'
     import {formatTime} from '../../helper/formattime'
     import moment from 'moment';
+    import { useAuthStore } from '@/stores/store.js'
 
     export default{
         props: {
-            id: {
-                required: true,
-                type: String
-            },
             mf: {
                 type: String,
                 default: null
             }
         },
         setup(props){
+
+            const store = useAuthStore();
+            const id = ref(store.details[0]);
 
 
             const {biometricsData, getEmployeemonthBio} = useMonitoring()
@@ -163,13 +163,13 @@
             onMounted(() => {
 
 
-                getEmployeemonthBio(props.id,monthpicked.value.month+'-'+monthpicked.value.year)
+                getEmployeemonthBio(id.value,monthpicked.value.month+'-'+monthpicked.value.year)
 
             })
 
 
             const getEmployeeBio = async (monthpicked) =>{
-                await getEmployeemonthBio(props.id,monthpicked.month+'-'+monthpicked.year)
+                await getEmployeemonthBio(id.value,monthpicked.month+'-'+monthpicked.year)
             }
 
 
@@ -187,8 +187,7 @@
                 moment,
                 biometricsData,
                 formatTime,
-                getEmployeeBio,                
-                props,
+                getEmployeeBio,
                 monthpicked,
                 format,
                 currentDate

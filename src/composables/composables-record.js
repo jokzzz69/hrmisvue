@@ -15,7 +15,7 @@ export default function useOfficerecord(){
 	}
     const getOfficerecordsMonitoring = async () => {
         
-        axios.default.withCredentials = true;
+        axios.defaults.withCredentials = true;
         let response = await axios.get('/hrmis/api/officerecordsmonitoring');
         officerecords.value = response.data.data;
     }

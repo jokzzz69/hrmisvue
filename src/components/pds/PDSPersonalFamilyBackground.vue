@@ -212,20 +212,16 @@ import useOfficerecord from '@/composables/composables-record';
 import RightNavigation from '@/components/navigation/RightNavigation.vue';
 import { onMounted, ref, inject, onUpdated, reactive} from 'vue';
 import moment from 'moment'
+import { useAuthStore } from '@/stores/store.js'
 
 export default{
 
-    props: {
-        id: {
-            required: true,
-            type: String
-        }
-    },
     components: {
         RightNavigation
     },
-    setup (props){
-
+    setup (){
+        const store = useAuthStore();
+        const id = ref(store.details[0]);
         const swal = inject('$swal')
         const resMun = ref([]);
 
@@ -236,7 +232,7 @@ export default{
         const add = ref(0);
 
         onMounted(() => {   
-            getPersonalRecord(props.id).then(() => {
+            getPersonalRecord(id.value).then(() => {
                 for(var x in officerecord.value.pdsfamilybackgroundchildren){
                     divs.push({
                         id: x,
@@ -247,7 +243,7 @@ export default{
         })
 
         const savepds = async () => {
-            await updateMypdsFamilyBackground(props.id).then(() => {
+            await updateMypdsFamilyBackground(id.value).then(() => {
                 if(!errors.value){
                     swal.fire({
                         toast: true,
@@ -266,7 +262,7 @@ export default{
                 }
 
             })
-            await getPersonalRecord(props.id)
+            await getPersonalRecord(id.value)
         }
         
         const addmorechildren =  async() => {
@@ -298,8 +294,8 @@ export default{
             moment,
             addmorechildren,
             removechildren,
-            divs
-        
+            divs,
+            id
         }
     }
 }

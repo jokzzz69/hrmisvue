@@ -28,15 +28,16 @@
         <div class="col-sm-1 offset-sm-1 brl">
             <ul class="ps-1 rsidebar mt-5 posFixed">
                 <li>                   
-
                     <a  href="#" @click="$router.go(-1)">Back</a>
-
                 </li>
                 <li class="slinks" v-if="authuser.employee_id == props.id">
-                    <router-link :to="{ name: 'pdspersonal.show', params: { id: id } }"><i class="fa-solid fa-pen-to-square"></i> Edit</router-link>                      
+                    <router-link :to="{ name: 'pdspersonal.show'}"><i class="fa-solid fa-pen-to-square"></i> Edit</router-link>                      
                 </li>
                 <li class="slinks">
-                    <a :href="'/hrmis/api/export/pds/'+id"><i class="fa-solid fa-download"></i> Download</a>
+                    <template v-if="showDownload">
+                        <a @click="downloadselectedpds(id)" href="#"><i class="fa-solid fa-download"></i> Download</a>
+                    </template>
+                    
                 </li>
             </ul>
         </div>
@@ -55,6 +56,8 @@ import PDSPreviewPage3 from '@/components/pds/PDSPreviewPage3.vue';
 import PDSPreviewPage4 from '@/components/pds/PDSPreviewPage4.vue';
 import { onMounted, ref, inject, onUpdated, computed} from 'vue';
 import moment from 'moment'
+import usePDS from '@/composables/composables-pds';
+import { useNavigationStore } from '@/stores/navigationstore.js'
 
 export default{
 
@@ -72,19 +75,32 @@ export default{
     },
     setup (props){
         const swal = inject('$swal')
+        const {downloadPDS} = usePDS();
+        const {navigationstore} = useNavigationStore();
+        const selectedname = ref('');
         const resMun = ref([]);
         const {authuser, getAuthuser} = useUsers()
         const {errors, officerecord, getPersonalRecord } = useOfficerecord()
-
+        const showDownload = ref(false);
 
         onMounted(() => {   
-            getPersonalRecord(props.id),
+            getPersonalRecord(props.id).then(() =>{
+                if(officerecord.value.employee){
+                    selectedname.value = officerecord.value.employee.employee_lname+""+officerecord.value.employee.employee_fname;
+                    showDownload.value = true;
+                }
+            }),
             getAuthuser()
         })
         
+        const downloadselectedpds = async(id) => {
+            await downloadPDS(id,selectedname.value);
+        }
         return{
             props,
-            authuser
+            authuser,
+            downloadselectedpds,
+            showDownload
         }
     }
 }

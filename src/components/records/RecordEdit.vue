@@ -22,7 +22,7 @@
                 <div class="col mb-2 req">                
                     <div class="form-floating">
                         <input type="text" name="employee_fname" placeholder="enter first name" id="employee_fname" class="form-control" v-model="officerecord.employee.employee_fname" :class="errors['employee.employee_fname'] ? 'error-input' : ''">
-                        <label for="name" class="form-label">First Name</label>
+                        <label for="employee_fname" class="form-label">First Name</label>
 
                     </div> 
                     <span v-if="errors['employee.employee_fname']" class="text-danger m-error">{{errors['employee.employee_fname'][0]}}</span>
@@ -31,19 +31,19 @@
                 <div class="col mb-2">                
                     <div class="form-floating">
                         <input type="text" name="employee_mname" placeholder="enter middle name" id="employee_mname" class="form-control" v-model="officerecord.employee.employee_mname">
-                        <label for="name" class="form-label">Middle Name</label>
+                        <label for="employee_mname" class="form-label">Middle Name</label>
                     </div>
                 </div>                
                 <div class="col mb-2 req">                
                     <div class="form-floating">
                         <input type="text" name="employee_lname" placeholder="enter last name" id="employee_lname" class="form-control" v-model="officerecord.employee.employee_lname" :class="errors['employee.employee_lname'] ? 'error-input' : ''">
-                        <label for="name" class="form-label">Last Name</label>
+                        <label for="employee_lname" class="form-label">Last Name</label>
                     </div>
                     <span v-if="errors['employee.employee_lname']" class="text-danger m-error">{{errors['employee.employee_lname'][0]}}</span>
                 </div>  
                 <div class="col col-sm-1 mb-2">                  
                     <div class="form-floating">
-                        <input type="text" name="employee_extname"  placeholder="enter name extension" id="employee_lname" class="form-control" v-model="officerecord.employee.employee_extname">
+                        <input type="text" name="employee_extname"  placeholder="enter name extension" id="employee_extname" class="form-control" v-model="officerecord.employee.employee_extname">
                         <label for="employee_extname" class="form-label">Ext. (Jr, Sr)</label>
                     </div>
                 </div>  
@@ -53,14 +53,14 @@
                 <div class="col mb-2">
                     <div class="form-floating">
                         <input type="text" name="emergency_contactperson" placeholder="enter first name" id="emergency_contactperson" class="form-control" v-model="officerecord.emergency_contactperson" :class="errors['employee.emergency_contactperson'] ? 'error-input' : ''">
-                        <label for="name" class="form-label">Contact Person</label>
+                        <label for="emergency_contactperson" class="form-label">Contact Person</label>
                     </div> 
                     <span v-if="errors['emergency_contactperson']" class="text-danger m-error">{{errors['emergency_contactperson'][0]}}</span>
                 </div>
                 <div class="col mb-2">
                     <div class="form-floating">
                         <input type="number" name="emergency_contactnumber" placeholder="enter middle name" id="emergency_contactnumber" class="form-control" v-model="officerecord.emergency_contactnumber">
-                        <label for="name" class="form-label">Contact Number</label>
+                        <label for="emergency_contactnumber" class="form-label">Contact Number</label>
                     </div>
                     <span v-if="errors['emergency_contactnumber']" class="text-danger m-error">{{errors['emergency_contactnumber'][0]}}</span>
                 </div>
@@ -80,19 +80,19 @@
                     <div class="row mb-2">
                         <div class="col mb-2 req">                
                             <div class="form-floating">
-                                <select class="form-select" :name="`type_id[${key}]`"  v-model="officerecord.employments[key].type_id" :class="errors[`employments.${key}.type_id`] ? 'error-input' : ''">
+                                <select class="form-select" :name="`type_id[${key}]`" :id="`type_id[${key}]`"  v-model="officerecord.employments[key].type_id" :class="errors[`employments.${key}.type_id`] ? 'error-input' : ''">
                                     <option disabled value="">Select type</option>
                                     <option v-for="employeetype in employeetypes" :value="employeetype.id">
                                         {{employeetype.name}}
                                     </option>               
                                 </select>
-                                <label for="type" class="form-label">Employment Type</label>
+                                <label :for="`type_id[${key}]`" class="form-label">Employment Type</label>
                             </div>
                             <span v-if="errors[`employments.${key}.type_id`]" class="text-danger m-error">{{errors[`employments.${key}.type_id`][0]}}</span>
                         </div>                           
                         <div class="col mb-2">                
                             <div class="form-floating">
-                                <select class="form-select" name="position"  v-model="officerecord.employments[key].position_id">
+                                <select class="form-select" name="position" id="position" v-model="officerecord.employments[key].position_id">
                                     <option disabled value="0">Select position</option>
                                     <option v-for="employeeposition in employeepositions" :value="employeeposition.id">
                                         {{employeeposition.name}}
@@ -137,21 +137,21 @@
                     <div class="row">
                         <div class="col mb-2 req">                
                             <div class="form-floating">
-                                <select class="form-select" :name="`office_id[${key}]`" v-model="officerecord.employments[key].office_id" :class="errors[`employments.${key}.office_id`] ? 'error-input' : ''">
+                                <select class="form-select" :name="`office_id[${key}]`" :id="`office_id[${key}]`" v-model="officerecord.employments[key].office_id" :class="errors[`employments.${key}.office_id`] ? 'error-input' : ''">
                                     <option disabled value="">Select one</option>
                                     <option :value="office.offices_id"  v-for="office in offices">{{office.offices_name}}</option>
                                 </select>      
-                                <label for="name" class="form-label">Office</label>
+                                <label :for="`office_id[${key}]`" class="form-label">Office</label>
                             </div>
                             <span v-if="errors[`employments.${key}.office_id`]" class="text-danger m-error">{{errors[`employments.${key}.office_id`][0]}}</span>
                         </div> 
                         <div class="col mb-2 req">                
                             <div class="form-floating">
-                                <select class="form-select" :name="`status_id[${key}]`" @change="selectChange(officerecord.employments[key].id)" v-model="officerecord.employments[key].status_id" :class="errors[`employments.${key}.status_id`] ? 'error-input' : ''">
+                                <select class="form-select" :name="`status_id[${key}]`" :id="`status_id[${key}]`" @change="selectChange(officerecord.employments[key].id)" v-model="officerecord.employments[key].status_id" :class="errors[`employments.${key}.status_id`] ? 'error-input' : ''">
                                     <option disabled value="">Select one</option>
                                     <option :value="status.id"  v-for="status in employeestatuses">{{status.name}}</option>
                                 </select>    
-                                <label for="name" class="form-label text-danger">Status</label>
+                                <label :for="`status_id[${key}]`" class="form-label text-danger">Status</label>
                             </div>
                             <span v-if="errors[`employments.${key}.status_id`]" class="text-danger m-error">{{errors[`employments.${key}.status_id`][0]}}</span>
                         </div> 

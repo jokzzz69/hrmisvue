@@ -6,27 +6,30 @@
             <span class="rff fs-5">Personal Data</span>
             <ul class="rsidebar">
                 <li>
-                    <router-link :to="{ name: 'pdspersonal.show', params: { id: id } }">Personal Information</router-link>
+                    <router-link :to="{ name: 'pdspersonal.show' }">Personal Information</router-link>
                 
                 </li>
                 <li>
-                    <router-link :to="{ name: 'pdspersonalfamilybackground.show', params: { id: id } }">Family Background</router-link>
+                    <router-link :to="{ name: 'pdspersonalfamilybackground.show'}">Family Background</router-link>
                 </li>
-                <li><router-link :to="{ name: 'pdspersonaleducationalbackground.show', params: { id: id } }">Educational Background</router-link></li>
-                <li><router-link :to="{ name: 'pdseligibility.show', params: { id: id } }">Civil Service Eligibility</router-link></li>        
-                <li><router-link :to="{ name: 'pdsworkexperience.show', params: { id: id } }">Work Experience</router-link></li>
-                <li><router-link :to="{ name: 'pdsvoluntarywork.show', params: { id: id } }">Voluntary Work</router-link></li>   
-                <li><router-link :to="{ name: 'pdslearninganddevelopment.show', params: { id: id } }">Learning and Development</router-link></li> 
-                <li><router-link :to="{ name: 'pdsotherinformation.show', params: { id: id } }">Other Information</router-link></li>          
-                <li><router-link :to="{ name: 'pdslastinformation.show', params: { id: id } }">References</router-link></li>
+                <li><router-link :to="{ name: 'pdspersonaleducationalbackground.show'}">Educational Background</router-link></li>
+                <li><router-link :to="{ name: 'pdseligibility.show'}">Civil Service Eligibility</router-link></li>        
+                <li><router-link :to="{ name: 'pdsworkexperience.show'}">Work Experience</router-link></li>
+                <li><router-link :to="{ name: 'pdsvoluntarywork.show'}">Voluntary Work</router-link></li>   
+                <li><router-link :to="{ name: 'pdslearninganddevelopment.show'}">Learning and Development</router-link></li> 
+                <li><router-link :to="{ name: 'pdsotherinformation.show'}">Other Information</router-link></li>          
+                <li><router-link :to="{ name: 'pdslastinformation.show'}">References</router-link></li>
                 <li class="slinks"><router-link :to="{ name: 'viewmydata.show', params: { id: id } }"><i class="fa-regular fa-file-lines pe-1"></i> Preview</router-link></li>
-                <li class="slinks"><a :href="'/hrmis/api/export/pds/'+id"><i class="fa-solid fa-download"></i> Download</a></li>
+                <li class="slinks"><a @click="downloadmypds(id)" href="#"><i class="fa-solid fa-download"></i> Download</a></li>
             </ul>
         </div>
     </div>
 </template>
 <script>
 import {onMounted ,ref, computed} from 'vue';
+import { useNavigationStore } from '@/stores/navigationstore.js'
+
+import usePDS from '@/composables/composables-pds';
     export default{
         props: {
             id: {
@@ -35,8 +38,11 @@ import {onMounted ,ref, computed} from 'vue';
             }
         },
         setup(props){
+
+            const navigationstore = useNavigationStore();
             const rshow = ref('');
             const iconname = ref('arrow_forward');
+            const {downloadPDS} = usePDS();
             const btnClick = async () =>{
                 if(rshow.value != 'hideRyt'){
                     rshow.value = "hideRyt";
@@ -46,10 +52,15 @@ import {onMounted ,ref, computed} from 'vue';
                     iconname.value = 'arrow_forward';
                 }
             }
+
+            const downloadmypds = async(id) =>{
+                await downloadPDS(id,navigationstore.name);
+            }
             return {
                 rshow,
                 btnClick,
-                iconname
+                iconname,
+                downloadmypds
             }
         }
     }

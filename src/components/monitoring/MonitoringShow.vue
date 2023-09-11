@@ -22,7 +22,7 @@
         <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-3">     
             <ul class="ulwidback">  
                 <li>
-                    <label class="col-form-label col-12" for="fdate">Select Date</label>                
+                    <span class="col-form-label col-12">Select Date</span>                
                     <Datepicker v-model="monthpicked" id="fdate" auto-apply month-picker @update:model-value="getEmployeeBio" :clearable="false" name="monthpicked" :format="format" :month-change-on-arrows="true"></Datepicker> 
                 </li> 
             </ul>

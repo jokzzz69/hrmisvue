@@ -3,11 +3,12 @@
     <TopNavigation/>
     <div class="mainwrap">
       <LeftNavigation/>
-
-    <main class="content-wrap">
-      <RouterView />
-    </main>
-  </div>
+      <main class="content-wrap">
+        <div class="container-fluid">
+          <RouterView />
+        </div>
+      </main>
+    </div>
   </template>
   <template v-else>
     <main>
@@ -18,7 +19,6 @@
 
 <script>
   import useEventsBus from '@/components/helper/Eventbus';
-
   import {ref,watch,onMounted} from 'vue'
   import { RouterLink, RouterView } from 'vue-router'
   import LeftNavigation from '@/components/navigation/LeftNavigation.vue'
@@ -40,11 +40,9 @@
               loggedin.value = true;
             }
         })
-
         watch(()=>bus.value.get('isLoggedin'), (val) => {
             [loggedin.value] = val ?? []             
         })
-
         return{
           loggedin
         }

@@ -118,20 +118,15 @@ import useOfficerecord from '@/composables/composables-record';
 import RightNavigation from '@/components/navigation/RightNavigation.vue';
 import { onMounted, ref, inject, onUpdated, reactive} from 'vue';
 import moment from 'moment'
+import { useAuthStore } from '@/stores/store.js'
 
 export default{
-
-    props: {
-        id: {
-            required: true,
-            type: String
-        }
-    },
     components: {
         RightNavigation
     },
-    setup (props){
-
+    setup (){
+        const store = useAuthStore();
+        const id = ref(store.details[0]);
         const swal = inject('$swal')
         const resMun = ref([]);
 
@@ -144,7 +139,7 @@ export default{
         const addC = ref(0); //college
 
         onMounted(() => {   
-            getPersonalRecord(props.id).then(() => {
+            getPersonalRecord(id.value).then(() => {
                 for(let x in officerecord.value.pdscsc){
    
                     divs.push({
@@ -158,7 +153,7 @@ export default{
         })
 
         const savepds = async () => {
-            await updateMypdsEligibility(props.id).then(() => {
+            await updateMypdsEligibility(id.value).then(() => {
                 if(!errors.value){
                     swal.fire({
                         toast: true,
@@ -177,7 +172,7 @@ export default{
                 }
 
             })
-            await getPersonalRecord(props.id)
+            await getPersonalRecord(id.value)
         }
         const addeligibility =  async() => {
             divs.push({
@@ -210,7 +205,8 @@ export default{
             moment,
             addeligibility,
             removerow,
-            divs           
+            divs,
+            id      
         
         }
     }

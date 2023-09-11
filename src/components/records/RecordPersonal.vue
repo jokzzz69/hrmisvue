@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="col-auto align-self-center col-edit">
-                <router-link :to="{ name: 'recordpersonalname.edit', params: {id: props.id} }"><i class="fas fa-edit"></i></router-link>
+                <router-link :to="{ name: 'recordpersonalname.edit'}"><i class="fas fa-edit"></i></router-link>
             </div>     
         </div> 
 
@@ -61,7 +61,7 @@
             </template>  
            <div class="col-auto align-self-center col-edit">
                 <template v-if="officerecord.pdspersonalinformation.birthdate || officerecord.pdspersonalinformation.sex || officerecord.pdspersonalinformation.placeofbirth">
-                    <router-link :to="{ name: 'recordpersonalbirthdaygender.edit', params: {id: props.id} }"><i class="fas fa-edit"></i></router-link>
+                    <router-link :to="{ name: 'recordpersonalbirthdaygender.edit'}"><i class="fas fa-edit"></i></router-link>
                 </template>
                 
             </div>       
@@ -103,7 +103,7 @@
                 </div>
             </div>
             <div class="col-auto align-self-center col-edit" v-if="officerecord.pdspersonalinformation.emailaddress || officerecord.pdspersonalinformation.telephone_no || officerecord.pdspersonalinformation.mobile_no">
-                <router-link :to="{ name: 'recordpersonalcontact.edit', params: {id: props.id} }"><i class="fas fa-edit"></i></router-link>
+                <router-link :to="{ name: 'recordpersonalcontact.edit'}"><i class="fas fa-edit"></i></router-link>
             </div>
         </div> 
 
@@ -131,7 +131,7 @@
                 </div>
             </div>
             <div class="col-auto align-self-center col-edit">
-                <router-link :to="{ name: 'recordpersonalcontactperson.edit', params: {id: props.id} }"><i class="fas fa-edit"></i></router-link>
+                <router-link :to="{ name: 'recordpersonalcontactperson.edit' }"><i class="fas fa-edit"></i></router-link>
             </div>   
         </div> 
     </div>
@@ -213,25 +213,21 @@ import useOfficerecord from '@/composables/composables-record';
 import PrivacyModal from '@/components/privacy/PrivacyModal.vue';
 
 import moment from 'moment'
+import { useAuthStore } from '@/stores/store.js'
 
 export default{
-
-    props: {
-        id: {
-            required: true,
-            type: String
-        }
-    },
     components: {
         PrivacyModal
      },
-    setup (props){
+    setup (){
         const swal = inject('$swal')
         const {officerecord,getPersonalRecord}= useOfficerecord()
 
+        const store = useAuthStore();
+        const id = ref(store.details[0]);
 
         onMounted(() => {   
-            getPersonalRecord(props.id)
+            getPersonalRecord(id.value)
         })
 
         const checkText = (text) => {
@@ -252,7 +248,7 @@ export default{
             officerecord,
             formatPrice,
             moment,
-            props,
+            id,
             checkText
             
         }

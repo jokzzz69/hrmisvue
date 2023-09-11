@@ -32,21 +32,7 @@
 		
 		    				<tr @click="goshow(employee.employee_id)">			
 							
-		    				<td class="ttc">
-		    					<template v-if="employee.employee_fname">
-		    						<template v-if="checkText(employee.employee_fname)">{{ employee.employee_fname }}&nbsp;</template>
-		    					</template>	
-		    					<template v-if="employee.employee_mname.replace(/ /g, '').length > 1">
-		    						<template v-if="checkText(employee.employee_mname)">{{ employee.employee_mname.charAt(0).toUpperCase() }}. </template>
-		    					</template>
-		    					<template v-if="employee.employee_lname">
-		    						<template v-if="checkText(employee.employee_lname)">{{employee.employee_lname}}</template>
-		    					</template>
-		    					<template v-if="employee.employee_extname">
-		    						<template v-if="checkText(employee.employee_extname)">{{employee.employee_extname}}</template>
-		    					</template>
-		    				 	 
-		    				</td>
+		    				<td class="ttc">{{employee.cname}}</td>
 		    				<td>
 		    					<template v-if="employee.pdspersonalinformation">		
 		    						<template v-if="employee.pdspersonalinformation.updated_at">
@@ -57,7 +43,10 @@
 			    			<td @click.stop>
 			    				<ul class="ls-frmbutton text-end">
 			    					<li>
-			    						<a class="btn btn-download btn-outline-danger" :href="'/hrmis/api/export/pds/'+employee.employee_id"><i class="fa-solid fa-download"></i> Download</a>
+			    						<!-- <a class="btn btn-download btn-outline-danger" :href="'/hrmis/api/export/pds/'+employee.employee_id"><i class="fa-solid fa-download"></i> Download</a> -->
+			    						<button class="btn btn-download btn-outline-danger" @click.prevent="downloadselectedpds(employee.employee_id, employee.cname)">
+			    							Download
+			    						</button>
 			    					</li>
 	                               	<li v-if="userrole == 'super-admin'" >
                                         <button title="Reset Data" class="btn btn-teal" @click="resetPDS(employee.employee_id)">
@@ -77,6 +66,7 @@
 <script>
 	import useEmployees from '@/composables/composables-employees';
 	import useOfficerecord from '@/composables/composables-record';
+	import usePDS from '@/composables/composables-pds';
 
 	import {onMounted ,ref, computed, inject} from 'vue';
 	import { sortBy} from 'lodash';
@@ -100,6 +90,7 @@
 			
 			const {employees, getEmployees} = useEmployees()
 			const { resetMyPds} = useOfficerecord()
+			const {downloadPDS} = usePDS();
 
 			const searchQuery = ref("");
 			let sort = ref(false);
@@ -123,6 +114,7 @@
 					(employee) => employee.employee_fname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 || 
 							  employee.employee_mname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ||
 							  employee.employee_lname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ||
+							  (employee.employee_extname && employee.employee_extname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ) ||
 							  (employee.pdspersonalinformation.updated_at && moment(employee.pdspersonalinformation.updated_at).format('LLLL').toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1)
 				);
 			});
@@ -230,6 +222,9 @@
 	            }
 	            return x;
 	        }
+	        const downloadselectedpds = async(id, name) => {
+	        	await downloadPDS(id,name);
+	        }
 
 			return{
 				filteredEmployees,
@@ -245,7 +240,8 @@
 				moment,
 				checkText,
 				authid,
-				userrole
+				userrole,
+				downloadselectedpds
 			}
 		}
 	}
