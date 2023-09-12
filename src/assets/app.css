@@ -9,7 +9,7 @@ body{
 }
 #nprogress .bar {
   height: 3px !important;
-  background-color: #ff0000;
+  background-color: #ac8de0 !important;
 }
 #nprogress .spinner-icon {
   width: 25px;
@@ -66,6 +66,7 @@ body{
 /**/
 .mainwrap{
 	display: flex;
+	background: #f8fafc;
 }
 .guest-wrap{
 	min-height: 100vh;
@@ -1225,6 +1226,10 @@ tr.disabled{
 	content: " | ";
 	color: #999;
 }
+.bg-none{
+	background: none !important;
+}
+/*end content*/
 @media(max-width: 500px){
 	.ulwidback li:first-child{
 		min-width: 10%;

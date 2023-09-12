@@ -12,9 +12,10 @@
   </template>
   <template v-else>
     <main>
-      <RouterView />
+      <RouterView/>
     </main>
   </template>
+  <Footer/>
 </template>
 
 <script>
@@ -24,11 +25,13 @@
   import LeftNavigation from '@/components/navigation/LeftNavigation.vue'
   import TopNavigation from '@/components/navigation/TopNavigation.vue'
   import { useAuthStore } from '@/stores/store.js'
+  import Footer from '@/components/content/Footer.vue';
 
   export default{
     components: {
       LeftNavigation,
-      TopNavigation
+      TopNavigation,
+      Footer
     },
     setup(){
       const {bus}=useEventsBus()

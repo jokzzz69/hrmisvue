@@ -25,8 +25,28 @@ export default function usePDS(){
 		// offices.value = response.data.data;
 	}
 
+	const downloadArchivePDS = async (id, name) => {
+		axios.defaults.withCredentials = true;	
+		await axios({
+		url: `/hrmis/api/export/archivedpds/${id}`,
+		method: 'GET',
+		responseType: 'blob',
+		}).then((response) => {
+			var newFname = name.replace(/\s/g,'')+'-'+Date.now().toString()+'.pdf';
+		     var fileURL = window.URL.createObjectURL(new Blob([response.data], {type: 'application/pdf'}));
+		     var fileLink = document.createElement('a');
+		     fileLink.href = fileURL;
+		     fileLink.setAttribute('download', newFname);
+		     document.body.appendChild(fileLink);
+		     fileLink.click();
+		});
+		// let response = await axios.get('/hrmis/api/biooffices');
+		// offices.value = response.data.data;
+	}
+
 	return{
 		downloadresponse,
-		downloadPDS
+		downloadPDS,
+		downloadArchivePDS
 	}
 }

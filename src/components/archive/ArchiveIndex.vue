@@ -76,8 +76,7 @@
             <div class="modal-container archive-modal">
                 <div class="modal-header archive-modal">            
                     <h5 class="modal-title">{{modaltitle}}
-                        <a :href="'/hrmis/api/export/archivedpds/'+empid" v-if="typecontent == 2" class="pt-0 pb-0 mt-2 mb-2 btn btn-download btn-outline-dark ms-2" title="Download Personal Data Sheet"><i class="fa-solid fa-download"></i> Download</a>
-
+                        <a href="#" v-if="typecontent == 2" @click.prevent="dlArchivePDS(empid)" class="pt-0 pb-0 mt-2 mb-2 btn btn-download btn-outline-dark ms-2" title="Download Personal Data Sheet"><i class="fa-solid fa-download"></i> Download Vue</a>
                     </h5>
                     <button type="button" class="btn btn-closeModal"  @click="closeModal"><i class="fa-solid fa-xmark"></i></button>
                 </div> 
@@ -109,7 +108,7 @@
     import ArchivePDSPage4 from '@/components/archive/ArchivePDSPage4.vue';
     import ArchiveEmployment from '@/components/archive/ArchiveEmployment.vue';
     import { useAuthStore } from '@/stores/store.js'
-
+    import usePDS from '@/composables/composables-pds';
 	export default{
         components: {
             ArchivePDSPage1,
@@ -125,6 +124,7 @@
             const swal = inject('$swal')
             
 			const {errors, getArchives, archives, deleteArchived, archive, getArchiveEmployee} = useArchive()
+            const {downloadArchivePDS} = usePDS()
             const showModal = ref(false) 
             const searchQuery = ref("");
             const arrowIconName = ref("arrow_drop_up");     
@@ -132,6 +132,7 @@
             const sortDirection = ref(1);
 
             const empid = ref();
+            const empname = ref();
             const typecontent = ref(0);
             const modaltitle = ref('');            
             const router = useRouter()
@@ -186,6 +187,7 @@
                 showModal.value = true;
                 empid.value = id;
                 modaltitle.value = "Personal Data Sheet - "+name;
+                empname.value = name;
                 typecontent.value = 2;
             }
             const closeModal = () => {
@@ -196,6 +198,9 @@
                 empid.value = id;
                 modaltitle.value = "Employment - "+name;
                 typecontent.value = 1;
+            }
+            const dlArchivePDS = async(id) => {
+                await downloadArchivePDS(id, empname.value);
             }
 			return {
                 filteredArchives,
@@ -216,7 +221,8 @@
                 closeModal,
                 typecontent,
                 authid,
-                userrole
+                userrole,
+                dlArchivePDS
 			}
 		}
 	}

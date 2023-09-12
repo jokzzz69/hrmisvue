@@ -9,24 +9,24 @@
             
             <div class="row">
                 <div class="col-auto lblname disabled">
-                    <label class="form-label">ID Number</label> 
-                    <label  class="fw-bold ms-1 form-control mhlabel"> {{user.employee_id}}</label>                 
+                    <span class="form-label d-block bg-none">ID Number</span> 
+                    <span class="fw-bold ms-1 form-control mhlabel"> {{user.employee_id}}</span>                 
                 </div>
                 <div class="col mb-2 lblname disabled">
-                    <label class="form-label">Name</label>
-                    <label class="form-control mhlabel">
+                    <span class="form-label  d-block bg-none">Name</span>
+                    <span class="form-control mhlabel">
                         <template v-if="user.userinformation != null">
                             <strong>{{user.userinformation.employee_fname}} {{user.userinformation.employee_mname}} {{user.userinformation.employee_lname}}</strong>
                         </template>                          
-                    </label>
+                    </span>
                 </div>                  
             </div> 
             <div class="row">
                 <template v-if="userrole == 'super-admin'">
                     <div class="col mb-2 txtuser req">
                         <div class="form-floating">
-                            <input class="form-control" type="text" name="username" v-model="form.username" :class="errors.username ? 'error-input' : ''">
-                            <label>Username</label>
+                            <input class="form-control" type="text" name="username" id="username" v-model="form.username" :class="errors.username ? 'error-input' : ''">
+                            <label for="username">Username</label>
                         </div>
                         <span v-if="errors.username" class="text-danger m-error">{{errors.username[0]}}</span>
                     </div>
@@ -42,18 +42,17 @@
                 <template v-else>
                     <div class="col mb-2 lblname disabled">
                         <div class="form-floating">
-                            
-                            <label class="form-control mhlabel">                        
-                                <strong>{{user.username}}</strong>                     
-                            </label>
-                            <label class="form-label">Username</label>
+                            <div class="form-floating">
+                            <input class="form-control disabled" type="text" id="username" name="username" v-model="form.username" :class="errors.username ? 'error-input' : ''" disabled />
+                            <label for="username">Username</label>
+                        </div>
                         </div>
                     </div>  
                 </template> 
 
                 <div class="col-4 mb-2 req">                                                                     
                     <div class="form-floating">
-                        <select class="form-select" name="employee_type" v-model="form.userrole">  
+                        <select class="form-select" name="employee_type" v-model="form.userrole" id="employee_type">  
                             <option disabled value="">Please select one</option>
                             <template v-if="authuser.roles">
                                 <template v-if="authuser.roles[0].slug != 'super-admin'">
@@ -68,18 +67,18 @@
                                 </template> 
                             </template>               
                         </select>
-                        <label for="name" class="form-label">Select Role</label>   
+                        <label for="employee_type" class="form-label">Select Role</label>   
                     </div>
                 </div> 
                 <div class="col mb-2" v-if="form.userrole === 5">                 
                     <div class="form-floating">
-                        <select class="form-select" name="office" v-model="form.office_head" :class="errors.office_head ? 'error-input' : ''">  
+                        <select class="form-select" name="office" id="office" v-model="form.office_head" :class="errors.office_head ? 'error-input' : ''">  
                             <option disabled value="">Please select one</option>
                             <template v-for="office in offices">
                                 <option :value="office.offices_id">{{office.offices_name}}</option>
                             </template>            
                         </select>
-                        <label for="name" class="form-label noreq">Select Office</label>    
+                        <label for="office" class="form-label noreq">Select Office</label>    
                         <span v-if="errors.office_head" class="text-danger m-error">{{errors.office_head[0]}}</span>                       
                     </div>
                 </div>

@@ -9,7 +9,7 @@
             <div class="col">
                 <div class="req">
 
-                    <label class="form-label">Employees</label>              
+                    <span class="form-label d-block">Employees <i class="text-danger">*</i></span>              
                         <v-select class="sp2wrap  sl2-floating"  multiple placeholder="Select Employees" 
                             v-model="form.employees"    
                             :options="employees" 
@@ -44,7 +44,7 @@
         </div>
         <div class="row">
             <div class="col mt-2 mb-3 req">
-                <label>Date of Travel</label>
+                <span class="d-block">Date of Travel <i class="text-danger">*</i></span>
                 <Datepicker class="date-form-floatinghighlights-weekend" :highlight-week-days="[0, 6]" id="dts" range v-model="form.travelrange" placeholder="Date Range" :enable-time-picker="false"  :clearable="false"  :class="errors.travelrange ? 'error-input' : ''" week-start="0"></Datepicker>
                 <span v-if="errors.travelrange" class="text-danger m-error">{{errors.travelrange[0]}}</span>  
                 <small>(mm/dd/yy - mm/dd/yy)</small>

@@ -91,10 +91,10 @@
                         <li><button class="btn btn-blue" type="submit"><i class="fa-solid fa-arrows-spin"></i> Generate Report</button></li>
                         <template v-if="officerecords">
                             <li>
-                                <a :href="'/hrmis/api/export/customreport/'+form.employee_type+','+form.report_type+','+form.yearofservice+','+form.yearhiredfrom+','+form.yearhiredto+','+form.birthmonth+'&'+form.selected+'&'+form.fields" type="button" class="btn btn-outline-success" title="Export Data to Excel" ><i class="fa-solid fa-file-excel"></i> Download Excel</a>
+                                <a href="#" type="button" class="btn btn-outline-success" title="Export Data to Excel"  @click.prevent="downloadgeneratedcustomExcel"><i class="fa-solid fa-file-pdf"></i> Download Excel</a>
                             </li>
                             <li>
-                                <a :href="'/hrmis/api/export/customreportpdf/'+form.employee_type+','+form.report_type+','+form.yearofservice+','+form.yearhiredfrom+','+form.yearhiredto+','+form.birthmonth+'&'+form.selected+'&'+form.fields" type="button" class="btn btn-outline-danger" title="Export Data to PDF" ><i class="fa-solid fa-file-pdf"></i> Download PDF</a>
+                                <a href="#" type="button" class="btn btn-outline-danger" title="Export Data to PDF"  @click.prevent="downloadgeneratedcustomPDF"><i class="fa-solid fa-file-pdf"></i> Download PDF</a>
                             </li>
                         </template>                       
                     </ul>
@@ -441,7 +441,7 @@
 
             const allSelected = ref(false);
             const allFields = ref(false);
-            const {generateCustomReport, errors, officerecords, getOfficeRecords} = useCustomReport()
+            const {generateCustomReport, errors, officerecords, getOfficeRecords, downloadcustomPDF, downloadcustomExcel} = useCustomReport()
             const {getLocations, locations} = useLocations()
 
             const form = reactive({
@@ -559,7 +559,12 @@
             const clearTraveldate = async() => {
                 form.traveldate = '';
             }
-
+            const downloadgeneratedcustomExcel = async() => {
+                await downloadcustomExcel({...form});
+            }
+            const downloadgeneratedcustomPDF = async() => {
+                await downloadcustomPDF({...form});
+            }
 			return {
                 officerecords,
                 form,
@@ -578,7 +583,9 @@
                 allFields,
                 selectField,
                 clearTraveldate,
-                checkText
+                checkText,
+                downloadgeneratedcustomExcel,
+                downloadgeneratedcustomPDF
 			}
 		}
 	}

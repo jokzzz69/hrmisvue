@@ -21,6 +21,7 @@ import App from './App.vue'
 import vSelect from 'vue-select'
 
 
+
 axios.defaults.baseURL = 'http://localhost:8000'
 
 const app = createApp(App)
@@ -45,14 +46,11 @@ app.mount('#app')
 
 axios.interceptors.request.use(config => {
   nProgress.start()
-
   return config
 })
 
 axios.interceptors.response.use(function (response) {
-
 	nProgress.done()
-
 	return response;
 
 }, function (error) {
@@ -61,6 +59,9 @@ axios.interceptors.response.use(function (response) {
 	    // redirect to login page
 	   localStorage.clear()
      window.location.href = "/login";
+	}else if(error.response.status === 422){
+		nProgress.done()
 	}
+	nProgress.done();
 	return Promise.reject(error);
 });

@@ -31,8 +31,7 @@
 			        <template v-if="form.dtremployeetype != '' && form.dtrmonthtype != '' && form.monthpicked != '' && selected.length > 0 ">
 			        	<ul class="ulbtn-generate">
 				            <li>
-					           <a :href="'/hrmis/api/export/employeesdtr/'+form.dtremployeetype+','+form.dtrmonthtype+','+form.monthpicked.month+','+form.monthpicked.year+'&'+selected" type="button" class="btn btn-outline-danger btn-exportEmps" title="Export Data to PDF"><i class="fa-regular fa-file-pdf"></i> Download</a>
-					           <button class="btn btn-outline-danger btn-exportEmps" @click.prevent="downloadselectedDTR">Download VUE</button>
+					           <button class="btn btn-outline-danger btn-exportEmps" @click.prevent="downloadselectedDTR"><i class="fa-regular fa-file-pdf"></i> Download</button>
 				            </li>		
 				        </ul>
 			        </template>		        
@@ -40,12 +39,10 @@
 				<div class="col xs-100 sm-50 xxs-100 col-sm-6 col-md-2">
 					<div class="officesSelect" >
 						<span class="form-label fm mb-2"><strong>Offices</strong></span>
-
 						<div class="form-check form-switch">
 						  <input class="form-check-input" @change='updateCheck()' type="checkbox" id="alloffice"  v-model="allSelected" value="alloffice">
 						  <label class="form-check-label" for="alloffice">All Offices</label>
-						</div>			
-
+						</div>
 						<template v-for="location in customlocations">
 							<div class="form-check form-switch childCheck">
 							  <input class="form-check-input" @change='selectCheck()' type="checkbox" :id="location.location_id" checked v-model="selected" :value="location.location_id">
@@ -56,9 +53,6 @@
 				</div>
 			</div>
 	    </form>
-
-
-
 	    <div class="row">
 	    	<div class="col mt-4">
 	    		<div class="form-group">
@@ -131,7 +125,7 @@
 
 
 			const {employees, getEmployees} = useEmployees()
-			const {generateEmployeesDTRfromData,employeesdatagenerated, downloadpdfDTR} = useGeneratedtr()
+			const {generateEmployeesDTRfromData,employeesdatagenerated, downloadAllEmployeesDTR} = useGeneratedtr()
 			const {getcustomLocations, customlocations} = useLocations()
 
 			const searchQuery = ref("");
@@ -224,8 +218,7 @@
 	        }
 	    	const downloadselectedDTR = async() => {
 	    		form.selected = selected.value;
-	    		await downloadpdfDTR({...form});
-	    		// <a :href="'/hrmis/api/export/employeesdtr/'+form.dtremployeetype+','+form.dtrmonthtype+','+form.monthpicked.month+','+form.monthpicked.year+'&'+selected" type="button" class="btn btn-outline-danger btn-exportEmps" title="Export Data to PDF"><i class="fa-regular fa-file-pdf"></i> Download</a>
+	    		await downloadAllEmployeesDTR({...form},form.dtremployeetype);
 	    	}
 	        const checkStatus = () =>{
 	        	

@@ -22,6 +22,7 @@ export default function useAuthenticate(){
 			desc.value = [response.data.data.employee_id,response.data.data.roles[0].slug, true];
 			store.setdetails(desc.value);
 			emit('isLoggedin', true);
+
 			if(response.data.data.userinformation){
 				navigationstore.setname(response.data.data.userinformation.cname);
 				emit('userLoggedIn', response.data.data.userinformation.cname);
@@ -58,6 +59,7 @@ export default function useAuthenticate(){
 		 	await axios.post('/logoutuser');
 		 	localStorage.clear()
 		 	store.setdetails(null);
+		 	navigationstore.setname(null);
 		 	await router.push({name: 'login.index'})
 		 	
 

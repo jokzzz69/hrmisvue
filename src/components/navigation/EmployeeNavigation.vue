@@ -32,7 +32,7 @@
         <li class="nav-link"><router-link :to="{ name: 'pdsmydata.show' }"><i class="fa-solid fa-user-pen"></i> Personal Data Sheet</router-link></li>
         <li class="nav-link"><router-link :to="{ name: 'travels.index' }"><i class="fa-solid fa-car-side"></i> Travels</router-link></li>
         
-        <template v-if="id == 215">
+        <template v-if="id == 4">
           <li class="nav-link"><a href="#" class="text-danger"><i class="fa-regular fa-pen-to-square"></i> Office ID</a></li>
           <li class="nav-link"><a href="#" class="text-danger"><i class="fa-regular fa-pen-to-square"></i> Payslip</a></li>
           <li class="nav-link"><a href="#" class="text-danger"><i class="fa-regular fa-pen-to-square"></i> Contract</a></li>
@@ -45,7 +45,7 @@
       </ul>
     </div>
 </li>
-<template v-if="id == 215">
+<template v-if="id == 4">
 <li>
     <a href="#" class="nav-link btn-toggle align-items-center collapsed"  data-bs-toggle="collapse" data-bs-target="#empf-collapse" aria-expanded="true">
       <i class="fa-brands fa-wpforms pe-1"></i>Forms <i class="cvright fa-solid fa-angle-right"></i>

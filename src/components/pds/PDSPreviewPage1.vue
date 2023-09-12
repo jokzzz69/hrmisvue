@@ -211,16 +211,28 @@
                     <ul class="liststyle-inline">
                         <li>
                             <template v-if="officerecord.pdspersonalinformation">   
-                                <input type="checkbox" disabled value="1" checked id="single" v-if="officerecord.pdspersonalinformation.civilstatus==1"/>
-                                <input type="checkbox" disabled value="1" id="single" v-else/>
-                                <label for="single">Single</label>
+                                <template  v-if="officerecord.pdspersonalinformation.civilstatus==1">
+                                    <input type="checkbox" disabled value="1" checked id="singlecs"/>
+                                    <label for="singlecs">Single</label>
+                                </template>
+                                <template v-else>
+                                    <input type="checkbox" disabled value="1" id="single"/>
+                                    <label for="single">Single</label>
+                                </template>                               
                             </template>
                         </li>
                         <li>
                             <template v-if="officerecord.pdspersonalinformation">   
-                                <input type="checkbox" disabled value="1" checked id="Married" v-if="officerecord.pdspersonalinformation.civilstatus==3"/>
-                                <input type="checkbox" disabled value="1" id="Married" v-else/>
-                                <label for="Married">Married</label>
+                                <template v-if="officerecord.pdspersonalinformation.civilstatus==3">
+                                    <input type="checkbox" disabled value="1" checked id="married"/>
+                                    <label for="married">Married</label>
+                                </template>
+                                <template v-else>
+                                    <input type="checkbox" disabled value="1" id="marriednochk">
+                                    <label for="marriednochk">Married</label>
+                                </template>
+                                
+                                
                             </template>
                         </li>
                         <li>

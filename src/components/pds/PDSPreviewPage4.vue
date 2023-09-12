@@ -30,16 +30,28 @@
     <td class="bgw">&nbsp;</td>
     <td class="bgw" colspan="3">
         <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="Married" v-if="officerecord.pdslastinformation.li_affinity_thirddegree==1"/>
-            <input type="checkbox" disabled value="1" id="Married" v-else/>
-            <label for="Married">Yes</label>
+            <template v-if="officerecord.pdslastinformation.li_affinity_thirddegree==1">
+              <input type="checkbox" disabled value="1" checked id="li_affinity_thirddegree"/>
+              <label for="li_affinity_thirddegree">Yes</label>
+            </template>
+            <template v-else>
+              <input type="checkbox" disabled value="1" id="li_affinity_thirddegree_nchk"/>
+              <label for="li_affinity_thirddegree_nchk">Yes</label>
+            </template>
         </template>
     </td>
     <td colspan="3" class="bgw br1">
       <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="single" v-if="officerecord.pdslastinformation.li_affinity_thirddegree==0"/>
-            <input type="checkbox" disabled value="1" id="single" v-else/>
-            <label for="single">No</label>
+        <template v-if="officerecord.pdslastinformation.li_affinity_thirddegree==0">
+            <input type="checkbox" disabled value="1" checked id="page4chk1"/>
+            <label for="page4chk1">No</label>
+        </template>
+        <template v-else>
+            <input type="checkbox" disabled value="1" id="page4nochk1"/>
+            <label for="page4nochk1">No</label>
+        </template>
+            
+            
         </template>
     </td>    
   </tr>
@@ -54,17 +66,32 @@
     <td class="bgw">&nbsp;</td>
     <td class="bgw" colspan="3">
         <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="Married" v-if="officerecord.pdslastinformation.li_affinity_fourthdegree==1"/>
-            <input type="checkbox" disabled value="1" id="Married" v-else/>
-            <label for="Married">Yes</label>
+            <template v-if="officerecord.pdslastinformation.li_affinity_fourthdegree==1">
+              <input type="checkbox" disabled value="1" checked id="page4chk2"/>
+              <label for="page4chk2">Yes</label>
+            </template>
+            <template v-else>
+              <input type="checkbox" disabled value="1" id="page4nochk2"/>
+              <label for="page4nochk2">Yes</label>
+            </template>
+            
+
+            
         </template>
     </td>
 
     <td colspan="3" class="bgw br1">
-      <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="single" v-if="officerecord.pdslastinformation.li_affinity_fourthdegree==0"/>
-            <input type="checkbox" disabled value="1" id="single" v-else/>
-            <label for="single">No</label>
+      <template v-if="officerecord.pdslastinformation">
+        <template v-if="officerecord.pdslastinformation.li_affinity_fourthdegree==0">
+          <input type="checkbox" disabled value="1" checked id="page4chk3"/>
+          <label for="page4chk3">No</label>
+        </template>
+        <template v-else>
+          <input type="checkbox" disabled value="1" id="page4nochk3"/>
+          <label for="page4nochk3">No</label>
+        </template>
+            
+            
         </template>
     </td>    
 
@@ -93,18 +120,30 @@
     <td class="bgw bt5">&nbsp;</td>
     <td class="bgw bt5" colspan="3">
         <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="yes" v-if="officerecord.pdslastinformation.li_adminoffense==1"/>
-            <input type="checkbox" disabled value="1" id="yes" v-else/>
-            <label for="yes">Yes</label>
+            <template v-if="officerecord.pdslastinformation.li_adminoffense==1">
+              <input type="checkbox" disabled value="1" checked id="page4chk4"/>
+              <label for="page4chk4">Yes</label>
+            </template>
+            <template v-else>
+              <input type="checkbox" disabled value="1" id="page4nochk4"/>
+              <label for="page4nochk4">Yes</label>
+            </template>
+
+            
         </template>
     </td>
 
     <td colspan="3" class=" bt5 bgw br1">
-      <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="no" v-if="officerecord.pdslastinformation.li_adminoffense==0"/>
-            <input type="checkbox" disabled value="1" id="no" v-else/>
-            <label for="no">No</label>
+      <template v-if="officerecord.pdslastinformation">               
+        <template v-if="officerecord.pdslastinformation.li_adminoffense==0">
+          <input type="checkbox" disabled value="1" checked id="page4chk5" />
+          <label for="page4chk5">No</label>
         </template>
+        <template v-else>
+          <input type="checkbox" disabled value="1" id="page4nochk5"/>
+          <label for="page4nochk5">No</label>
+        </template>
+      </template>
     </td>  
   </tr>
   <tr>
@@ -133,18 +172,29 @@
     <td colspan="4" class="bgg  br5 fmp">b. Have you been criminally charged before any court?</td>
     <td class="bgw bt5">&nbsp;</td>
     <td class="bgw bt5" colspan="3">
-        <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="yes" v-if="officerecord.pdslastinformation.li_courtcharged==1"/>
-            <input type="checkbox" disabled value="1" id="yes" v-else/>
-            <label for="yes">Yes</label>
+        <template v-if="officerecord.pdslastinformation">  
+          <template v-if="officerecord.pdslastinformation.li_courtcharged==1">
+            <input type="checkbox" disabled value="1" checked id="page4chk6"/>
+            <label for="page4chk6">Yes</label>
+          </template>
+          <template v-else>
+            <input type="checkbox" disabled value="1" id="page4nochk6"/>
+            <label for="page4nochk6">Yes</label>
+          </template>
         </template>
     </td>
     <td colspan="3" class=" bt5 bgw br1">
       <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="no" v-if="officerecord.pdslastinformation.li_courtcharged==0"/>
-            <input type="checkbox" disabled value="1" id="no" v-else/>
-            <label for="no">No</label>
+          <template v-if="officerecord.pdslastinformation.li_courtcharged==0">
+            <input type="checkbox" disabled value="1" checked id="page4chk7"/>
+            <label for="page4chk7">No</label>
+          </template>
+          <template v-else>
+            <input type="checkbox" disabled value="1" id="page4nochk7"/>
+            <label for="page4nochk7">No</label>
+          </template>
         </template>
+        
     </td>  
   </tr>
   <tr>
@@ -191,18 +241,28 @@
     <td class="bgw">&nbsp;</td>
     <td class="bgw" colspan="3">
         <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="yes" v-if="officerecord.pdslastinformation.li_crime==1"/>
-            <input type="checkbox" disabled value="1" id="yes" v-else/>
-            <label for="yes">Yes</label>
+          <template v-if="officerecord.pdslastinformation.li_crime==1">
+            <input type="checkbox" disabled value="1" checked id="page4chk8"/>
+            <label for="page4chk8">Yes</label>
+          </template>
+          <template v-else>
+            <input type="checkbox" disabled value="1" id="page4nochk8"/>
+            <label for="page4nochk8">Yes</label>
+          </template>
         </template>
     </td>
 
     <td colspan="3" class="bgw br1">
       <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="no" v-if="officerecord.pdslastinformation.li_crime==0"/>
-            <input type="checkbox" disabled value="1" id="no" v-else/>
-            <label for="no">No</label>
+        <template v-if="officerecord.pdslastinformation.li_crime==0">
+          <input type="checkbox" disabled value="1" checked id="page4chk9"/>
+          <label for="page4chk9">No</label>
         </template>
+        <template v-else>
+          <input type="checkbox" disabled value="1" id="page4nochk9"/>
+          <label for="page4nochk9">No</label>
+        </template>
+      </template>
     </td> 
   </tr>
   <tr>
@@ -228,19 +288,29 @@
     <td colspan="4" class="fmp bgg bt5 br5">Have you ever been separated from the service in any of the following modes: resignation, retirement, dropped from the rolls, dismissal, termination, end of term, finished contract or phased out (abolition) in the public or private sector?</td>
     <td class="bgw">&nbsp;</td>
     <td class="bgw" colspan="3">
-        <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="yes" v-if="officerecord.pdslastinformation.li_resignation==1"/>
-            <input type="checkbox" disabled value="1" id="yes" v-else/>
-            <label for="yes">Yes</label>
+        <template v-if="officerecord.pdslastinformation">
+          <template v-if="officerecord.pdslastinformation.li_resignation==1">
+            <input type="checkbox" disabled value="1" checked id="page4chk9"/>
+            <label for="page4chk9">Yes</label>
+          </template>
+          <template v-else>
+            <input type="checkbox" disabled value="1" id="page4nochk9"/>
+            <label for="page4nochk9">Yes</label>
+          </template>            
         </template>
     </td>
 
     <td colspan="3" class="bgw br1">
       <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="no" v-if="officerecord.pdslastinformation.li_resignation==0"/>
-            <input type="checkbox" disabled value="1" id="no" v-else/>
-            <label for="no">No</label>
+        <template v-if="officerecord.pdslastinformation.li_resignation==0">
+          <input type="checkbox" disabled value="1" checked id="page4chk10"/>
+          <label for="page4chk10">No</label>
         </template>
+        <template v-else>
+          <input type="checkbox" disabled value="1" id="page4nochk10"/>
+          <label for="page4nochk10">No</label>
+        </template>           
+      </template>
     </td> 
   </tr>
   <tr>
@@ -267,18 +337,28 @@
     <td class="bgw">&nbsp;</td>
     <td class="bgw" colspan="3">
         <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="yes" v-if="officerecord.pdslastinformation.li_election==1"/>
-            <input type="checkbox" disabled value="1" id="yes" v-else/>
-            <label for="yes">Yes</label>
+          <template v-if="officerecord.pdslastinformation.li_election==1">
+            <input type="checkbox" disabled value="1" checked id="page4chk11"/>
+            <label for="page4chk11">Yes</label>
+          </template>
+          <template v-else>
+            <input type="checkbox" disabled value="1" id="page4nochk11"/>
+            <label for="page4nochk11">Yes</label>
+          </template>           
         </template>
     </td>
 
     <td colspan="3" class="bgw br1">
       <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="no" v-if="officerecord.pdslastinformation.li_election==0"/>
-            <input type="checkbox" disabled value="1" id="no" v-else/>
-            <label for="no">No</label>
+        <template v-if="officerecord.pdslastinformation.li_election==0">
+          <input type="checkbox" disabled value="1" checked id="page4chk12"/>
+          <label for="page4chk12">No</label>
         </template>
+        <template v-else>
+          <input type="checkbox" disabled value="1" id="page4nochk12"/>
+          <label for="page4nochk12">No</label>
+        </template>            
+      </template>
     </td> 
   </tr>
   <tr>    
@@ -301,18 +381,28 @@
     <td colspan="4" class="fmp bgg br5" rowspan="2">b. Have you resigned from the government service during the three (3)-month period before the last election to promote/actively campaign for a national or local candidate?</td>
     <td class="bgw">&nbsp;</td>
     <td class="bgw" colspan="3">
-        <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="yes" v-if="officerecord.pdslastinformation.li_resignation_service==1"/>
-            <input type="checkbox" disabled value="1" id="yes" v-else/>
-            <label for="yes">Yes</label>
+        <template v-if="officerecord.pdslastinformation">
+          <template v-if="officerecord.pdslastinformation.li_resignation_service==1">
+            <input type="checkbox" disabled value="1" checked id="page4chk13"/>
+            <label for="page4chk13">Yes</label>
+          </template>
+          <template v-else>
+            <input type="checkbox" disabled value="1" id="page4nochk13"/>
+            <label for="page4nochk13">Yes</label>
+          </template>           
         </template>
     </td>
 
     <td colspan="3" class="bgw br1">
       <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="no" v-if="officerecord.pdslastinformation.li_resignation_service==0"/>
-            <input type="checkbox" disabled value="1" id="no" v-else/>
-            <label for="no">No</label>
+        <template v-if="officerecord.pdslastinformation.li_resignation_service==0">
+          <input type="checkbox" disabled value="1" checked id="page4chk14"/>
+          <label for="page4chk14">No</label>
+        </template>
+        <template v-else>
+          <input type="checkbox" disabled value="1" id="page4nochk14"/>
+          <label for="page4nochk14">No</label>
+        </template>            
         </template>
     </td> 
   </tr>
@@ -335,18 +425,30 @@
     <td colspan="4" class="fmp bgg bt5 br5">Have you acquired the status of an immigrant or permanent resident of another country?</td>
     <td class="bgw">&nbsp;</td>
     <td class="bgw" colspan="3">
-        <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="yes" v-if="officerecord.pdslastinformation.li_immigrant==1"/>
-            <input type="checkbox" disabled value="1" id="yes" v-else/>
-            <label for="yes">Yes</label>
+        <template v-if="officerecord.pdslastinformation">  
+          <template v-if="officerecord.pdslastinformation.li_immigrant==1">
+            <input type="checkbox" disabled value="1" checked id="page4chk15"/>
+            <label for="page4chk15">Yes</label>
+          </template>
+          <template v-else>
+            <input type="checkbox" disabled value="1" id="page4noch15"/>
+            <label for="page4noch15">Yes</label>
+          </template>            
         </template>
     </td>
 
     <td colspan="3" class="bgw br1">
       <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="no" v-if="officerecord.pdslastinformation.li_immigrant==0"/>
-            <input type="checkbox" disabled value="1" id="no" v-else/>
-            <label for="no">No</label>
+        <template v-if="officerecord.pdslastinformation.li_immigrant==0">
+          <input type="checkbox" disabled value="1" checked id="page4chk16"/>
+          <label for="page4chk16">No</label>
+        </template>
+        <template v-else>
+          <input type="checkbox" disabled value="1" id="page4nochk16"/>
+          <label for="page4nochk16">No</label>
+        </template>
+            
+            
         </template>
     </td> 
   </tr>
@@ -384,18 +486,28 @@
     <td colspan="4" class="bgg br5 fmp" rowspan="2">a. Are you a member of any indigenous group?</td>
     <td class="bgw">&nbsp;</td>
     <td class="bgw" colspan="3">
-        <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="yes" v-if="officerecord.pdslastinformation.li_indigineous==1"/>
-            <input type="checkbox" disabled value="1" id="yes" v-else/>
-            <label for="yes">Yes</label>
+        <template v-if="officerecord.pdslastinformation">
+          <template v-if="officerecord.pdslastinformation.li_indigineous==1">
+            <input type="checkbox" disabled value="1" checked id="page4chk17"/>
+            <label for="page4chk17">Yes</label>
+          </template>
+          <template v-else>
+            <input type="checkbox" disabled value="1" id="page4nochk17"/>
+            <label for="page4nochk17">Yes</label>
+          </template>           
         </template>
     </td>
     <td colspan="3" class="bgw br1">
-      <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="no" v-if="officerecord.pdslastinformation.li_indigineous==0"/>
-            <input type="checkbox" disabled value="1" id="no" v-else/>
-            <label for="no">No</label>
+      <template v-if="officerecord.pdslastinformation">  
+        <template v-if="officerecord.pdslastinformation.li_indigineous==0">
+          <input type="checkbox" disabled value="1" checked id="page4chk18"/>
+          <label for="page4chk18">No</label>
         </template>
+        <template v-else>
+          <input type="checkbox" disabled value="1" id="page4nochk18"/>
+          <label for="page4nochk18">No</label>
+        </template>
+      </template>
     </td>
   </tr>
   <tr>    
@@ -418,17 +530,28 @@
     <td class="bgw">&nbsp;</td>
     <td class="bgw" colspan="3">
         <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="yes" v-if="officerecord.pdslastinformation.li_disability==1"/>
-            <input type="checkbox" disabled value="1" id="yes" v-else/>
-            <label for="yes">Yes</label>
+          <template v-if="officerecord.pdslastinformation.li_disability==1">
+            <input type="checkbox" disabled value="1" checked id="page4chk19"/>
+            <label for="page4chk19">Yes</label>
+          </template>
+          <template v-else>
+            <input type="checkbox" disabled value="1" id="page4nochk19"/>
+            <label for="page4nochk19">Yes</label>
+          </template>
         </template>
     </td>
 
     <td colspan="3" class="bgw br1">
       <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="no" v-if="officerecord.pdslastinformation.li_disability==0"/>
-            <input type="checkbox" disabled value="1" id="no" v-else/>
-            <label for="no">No</label>
+        <template v-if="officerecord.pdslastinformation.li_disability==0">
+          <input type="checkbox" disabled value="1" checked id="page4chk20"/>
+          <label for="page4chk20">No</label>
+        </template>
+        <template v-else>
+          <input type="checkbox" disabled value="1" id="page4nochk20"/>
+          <label for="page4nochk20">No</label>
+        </template>
+            
         </template>
     </td>
   </tr>
@@ -454,18 +577,28 @@
     <td class="bgw">&nbsp;</td>
     <td class="bgw" colspan="3">
         <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="yes" v-if="officerecord.pdslastinformation.li_soloparent==1"/>
-            <input type="checkbox" disabled value="1" id="yes" v-else/>
-            <label for="yes">Yes</label>
+          <template v-if="officerecord.pdslastinformation.li_soloparent==1">
+            <input type="checkbox" disabled value="1" checked id="page4chk21"/>
+            <label for="page4chk21">Yes</label>
+          </template>
+          <template v-else>
+            <input type="checkbox" disabled value="1" id="page4nochk21"/>
+            <label for="page4nochk21">Yes</label>
+          </template>
         </template>
     </td>
 
     <td colspan="3" class="bgw br1">
       <template v-if="officerecord.pdslastinformation">   
-            <input type="checkbox" disabled value="1" checked id="no" v-if="officerecord.pdslastinformation.li_soloparent==0"/>
-            <input type="checkbox" disabled value="1" id="no" v-else/>
-            <label for="no">No</label>
+        <template v-if="officerecord.pdslastinformation.li_soloparent==0">
+          <input type="checkbox" disabled value="1" checked id="page4chk22"/>
+          <label for="page4chk22">No</label>
         </template>
+        <template v-else>
+          <input type="checkbox" disabled value="1" id="page4nochk22"/>
+          <label for="page4nochk22">No</label>
+        </template>           
+      </template>
     </td>
   </tr>
   <tr>    

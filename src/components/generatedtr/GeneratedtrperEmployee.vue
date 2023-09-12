@@ -30,9 +30,7 @@
                     <button  title="Generate DTR" type="submit" class="btn btn-blue"><i class="fa-solid fa-gears"></i> Generate DTR</button>      
                 </li>
                 <li v-if="datagenerated">
-                    <a :href="'/hrmis/api/export/employeedtr/'+props.id+','+form.dtrmonthtype+','+form.monthpicked.month+','+form.monthpicked.year" type="button" class="btn btn-outline-danger" title="Export Data to PDF"><i class="fa-regular fa-file-pdf"></i>
-                        Export Generated
-                    </a>
+                    <button title="Export Data to PDF" class="btn btn-outline-danger btn-exportEmps mt-1" @click.prevent="downloadselectedDTR"><i class="fa-regular fa-file-pdf"></i> Export Generated</button>
                 </li>
             </ul>
         </div>
@@ -117,9 +115,9 @@
 </template>
 
 <script>
-    import useEmployees from '../../composables/composables-employees';
-    import useMonitoring from '../../composables/composables-monitoring';
-    import useGeneratedtr from '../../composables/composables-generatedtr';
+    import useEmployees from '@/composables/composables-employees';
+    import useMonitoring from '@/composables/composables-monitoring';
+    import useGeneratedtr from '@/composables/composables-generatedtr';
 
     import {onMounted ,ref, computed, reactive, onUpdated } from 'vue';
     import { sortBy} from 'lodash';
@@ -142,13 +140,14 @@
             const {employee, getEmployee} = useEmployees()
 
             const {monitoringbiometric, getEmployeebiometric} = useMonitoring()
-            const {generateDTRfromData, datagenerated} = useGeneratedtr();
+            const {generateDTRfromData, datagenerated, downloadperEmployeeDTR} = useGeneratedtr();
 
 
             const form = reactive({
                 'empID': props.id,
                 'dtrmonthtype': '',
                 'monthpicked': '',
+                'name': ''
              })
 
             
@@ -168,13 +167,17 @@
             
 
             onMounted(() => {
-                getEmployeebiometric(props.id),
-                getEmployee(props.id)
-                
+                // getEmployeebiometric(props.id),
+                getEmployee(props.id).then(() =>{
+                    form.name = employee.value.cname;
+                })
+
             })       
             
 
-
+            const downloadselectedDTR = async() => {
+                await downloadperEmployeeDTR({...form}, form.name);
+            }
 
 
             return{
@@ -190,7 +193,8 @@
                 generatenewDTR,
                 datagenerated,
                 formClass,
-                check
+                check,
+                downloadselectedDTR
                 
             }
         }

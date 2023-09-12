@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col">
                 <div class="req">
-                    <label class="form-label">Employees</label>
+                    <span class="form-label mb-1">Employees <i class="text-danger">*</i></span>
                        <v-select class="sp2wrap  sl2-floating" multiple placeholder="Select Employees" v-model="form.employees" :reduce="employees => employees.id" :options="employees" :class="errors.employees ? 'error-inputsl' : ''"/>
                 </div>
                 <span v-if="errors.employees" class="text-danger m-error">{{errors.employees[0]}}</span> 
@@ -39,7 +39,7 @@
         </div>
         <div class="row">
             <div class="col mt-2 mb-3 req">
-                <label>Date of Travel</label>
+                <span class="d-block">Date of Travel <i class="text-danger">*</i></span>
                 <Datepicker class="date-form-floating highlights-weekend" id="dts" week-start="0" range v-model="form.travelrange" placeholder="Date Range" :enable-time-picker="false"  :clearable="false"  :class="errors.travelrange ? 'error-input' : ''" :highlight-week-days="[0, 6]"></Datepicker>
                 <span v-if="errors.travelrange" class="text-danger m-error">{{errors.travelrange[0]}}</span>  
                 <small>(mm/dd/yy - mm/dd/yy)</small>

@@ -1,12 +1,11 @@
 <template>
-    <div class="mainguest">
-        
+    <div class="mainguest">        
         <div class="container">
         <div class="loginPage min-vh-100 align-items-center">
             <div class="row justify-content-center ">
                 <div class="col-12 text-center mt-3">
                     <div class="webHead">
-                        <a href="https://bfarcar.da.gov.ph/" title="Bureau of Fisheries and Aquatic Resources Cordillera Administrative Region">
+                        <a href="https://bfarcar.da.gov.ph/" target="_blank" title="Bureau of Fisheries and Aquatic Resources Cordillera Administrative Region">
                             <img class="img-res" src="img/bfarr1.png" alt="BFAR">
                         </a>
                     </div>
@@ -25,7 +24,6 @@
                                     <input id="username" type="username" class="form-control" name="username" :class="errors.username ? 'is-invalid' : ''" v-model="auth.username" placeholder="Username" autocomplete="username" autofocus>                        
                                     <label for="username">Username</label>                  
                                     <span class="input-group-prepend"><i class="fa-solid fa-user-tie"></i></span>
-
                                     <span v-if="errors.username" class="text-danger m-error">{{errors.username[0]}}</span>
                                 </div>  
                     
@@ -47,10 +45,8 @@
                                 <button type="submit" class="btn btn-login">
                                     LOGIN
                                 </button>
-                            </div>
-                     
-                        
-                            </form>                                
+                            </div>                    
+                        </form>                                
                     </div>
                 </div>
             </div>

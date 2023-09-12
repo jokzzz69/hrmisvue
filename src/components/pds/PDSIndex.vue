@@ -43,7 +43,6 @@
 			    			<td @click.stop>
 			    				<ul class="ls-frmbutton text-end">
 			    					<li>
-			    						<!-- <a class="btn btn-download btn-outline-danger" :href="'/hrmis/api/export/pds/'+employee.employee_id"><i class="fa-solid fa-download"></i> Download</a> -->
 			    						<button class="btn btn-download btn-outline-danger" @click.prevent="downloadselectedpds(employee.employee_id, employee.cname)">
 			    							Download
 			    						</button>
