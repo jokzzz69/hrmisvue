@@ -110,14 +110,14 @@
     import {useRouter} from 'vue-router'
     import moment from 'moment';
     import { useAuthStore } from '@/stores/store.js'
-    import { useAuthStore } from '@/stores/store.js'
+
 
     export default{
         setup(){
 
             const store = useAuthStore();
             const id = ref(store.details[0]);
-            const store = useAuthStore();
+
             const userrole = ref(store.getdetails[1]);
             const authid = ref(store.getdetails[0]);
 

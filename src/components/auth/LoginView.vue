@@ -6,7 +6,7 @@
                 <div class="col-12 text-center mt-3">
                     <div class="webHead">
                         <a href="https://bfarcar.da.gov.ph/" target="_blank" title="Bureau of Fisheries and Aquatic Resources Cordillera Administrative Region">
-                            <img class="img-res" src="img/bfarr1.png" alt="BFAR">
+                            <img class="img-res" src="/img/bfarr1.png" alt="BFAR">
                         </a>
                     </div>
                 </div>     
