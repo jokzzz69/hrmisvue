@@ -46,7 +46,7 @@ const routes = [
   {
     path: '/logs',
     name: 'logs.index',
-    component: () => import('@/components/logs/LogIndex.vue'),
+    component: () => import('@/components/logspage/LogIndex.vue'),
     meta: {
       middleware: ['super-admin','admin']
     }
@@ -54,7 +54,7 @@ const routes = [
   {
     path: '/log/:id/show',
     name: 'logs.show',
-    component: () => import('@/components/logs/LogShow.vue'),
+    component: () => import('@/components/logspage/LogShow.vue'),
     props: true,
     meta: {
       middleware: ['super-admin','admin']
