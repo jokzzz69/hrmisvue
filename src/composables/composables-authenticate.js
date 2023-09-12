@@ -33,11 +33,12 @@ export default function useAuthenticate(){
 
 			if(response.data.data.password_changed != 1){	
 				changepasswordstore.setstate(false);
+				emit('isChanged', false);
 				router.push({name: 'changepasswordlogin.index'});
 
 			}else{
-				changepasswordstore.setstate(true);
-		
+				changepasswordstore.setstate(true);		
+				emit('isChanged', true);
 				router.push({name: 'recordpersonal.show'});
 			}
 		});     	

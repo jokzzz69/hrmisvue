@@ -42,6 +42,7 @@
       const changed = ref(changepasswordstore.passwordstate);
 
 
+
       onMounted(() =>{
             if(store.details){
               loggedin.value = true;
@@ -49,6 +50,9 @@
         })
         watch(()=>bus.value.get('isLoggedin'), (val) => {
             [loggedin.value] = val ?? []             
+        })
+        watch(()=>bus.value.get('isChanged'), (val) => {
+            [changed.value] = val ?? []
         })
         return{
           loggedin,
