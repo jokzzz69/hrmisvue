@@ -10,7 +10,7 @@ export default function useBiolog(){
 	const getBiolog = async (id) => {		
 		axios.defaults.withCredentials = true;	
 		try {
-            let response = await axios.get(`/hrmis/api/biodtremplog/${id}`);
+            let response = await axios.get(`/v1/api/biodtremplog/${id}`);
             biolog.value = response.data.data;
         } catch (e) {
             if (e.response.status === 403) {

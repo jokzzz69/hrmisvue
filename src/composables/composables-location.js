@@ -13,7 +13,7 @@ export default function useLocations(){
 		axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.post('/hrmis/api/biolocations/', data)
+            await axios.post('/v1/api/biolocations/', data)
             await router.push({name: 'locations.index'})
             
         } catch (e) {
@@ -24,29 +24,29 @@ export default function useLocations(){
     }
     const getcustomLocations = async () => {
     	axios.defaults.withCredentials = true;	
-		let response = await axios.get('/hrmis/api/customlocations');
+		let response = await axios.get('/v1/api/customlocations');
 		customlocations.value = response.data.data;
 	}
 	const getLocations = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/hrmis/api/biolocations');
+		let response = await axios.get('/v1/api/biolocations');
 		locations.value = response.data.data;
 	}
 	const getLocation = async (id) => {
 		axios.defaults.withCredentials = true;	
-        let response = await axios.get(`/hrmis/api/biolocation/${id}`)
+        let response = await axios.get(`/v1/api/biolocation/${id}`)
         location.value = response.data.data[0]
     }
 	const destroyLocation = async (id) => {
 		axios.defaults.withCredentials = true;	
-		await axios.delete('/hrmis/api/biolocations/' + id);
+		await axios.delete('/v1/api/biolocations/' + id);
 		
 	}	
 	const updateLocation = async (id) => {
 		axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/biolocations/${id}`, location.value)
+            await axios.patch(`/v1/api/biolocations/${id}`, location.value)
             await router.push({ name: 'locations.index' })
         } catch (e) {
             if (e.response.status === 422) {

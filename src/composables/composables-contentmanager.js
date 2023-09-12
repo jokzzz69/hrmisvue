@@ -11,7 +11,7 @@ export default function useCM(){
 		axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.post('/hrmis/api/cm/', data)
+            await axios.post('/v1/api/cm/', data)
             await router.push({name: 'cmi.index'})
             
         } catch (e) {
@@ -23,23 +23,23 @@ export default function useCM(){
     }
     const getthisBio = async (data) => {
     	axios.defaults.withCredentials = true;	
-    	let response = await axios.patch(`/hrmis/api/cm/getBio/${data.id}`,data);
+    	let response = await axios.patch(`/v1/api/cm/getBio/${data.id}`,data);
 		selectedBio.value = response.data.data;	
     }
    
 
 	const setArchivedID = async (data) => { 
 		axios.defaults.withCredentials = true;	   	
-    	let response = await axios.patch(`/hrmis/api/cm/setarchived/${data.id}`);
+    	let response = await axios.patch(`/v1/api/cm/setarchived/${data.id}`);
 
     }
     const setEmployeeID = async (data) => {
     	axios.defaults.withCredentials = true;	
-    	let response = await axios.patch(`/hrmis/api/cm/setemployeeid/${data.id}`);
+    	let response = await axios.patch(`/v1/api/cm/setemployeeid/${data.id}`);
     }
     const updateID = async (data) => {
     	axios.defaults.withCredentials = true;	
-    	let response = await axios.patch(`/hrmis/api/cm/changeemployeeid/${data.oldid}`,data);
+    	let response = await axios.patch(`/v1/api/cm/changeemployeeid/${data.oldid}`,data);
     	newResponse.value = response.data.success;
     }
 	return {

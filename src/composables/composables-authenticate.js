@@ -4,6 +4,7 @@ import {useRouter} from 'vue-router'
 
 import { useAuthStore } from '@/stores/store.js'
 import { useNavigationStore } from '@/stores/navigationstore.js'
+import { usePasswordChange } from '@/stores/changepasswordstore.js'
 import useEventsBus from '@/components/helper/Eventbus';
 import nProgress from "nprogress";
 
@@ -14,11 +15,13 @@ export default function useAuthenticate(){
 	const router = useRouter();
 	const desc = ref([]);
 	const store = useAuthStore()
+	const noPassChange = ref(false);
 	const navigationstore = useNavigationStore();
+	const changepasswordstore = usePasswordChange();
 
 	const currentUser = async() => {
 		axios.defaults.withCredentials = true;	
-		await axios.get('/hrmis/api/cu').then(response =>{
+		await axios.get('/v1/api/cu').then(response =>{
 			desc.value = [response.data.data.employee_id,response.data.data.roles[0].slug, true];
 			store.setdetails(desc.value);
 			emit('isLoggedin', true);
@@ -27,8 +30,18 @@ export default function useAuthenticate(){
 				navigationstore.setname(response.data.data.userinformation.cname);
 				emit('userLoggedIn', response.data.data.userinformation.cname);
 			}
+
+			if(response.data.data.password_changed != 1){	
+				changepasswordstore.setstate(false);
+				router.push({name: 'changepasswordlogin.index'});
+
+			}else{
+				changepasswordstore.setstate(true);
+		
+				router.push({name: 'recordpersonal.show'});
+			}
 		});     	
-		await router.push({name: 'recordpersonal.show'});
+		
 	}
 	const login = async (data) => {
         errors.value = ''

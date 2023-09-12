@@ -1229,6 +1229,9 @@ tr.disabled{
 .bg-none{
 	background: none !important;
 }
+.nosidebar .content-wrap{
+	width: 100%;
+}
 /*end content*/
 @media(max-width: 500px){
 	.ulwidback li:first-child{

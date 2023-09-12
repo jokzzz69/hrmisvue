@@ -11,25 +11,25 @@ export default function useEmployeeTypes(){
 
 	const getEmployeeTypes = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/hrmis/api/bioemployeetypes');
+		let response = await axios.get('/v1/api/bioemployeetypes');
 		employeetypes.value = response.data.data;
 	}
 	const getEmployeeType = async (id) => {
 		axios.defaults.withCredentials = true;	
-        let response = await axios.get(`/hrmis/api/bioemployeetypes/${id}`)
+        let response = await axios.get(`/v1/api/bioemployeetypes/${id}`)
         employeetype.value = response.data.data
       
     }
 	const destroyEmployeeType = async (id) => {
 		axios.defaults.withCredentials = true;	
-		await axios.delete('/hrmis/api/bioemployeetypes/' + id)
+		await axios.delete('/v1/api/bioemployeetypes/' + id)
 	}
 
 	const storeEmployeeType = async (data) => {
 		axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.post('/hrmis/api/bioemployeetypes/', data)
+            await axios.post('/v1/api/bioemployeetypes/', data)
             await router.push({name: 'employeetype.index'})
             
         } catch (e) {
@@ -44,7 +44,7 @@ export default function useEmployeeTypes(){
 		
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/bioemployeetypes/${id}`, employeetype.value)
+            await axios.patch(`/v1/api/bioemployeetypes/${id}`, employeetype.value)
             await router.push({ name: 'employeetype.index' })
         } catch (e) {
             if (e.response.status === 422) {

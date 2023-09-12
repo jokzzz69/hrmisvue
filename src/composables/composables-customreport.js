@@ -8,7 +8,7 @@ export default function useCustomReport(){
 
     const getOfficeRecords= async () => {
         axios.defaults.withCredentials = true;  
-        let response = await axios.get('/hrmis/api/generatecustomreport');
+        let response = await axios.get('/v1/api/generatecustomreport');
         officerecords.value = response.data.data;
     }
 
@@ -16,7 +16,7 @@ export default function useCustomReport(){
         axios.defaults.withCredentials = true;  
         errors.value = ''
         try {
-            let response = await axios.post(`/hrmis/api/generatecustomreport/`,data);
+            let response = await axios.post(`/v1/api/generatecustomreport/`,data);
             officerecords.value = response.data.data;                
         } catch (e) {
             console.error(e.response.data);
@@ -28,7 +28,7 @@ export default function useCustomReport(){
     
     const downloadcustomPDF = async(data) =>{
         axios.defaults.withCredentials = true;  
-        await axios.post('/hrmis/api/export/customreportpdf/', data, { responseType: 'blob'})
+        await axios.post('/v1/api/export/customreportpdf/', data, { responseType: 'blob'})
         .then((response) => {
              var newFname = 'CustomReport-'+Date.now().toString()+'.pdf';
              var fileURL = window.URL.createObjectURL(new Blob([response.data], {type: 'application/pdf'}));
@@ -41,7 +41,7 @@ export default function useCustomReport(){
     }
     const downloadcustomExcel = async(data) =>{
         axios.defaults.withCredentials = true;  
-        await axios.post('/hrmis/api/export/customreportexcel/', data, {responseType: 'arraybuffer'})
+        await axios.post('/v1/api/export/customreportexcel/', data, {responseType: 'arraybuffer'})
         
         .then((response) => {
              var newFname = 'CustomReport-'+Date.now().toString()+'.xlsx';

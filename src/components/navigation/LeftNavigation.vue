@@ -1,5 +1,5 @@
 <template>
-  <aside class="sidebarleft">  
+  <aside class="sidebarleft" v-if="changed">  
     <nav id="sidenav" class="flex-column flex-shrink-0 pt-3 pb-5 ps-2 text-white" >
       <div id="sidenavcollapse">
       <ul class="nav nav-pills flex-column mb-auto leftnav-wrap">       
@@ -28,6 +28,9 @@
   import AdminNavigation from '@/components/navigation/AdminNavigation.vue';
   import HrNavigation from '@/components/navigation/HrNavigation.vue';
   import EmployeeNavigation from '@/components/navigation/EmployeeNavigation.vue';
+  import { usePasswordChange } from '@/stores/changepasswordstore.js'
+
+
   export default{
     components: {
       AdminNavigation,
@@ -37,10 +40,15 @@
     setup(){
       const store = useAuthStore();
 
+      const changepasswordstore = usePasswordChange();
+
+      const changed = ref(changepasswordstore.passwordstate);
       const userslug = ref(store.details[1]);
 
+     
       return {
-        userslug
+        userslug,
+        changed
       }
     }
   }

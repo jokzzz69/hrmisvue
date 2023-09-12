@@ -10,41 +10,41 @@ export default function useOfficerecord(){
 
 	const getOfficerecords = async () => { //employees information
         axios.defaults.withCredentials = true;
-		let response = await axios.get('/hrmis/api/officerecords');
+		let response = await axios.get('/v1/api/officerecords');
 		officerecords.value = response.data.data;
 	}
     const getOfficerecordsMonitoring = async () => {
         
         axios.defaults.withCredentials = true;
-        let response = await axios.get('/hrmis/api/officerecordsmonitoring');
+        let response = await axios.get('/v1/api/officerecordsmonitoring');
         officerecords.value = response.data.data;
     }
     const getOfficeemployeesMonitoring = async () => {
         axios.defaults.withCredentials = true;
-        let response = await axios.get('/hrmis/api/officeemployeesmonitoring');
+        let response = await axios.get('/v1/api/officeemployeesmonitoring');
         officerecords.value = response.data.data;
     } 
 	const getOfficerecord = async (id) => {
         axios.defaults.withCredentials = true;
-		let response = await axios.get('/hrmis/api/officerecords/'+id);
+		let response = await axios.get('/v1/api/officerecords/'+id);
 		officerecord.value = response.data.data;
 	}
     const getPersonalRecord = async (id) => {
         axios.defaults.withCredentials = true;
-        let response = await axios.get('/hrmis/api/officerecords/personal/'+id);
+        let response = await axios.get('/v1/api/officerecords/personal/'+id);
         officerecord.value = response.data.data;
 
     }
 	const destroyOfficerecord = async (id) => {
         axios.defaults.withCredentials = true;
-		await axios.delete('/hrmis/api/officerecords/' + id);
+		await axios.delete('/v1/api/officerecords/' + id);
 	}
 
 	const storeOfficerecord = async (data) => {
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {
-            await axios.post('/hrmis/api/officerecords/', data)
+            await axios.post('/v1/api/officerecords/', data)
             await router.push({name: 'record.index'})
             
         } catch (e) {
@@ -58,7 +58,7 @@ export default function useOfficerecord(){
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/officerecords/${id}`, officerecord.value)
+            await axios.patch(`/v1/api/officerecords/${id}`, officerecord.value)
             await router.push({ name: 'record.index'})
         } catch (e) {
         	console.log(e);
@@ -73,7 +73,7 @@ export default function useOfficerecord(){
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/personalrecord/${id}`, officerecord.value)
+            await axios.patch(`/v1/api/personalrecord/${id}`, officerecord.value)
             await router.push({ name: 'recordpersonal.show'})
         } catch (e) {
             console.log(e);
@@ -88,7 +88,7 @@ export default function useOfficerecord(){
         axios.defaults.withCredentials = true;
         errors.value = ''
         try{
-            await axios.patch(`/hrmis/api/personalrecordbns/${id}`, data)
+            await axios.patch(`/v1/api/personalrecordbns/${id}`, data)
             await router.push({ name: 'recordpersonal.show'})
         }catch (e) {
             console.log(e);
@@ -103,7 +103,7 @@ export default function useOfficerecord(){
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/personalrecordemergency/${id}`, officerecord.value)
+            await axios.patch(`/v1/api/personalrecordemergency/${id}`, officerecord.value)
             await router.push({ name: 'recordpersonal.show'})
         } catch (e) {
             console.log(e);
@@ -118,7 +118,7 @@ export default function useOfficerecord(){
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/personalrecordmycontact/${id}`, officerecord.value)
+            await axios.patch(`/v1/api/personalrecordmycontact/${id}`, officerecord.value)
             await router.push({ name: 'recordpersonal.show'})
         } catch (e) {
             console.log(e);
@@ -134,7 +134,7 @@ export default function useOfficerecord(){
         errors.value = '';
 
         try{
-            await axios.patch(`/hrmis/api/personalemployment/${id}`)         
+            await axios.patch(`/v1/api/personalemployment/${id}`)         
         }catch(e){
             console.log(e);
             if (e.response.status === 422) {
@@ -149,7 +149,7 @@ export default function useOfficerecord(){
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/pds/${id}`, officerecord.value);
+            await axios.patch(`/v1/api/pds/${id}`, officerecord.value);
             await router.push({ name: 'pdspersonal.show' })
         } catch (e) {
             if (e.response.status === 422) {
@@ -163,7 +163,7 @@ export default function useOfficerecord(){
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/pds/familybackground/${id}`, officerecord.value);
+            await axios.patch(`/v1/api/pds/familybackground/${id}`, officerecord.value);
             await router.push({ name: 'pdspersonalfamilybackground.show' })
         } catch (e) {
             if (e.response.status === 422) {
@@ -177,7 +177,7 @@ export default function useOfficerecord(){
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/pds/educationalbackground/${id}`, officerecord.value);
+            await axios.patch(`/v1/api/pds/educationalbackground/${id}`, officerecord.value);
             await router.push({ name: 'pdspersonaleducationalbackground.show' })
         } catch (e) {
             if (e.response.status === 422) {
@@ -191,7 +191,7 @@ export default function useOfficerecord(){
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/pds/eligibility/${id}`, officerecord.value);
+            await axios.patch(`/v1/api/pds/eligibility/${id}`, officerecord.value);
             await router.push({ name: 'pdseligibility.show' })
         } catch (e) {
             if (e.response.status === 422) {
@@ -205,7 +205,7 @@ export default function useOfficerecord(){
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/pds/workexperience/${id}`, officerecord.value);
+            await axios.patch(`/v1/api/pds/workexperience/${id}`, officerecord.value);
             await router.push({ name: 'pdsworkexperience.show' })
         } catch (e) {
             if (e.response.status === 422) {
@@ -219,7 +219,7 @@ export default function useOfficerecord(){
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/pds/voluntarywork/${id}`, officerecord.value);
+            await axios.patch(`/v1/api/pds/voluntarywork/${id}`, officerecord.value);
             await router.push({ name: 'pdsvoluntarywork.show' })
         } catch (e) {
             if (e.response.status === 422) {
@@ -233,7 +233,7 @@ export default function useOfficerecord(){
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/pds/learninganddevelopment/${id}`, officerecord.value);
+            await axios.patch(`/v1/api/pds/learninganddevelopment/${id}`, officerecord.value);
             await router.push({ name: 'pdslearninganddevelopment.show' })
         } catch (e) {
             if (e.response.status === 422) {
@@ -247,7 +247,7 @@ export default function useOfficerecord(){
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/pds/otherinformation/${id}`, officerecord.value);
+            await axios.patch(`/v1/api/pds/otherinformation/${id}`, officerecord.value);
             await router.push({ name: 'pdsotherinformation.show' })
         } catch (e) {
             if (e.response.status === 422) {
@@ -261,7 +261,7 @@ export default function useOfficerecord(){
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/pds/lastinformation/${id}`, officerecord.value);
+            await axios.patch(`/v1/api/pds/lastinformation/${id}`, officerecord.value);
             await router.push({ name: 'pdslastinformation.show' })
         } catch (e) {
             if (e.response.status === 422) {
@@ -276,7 +276,7 @@ export default function useOfficerecord(){
         errors.value = ''
 
         try {
-            await axios.patch(`/hrmis/api/pds/reset/${id}`);
+            await axios.patch(`/v1/api/pds/reset/${id}`);
             await router.push({ name: 'pdsmydata.show' })
         } catch (e) {
             if (e.response.status === 422) {

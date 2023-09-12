@@ -1,7 +1,7 @@
 <template> 
   <template v-if="loggedin">
     <TopNavigation/>
-    <div class="mainwrap">
+    <div class="mainwrap" :class="changed == true ? '' : 'nosidebar'">
       <LeftNavigation/>
       <main class="content-wrap">
         <div class="container-fluid">
@@ -26,6 +26,7 @@
   import TopNavigation from '@/components/navigation/TopNavigation.vue'
   import { useAuthStore } from '@/stores/store.js'
   import Footer from '@/components/content/Footer.vue';
+  import { usePasswordChange } from '@/stores/changepasswordstore.js'
 
   export default{
     components: {
@@ -37,6 +38,9 @@
       const {bus}=useEventsBus()
       const loggedin = ref(false);
       const store = useAuthStore();
+      const changepasswordstore = usePasswordChange();
+      const changed = ref(changepasswordstore.passwordstate);
+
 
       onMounted(() =>{
             if(store.details){
@@ -47,7 +51,8 @@
             [loggedin.value] = val ?? []             
         })
         return{
-          loggedin
+          loggedin,
+          changed
         }
     }
   }

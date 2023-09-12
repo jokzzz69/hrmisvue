@@ -11,17 +11,17 @@ export default function useMonitoring(){
 
 	const getEmployeebiometrics = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/hrmis/api/biodtr/');
+		let response = await axios.get('/v1/api/biodtr/');
 		monitoringbiometrics.value = response.data.data;
 	}
 	const getEmployeebiometric = async (id) => {		
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get(`/hrmis/api/biodtr/${id}`)
+		let response = await axios.get(`/v1/api/biodtr/${id}`)
 		monitoringbiometric.value = response.data.data
 	}
 	const getOfficeEmployeeBio = async (id) => {	
 		axios.defaults.withCredentials = true;	
-        let response = await axios.get(`/hrmis/api/biodtrofficeemployee/${id}`).catch(function(e){
+        let response = await axios.get(`/v1/api/biodtrofficeemployee/${id}`).catch(function(e){
         	if(e.response.status === 401){
         		router.push({name: 'force.index'})
         	}
@@ -31,7 +31,7 @@ export default function useMonitoring(){
 	const getEmployeemonthBio = async (id,data) => {	
 		axios.defaults.withCredentials = true;		
 		try {
-            let response = await axios.get(`/hrmis/api/biodtrperemp/${id}/${data}`)
+            let response = await axios.get(`/v1/api/biodtrperemp/${id}/${data}`)
 			biometricsData.value = response.data.data
         } catch (e) {
             if (e.response.status === 403) {

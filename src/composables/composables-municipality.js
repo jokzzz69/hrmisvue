@@ -12,22 +12,22 @@ export default function useMunicipality(){
 
 	const getMunicipalities = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/hrmis/api/municipalities')
+		let response = await axios.get('/v1/api/municipalities')
 		provmun.value = response.data.data;		
 	}
 	const getMunicipality = async (id) => {
 		axios.defaults.withCredentials = true;	
-        let response = await axios.get(`/hrmis/api/municipalities/${id}`)
+        let response = await axios.get(`/v1/api/municipalities/${id}`)
         municipality.value = response.data.data
     }
 	const getProvMun = async (id) => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get(`/hrmis/api/provmunicipalities/${id}`);
+		let response = await axios.get(`/v1/api/provmunicipalities/${id}`);
 		provmun.value = response.data.data;
 	}
 	const getperProvMun = async (id) => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get(`/hrmis/api/provmunicipalities/${id}`);
+		let response = await axios.get(`/v1/api/provmunicipalities/${id}`);
 		perprovmun.value = response.data.data;
 	}
 	

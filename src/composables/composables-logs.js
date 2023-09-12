@@ -9,12 +9,12 @@ export default function useActivityLogs(){
 
 	const getLogs = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/hrmis/api/activitylogs')
+		let response = await axios.get('/v1/api/activitylogs')
 		activitylogs.value = response.data.data;		
 	}
 	const getLog = async (id) => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get(`/hrmis/api/activitylog/${id}`)
+		let response = await axios.get(`/v1/api/activitylog/${id}`)
 		activitylog.value = response.data.data;		
 	}
 	return {

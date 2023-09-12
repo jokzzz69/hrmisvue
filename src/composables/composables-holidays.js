@@ -12,7 +12,7 @@ export default function useHolidays(){
 		axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.post('/hrmis/api/holidays/', data)
+            await axios.post('/v1/api/holidays/', data)
             await router.push({name: 'holidays.index'})
             
         } catch (e) {
@@ -23,23 +23,23 @@ export default function useHolidays(){
     }
 	const getHolidays = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/hrmis/api/holidays');
+		let response = await axios.get('/v1/api/holidays');
 		holidays.value = response.data.data;
 	}
 	const getHoliday = async (id) => {
 		axios.defaults.withCredentials = true;	
-        let response = await axios.get(`/hrmis/api/holidays/${id}`)
+        let response = await axios.get(`/v1/api/holidays/${id}`)
         holiday.value = response.data.data[0]
     }
 	const destroyHoliday = async (id) => {
 		axios.defaults.withCredentials = true;	
-		await axios.delete('/hrmis/api/holidays/' + id);		
+		await axios.delete('/v1/api/holidays/' + id);		
 	}	
 	const updateHoliday = async (id) => {
 		axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/holidays/${id}`, holiday.value)
+            await axios.patch(`/v1/api/holidays/${id}`, holiday.value)
             await router.push({ name: 'holidays.index' })
         } catch (e) {
             if (e.response.status === 422) {

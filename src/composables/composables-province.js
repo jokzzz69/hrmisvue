@@ -10,12 +10,12 @@ export default function useProvince(){
 
 	const getProvinces = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/hrmis/api/provinces')
+		let response = await axios.get('/v1/api/provinces')
 		provinces.value = response.data.data;		
 	}
 	const getProvince = async (id) => {
 		axios.defaults.withCredentials = true;	
-        let response = await axios.get(`/hrmis/api/provinces/${id}`)
+        let response = await axios.get(`/v1/api/provinces/${id}`)
         province.value = response.data.data
     }
 	

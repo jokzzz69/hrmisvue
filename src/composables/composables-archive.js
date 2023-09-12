@@ -11,7 +11,7 @@ export default function useArchive(){
  
 	const getArchives = async () => {
         axios.defaults.withCredentials = true;  
-        let response = await axios.get('/hrmis/api/archives');
+        let response = await axios.get('/v1/api/archives');
 		archives.value = response.data.data;
     }
    	
@@ -19,7 +19,7 @@ export default function useArchive(){
         axios.defaults.withCredentials = true;  
    		errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/archives/${id}`, data)
+            await axios.patch(`/v1/api/archives/${id}`, data)
             await router.push({name: 'archives.index'})
             
         } catch (e) {
@@ -34,7 +34,7 @@ export default function useArchive(){
         axios.defaults.withCredentials = true;  
    		errors.value = ''
         try {
-            await axios.post('/hrmis/api/archives/', 'test')
+            await axios.post('/v1/api/archives/', 'test')
             await router.push({name: 'archives.index'})
             
         } catch (e) {
@@ -46,12 +46,12 @@ export default function useArchive(){
    	}
     const getArchiveEmployee = async (id) => {
         axios.defaults.withCredentials = true;  
-        let response = await axios.get(`/hrmis/api/archives/${id}`);
+        let response = await axios.get(`/v1/api/archives/${id}`);
         archive.value = response.data.data;
     }
     const getArchivePDS = async(id) => {
         axios.defaults.withCredentials = true;  
-        let response = await axios.get(`/hrmis/api/archives/pds/${id}`);
+        let response = await axios.get(`/v1/api/archives/pds/${id}`);
         archive.value = response.data.data;
     }
     const restoreArchived = async (id, data) => {
@@ -59,7 +59,7 @@ export default function useArchive(){
         errors.value = ''
 
         try {
-            await axios.patch(`/hrmis/api/archives/restore/${id}`, data)
+            await axios.patch(`/v1/api/archives/restore/${id}`, data)
             await router.push({name: 'record.index'})
             
         } catch (e) {

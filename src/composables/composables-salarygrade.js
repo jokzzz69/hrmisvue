@@ -12,25 +12,25 @@ export default function useSalaryGrade(){
 	
 	const getSalaryGrades = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/hrmis/api/salarygrades');
+		let response = await axios.get('/v1/api/salarygrades');
 		salarygrades.value = response.data.data;
 	}
 	const getSalaryGrade = async (id) => {
 		axios.defaults.withCredentials = true;	
-        let response = await axios.get(`/hrmis/api/salarygrades/${id}`)
+        let response = await axios.get(`/v1/api/salarygrades/${id}`)
         salarygrade.value = response.data.data
       
     }
 	const destroySalaryGrade = async (id) => {
 		axios.defaults.withCredentials = true;	
-		await axios.delete('/hrmis/api/salarygrades/' + id)
+		await axios.delete('/v1/api/salarygrades/' + id)
 	}
 
 	const storeSalaryGrade = async (data) => {
 		axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.post('/hrmis/api/salarygrades/', data)
+            await axios.post('/v1/api/salarygrades/', data)
             await router.push({name: 'employeestatus.index'})
             
         } catch (e) {
@@ -44,7 +44,7 @@ export default function useSalaryGrade(){
 		axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/salarygrades/${id}`, salarygrade.value)
+            await axios.patch(`/v1/api/salarygrades/${id}`, salarygrade.value)
             await router.push({ name: 'employeestatus.index' })
         } catch (e) {
             if (e.response.status === 422) {

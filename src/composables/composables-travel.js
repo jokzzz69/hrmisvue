@@ -10,13 +10,13 @@ export default function useTravels(){
 
 	const getTravels = async () => {
         axios.defaults.withCredentials = true; 
-		let response = await axios.get('/hrmis/api/travels');
+		let response = await axios.get('/v1/api/travels');
 		travels.value = response.data.data;
 	}
 	const getTravel = async (id) => {
         axios.defaults.withCredentials = true; 
         try {
-            let response = await axios.get(`/hrmis/api/travels/${id}`)
+            let response = await axios.get(`/v1/api/travels/${id}`)
             travel.value = response.data.data;
         } catch (e) {
             if (e.response.status === 403) {
@@ -27,14 +27,14 @@ export default function useTravels(){
     }
     const getMyTravels = async(id) => {     
     axios.defaults.withCredentials = true;    
-        let response = await axios.get(`/hrmis/api/mytravels/${id}`);
+        let response = await axios.get(`/v1/api/mytravels/${id}`);
         travels.value = response.data.data;   
     }
     const updateTravel= async (id,data) => {
     axios.defaults.withCredentials = true; 		
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/travels/${id}`, data)
+            await axios.patch(`/v1/api/travels/${id}`, data)
             await router.push({ name: 'travels.index' })
         } catch (e) {
             if (e.response.status === 422) {
@@ -48,7 +48,7 @@ export default function useTravels(){
         axios.defaults.withCredentials = true; 
         errors.value = ''
         try {
-            await axios.post('/hrmis/api/travels/', data)
+            await axios.post('/v1/api/travels/', data)
             await router.push({name: 'travels.index'})
             
         } catch (e) {
@@ -59,7 +59,7 @@ export default function useTravels(){
     }
     const destroyTravel = async (id) => {
         axios.defaults.withCredentials = true; 
-        await axios.delete('/hrmis/api/travels/' + id)
+        await axios.delete('/v1/api/travels/' + id)
     }
     const getfilteredTravels = async(data) => {
         axios.defaults.withCredentials = true; 
@@ -70,7 +70,7 @@ export default function useTravels(){
             newData = `${data.type}-all`;
         }        
 
-        let response = await axios.get(`/hrmis/api/getfilteredtravel/${newData}`);
+        let response = await axios.get(`/v1/api/getfilteredtravel/${newData}`);
         travels.value = response.data.data;        
     }
 

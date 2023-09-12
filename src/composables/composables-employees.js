@@ -11,39 +11,39 @@ export default function useEmployees(){
 
 	const getBioIDS = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/hrmis/api/getids');
+		let response = await axios.get('/v1/api/getids');
 		biousers.value = response.data.data;
 	}
 	const getBioUsers = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/hrmis/api/bioempusers');
+		let response = await axios.get('/v1/api/bioempusers');
 		biousers.value = response.data.data;
 	}
 
 	const getEmployees = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/hrmis/api/bioemployees');
+		let response = await axios.get('/v1/api/bioemployees');
 		employees.value = response.data.data;
 	}
 	const getEmployee = async (id) => {
 		axios.defaults.withCredentials = true;	
-        let response = await axios.get(`/hrmis/api/bioemployee/${id}`)
+        let response = await axios.get(`/v1/api/bioemployee/${id}`)
         employee.value = response.data.data[0]
     }
     const getEmployeeOptions = async() => {   
     	axios.defaults.withCredentials = true;	 	
-    	let response = await axios.get('/hrmis/api/bioemployeesselect');
+    	let response = await axios.get('/v1/api/bioemployeesselect');
 		employees.value = response.data.data;
     }
 	const destroyEmployee = async (id) => {
 		axios.defaults.withCredentials = true;	
-		await axios.delete('/hrmis/api/bioemployees/' + id)
+		await axios.delete('/v1/api/bioemployees/' + id)
 	}
 	const storeEmployee = async (data) => {
 		axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.post('/hrmis/api/bioemployees/', data)
+            await axios.post('/v1/api/bioemployees/', data)
             await router.push({name: 'record.index'})
             
         } catch (e) {
@@ -57,7 +57,7 @@ export default function useEmployees(){
 		axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/bioemployees/${id}`, employee.value)
+            await axios.patch(`/v1/api/bioemployees/${id}`, employee.value)
             await router.push({ name: 'record.index'})
         } catch (e) {
         	console.log(e);
@@ -72,7 +72,7 @@ export default function useEmployees(){
     	axios.defaults.withCredentials = true;	
     	errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/pdsemployeeupdate/${id}`, employee.value)
+            await axios.patch(`/v1/api/pdsemployeeupdate/${id}`, employee.value)
             await router.push({ name: 'pds.index' })
         } catch (e) {
             if (e.response.status === 422) {

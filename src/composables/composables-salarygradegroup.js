@@ -14,36 +14,36 @@ export default function useSalaryGradeGroup(){
 
 	const getSalaryGradeGroups = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/hrmis/api/salarygradegroups');
+		let response = await axios.get('/v1/api/salarygradegroups');
 		salarygradegroups.value = response.data.data;
 	}
 	const getSalaryGradeGroup = async (id) => {
 		axios.defaults.withCredentials = true;	
-        let response = await axios.get(`/hrmis/api/salarygradegroups/${id}`)
+        let response = await axios.get(`/v1/api/salarygradegroups/${id}`)
         salarygradegroup.value = response.data.data      
     }
 
     const getSalaryGradeName = async(id) => {
     	axios.defaults.withCredentials = true;	
-    	let response = await axios.get(`/hrmis/api/salarygradegroups/salarygrade/${id}`)
+    	let response = await axios.get(`/v1/api/salarygradegroups/salarygrade/${id}`)
     	salarygradenames.value = response.data.data;
     }
     const getSalaryGradeSteps = async(id) => {
     	axios.defaults.withCredentials = true;	
-    	let response = await axios.get(`/hrmis/api/salarygradegroups/salarygradesteps/${id}`)
+    	let response = await axios.get(`/v1/api/salarygradegroups/salarygradesteps/${id}`)
     	salarygradesteps.value = response.data.data;
     }
 
 	const destroySalaryGradeGroup = async (id) => {
 		axios.defaults.withCredentials = true;	
-		await axios.delete('/hrmis/api/salarygradegroups/' + id)
+		await axios.delete('/v1/api/salarygradegroups/' + id)
 	}
 
 	const storeSalaryGradeGroup = async (data) => {
 		axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.post('/hrmis/api/salarygradegroups/', data)
+            await axios.post('/v1/api/salarygradegroups/', data)
             await router.push({name: 'salarygradegroup.index'})
             
         } catch (e) {
@@ -57,7 +57,7 @@ export default function useSalaryGradeGroup(){
 		axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/salarygradegroups/${id}`, salarygradegroup.value)
+            await axios.patch(`/v1/api/salarygradegroups/${id}`, salarygradegroup.value)
             await router.push({ name: 'salarygradegroup.index' })
         } catch (e) {
             if (e.response.status === 422) {

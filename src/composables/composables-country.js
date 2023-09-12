@@ -10,12 +10,12 @@ export default function useCountry(){
 
 	const getCountries = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/hrmis/api/countries')
+		let response = await axios.get('/v1/api/countries')
 		countries.value = response.data.data;		
 	}
 	const getCountry = async (id) => {
 		axios.defaults.withCredentials = true;	
-        let response = await axios.get(`/hrmis/api/countries/${id}`)
+        let response = await axios.get(`/v1/api/countries/${id}`)
         country.value = response.data.data
     }
 	

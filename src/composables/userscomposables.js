@@ -15,12 +15,12 @@ export default function useUsers(){
 
 	const getUserProfile = async (id) => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get(`/hrmis/api/profile/${id}`);
+		let response = await axios.get(`/v1/api/profile/${id}`);
 		profile.value = response.data.data;
 	}
 	const getUserLoginProfile = async (id) => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get(`/hrmis/api/profile/${id}`);
+		let response = await axios.get(`/v1/api/profile/${id}`);
 		profile.value = response.data.data;
 		if(profile.value.password_changed){
 			await router.push({ name: 'profile.edit'})
@@ -32,7 +32,7 @@ export default function useUsers(){
 		errors.value = ''
 
 	    try {
-	        await axios.patch(`/hrmis/api/changepassword/${id}`, data)
+	        await axios.patch(`/v1/api/changepassword/${id}`, data)
 	        if(slug == 'super-admin'){
 	        	await router.push({ name: 'dashboard.index'})
 	        	await router.go({ force:true })
@@ -55,7 +55,7 @@ export default function useUsers(){
         errors.value = ''
 
 	    try {
-	        await axios.patch(`/hrmis/api/updateprofile/${id}`, data)
+	        await axios.patch(`/v1/api/updateprofile/${id}`, data)
 	        await router.push({ name: 'recordpersonal.show' })
 	    } catch (e) {
 	        if (e.response.status === 422) {
@@ -67,33 +67,33 @@ export default function useUsers(){
     }
 	const getUsers = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/hrmis/api/users');
+		let response = await axios.get('/v1/api/users');
 		users.value = response.data.data;
 	}
 	const getUser = async (id) => {
 		axios.defaults.withCredentials = true;	
-        let response = await axios.get(`/hrmis/api/user/${id}`)
+        let response = await axios.get(`/v1/api/user/${id}`)
         user.value = response.data.data[0]
     }
     const getAuthuser = async() => {
     	axios.defaults.withCredentials = true;	
-    	let response = await axios.get(`/hrmis/api/cu`)
+    	let response = await axios.get(`/v1/api/cu`)
     	authuser.value = response.data.data;
     }
     const activateUser = async (id) => {	
     	axios.defaults.withCredentials = true;	
-        let response = await axios.post(`/hrmis/api/user/activate/${id}`)
+        let response = await axios.post(`/v1/api/user/activate/${id}`)
     }
     const rebootPass = async (id) => {	
     	axios.defaults.withCredentials = true;	
-        let response = await axios.patch(`/hrmis/api/user/rebootpass/${id}`)
+        let response = await axios.patch(`/v1/api/user/rebootpass/${id}`)
     }
 
     const updateUser = async (id,data) => {	
     	axios.defaults.withCredentials = true;		
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/users/${id}`, data)
+            await axios.patch(`/v1/api/users/${id}`, data)
             await router.push({ name: 'users.index' })
         } catch (e) {
             if (e.response.status === 422) {
@@ -106,14 +106,14 @@ export default function useUsers(){
 
     const deactivate = async(id) => {
     	axios.defaults.withCredentials = true;	
-    	await axios.delete('/hrmis/api/users/' + id);
+    	await axios.delete('/v1/api/users/' + id);
     }
 
     const logoutuser = async (data) => {
     	axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.post('/hrmis/api/logoutuser/',data);
+            await axios.post('/v1/api/logoutuser/',data);
             window.location.href = "/hrmis/login"
         } catch (e) {
             if (e.response.status === 422) {
@@ -126,7 +126,7 @@ export default function useUsers(){
     	axios.defaults.withCredentials = true;	
     	errors.value = ''
     	try{
-    		await axios.post('/hrmis/api/acceptprivacy/')
+    		await axios.post('/v1/api/acceptprivacy/')
     	}catch(e){
     		if (e.response.status === 422) {
                 errors.value = e.response.data.errors
@@ -135,7 +135,7 @@ export default function useUsers(){
     }
     const getPrivacy = async () => {
     	axios.defaults.withCredentials = true;	
-		let response = await axios.get('/hrmis/api/privacy');
+		let response = await axios.get('/v1/api/privacy');
 		privacy.value = response.data;	
 	}
 

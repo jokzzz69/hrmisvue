@@ -10,19 +10,19 @@ export default function useRoles(){
 
 	const getRoles = async () => {
         axios.defaults.withCredentials = true;  
-		let response = await axios.get('/hrmis/api/roles');
+		let response = await axios.get('/v1/api/roles');
 		roles.value = response.data.data;
 	}
 	const getRole = async (id) => {
         axios.defaults.withCredentials = true;  
-        let response = await axios.get(`/hrmis/api/role/${id}/roleedit`)
+        let response = await axios.get(`/v1/api/role/${id}/roleedit`)
         role.value = response.data.data[0]
     }
     const updateRole= async (id) => {	
         axios.defaults.withCredentials = true;  	
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/roles/${id}`, role.value)
+            await axios.patch(`/v1/api/roles/${id}`, role.value)
             await router.push({ name: 'roles.index' })
         } catch (e) {
             if (e.response.status === 422) {
@@ -36,7 +36,7 @@ export default function useRoles(){
         axios.defaults.withCredentials = true;  
         errors.value = ''
         try {
-            await axios.post('/hrmis/api/roles/', data)
+            await axios.post('/v1/api/roles/', data)
             await router.push({name: 'roles.index'})
             
         } catch (e) {

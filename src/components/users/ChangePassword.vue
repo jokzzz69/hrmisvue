@@ -53,11 +53,14 @@
 import useUsers from '@/composables/userscomposables'
 import { onMounted,ref, reactive, inject} from 'vue';
 import { useAuthStore } from '@/stores/store.js'
+import { usePasswordChange } from '@/stores/changepasswordstore.js'
 
 export default{
     setup(){
         const store = useAuthStore();
         const id = ref(store.details[0]);
+        const changepasswordstore = usePasswordChange();
+
         const form = reactive({
             'newpassword': '',
             'confirmpassword': '',
@@ -136,6 +139,8 @@ export default{
                         }
                     })
                 }
+            }).then(()=>{
+                changepasswordstore.setstate(true);
             })
             newerror.value.newpassword  = errors.value.newpassword;
             if(errors.value.confirmpassword){

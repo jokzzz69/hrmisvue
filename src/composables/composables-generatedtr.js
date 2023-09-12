@@ -7,18 +7,18 @@ export default function useGeneratedtr(){
 	const datagenerated = ref("");
 	const generateDTRfromData = async (data) => {	
         axios.defaults.withCredentials = true;      
-        let response = await axios.post(`/hrmis/api/datagenerated/`,data);
+        let response = await axios.post(`/v1/api/datagenerated/`,data);
         datagenerated.value = response.data.data;   
     }
     const generateEmployeesDTRfromData = async (data) =>{
         axios.defaults.withCredentials = true;  
-        let response = await axios.post(`/hrmis/api/employeesdtr/`,data);
+        let response = await axios.post(`/v1/api/employeesdtr/`,data);
         employeesdatagenerated.value = response.data.data;
     }
 
     const downloadperEmployeeDTR = async (data, name) => {
         axios.defaults.withCredentials = true;  
-        await axios.post('/hrmis/api/export/peremployeedtr/', data, { responseType: 'blob'})
+        await axios.post('/v1/api/export/peremployeedtr/', data, { responseType: 'blob'})
         .then((response) => {     
              var newFname = name.replace(/\s/g,'')+'-'+Date.now().toString()+'.pdf';
              var fileURL = window.URL.createObjectURL(new Blob([response.data], {type: 'application/pdf'}));
@@ -33,7 +33,7 @@ export default function useGeneratedtr(){
 
     const downloadAllEmployeesDTR = async (data, name) =>{
         axios.defaults.withCredentials = true;  
-        await axios.post('/hrmis/api/export/allemployeesdtr/', data, { responseType: 'blob'})
+        await axios.post('/v1/api/export/allemployeesdtr/', data, { responseType: 'blob'})
         .then((response) => {
             var newFname = '';
              if(name == 1){

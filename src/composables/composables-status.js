@@ -11,25 +11,25 @@ export default function useEmployeeStatus(){
 
 	const getEmployeeStatuses = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/hrmis/api/bioemployeestatus');
+		let response = await axios.get('/v1/api/bioemployeestatus');
 		employeestatuses.value = response.data.data;
 	}
 	const getEmployeeStatus = async (id) => {
 		axios.defaults.withCredentials = true;	
-        let response = await axios.get(`/hrmis/api/bioemployeestatus/${id}`)
+        let response = await axios.get(`/v1/api/bioemployeestatus/${id}`)
         employeestatus.value = response.data.data
       
     }
 	const destroyEmployeeStatus = async (id) => {
 		axios.defaults.withCredentials = true;	
-		await axios.delete('/hrmis/api/bioemployeestatus/' + id)
+		await axios.delete('/v1/api/bioemployeestatus/' + id)
 	}
 
 	const storeEmployeeStatus = async (data) => {
 		axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.post('/hrmis/api/bioemployeestatus/', data)
+            await axios.post('/v1/api/bioemployeestatus/', data)
             await router.push({name: 'employeestatus.index'})
             
         } catch (e) {
@@ -43,7 +43,7 @@ export default function useEmployeeStatus(){
 		axios.defaults.withCredentials = true;			
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/bioemployeestatus/${id}`, employeestatus.value)
+            await axios.patch(`/v1/api/bioemployeestatus/${id}`, employeestatus.value)
             await router.push({ name: 'employeestatus.index' })
         } catch (e) {
             if (e.response.status === 422) {

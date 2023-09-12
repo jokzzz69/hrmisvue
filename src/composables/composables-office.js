@@ -13,7 +13,7 @@ export default function useOffices(){
 		axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.post('/hrmis/api/biooffices/', data)
+            await axios.post('/v1/api/biooffices/', data)
             await router.push({name: 'offices.index'})
             
         } catch (e) {
@@ -26,30 +26,30 @@ export default function useOffices(){
 
 	const getOffices = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/hrmis/api/biooffices');
+		let response = await axios.get('/v1/api/biooffices');
 		offices.value = response.data.data;
 	}
 	const getcustomOffices = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/hrmis/api/customlocations');
+		let response = await axios.get('/v1/api/customlocations');
 		customoffices.value = response.data.data;
 	}
 
 	const getOffice = async (id) => {
 		axios.defaults.withCredentials = true;	
-        let response = await axios.get(`/hrmis/api/biooffice/${id}`)
+        let response = await axios.get(`/v1/api/biooffice/${id}`)
         office.value = response.data.data[0]
     }
 	const destroyOffice = async (id) => {
 		axios.defaults.withCredentials = true;	
-		await axios.delete('/hrmis/api/biooffices/' + id);
+		await axios.delete('/v1/api/biooffices/' + id);
 		
 	}	
 	const updateOffice = async (id) => {
 		axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.patch(`/hrmis/api/biooffices/${id}`, office.value)
+            await axios.patch(`/v1/api/biooffices/${id}`, office.value)
             await router.push({ name: 'offices.index' })
         } catch (e) {
             if (e.response.status === 422) {
