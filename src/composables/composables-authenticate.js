@@ -73,6 +73,7 @@ export default function useAuthenticate(){
 		 	localStorage.clear()
 		 	store.setdetails(null);
 		 	navigationstore.setname(null);
+		 	changepasswordstore.setstate(false);
 		 	await router.push({name: 'login.index'})
 		 	
 
