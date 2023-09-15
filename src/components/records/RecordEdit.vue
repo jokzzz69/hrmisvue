@@ -4,29 +4,35 @@
 			<h2>Edit Employee Record</h2>
 		</div>
 	</div>
-    <div class="row">
-        <div class="col mb-2 ">
-            
-        </div>
-    </div>
+
     <form v-on:submit.prevent="saveOfficeRecord">
         
         <div class="pProfilewrap p-2 mb-4">
             <div class="row">
                 <div class="pProfilewrap-title mt-2 mb-2">
-                    <h2 class="mb-0">Basic Info </h2>
+                    <h2 class="mb-2">Basic Info </h2>
                     <span class="d-block fw-bolder mb-1 rff">ID Number: <template v-if="officerecord.employee">{{officerecord.employee.employee_id}}</template></span>
                 </div>
             </div>
-            <div class="row mb-2" v-if="officerecord.employee">            
+            <div class="row mb-2" v-if="officerecord.employee">    
+                <div class="col-1 mb-2">
+                    <div class="form-floating">
+                        <select class="form-select" name="employee_bioid" id="employee_bioid" v-model="officerecord.employee.employee_bioid">
+                            <option value="">No Bio</option>
+                            <option v-for="id in availablewcids" :value="id">
+                                {{id}}
+                            </option>               
+                        </select>
+
+                        <label for="employee_bioid" class="form-label">Biometrics ID</label>
+                    </div>
+                </div>        
                 <div class="col mb-2 req">                
                     <div class="form-floating">
                         <input type="text" name="employee_fname" placeholder="enter first name" id="employee_fname" class="form-control" v-model="officerecord.employee.employee_fname" :class="errors['employee.employee_fname'] ? 'error-input' : ''">
                         <label for="employee_fname" class="form-label">First Name</label>
-
                     </div> 
-                    <span v-if="errors['employee.employee_fname']" class="text-danger m-error">{{errors['employee.employee_fname'][0]}}</span>
-                
+                    <span v-if="errors['employee.employee_fname']" class="text-danger m-error">{{errors['employee.employee_fname'][0]}}</span>                
                 </div>  
                 <div class="col mb-2">                
                     <div class="form-floating">
@@ -201,14 +207,15 @@
 
 <script>
 
-import { onMounted, ref, inject, reactive} from 'vue';
+import { onMounted, ref, inject, reactive, nextTick} from 'vue';
+import useEmployees from '@/composables/composables-employees';
 import useOffices from '@/composables/composables-office';
 import useEmployeeTypes from '@/composables/composables-type';
 import useEmployeeStatus from '@/composables/composables-status';
-import useEmployeePosition from '../../composables/composables-position';
+import useEmployeePosition from '@/composables/composables-position';
 
 import useOfficerecord from '@/composables/composables-record';
-import useSalaryGradeGroup from '../../composables/composables-salarygradegroup';
+import useSalaryGradeGroup from '@/composables/composables-salarygradegroup';
 
 export default{
 
@@ -220,12 +227,15 @@ export default{
     },
 
     setup (props){
+
         const swal = inject('$swal')
         const {officerecord, getOfficerecord, updateOfficerecord, errors, updateActiveemployment}= useOfficerecord()
         const {getEmployeeStatuses, employeestatuses } = useEmployeeStatus();
         const {getOffices, offices} = useOffices()
         const {getEmployeeTypes, employeetypes} = useEmployeeTypes()
         const {employeepositions, getEmployeePositions } = useEmployeePosition()
+        const {getAvailableIDSwithcurrentID, availablewcids} = useEmployees();
+
 
         const {             
             getSalaryGradeGroups, 
@@ -267,6 +277,10 @@ export default{
                 }                    
                 add.value = divs.length;
 
+                if(officerecord.value.employee){
+                    getAvailableIDSwithcurrentID(officerecord.value.employee.employee_bioid)
+
+                }
             })
         }
 
@@ -277,8 +291,9 @@ export default{
             getEmployeeStatuses(),
             getEmployeePositions(),
             getSalaryGradeGroups()
-
+            
         })
+
        const slctSGG = async (id,key) => {
             getSalaryGradeName(id).then(() => {
                 salarygradenamesArr.value[key] = salarygradenames.value;
@@ -376,7 +391,8 @@ export default{
             salarygradenamesArr,
             salarygradestepsArr,
             removeEmployment,
-            selectChange
+            selectChange,
+            availablewcids
         
         }
     }

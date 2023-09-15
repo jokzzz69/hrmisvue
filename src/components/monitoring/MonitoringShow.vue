@@ -137,12 +137,12 @@
 </template>
 
 <script>
-    import useEmployees from '../../composables/composables-employees';
-    import useMonitoring from '../../composables/composables-monitoring';
+    import useEmployees from '@/composables/composables-employees';
+    import useMonitoring from '@/composables/composables-monitoring';
     import {onMounted ,ref, computed, reactive} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
-    import {formatTime} from '../../helper/formattime'
+    import {formatTime} from '@/helper/formattime'
     import moment from 'moment';
 
     export default{

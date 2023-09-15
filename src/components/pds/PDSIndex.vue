@@ -114,7 +114,7 @@
 							  employee.employee_mname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ||
 							  employee.employee_lname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ||
 							  (employee.employee_extname && employee.employee_extname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ) ||
-							  (employee.pdspersonalinformation.updated_at && moment(employee.pdspersonalinformation.updated_at).format('LLLL').toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1)
+							  (employee.pdspersonalinformation && employee.pdspersonalinformation.updated_at && moment(employee.pdspersonalinformation.updated_at).format('LLLL').toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1)
 				);
 			});
 

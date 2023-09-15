@@ -94,10 +94,10 @@
 			</div>
 		</div>
 	</template>
-	<div class="row" v-if="userrole ==='super-admin'">
-		
-		<div class="col-12"><h4>Clean archived ID</h4></div>
-		<div class="col-12 mb-2">
+	<div class="row" v-if="userrole ==='super-admin'">		
+
+		<div class="col">
+			<h4>Clean archived ID</h4>
 			<form v-on:submit.prevent="cleanDB">
 				<div class="row">
 			    	<div class="col-auto">
@@ -112,9 +112,7 @@
 			</form>
 		</div>
 
-
-
-		<div class="col-12">
+		<div class="col">
     		<div class="CMFormWrap ps-2 pt-2 pe-2 pb-2 border-blue">
     			<form class="mt-2 mb-2" v-on:submit.prevent="setID">
 					<div class="row">
@@ -135,39 +133,16 @@
 				</form>
     		</div>
     	</div>
-	</div>
-	<div class="row" v-if="userrole ==='super-admin'">
-		<div class="col-12">
-			<h4 class="mt-2 mb-2">Change ID Number</h4>
 
-			<div class="alert alert-success" role="alert" v-if="newResponse != ''">
-                {{newResponse}}
-            </div>
-			<form @submit.prevent="changeID">
-				<div class="row">
-					<div class="col">
-						<div class="form-floating">
-				    		<select class="form-select" v-model="formChangeID.oldid" :class="errors.id ? 'error-input' : ''">
-				        		<option value="" disabled>Select</option>
-				        		<option v-for="biouser in biousers" :value="biouser.employee_id">{{biouser.employee_id}}</option>
-				        	</select>
-			    			<label class="form-label">ID</label>
-			    			<span v-if="errors.id" class="text-danger m-error">{{errors.id[0]}}</span> 
-			    		</div>
-					</div>
-					<div class="col">
-						<div class="form-floating">
-							<input type="number" name="newid" id="newid" v-model="formChangeID.newid" class="form-control">
-							<label class="form-label">New ID</label>
-						</div>
-					</div>
-					<div class="col">
-						<button class="btn btn-submit btn-primary alw-100 mhlabel text-light">Submit</button>
-					</div>
-				</div>
-			</form>
-		</div>
+
+    	<div class="col">
+    		<button @click.prevent="generatenewID" class="btn btn-danger mt-2 mb-2">Generate ID New ID Number</button>
+    	</div>
+
+
+
 	</div>
+
 </template>
 
 <script>
@@ -178,8 +153,11 @@
 	import moment from 'moment';
 	import {formatTime} from '../../helper/formattime'
 	import { useAuthStore } from '@/stores/store.js'
-
+	import ChangeID from '@/components/contentmanager/ChangeID.vue';
 	export default{
+		components: {
+			ChangeID
+		},
 		setup(){
 			const store = useAuthStore();
             const userrole = ref(store.getdetails[1]);
@@ -197,10 +175,7 @@
 			const formArchive = reactive({
 				'id': '',
 			});
-			const formChangeID = reactive({
-				'oldid': '',
-				'newid': ''
-			});
+			
 			onMounted(() => {
 				getBioIDS()
 			})
@@ -238,9 +213,9 @@
 			const setID = async() =>{
 				await setEmployeeID({...form});
 			}
-			const changeID = async() =>{
-				await updateID({...formChangeID});
-				await getBioIDS();
+			
+			const generatenewID = async() =>{
+
 			}
 			return {
 				form,
@@ -254,8 +229,7 @@
 				cleanDB,
 				formArchive,
 				setID,
-				formChangeID,
-				changeID,
+				generatenewID,
 				newResponse,
 				userrole,
 				authid

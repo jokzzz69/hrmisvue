@@ -70,7 +70,7 @@ export default function useAuthenticate(){
     	axios.defaults.withCredentials = true;
     	try {
 
-		 	await axios.post('/logoutuser');
+		 	await axios.post('/v1/api/logoutuser');
 		 	localStorage.clear()
 		 	store.setdetails(null);
 		 	navigationstore.setname(null);

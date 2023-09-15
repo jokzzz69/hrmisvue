@@ -12,12 +12,28 @@
                 </div>
             </div>
             <div class="row mb-2">
-                <div class="col-md-2 mb-2 req">                    
+                <div class="col-md-1 mb-2 req">                    
                     <div class="form-floating">
                         <input type="number" name="employee_id" :class="errors.employee_id ? 'error-input' : ''" placeholder="enter id number" id="employee_id" class="form-control" v-model="form.employee_id">                        
                         <label for="employee_id" class="form-label">ID Number </label>
                     </div>
                     <span v-if="errors.employee_id" class="text-danger m-error">{{errors.employee_id[0]}}</span>
+                </div> 
+                <div class="col-md-1 mb-2">                    
+                    <div class="form-floating">
+                        <select class="form-select" name="employee_bioid" id="employee_bioid" v-model="form.employee_bioid" :class="errors.employee_bioid ? 'error-input' : ''">
+                            <option value="">No Bio</option>
+                            <option v-for="id in availableids" :value="id">
+                                {{id}}
+                            </option>               
+                        </select>
+
+
+
+
+                        <label for="employee_bioid" class="form-label">Biometrics ID</label>
+                    </div>
+                    <span v-if="errors.employee_bioid" class="text-danger m-error">{{errors.employee_bioid[0]}}</span>
                 </div> 
                 <div class="col mb-2 req">                    
                     <div class="form-floating">
@@ -198,26 +214,23 @@
 
 <script>
 import useEmployees from '@/composables/composables-employees';
-
-
-
 import useOfficerecord from '@/composables/composables-record';
-
 import { onMounted, ref, inject, reactive} from 'vue';
 import useOffices from '@/composables/composables-office';
 import useEmployeeTypes from '@/composables/composables-type';
 import useEmployeeStatus from '@/composables/composables-status';
-import useEmployeePosition from '../../composables/composables-position';
-import useSalaryGradeGroup from '../../composables/composables-salarygradegroup';
+import useEmployeePosition from '@/composables/composables-position';
+import useSalaryGradeGroup from '@/composables/composables-salarygradegroup';
 
 export default{
     setup (){
-        const swal = inject('$swal')
-        const { errors,  storeOfficerecord } = useOfficerecord()
+        const swal = inject('$swal');
+        const { errors,  storeOfficerecord } = useOfficerecord();
         const { getEmployeeStatuses, employeestatuses } = useEmployeeStatus();        
-        const {getOffices, offices} = useOffices()
-        const {getEmployeeTypes, employeetypes} = useEmployeeTypes()
-        const {employeepositions, getEmployeePositions } = useEmployeePosition()
+        const {getOffices, offices} = useOffices();
+        const {getEmployeeTypes, employeetypes} = useEmployeeTypes();
+        const {employeepositions, getEmployeePositions } = useEmployeePosition();
+        const {getAvailableIDS, availableids} = useEmployees();
         const {             
             getSalaryGradeGroups, 
             salarygradegroups, 
@@ -235,7 +248,9 @@ export default{
 
 
         const form = reactive({
+
             'employee_id' : '',
+            'employee_bioid': '',
             'employee_fname' : '',
             'employee_mname' : '',
             'employee_lname' : '',
@@ -279,7 +294,8 @@ export default{
             getEmployeeTypes(),
             getEmployeeStatuses(),
             getEmployeePositions(),
-            getSalaryGradeGroups()
+            getSalaryGradeGroups(),
+            getAvailableIDS()
         })
 
         const slctSGG = async (id,key) => {
@@ -356,7 +372,8 @@ export default{
             addemployment,
             divs,
             selectChange,
-            removeEmployment
+            removeEmployment,
+            availableids
         
         }
     }

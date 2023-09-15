@@ -8,12 +8,24 @@ export default function useEmployees(){
 	const router = useRouter();
 	const employee = ref([]);
 	const errors = ref('');
-
+	const availableids = ref();
+	const availablewcids = ref();
 	const getBioIDS = async () => {
 		axios.defaults.withCredentials = true;	
 		let response = await axios.get('/v1/api/getids');
 		biousers.value = response.data.data;
 	}
+	const getAvailableIDS = async () => {
+		axios.defaults.withCredentials = true;	
+		let response = await axios.get('/v1/api/aid');
+		availableids.value = response.data;
+	}
+	const getAvailableIDSwithcurrentID = async (id) => {
+		axios.defaults.withCredentials = true;	
+		let response = await axios.get(`/v1/api/caid/${id}`);
+		availablewcids.value = response.data;
+	}
+	
 	const getBioUsers = async () => {
 		axios.defaults.withCredentials = true;	
 		let response = await axios.get('/v1/api/bioempusers');
@@ -96,7 +108,11 @@ export default function useEmployees(){
 		getBioUsers,
 		updateEmployeePDS,
 		getEmployeeOptions,
-		getBioIDS
+		getBioIDS,
+		getAvailableIDS,
+		availableids,
+		getAvailableIDSwithcurrentID,
+		availablewcids
 	
 	}
 }
