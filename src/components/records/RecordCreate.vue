@@ -27,10 +27,6 @@
                                 {{id}}
                             </option>               
                         </select>
-
-
-
-
                         <label for="employee_bioid" class="form-label">Biometrics ID</label>
                     </div>
                     <span v-if="errors.employee_bioid" class="text-danger m-error">{{errors.employee_bioid[0]}}</span>
