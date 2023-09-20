@@ -116,7 +116,7 @@
 			
 			const filteredOfficeRecords = computed(function(){
 				return officerecords.value.filter(
-					(officerecord) =>	officerecord.employee_id.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ||
+					(officerecord) =>	officerecord.employee_id.toLowerCase().toString().indexOf(searchQuery.value.toLowerCase()) > -1 ||
 										(officerecord.employee && officerecord.employee.employee_fname && officerecord.employee.employee_fname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1)	|| 
 										(officerecord.employee && officerecord.employee.employee_mname&& officerecord.employee.employee_mname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1)	||
 										(officerecord.employee && officerecord.employee.employee_lname &&officerecord.employee.employee_lname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1)	||

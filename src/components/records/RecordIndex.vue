@@ -114,7 +114,7 @@
 			    			<td>
 			    				<template v-if="officerecord.employments.length > 0">
 		    				 		<template v-if="officerecord.employments[0].startdate">
-		    				 			{{moment(officerecord.employments[0].startdate).format('MMMM D, Y')}}
+		    				 			{{moment(new Date(officerecord.employments[0].startdate)).format('MMMM D, Y')}}
 		    				 		</template>		    				 		
 		    				 	</template>
 			    			</td>
@@ -174,7 +174,7 @@
 			const filteredOfficeRecords = computed(function(){
 				return officerecords.value.filter(
 					(officerecord) => 
-						(officerecord.employee_id.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ) || 
+						(officerecord.employee_id.toString().toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ) || 
 						(officerecord.emergency_contactperson && officerecord.emergency_contactperson.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ) || 
 						(officerecord.employee && officerecord.employee.employee_fname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ) || 
 						(officerecord.employee && officerecord.employee.employee_mname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ) ||

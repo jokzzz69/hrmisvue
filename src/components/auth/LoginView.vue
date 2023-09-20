@@ -53,7 +53,7 @@
         </div>
     </div>
     </div>
-    <!-- <SiteSeal/> -->
+    <SiteSeal/>
 </template>
 <script>
 

@@ -98,7 +98,7 @@
                                         moment(String(activitylog.actiondate)).year() == daypicked.value.getFullYear() &&
                                         moment(String(activitylog.actiondate)).date() == daypicked.value.getDate() &&                          
                                         (
-                                            activitylog.employee_id.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ||
+                                            activitylog.employee_id.toString().toString().toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ||
                                             activitylog.page.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ||
                                             activitylog.actionname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ||
                                             (activitylog.employee && activitylog.employee.employee_fname && activitylog.employee.employee_fname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1) ||
