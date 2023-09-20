@@ -88,12 +88,12 @@
 		    				</td>
 		    				<td>
 		    					<template v-if="travel.travelstart">
-		    						{{moment(travel.travelstart).format('MMMM D, Y')}}
+		    						{{moment(new Date(travel.travelstart)).format('MMMM D, Y')}}
 		    					</template>	    					
 		    				</td>
 		    				<td>
 		    					<template v-if="travel.travelend">
-		    						{{moment(travel.travelend).format('MMMM D, Y')}}
+		    						{{moment(new Date(travel.travelend)).format('MMMM D, Y')}}
 		    					</template>	  
 		    				</td>
 		    				<td>
