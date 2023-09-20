@@ -9,7 +9,7 @@
             <div class="col-12 mb-2 req">                
                 <div class="form-floating">
                     <input type="text" name="employee_fname" placeholder="enter first name" id="employee_fname" class="form-control" v-model="officerecord.employee.employee_fname" :class="errors['employee.employee_fname'] ? 'error-input' : ''">
-                    <label for="name" class="form-label">First Name</label>
+                    <label for="employee_fname" class="form-label">First Name</label>
                 </div> 
                 <span v-if="errors['employee.employee_fname']" class="text-danger m-error">{{errors['employee.employee_fname'][0]}}</span>
             
@@ -17,19 +17,19 @@
             <div class="col-12 mb-2">                
                 <div class="form-floating">
                     <input type="text" name="employee_mname" placeholder="enter middle name" id="employee_mname" class="form-control" v-model="officerecord.employee.employee_mname">
-                    <label for="name" class="form-label">Middle Name</label>
+                    <label for="employee_mname" class="form-label">Middle Name</label>
                 </div>
             </div>                
             <div class="col mb-2 req">                
                 <div class="form-floating">
                     <input type="text" name="employee_lname" placeholder="enter last name" id="employee_lname" class="form-control" v-model="officerecord.employee.employee_lname" :class="errors['employee.employee_lname'] ? 'error-input' : ''">
-                    <label for="name" class="form-label">Last Name</label>
+                    <label for="employee_lname" class="form-label">Last Name</label>
                 </div>
                 <span v-if="errors['employee.employee_lname']" class="text-danger m-error">{{errors['employee.employee_lname'][0]}}</span>
             </div>  
             <div class="col col-sm-1 mb-2">                  
                 <div class="form-floating">
-                    <input type="text" name="employee_extname"  placeholder="enter name extension" id="employee_lname" class="form-control" v-model="officerecord.employee.employee_extname">
+                    <input type="text" name="employee_extname"  placeholder="enter name extension" id="employee_extname" class="form-control" v-model="officerecord.employee.employee_extname">
                     <label for="employee_extname" class="form-label">Ext. (Jr, Sr)</label>
                 </div>
             </div>  

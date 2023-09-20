@@ -9,7 +9,7 @@
             <form  @submit.prevent="generateReport" class="row mb-2 pb-2">
                 <div class="mb-2">
                     <div class="form-floating">
-                        <select class="form-select border-blue" name="dtremployeetype" v-model="form.employee_type">
+                        <select class="form-select border-blue" name="dtremployeetype" id="dtremployeetype" v-model="form.employee_type">
                             <option disabled value="">Select Type</option>
                             <option value="2" >All</option>
                             <option value="0" >Permanent</option>
@@ -20,14 +20,14 @@
                 </div>
                 <div class="mb-2">
                     <div class="form-floating">
-                        <select class="form-select border-blue" name="dtremployeetype" v-model="form.report_type" @change="selectChange">
+                        <select class="form-select border-blue" name="dtroptions" id="dtroptions" v-model="form.report_type" @change="selectChange">
                             <option disabled value="">Select</option>
                             <option value="1" >All</option>
                             <option value="2" >Years of Service</option>
                             <option value="3" >Year Hired</option>     
                             <option value="4" >Birth Month</option>
                         </select>     
-                        <label class="form-label" for="dtremployeetype">Filter</label> 
+                        <label class="form-label" for="dtroptions">Filter</label> 
                     </div>
                 </div>
                 <template v-if="form.report_type == 2">
@@ -103,7 +103,7 @@
         </div>
         <div class="col xs-100 sm-50 xxs-100 col-md-4 mb-2">
             <div class="officesSelect fl-100" >
-                <label class="form-label fm"><strong>Offices</strong></label>
+                <span class="form-label fm d-block"><strong>Offices</strong></span>
                 <div class="form-check form-switch">
                   <input class="form-check-input" @change='updateCheck()' type="checkbox" id="alloffice"  v-model="allSelected" value="alloffice">
                   <label class="form-check-label" for="alloffice">All Offices</label>
@@ -122,7 +122,7 @@
         </div>
         <div class="col xs-100 sm-50 xxs-100 col-sm-4 mb-2">
             <div class="officesSelect fl-100" >
-                <label class="form-label fm"><strong>Fields</strong></label>
+                <span class="form-label fm d-block"><strong>Fields</strong></span>
                 <div class="form-check form-switch">
                   <input class="form-check-input" @change='checkAllFields()' type="checkbox" id="allfields"  v-model="allFields" value="allfield">
                   <label class="form-check-label" for="allfields">All Fields</label>

@@ -80,7 +80,11 @@
 	font-weight: bold;
 
 }
-
+.col.ssl table{
+	position: absolute;
+	right: 1rem;
+    bottom: 4rem;
+}
 .img-res{
 	max-width: 100%;
 }

@@ -49,14 +49,14 @@
                                 <div class="row mb-2 mt-2 cmpads" >
                                     <div class="col-2 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="csc_licensename" class="form-control" placeholder="enter license name" v-model="officerecord.pdscsc[key].csc_licensename">   
-                                            <label class="form-label">License Name</label>
+                                            <input type="text" name="csc_licensename" :id="`csc_licensename-`+key" class="form-control" placeholder="enter license name" v-model="officerecord.pdscsc[key].csc_licensename">   
+                                            <label :for="`csc_licensename-`+key" class="form-label">License Name</label>
                                         </div>
                                     </div>
                                     <div class="col-1 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="csc_rating" class="form-control" placeholder="enter rating" v-model="officerecord.pdscsc[key].csc_rating">   
-                                            <label class="form-label">Rating</label>
+                                            <input type="text" name="csc_rating" :id="`csc_rating-`+key" class="form-control" placeholder="enter rating" v-model="officerecord.pdscsc[key].csc_rating">   
+                                            <label :for="`csc_rating-`+key" class="form-label">Rating</label>
                                         </div>
                                     </div>
                                     <div class="col-2 c_p">
@@ -64,14 +64,14 @@
                                     </div>
                                     <div class="col-2 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="csc_placeofexamination" class="form-control" placeholder="enter place of examination" v-model="officerecord.pdscsc[key].csc_placeofexamination">   
-                                            <label class="form-label">Place of Examination</label>
+                                            <input type="text" name="csc_placeofexamination" :id="`csc_placeofexamination-`+key" class="form-control" placeholder="enter place of examination" v-model="officerecord.pdscsc[key].csc_placeofexamination">   
+                                            <label :for="`csc_placeofexamination-`+key" class="form-label">Place of Examination</label>
                                         </div>
                                     </div>
                                     <div class="col-2 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="csc_licensenumber" class="form-control" placeholder="enter license number"  v-model="officerecord.pdscsc[key].csc_licensenumber">   
-                                            <label class="form-label">License Number</label>
+                                            <input type="text" name="csc_licensenumber" :id="`csc_licensenumber-`+key" class="form-control" placeholder="enter license number"  v-model="officerecord.pdscsc[key].csc_licensenumber">   
+                                            <label :for="`csc_licensenumber-`+key" class="form-label">License Number</label>
                                         </div>
                                     </div>
                                     <div class="col-2 c_p">

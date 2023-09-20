@@ -9,7 +9,7 @@
             <div class="col-12 mb-2 req">                
                 <div class="form-floating">
                     <input type="text" name="emergency_contactperson" placeholder="enter first name" id="emergency_contactperson" class="form-control" v-model="officerecord.emergency_contactperson" :class="errors['employee.emergency_contactperson'] ? 'error-input' : ''">
-                    <label for="name" class="form-label">Contact Person</label>
+                    <label for="emergency_contactperson" class="form-label">Contact Person</label>
                 </div> 
                 <span v-if="errors['emergency_contactperson']" class="text-danger m-error">{{errors['emergency_contactperson'][0]}}</span>
             
@@ -17,7 +17,7 @@
             <div class="col-12 mb-2 req">                
                 <div class="form-floating">
                     <input type="number" name="emergency_contactnumber" placeholder="enter middle name" id="emergency_contactnumber" class="form-control" v-model="officerecord.emergency_contactnumber">
-                    <label for="name" class="form-label">Contact Number</label>
+                    <label for="emergency_contactnumber" class="form-label">Contact Number</label>
                 </div>
                 <span v-if="errors['emergency_contactnumber']" class="text-danger m-error">{{errors['emergency_contactnumber'][0]}}</span>
             </div>                

@@ -51,45 +51,45 @@
                         <div class="row mb-3 cmpads">
                             <div class="col-3 c_p">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="elementary_school" class="form-control" placeholder="enter name of school"  v-model="officerecord.pdseducationalbackground.elementary_school">   
-                                    <label class="form-label">Name of School</label>
+                                    <input type="text" name="elementary_school" id="elementary_school" class="form-control" placeholder="enter name of school"  v-model="officerecord.pdseducationalbackground.elementary_school">   
+                                    <label for="elementary_school" class="form-label">Name of School</label>
                          
                                 </div>
                             </div>
                            <div class="col-3 c_p">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="elementary_course" class="form-control" placeholder="enter basic education" v-model="officerecord.pdseducationalbackground.elementary_course">   
-                                    <label class="form-label">Basic Education / Degree / Course</label>
+                                    <input type="text" name="elementary_course" id="elementary_course" class="form-control" placeholder="enter basic education" v-model="officerecord.pdseducationalbackground.elementary_course">   
+                                    <label for="elementary_course" class="form-label">Basic Education / Degree / Course</label>
                                 </div>
                             </div>
                             <div class="col-1 c_p">
                                 <div class="form-floating">                                    
-                                    <input type="number" name="elementary_from" class="form-control" placeholder="enter from" v-model="officerecord.pdseducationalbackground.elementary_from">   
-                                    <label class="form-label">From</label>
+                                    <input type="number" name="elementary_from" id="elementary_from" class="form-control" placeholder="enter from" v-model="officerecord.pdseducationalbackground.elementary_from">   
+                                    <label for="elementary_from" class="form-label">From</label>
                                 </div>
                             </div>
                             <div class="col-1 c_p">
                                 <div class="form-floating">                                    
-                                    <input type="number" name="elementary_to" class="form-control" placeholder="enter to" v-model="officerecord.pdseducationalbackground.elementary_to">   
-                                    <label class="form-label">To</label>
+                                    <input type="number" name="elementary_to" id="elementary_to" class="form-control" placeholder="enter to" v-model="officerecord.pdseducationalbackground.elementary_to">   
+                                    <label for="elementary_to" class="form-label">To</label>
                                 </div>
                             </div>
                             <div class="col-1 c_p">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="elementary_unitsearned" class="form-control" placeholder="enter units earned" v-model="officerecord.pdseducationalbackground.elementary_unitsearned">   
-                                    <label class="form-label">Units</label>
+                                    <input type="text" name="elementary_unitsearned" id="elementary_unitsearned" class="form-control" placeholder="enter units earned" v-model="officerecord.pdseducationalbackground.elementary_unitsearned">   
+                                    <label for="elementary_unitsearned" class="form-label">Units</label>
                                 </div>
                             </div>
                             <div class="col-1 c_p">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="elementary_yeargraduated" class="form-control" placeholder="enter year graduated" v-model="officerecord.pdseducationalbackground.elementary_yeargraduated">   
-                                    <label class="form-label">Year</label>
+                                    <input type="text" name="elementary_yeargraduated" id="elementary_yeargraduated" class="form-control" placeholder="enter year graduated" v-model="officerecord.pdseducationalbackground.elementary_yeargraduated">   
+                                    <label for="elementary_yeargraduated" class="form-label">Year</label>
                                 </div>
                             </div>
                             <div class="col-2 c_p">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="elementary_awards" class="form-control" placeholder="enter elementary awards" v-model="officerecord.pdseducationalbackground.elementary_awards">   
-                                    <label class="form-label">Awards Received</label>
+                                    <input type="text" name="elementary_awards" id="elementary_awards" class="form-control" placeholder="enter elementary awards" v-model="officerecord.pdseducationalbackground.elementary_awards">   
+                                    <label for="elementary_awards" class="form-label">Awards Received</label>
                                 </div>
                             </div>
                         </div>
@@ -102,46 +102,46 @@
                         <div class="row mb-3 cmpads">
                             <div class="col-3 c_p">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="secondary_school" class="form-control" placeholder="enter name of school" v-model="officerecord.pdseducationalbackground.secondary_school">   
-                                    <label class="form-label">Name of School</label>
+                                    <input type="text" name="secondary_school" id="secondary_school" class="form-control" placeholder="enter name of school" v-model="officerecord.pdseducationalbackground.secondary_school">   
+                                    <label for="secondary_school" class="form-label">Name of School</label>
                                     <small id="emailHelp" class="form-text text-muted">Write in full</small>
                                 </div>
                             </div>
                            <div class="col-3 c_p">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="secondary_course" class="form-control" placeholder="enter secondary" v-model="officerecord.pdseducationalbackground.secondary_course">   
-                                    <label class="form-label">Basic Education / Degree / Course</label>
+                                    <input type="text" name="secondary_course" id="secondary_course" class="form-control" placeholder="enter secondary" v-model="officerecord.pdseducationalbackground.secondary_course">   
+                                    <label for="secondary_course" class="form-label">Basic Education / Degree / Course</label>
                                     <small id="emailHelp" class="form-text text-muted">Write in full</small>
                                 </div>
                             </div>
                             <div class="col-1 c_p">
                                 <div class="form-floating">                                    
-                                    <input type="number" name="secondary_from" class="form-control" placeholder="enter from" v-model="officerecord.pdseducationalbackground.secondary_from">   
-                                    <label class="form-label">From</label>
+                                    <input type="number" name="secondary_from" id="secondary_from" class="form-control" placeholder="enter from" v-model="officerecord.pdseducationalbackground.secondary_from">   
+                                    <label for="secondary_from" class="form-label">From</label>
                                 </div>
                             </div>
                             <div class="col-1 c_p">
                                 <div class="form-floating">                                    
-                                    <input type="number" name="secondary_to" class="form-control" placeholder="enter to" v-model="officerecord.pdseducationalbackground.secondary_to">   
-                                    <label class="form-label">To</label>
+                                    <input type="number" name="secondary_to" id="secondary_to" class="form-control" placeholder="enter to" v-model="officerecord.pdseducationalbackground.secondary_to">   
+                                    <label for="secondary_to" class="form-label">To</label>
                                 </div>
                             </div>
                             <div class="col-1 c_p">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="secondary_unitsearned" class="form-control" placeholder="enter units earned" v-model="officerecord.pdseducationalbackground.secondary_unitsearned">   
-                                    <label class="form-label">Units</label>
+                                    <input type="text" name="secondary_unitsearned" id="secondary_unitsearned" class="form-control" placeholder="enter units earned" v-model="officerecord.pdseducationalbackground.secondary_unitsearned">   
+                                    <label for="secondary_unitsearned" class="form-label">Units</label>
                                 </div>
                             </div>
                             <div class="col-1 c_p">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="secondary_yeargraduated" class="form-control" placeholder="enter year graduated" v-model="officerecord.pdseducationalbackground.secondary_yeargraduated">   
-                                    <label class="form-label">Year</label>
+                                    <input type="text" name="secondary_yeargraduated" id="secondary_yeargraduated" class="form-control" placeholder="enter year graduated" v-model="officerecord.pdseducationalbackground.secondary_yeargraduated">   
+                                    <label for="secondary_yeargraduated" class="form-label">Year</label>
                                 </div>
                             </div>
                             <div class="col-2 c_p">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="secondary_awards" class="form-control" placeholder="enter awards" v-model="officerecord.pdseducationalbackground.secondary_awards">   
-                                    <label class="form-label">Awards Received</label>
+                                    <input type="text" name="secondary_awards" id="secondary_awards" class="form-control" placeholder="enter awards" v-model="officerecord.pdseducationalbackground.secondary_awards">   
+                                    <label for="secondary_awards" class="form-label">Awards Received</label>
                                 </div>
                             </div>
                         </div>      
@@ -158,46 +158,46 @@
                                 <div v-if="officerecord.pdseducationalbackgroundtertiary[key].tertiary_type == 1" class="row mb-1 cmpads">
                                     <div class="col-3 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="secondary_school" class="form-control" placeholder="enter name of school" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_school">   
-                                            <label class="form-label">Name of School</label>
+                                            <input type="text" name="vocational_school" :id="`vocational_school-`+key"  class="form-control" placeholder="enter name of school" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_school">   
+                                            <label :for="`vocational_school-`+key" class="form-label">Name of School</label>
                                             <small id="emailHelp" class="form-text text-muted">Write in full</small>
                                         </div>
                                     </div>
                                    <div class="col-3 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="secondary_course" class="form-control" placeholder="enter vocational" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_course">   
-                                            <label class="form-label">Basic Education / Degree / Course</label>
+                                            <input type="text" name="vocational_course" :id="`vocational_course-`+key" class="form-control" placeholder="enter vocational" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_course">   
+                                            <label :for="`vocational_course-`+key" class="form-label">Basic Education / Degree / Course</label>
                                             <small id="emailHelp" class="form-text text-muted">Write in full</small>
                                         </div>
                                     </div>
                                     <div class="col-1 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="number" name="secondary_from" class="form-control" placeholder="enter from" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_from">   
-                                            <label class="form-label">From</label>
+                                            <input type="number" name="vocational_from" :id="`vocational_from-`+key" class="form-control" placeholder="enter from" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_from">   
+                                            <label :for="`vocational_from-`+key" class="form-label">From</label>
                                         </div>
                                     </div>
                                     <div class="col-1 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="secondary_to" class="form-control" placeholder="enter to" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_to">   
-                                            <label class="form-label">To</label>
+                                            <input type="text" name="vocational_to" :id="`vocational_to-`+key" class="form-control" placeholder="enter to" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_to">   
+                                            <label :for="`vocational_to-`+key" class="form-label">To</label>
                                         </div>
                                     </div>
                                     <div class="col-1 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="secondary_unitsearned" class="form-control" placeholder="enter units earned" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_unitsearned">   
-                                            <label class="form-label">Units</label>
+                                            <input type="text" name="vocational_unitsearned" :id="`vocational_unitsearned-`+key" class="form-control" placeholder="enter units earned" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_unitsearned">   
+                                            <label :for="`vocational_unitsearned-`+key" class="form-label">Units</label>
                                         </div>
                                     </div>
                                     <div class="col-1 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="secondary_yeargraduated" class="form-control" placeholder="enter year" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_yeargraduated">   
-                                            <label class="form-label">Year</label>
+                                            <input type="text" name="vocational_yeargraduated" :id="`vocational_yeargraduated-`+key" class="form-control" placeholder="enter year" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_yeargraduated">   
+                                            <label :for="`vocational_yeargraduated-`+key" class="form-label">Year</label>
                                         </div>
                                     </div>
                                     <div class="col c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="secondary_awards" class="form-control" placeholder="enter awards received" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_awards">   
-                                            <label class="form-label">Awards Received</label>
+                                            <input type="text" name="vocational_awards" :id="`vocational_awards-`+key" class="form-control" placeholder="enter awards received" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_awards">   
+                                            <label :for="`vocational_awards-`+key" class="form-label">Awards Received</label>
                                         </div>
                                     </div>
                                     <div class="col-auto pt-2">
@@ -220,46 +220,46 @@
                                 <div v-if="officerecord.pdseducationalbackgroundtertiary[key].tertiary_type == 2" class="row mb-1 cmpads">
                                     <div class="col-3 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="secondary_school" class="form-control" placeholder="enter name of school" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_school">   
-                                            <label class="form-label">Name of School</label>
+                                            <input type="text" name="college_school" :id="`college_school-`+key" class="form-control" placeholder="enter name of school" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_school">   
+                                            <label :for="`college_school-`+key" class="form-label">Name of School</label>
                                             <small id="emailHelp" class="form-text text-muted">Write in full</small>
                                         </div>
                                     </div>
                                    <div class="col-3 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="secondary_course" class="form-control" placeholder="enter college" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_course">   
-                                            <label class="form-label">Basic Education / Degree / Course</label>
+                                            <input type="text" name="college_course" :id="`college_course-`+key" class="form-control" placeholder="enter college" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_course">   
+                                            <label :for="`college_course-`+key" class="form-label">Basic Education / Degree / Course</label>
                                             <small id="emailHelp" class="form-text text-muted">Write in full</small>
                                         </div>
                                     </div>
                                     <div class="col-1 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="number" name="secondary_from" class="form-control" placeholder="enter from" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_from">   
-                                            <label class="form-label">From</label>
+                                            <input type="number" name="college_from" :id="`college_from-`+key" class="form-control" placeholder="enter from" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_from">   
+                                            <label :for="`college_from-`+key" class="form-label">From</label>
                                         </div>
                                     </div>
                                     <div class="col-1 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="secondary_to" class="form-control" placeholder="enter to" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_to">   
-                                            <label class="form-label">To</label>
+                                            <input type="text" name="college_to" :id="`college_to-`+key" class="form-control" placeholder="enter to" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_to">   
+                                            <label :for="`college_to-`+key" class="form-label">To</label>
                                         </div>
                                     </div>
                                     <div class="col-1 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="secondary_unitsearned" class="form-control" placeholder="enter units earned" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_unitsearned">   
-                                            <label class="form-label">Units</label>
+                                            <input type="text" name="college_unitsearned" :id="`college_unitsearned-`+key" class="form-control" placeholder="enter units earned" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_unitsearned">   
+                                            <label :for="`college_unitsearned-`+key" class="form-label">Units</label>
                                         </div>
                                     </div>
                                     <div class="col-1 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="secondary_yeargraduated" class="form-control" placeholder="enter year" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_yeargraduated">   
-                                            <label class="form-label">Year</label>
+                                            <input type="text" name="college_yeargraduated" :id="`college_yeargraduated-`+key" class="form-control" placeholder="enter year" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_yeargraduated">   
+                                            <label :for="`college_yeargraduated-`+key" class="form-label">Year</label>
                                         </div>
                                     </div>
                                     <div class="col c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="secondary_awards" class="form-control" placeholder="enter awards received" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_awards">   
-                                            <label class="form-label">Awards Received</label>
+                                            <input type="text" name="college_awards" :id="`college_awards-`+key" class="form-control" placeholder="enter awards received" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_awards">   
+                                            <label :for="`college_awards-`+key" class="form-label">Awards Received</label>
                                         </div>
                                     </div>
                                     <div class="col-auto pt-2">
@@ -282,46 +282,46 @@
                                 <div v-if="officerecord.pdseducationalbackgroundtertiary[key].tertiary_type == 3" class="row mb-1 cmpads">
                                     <div class="col-3 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="secondary_school" class="form-control" placeholder="enter name of school" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_school">   
-                                            <label class="form-label">Name of School</label>
+                                            <input type="text" name="gs_school" :id="`gs_school-`+key" class="form-control" placeholder="enter name of school" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_school">   
+                                            <label :for="`gs_school-`+key" class="form-label">Name of School</label>
                                             <small id="emailHelp" class="form-text text-muted">Write in full</small>
                                         </div>
                                     </div>
                                    <div class="col-3 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="secondary_course" class="form-control" placeholder="enter vocational" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_course">   
-                                            <label class="form-label">Basic Education / Degree / Course</label>
+                                            <input type="text" name="gs_course" :id="`gs_course-`+key" class="form-control" placeholder="enter vocational" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_course">   
+                                            <label :for="`gs_course-`+key" class="form-label">Basic Education / Degree / Course</label>
                                             <small id="emailHelp" class="form-text text-muted">Write in full</small>
                                         </div>
                                     </div>
                                     <div class="col-1 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="number" name="secondary_from" class="form-control" placeholder="enter from" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_from">   
-                                            <label class="form-label">From</label>
+                                            <input type="number" name="gs_from" :id="`gs_from-`+key" class="form-control" placeholder="enter from" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_from">   
+                                            <label :for="`gs_from-`+key" class="form-label">From</label>
                                         </div>
                                     </div>
                                     <div class="col-1 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="secondary_to" class="form-control" placeholder="enter to" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_to">   
-                                            <label class="form-label">To</label>
+                                            <input type="text" name="gs_to" :id="`gs_to-`+key" class="form-control" placeholder="enter to" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_to">   
+                                            <label :for="`gs_to-`+key" class="form-label">To</label>
                                         </div>
                                     </div>
                                     <div class="col-1 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="secondary_unitsearned" class="form-control" placeholder="enter units earned" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_unitsearned">   
-                                            <label class="form-label">Units</label>
+                                            <input type="text" name="gs_unitsearned" :id="`gs_unitsearned-`+key" class="form-control" placeholder="enter units earned" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_unitsearned">   
+                                            <label :for="`gs_unitsearned-`+key" class="form-label">Units</label>
                                         </div>
                                     </div>
                                     <div class="col-1 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="secondary_yeargraduated" class="form-control" placeholder="enter year" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_yeargraduated">   
-                                            <label class="form-label">Year</label>
+                                            <input type="text" name="gs_yeargraduated" :id="`gs_yeargraduated-`+key" class="form-control" placeholder="enter year" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_yeargraduated">   
+                                            <label :for="`gs_yeargraduated-`+key" class="form-label">Year</label>
                                         </div>
                                     </div>
                                     <div class="col c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="secondary_awards" class="form-control" placeholder="enter awards received" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_awards">   
-                                            <label class="form-label">Awards Received</label>
+                                            <input type="text" name="gs_awards" :id="`gs_awards-`+key" class="form-control" placeholder="enter awards received" v-model="officerecord.pdseducationalbackgroundtertiary[key].tertiary_awards">   
+                                            <label :for="`gs_awards-`+key" class="form-label">Awards Received</label>
                                         </div>
                                     </div>
                                     <div class="col-auto pt-2">

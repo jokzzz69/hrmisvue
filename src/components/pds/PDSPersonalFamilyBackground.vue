@@ -34,54 +34,54 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="spouse_fname" class="form-control" placeholder="enter spouse first name"  v-model="officerecord.pdsfamilybackground.spouse_fname">   
-                                    <label class="form-label">First Name</label>
+                                    <input type="text" name="spouse_fname" id="spouse_fname" class="form-control" placeholder="enter spouse first name"  v-model="officerecord.pdsfamilybackground.spouse_fname">   
+                                    <label for="spouse_fname" class="form-label">First Name</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="spouse_mname" class="form-control" placeholder="enter spouse middle name"  v-model="officerecord.pdsfamilybackground.spouse_mname">   
-                                    <label class="form-label">Middle Name</label>
+                                    <input type="text" name="spouse_mname" id="spouse_mname" class="form-control" placeholder="enter spouse middle name"  v-model="officerecord.pdsfamilybackground.spouse_mname">   
+                                    <label for="spouse_mname" class="form-label">Middle Name</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="spouse_lname" class="form-control" placeholder="enter spouse last name"  v-model="officerecord.pdsfamilybackground.spouse_lname">   
-                                    <label class="form-label">Last Name</label>
+                                    <input type="text" name="spouse_lname" id="spouse_lname" class="form-control" placeholder="enter spouse last name"  v-model="officerecord.pdsfamilybackground.spouse_lname">   
+                                    <label for="spouse_lname" class="form-label">Last Name</label>
                                 </div>
                             </div>
                             <div class="col-auto">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="spouse_extname" class="form-control" placeholder="enter spouse extension name"  v-model="officerecord.pdsfamilybackground.spouse_extname">   
-                                    <label class="form-label">Name Extension</label>
+                                    <input type="text" name="spouse_extname" id="spouse_extname" class="form-control" placeholder="enter spouse extension name"  v-model="officerecord.pdsfamilybackground.spouse_extname">   
+                                    <label for="spouse_extname" class="form-label">Name Extension</label>
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="spouse_occupation" class="form-control" placeholder="enter spouse occupation"  v-model="officerecord.pdsfamilybackground.spouse_occupation">   
-                                    <label class="form-label">Occupation</label>
+                                    <input type="text" name="spouse_occupation" id="spouse_occupation" class="form-control" placeholder="enter spouse occupation"  v-model="officerecord.pdsfamilybackground.spouse_occupation">   
+                                    <label for="spouse_occupation" class="form-label">Occupation</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="spouse_employer" class="form-control" placeholder="enter spouse employer"  v-model="officerecord.pdsfamilybackground.spouse_employer">   
-                                    <label class="form-label">Employer / Business Name</label>
+                                    <input type="text" name="spouse_employer" id="spouse_employer" class="form-control" placeholder="enter spouse employer"  v-model="officerecord.pdsfamilybackground.spouse_employer">   
+                                    <label for="spouse_employer" class="form-label">Employer / Business Name</label>
                                 </div>
                             </div>                            
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="spouse_employeraddress" class="form-control" placeholder="enter spouse employer address"  v-model="officerecord.pdsfamilybackground.spouse_employeraddress">   
-                                    <label class="form-label">Business Address</label>
+                                    <input type="text" name="spouse_employeraddress" id="spouse_employeraddress" class="form-control" placeholder="enter spouse employer address"  v-model="officerecord.pdsfamilybackground.spouse_employeraddress">   
+                                    <label for="spouse_employeraddress" class="form-label">Business Address</label>
                                 </div>
                             </div>
                             <div class="col-auto">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="spouse_telephone_no" class="form-control" placeholder="enter spouse telephone number"  v-model="officerecord.pdsfamilybackground.spouse_telephone_no">   
-                                    <label class="form-label">Telephone No.</label>
+                                    <input type="text" name="spouse_telephone_no" id="spouse_telephone_no" class="form-control" placeholder="enter spouse telephone number"  v-model="officerecord.pdsfamilybackground.spouse_telephone_no">   
+                                    <label for="spouse_telephone_no" class="form-label">Telephone No.</label>
                                 </div>
                             </div>                            
                         </div>
@@ -95,8 +95,8 @@
                                  <div class="row mb-3" :table-row="key">
                                     <div class="col" :cte="div.id">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="spouse_employeraddress" class="form-control" placeholder="enter name of children"  v-model="officerecord.pdsfamilybackgroundchildren[key].nameofchildren">   
-                                            <label class="form-label">Complete Name</label>
+                                            <input type="text" name="child" :id="`child-`+key" class="form-control" placeholder="enter name of children"  v-model="officerecord.pdsfamilybackgroundchildren[key].nameofchildren">   
+                                            <label :for="`child-`+key" class="form-label">Complete Name</label>
                                         </div>
                                     </div>
                                     <div class="col-2" :cte="key">
@@ -133,26 +133,26 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="father_fname" class="form-control" placeholder="enter first name"  v-model="officerecord.pdsfamilybackground.father_fname">   
-                                    <label class="form-label">First Name</label>
+                                    <input type="text" name="father_fname" id="father_fname" class="form-control" placeholder="enter first name"  v-model="officerecord.pdsfamilybackground.father_fname">   
+                                    <label for="father_fname" class="form-label">First Name</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="father_mname" class="form-control" placeholder="enter middle name"  v-model="officerecord.pdsfamilybackground.father_mname">   
-                                    <label class="form-label">Middle Name</label>
+                                    <input type="text" name="father_mname" id="father_mname" class="form-control" placeholder="enter middle name"  v-model="officerecord.pdsfamilybackground.father_mname">   
+                                    <label for="father_mname" class="form-label">Middle Name</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="father_lname" class="form-control" placeholder="enter last name"  v-model="officerecord.pdsfamilybackground.father_lname">   
-                                    <label class="form-label">Last Name</label>
+                                    <input type="text" name="father_lname" id="father_lname" class="form-control" placeholder="enter last name"  v-model="officerecord.pdsfamilybackground.father_lname">   
+                                    <label for="father_lname" class="form-label">Last Name</label>
                                 </div>
                             </div>
                             <div class="col-auto">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="father_extname" class="form-control" placeholder="enter extension name"  v-model="officerecord.pdsfamilybackground.father_extname">   
-                                    <label class="form-label">Name Extension</label>
+                                    <input type="text" name="father_extname" id="father_extname" class="form-control" placeholder="enter extension name"  v-model="officerecord.pdsfamilybackground.father_extname">   
+                                    <label for="father_extname" class="form-label">Name Extension</label>
                                 </div>
                             </div>
                         </div>
@@ -164,20 +164,20 @@
                         <div class="row mb-3">    
                             <div class="col">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="mother_fname" class="form-control" placeholder="enter first name"  v-model="officerecord.pdsfamilybackground.mother_fname">   
-                                    <label class="form-label">First Name</label>
+                                    <input type="text" name="mother_fname" id="mother_fname" class="form-control" placeholder="enter first name"  v-model="officerecord.pdsfamilybackground.mother_fname">   
+                                    <label for="mother_fname" class="form-label">First Name</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="mother_mname" class="form-control" placeholder="enter middle name"  v-model="officerecord.pdsfamilybackground.mother_mname">   
-                                    <label class="form-label">Middle Name</label>
+                                    <input type="text" name="mother_mname" id="mother_mname" class="form-control" placeholder="enter middle name"  v-model="officerecord.pdsfamilybackground.mother_mname">   
+                                    <label for="mother_mname" class="form-label">Middle Name</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-floating">                                    
-                                    <input type="text" name="mother_lname" class="form-control" placeholder="enter last name"  v-model="officerecord.pdsfamilybackground.mother_lname">   
-                                    <label class="form-label">Last Name</label>
+                                    <input type="text" name="mother_lname" id="mother_lname" class="form-control" placeholder="enter last name"  v-model="officerecord.pdsfamilybackground.mother_lname">   
+                                    <label for="mother_lname" class="form-label">Last Name</label>
                                 </div>
                             </div>
                         </div>
