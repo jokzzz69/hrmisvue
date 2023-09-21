@@ -1234,6 +1234,7 @@ tr.disabled{
 }
 /*end content*/
 @media(max-width: 500px){
+
 	.ulwidback li:first-child{
 		min-width: 10%;
 	}
@@ -1249,6 +1250,10 @@ tr.disabled{
 	}
 	.nb-de{
 		display: none;
+	}
+	.col.ssl table {
+	    bottom: 2rem;
+	    display: inline-block;
 	}
 }
 @media (max-width: 767.98px){
