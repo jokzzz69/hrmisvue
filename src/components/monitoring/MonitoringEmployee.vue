@@ -11,12 +11,12 @@
                     <label class="col-form-label col-12" for="fdate">Select Date</label>                
                     <Datepicker v-model="monthpicked" id="fdate" auto-apply month-picker @update:model-value="getEmployeeBio" :clearable="false" name="monthpicked" :format="format" :month-change-on-arrows="true"></Datepicker> 
                 </li> 
+                <li class="mt-2" v-if="userrole == 'super-admin' || id == 207 || id == 29 || id == 215"><button class="btn btn-outline-info" @click="gotoEditDTR">Edit</button></li>
             </ul>
         </div>            
     </div>
     <div class="row">
-        <div class="col-md-12">    
-            
+        <div class="col-md-12">              
             <table class="table border tblborderedgray table-bordered text-center mt-3 tbl-mydtr" v-if="biometricsData.biometricsData">
                 <thead>
                     <tr>
@@ -129,17 +129,12 @@
     import { useAuthStore } from '@/stores/store.js'
 
     export default{
-        props: {
-            mf: {
-                type: String,
-                default: null
-            }
-        },
-        setup(props){
+        setup(){
 
             const store = useAuthStore();
+            console.log(store.details);
             const id = ref(store.details[0]);
-
+            const userrole = ref(store.details[1]);
 
             const {biometricsData, getEmployeemonthBio} = useMonitoring()
             
@@ -161,8 +156,6 @@
 
 
             onMounted(() => {
-
-
                 getEmployeemonthBio(id.value,monthpicked.value.month+'-'+monthpicked.value.year)
 
             })
@@ -179,7 +172,10 @@
 
             const currentDate = new Date();     
 
-
+            const gotoEditDTR = () => {
+               const sm = monthpicked.value.month+'-'+monthpicked.value.year;
+               router.push({ name: 'dtrupdating.edit', params: { id: id.value, mf: sm} });
+            }
 
 
 
@@ -190,7 +186,10 @@
                 getEmployeeBio,
                 monthpicked,
                 format,
-                currentDate
+                currentDate,
+                gotoEditDTR,
+                id,
+                userrole
                 
             }
         }

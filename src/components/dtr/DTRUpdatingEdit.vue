@@ -1,184 +1,198 @@
 <template>
     <div class="row">
-        <div class="col-md-12 p-title">
-            <h2>Edit Biometric Log</h2>
-            <span class="fs-5 mh-20 d-block">
-            	<template v-if="employee">
-            		<template v-if="authid != employee.employee_id">
-            			{{employee.employee_fname}} 
-	            			<template v-if="employee.employee_mname">
-	            				{{employee.employee_mname.charAt(0).toUpperCase()}}.
-	            			</template>
-	            		 {{employee.employee_lname}} 
-	            		
-            		</template>            		
-            	</template>
-            </span>
+        <div class="col-md-12 p-title">           
+            <h2>Edit</h2>                
         </div>
     </div>
-                      
-    <p class="fs-5">Date: <strong>{{moment(biolog.dtr_date).format('MMMM D, Y')}}</strong> </p>                    
+    <div class="row">
+        <div class="col-md-12">    
+            <template v-if="errors">
+            	<div class="alert alert-danger" role="alert">
+					Invalid Date format
+				</div>
+            </template>
+            <table :class="errors ? 'haserror' : ''" class="table border tblborderedgray table-bordered text-center mt-3 tbl-mydtr tbldtredit" v-if="formContent.biometricsData">
+                <thead>
+                    <tr>
+                        <th rowspan="2" class="text-center w-5">Day</th>
+                        <th colspan="2" class="text-center">AM</th>
+                        <th colspan="2" class="text-center">PM</th>
+                    </tr>
+                    <tr>                       
+                        <th class="w-p6">Arrival</th>
+                        <th class="w-p6">Departure</th>
+                        <th class="w-p6">Arrival</th>
+                        <th class="w-p6">Departure</th>
+                    </tr>
+                </thead>
+                <tbody>       
+                    <template v-for="(dtr, k) in formContent.biometricsData" :key="dtr.dtr_empid">
+                        <tr :class="dtr.status">
+                            <template v-if="dtr.dtr_date == moment(currentDate).format('Y-MM-DD').toString()">
+                                <td :class="dtr.status" class="bg-currentDate"  title="Current Date">  
+                                  {{dtr.d}}
+                                </td>
+                            </template>
+                            <template v-else>
+                                <td :class="dtr.status">  
+                                    {{dtr.d}}
+                                </td>
+                            </template> 
+                            <td>
+                                    <input class="form-control" @keypress="isnumber($event)" :class="errors ? gk(errors,k,'dtr_timeinam') : ''" type="text" v-model="dtr.dtr_timeinam">
+                            </td>
+                            <td>
+                                	<input class="form-control" :class="errors ? gk(errors,k,'dtr_timeoutam') : ''" type="text"  v-model="dtr.dtr_timeoutam">
+          
+                            </td>
+                            <td>
+                   
+                                	<input class="form-control" :class="errors ? gk(errors,k,'dtr_timeinpm') : ''" type="text"  v-model="dtr.dtr_timeinpm">
+        
+                            </td>
+                            <td>
              
-    <form v-on:submit.prevent="saveBioLog">
-    	
-        <div class="row">        	
-        	<div class="col mb-2 lblname disabled">
-                <div class="form-floating">                    
-                    <span class="form-control mhlabel">                        
-                        <strong>{{formatTime(biolog.dtr_timeinam)}}</strong>                     
-                    </span>
-                    <label class="form-label">Time in AM</label>
-                </div>
-            </div>  
+                                	<input class="form-control" :class="errors ? gk(errors,k,'dtr_timeoutpm') : ''"  type="text"  v-model="dtr.dtr_timeoutpm">
+ 
+                            </td>
 
-        	<div class="col mb-2">  
-        		<template v-if="checkTimeoutAM == 1">
-        			<div class="form-floating disabled">                    
-	                    <span class="form-control mhlabel">                        
-	                        <strong>{{formatTime(biolog.dtr_timeoutam)}}</strong>                     
-	                    </span>
-	                    <label class="form-label">Time in AM</label>
-	                </div>
-        		</template>
-        		<template v-else>
-        			<div class="form-floating">
-	                	<input type="time" v-model="form.dtr_timeoutam" :class="errors.dtr_timeoutam ? 'error-input' : ''" class="form-control" name="timeoutam">
-	                	<label>Time out AM</label>
-	                </div>
-	                <span v-if="errors.dtr_timeoutam" class="text-danger m-error">{{errors.dtr_timeoutam[0]}}</span>
-        		</template>               
-            </div>  
-            <div class="col mb-2">
-                <template v-if="checkTimeinPM == 1">
-        			<div class="form-floating disabled">                    
-	                    <span class="form-control mhlabel">                        
-	                        <strong>{{formatTime(biolog.dtr_timeinpm)}}</strong>                     
-	                    </span>
-	                    <label class="form-label">Time in PM</label>
-	                </div>
-        		</template>
-        		<template v-else>
-        			<div class="form-floating">
-	                	<input type="time" v-model="form.dtr_timeinpm" :class="errors.dtr_timeinpm ? 'error-input' : ''" class="form-control" name="timeinpm">
-	                	<label>Time out AM</label>
-	                </div>
-	                <span v-if="errors.dtr_timeinpm" class="text-danger m-error">{{errors.dtr_timeinpm[0]}}</span>
-        		</template>
-            </div>   
-            <div class="col mb-2 lblname disabled">
-                <div class="form-floating">                    
-                    <span class="form-control mhlabel">                        
-                        <strong>{{formatTime(biolog.dtr_timeoutpm)}}</strong>                     
-                    </span>
-                    <label class="form-label">Time out PM</label>
-                </div>
-            </div>               
+                  
+                            
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
         </div>
         <div class="row">
-        	<div class="col">
-        		<h4 class="text-danger text-center mt-2"><i class="fa-solid fa-person-digging"></i> This Page is under development!</h4>
+        	<div class="col-md-12 mb-5">
+        		<button class="btn btn-primary btn-save px-5 py-2" @click="saveData">Update</button>
         	</div>
         </div>
-    </form>
+    </div>
 </template>
 
 <script>
-import useBiolog from '@/composables/composables-dtrupdating';
-import useEmployees from '@/composables/composables-employees'
-import { onMounted, inject, reactive,ref, computed} from 'vue';
-import {formatTime} from '../../helper/formattime'
-import moment from 'moment'
-import {useRouter} from 'vue-router'
 
-import { useAuthStore } from '@/stores/store.js'
+    import useMonitoring from '@/composables/composables-monitoring';
+    import {onMounted ,ref, computed, reactive, inject} from 'vue';
+    import { sortBy} from 'lodash';
+    import {useRouter} from 'vue-router'
+    import {formatTime} from '@/helper/formattime'
+    import moment from 'moment';
+    import { useAuthStore } from '@/stores/store.js'
+    import useBiolog from '@/composables/composables-dtrupdating';
+    export default{
+    	props: {
+    		id: {
+    			required: true,
+    			type: String
+    		},
+    		mf: {
+    			required: true,
+    			type: String
+    		}
+    	},
+        setup(props){
+        	const swal = inject('$swal')
+        	const formContent = ref([]);
 
-export default {
-	props : {
-		id: {
-			required: true,
-			type: String
-		}
-	},
-	setup(props){
-		const form = reactive({
-			'dtr_timeinam': '',
-			'dtr_timeoutam': '',
-			'dtr_timeinpm': '',
-			'dtr_timeoutpm': '',
-			'month': ''
-		});
-		const store = useAuthStore();
-        const userrole = ref(store.getdetails[1]);
-        const authid = ref(store.getdetails[0]);
-		const swal = inject('$swal')
-		const { errors, getBiolog, biolog } = useBiolog()
-		const { getEmployee, employee } = useEmployees()
-		const router = useRouter()
-
-		onMounted(
-			()  => 	getBiolog(props.id).then(res => {
-						const day = biolog.value.dtr_date;
-						const timeinAm = `${day} ${biolog.value.dtr_timeinam}`;
-						const timeoutAm = `${day} ${biolog.value.dtr_timeoutam}`;
-						const timeinPm = `${day} ${biolog.value.dtr_timeinpm}`;
-						const timeoutPm = `${day} ${biolog.value.dtr_timeoutpm}`;
-						form.dtr_timeoutam = new Date(timeoutAm).toLocaleTimeString('it-IT');
-						form.dtr_timeinpm = new Date(timeinPm).toLocaleTimeString('it-IT');
-						form.month = new Date(day).getMonth();
-
-						getEmployee(biolog.value.dtr_empid)
-					})
-					
+            const store = useAuthStore();
+            const id = ref(store.details[0]);
 
 
-		);
+            const {biometricsData, getEmployeemonthBio} = useMonitoring()
+            const {saveEdited, getBiolog, biolog, errors} = useBiolog();
+            let sort = ref(false);
+            let updatedList = ref([])
+            const router = useRouter()
 
-		const checkTimeoutAM = computed(() =>{
-			return biolog.value.dtr_timeoutam != '00:00:00.0000000'  ? '1' : '0';
-		});
-		const checkTimeinPM = computed(() =>{
-			return biolog.value.dtr_timeinpm != '00:00:00.0000000'  ? '1' : '0';
-		});
-		const saveBioLog = async () => {    
-		    await updateLocation(props.id).then(() => {
-		        if(!errors.value){
-		            swal.fire({
-		                toast: true,
-		                position: 'top-end',
-		                title: 'Successfully Updated',
-		                showConfirmButton: false,            
-		                icon: 'success',
-		                width: '300',
-		                padding: '.5em 1em',
-		                timerProgressBar: true,
-		                timer:1500,
-		                customClass: {
-		                    container: 'swaltopright'
-		                }
-		            })
-		        }
-		    })
-		}
+            
+            const sortColumn = ref("id");
+            const sortDirection = ref(1);
+            const arrowIconName = ref("arrow_drop_up");         
+            
+      
+            
+            const monthpicked = ref({ 
+                month: new Date().getMonth(),
+                year: new Date().getFullYear()
+            });
 
-		const goBack = (id) => {
-            router.push({name: 'dtrupdating.index', params: { id: id, mf: form.month }});
+
+            onMounted(() => {
+                getBiolog(id.value,monthpicked.value.month+'-'+monthpicked.value.year).then( () =>{
+                	formContent.value = biolog.value;
+                })
+
+            })
+
+
+            const getEmployeeBio = async (monthpicked) =>{
+                await getEmployeemonthBio(id.value,monthpicked.month+'-'+monthpicked.year)
+            }
+
+
+            const format = (date) => {
+              return moment(date).format('MMMM Y');
+            }
+
+            const currentDate = new Date();     
+
+            const gotoEditDTR = () => {
+               const sm = monthpicked.value.month+'-'+monthpicked.value.year;
+               router.push({ name: 'dtrupdating.edit', params: { id: id.value, mf: sm} });
+            }
+
+            const saveData = async () =>{
+            	errors.value = null;
+            	await saveEdited(props.id,formContent.value).then(() =>{
+            		if(!errors.value){
+	            		swal.fire({
+	                        toast: true,
+	                        position: 'top-end',
+	                        title: 'Successfully Updated',
+	                        showConfirmButton: false,            
+	                        icon: 'success',
+	                        width: '300',
+	                        padding: '.5em 1em',
+	                        timerProgressBar: true,
+	                        timer:1500,
+	                        customClass: {
+	                            container: 'swaltopright'
+	                        }
+	                    })
+            		}
+            		
+            	});
+            }
+            const gk = (e,k,n) =>{
+
+            	let nkey = 'biometricsData.'+k+'.'+n;
+            	if(e.hasOwnProperty(nkey)){
+            		return 'is-invalid';
+            	}
+            }
+            const isnumber = (event) => {
+            	if(!/^[0-9]+$/.test(event.key) || event.key === ':'){
+            		return event.preventDefault();
+            	}
+            }
+            return{
+                moment,
+                biometricsData,
+                formatTime,
+                getEmployeeBio,
+                monthpicked,
+                format,
+                currentDate,
+                gotoEditDTR,
+                formContent,
+                saveData,
+                errors,
+                gk,
+                isnumber
+                
+            }
         }
-
-		return {
-			biolog,
-			saveBioLog,
-			errors,
-			formatTime,
-			moment,
-			goBack,
-			form,
-			checkTimeoutAM,
-			checkTimeinPM,
-			employee,
-			authid,
-			userrole
-		}
-	}
-
-}
+    }
 </script>

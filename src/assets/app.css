@@ -660,6 +660,7 @@ input[type=number] {
 .tbl-mydtr tbody tr:nth-child(even){
 	background: rgba(249, 247, 237, .4);
 }
+
 /*badge*/
 .hr.badge{
 	background: #57838D !important;
@@ -997,10 +998,42 @@ span.noContent{
 .noboxshadow{
 	box-shadow: none !important;
 }
-.Saturday,
-.Sunday{
-	color: #ff0000;
+td.Saturday,
+td.Sunday{
+	color: #ff0000 !important;
 }
+.tbldtredit td{
+	position: relative;
+}
+.tbldtredit td input{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	left: 0;
+	top: 0;
+	border:1px solid rgba(0, 0, 0, .1);
+	text-align: center;
+	border-radius: 0;
+	box-shadow: none !important;
+}
+.tbldtredit td input:focus{
+	border-color: #0f1b91;
+}
+.tbldtredit.haserror tr th:first-child,
+.tbldtredit.haserror tr td:first-child{
+	border-left: 1px solid #ff0000 !important;
+}
+.tbldtredit.haserror thead tr:first-child{
+	border-top: 1px solid #ff0000;
+}
+.tbldtredit.haserror thead tr th:last-child,
+.tbldtredit.haserror tbody tr td:last-child{
+	border-right: 1px solid #ff0000 !important;
+}
+.tbldtredit.haserror tbody tr:last-child{
+	border-bottom: 1px solid #ff0000;
+}
+
 .modal-mask {
   position: fixed;
   z-index: 9998;

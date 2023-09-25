@@ -70,7 +70,7 @@ const routes = [
     }
   },
   {
-    path: '/dtr/:id/edit',
+    path: '/dtr/:id/:mf/edit',
     name: 'dtrupdating.edit',
     component: () => import('@/components/dtr/DTRUpdatingEdit.vue'),
     props: true,
@@ -669,7 +669,7 @@ router.beforeEach((to, from, next) => {
 
   if(!middleware){
      if(to.name == 'login.index' && details){
-      next({name: 'record.create'})
+      next({name: 'recordpersonal.show'})
      }else{
       next()
      }
