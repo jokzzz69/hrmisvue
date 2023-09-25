@@ -61,7 +61,6 @@ export default function useOfficerecord(){
             await axios.patch(`/v1/api/officerecords/${id}`, officerecord.value)
             await router.push({ name: 'record.index'})
         } catch (e) {
-        	console.log(e);
             if (e.response.status === 422) {
                 for (const key in e.response.data.errors) {
                     errors.value = e.response.data.errors
@@ -76,7 +75,6 @@ export default function useOfficerecord(){
             await axios.patch(`/v1/api/personalrecord/${id}`, officerecord.value)
             await router.push({ name: 'recordpersonal.show'})
         } catch (e) {
-            console.log(e);
             if (e.response.status === 422) {
                 for (const key in e.response.data.errors) {
                     errors.value = e.response.data.errors
@@ -91,7 +89,6 @@ export default function useOfficerecord(){
             await axios.patch(`/v1/api/personalrecordbns/${id}`, data)
             await router.push({ name: 'recordpersonal.show'})
         }catch (e) {
-            console.log(e);
             if (e.response.status === 422) {
                 for (const key in e.response.data.errors) {
                     errors.value = e.response.data.errors
@@ -106,7 +103,6 @@ export default function useOfficerecord(){
             await axios.patch(`/v1/api/personalrecordemergency/${id}`, officerecord.value)
             await router.push({ name: 'recordpersonal.show'})
         } catch (e) {
-            console.log(e);
             if (e.response.status === 422) {
                 for (const key in e.response.data.errors) {
                     errors.value = e.response.data.errors
@@ -121,7 +117,6 @@ export default function useOfficerecord(){
             await axios.patch(`/v1/api/personalrecordmycontact/${id}`, officerecord.value)
             await router.push({ name: 'recordpersonal.show'})
         } catch (e) {
-            console.log(e);
             if (e.response.status === 422) {
                 for (const key in e.response.data.errors) {
                     errors.value = e.response.data.errors
@@ -136,7 +131,6 @@ export default function useOfficerecord(){
         try{
             await axios.patch(`/v1/api/personalemployment/${id}`)         
         }catch(e){
-            console.log(e);
             if (e.response.status === 422) {
                 for (const key in e.response.data.errors) {
                     errors.value = e.response.data.errors

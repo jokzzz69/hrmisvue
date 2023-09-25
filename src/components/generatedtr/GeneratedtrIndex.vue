@@ -166,9 +166,7 @@
              })
 
 			const generatenewEmployeesDTR = async () =>{
-                await generateEmployeesDTRfromData({ ...form }).then(res => {
-                	console.log(employeesdatagenerated);
-                });
+                await generateEmployeesDTRfromData({ ...form });
             }
 
 			onMounted(() => {
@@ -221,9 +219,7 @@
 	    		await downloadAllEmployeesDTR({...form},form.dtremployeetype);
 	    	}
 	        const checkStatus = () =>{
-	        	
-	        	
-	        	//console.log(internalInstance);
+
 
 	        }
 

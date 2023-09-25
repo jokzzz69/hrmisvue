@@ -131,9 +131,7 @@
             const sortDirection = ref(1);
             const arrowIconName = ref("arrow_drop_up");     
             onMounted(() => {
-                getMyTravels(id.value).then(res => {
-                    console.log(travels)
-                });
+                getMyTravels(id.value);
             })  
 
 

@@ -21,9 +21,7 @@ export default function useBiolog(){
 	}
 	const saveEdited = async(id,data) =>{
 		axios.defaults.withCredentials = true;
-		await axios.patch(`/v1/api/saveedited/${id}`, data).then((res) => {
-			console.log(res);
-		}).catch((e) => {
+		await axios.patch(`/v1/api/saveedited/${id}`, data).catch((e) => {
 			if (e.response.status === 422) {
                 for (const key in e.response.data.errors) {
                     errors.value = e.response.data.errors

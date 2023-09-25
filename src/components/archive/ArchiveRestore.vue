@@ -298,7 +298,6 @@ export default{
                         var rndIDtemp = Math.floor(Math.random() * 100000) + divs.length;
                         add.value++;
                         var z = 0;
-                        console.log(archive.value.archiveemployments[i].status_id)
                         form.employments.push({
                             'id': rndIDtemp,
                             'employee_id' : '',

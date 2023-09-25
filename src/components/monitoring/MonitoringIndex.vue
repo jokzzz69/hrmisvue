@@ -151,8 +151,6 @@
 	                if(columnName === 'employee_fname' || columnName === 'employee_mname' || columnName === 'employee_lname'){	     
 	                	filteredOfficeRecords.value.sort((a, b) => (a['employee'][columnName] < b['employee'][columnName] ? 1 : -1));
 	                }else if (columnName === 'position') {
-	                	//console.log(filteredOfficeRecords.value);
-	                	// filteredOfficeRecords.value.sort((a, b) => console.log(a['employments'][0]));
 	                	filteredOfficeRecords.value.sort((a, b) => (a['employments'][0]['position']['name'] < b['employments'][0]['position']['name'] ? 1 : -1));
 	                }else if (columnName === 'office') {
 	                	filteredOfficeRecords.value.sort((a, b) => (a['employments'][0]['office']['offices_name'] < b['employments'][0]['office']['offices_name'] ? 1 : -1));

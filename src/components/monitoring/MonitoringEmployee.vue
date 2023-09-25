@@ -132,7 +132,6 @@
         setup(){
 
             const store = useAuthStore();
-            console.log(store.details);
             const id = ref(store.details[0]);
             const userrole = ref(store.details[1]);
 

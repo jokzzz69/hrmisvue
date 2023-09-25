@@ -1,7 +1,11 @@
 <template>
     <div class="row">
         <div class="col-md-12 p-title">           
-            <h2>Edit</h2>                
+            <h2>Edit 
+                <template v-if="formContent">
+                    {{datetoEdit}}
+                </template>
+            </h2>                
         </div>
     </div>
     <div class="row">
@@ -42,17 +46,17 @@
                                     <input class="form-control" @keypress="isnumber($event)" :class="errors ? gk(errors,k,'dtr_timeinam') : ''" type="text" v-model="dtr.dtr_timeinam">
                             </td>
                             <td>
-                                	<input class="form-control" :class="errors ? gk(errors,k,'dtr_timeoutam') : ''" type="text"  v-model="dtr.dtr_timeoutam">
+                                	<input class="form-control" @keypress="isnumber($event)" :class="errors ? gk(errors,k,'dtr_timeoutam') : ''" type="text"  v-model="dtr.dtr_timeoutam">
           
                             </td>
                             <td>
                    
-                                	<input class="form-control" :class="errors ? gk(errors,k,'dtr_timeinpm') : ''" type="text"  v-model="dtr.dtr_timeinpm">
+                                	<input class="form-control" @keypress="isnumber($event)" :class="errors ? gk(errors,k,'dtr_timeinpm') : ''" type="text"  v-model="dtr.dtr_timeinpm">
         
                             </td>
                             <td>
              
-                                	<input class="form-control" :class="errors ? gk(errors,k,'dtr_timeoutpm') : ''"  type="text"  v-model="dtr.dtr_timeoutpm">
+                                	<input class="form-control" @keypress="isnumber($event)" :class="errors ? gk(errors,k,'dtr_timeoutpm') : ''"  type="text"  v-model="dtr.dtr_timeoutpm">
  
                             </td>
 
@@ -102,6 +106,7 @@
 
             const {biometricsData, getEmployeemonthBio} = useMonitoring()
             const {saveEdited, getBiolog, biolog, errors} = useBiolog();
+
             let sort = ref(false);
             let updatedList = ref([])
             const router = useRouter()
@@ -117,19 +122,16 @@
                 month: new Date().getMonth(),
                 year: new Date().getFullYear()
             });
-
+            const datetoEdit = ref();
 
             onMounted(() => {
-                getBiolog(id.value,monthpicked.value.month+'-'+monthpicked.value.year).then( () =>{
+
+                getBiolog(id.value,props.mf).then( () =>{
                 	formContent.value = biolog.value;
+                    datetoEdit.value = biolog.value.month[0]+' '+biolog.value.year[0];
                 })
 
             })
-
-
-            const getEmployeeBio = async (monthpicked) =>{
-                await getEmployeemonthBio(id.value,monthpicked.month+'-'+monthpicked.year)
-            }
 
 
             const format = (date) => {
@@ -138,10 +140,7 @@
 
             const currentDate = new Date();     
 
-            const gotoEditDTR = () => {
-               const sm = monthpicked.value.month+'-'+monthpicked.value.year;
-               router.push({ name: 'dtrupdating.edit', params: { id: id.value, mf: sm} });
-            }
+
 
             const saveData = async () =>{
             	errors.value = null;
@@ -173,7 +172,9 @@
             	}
             }
             const isnumber = (event) => {
-            	if(!/^[0-9]+$/.test(event.key) || event.key === ':'){
+     
+            	if(!/^[0-9:]+$/.test(event.key)){
+                    console.log(event.key);
             		return event.preventDefault();
             	}
             }
@@ -181,16 +182,15 @@
                 moment,
                 biometricsData,
                 formatTime,
-                getEmployeeBio,
                 monthpicked,
                 format,
                 currentDate,
-                gotoEditDTR,
                 formContent,
                 saveData,
                 errors,
                 gk,
-                isnumber
+                isnumber,
+                datetoEdit
                 
             }
         }

@@ -203,9 +203,7 @@
                 getthisBio({...form})
 			}
 			const getBio = async() => {				
-				await getthisBio({...form}).then(res => {
-					console.log(selectedBio)
-				});
+				await getthisBio({...form});
 			}
 			const cleanDB = async () =>{
 				await setArchivedID({...formArchive});
