@@ -93,7 +93,7 @@
                             <li>
                                 <a href="#" type="button" class="btn btn-outline-success" title="Export Data to Excel"  @click.prevent="downloadgeneratedcustomExcel"><i class="fa-solid fa-file-pdf"></i> Download Excel</a>
                             </li>
-                            <li>
+                            <li v-if="authslug == 'super-admin'">
                                 <a href="#" type="button" class="btn btn-outline-danger" title="Export Data to PDF"  @click.prevent="downloadgeneratedcustomPDF"><i class="fa-solid fa-file-pdf"></i> Download PDF</a>
                             </li>
                         </template>                       
@@ -429,11 +429,15 @@
     import {useRouter} from 'vue-router'    
     import useCustomReport from '../../composables/composables-customreport';
     import useLocations from '@/composables/composables-location';
+    import { useAuthStore } from '@/stores/store.js'
 
     import moment from 'moment'
     
 	export default{
 		setup(){
+            const store = useAuthStore();
+            const authslug = store.getdetails[1];
+
             const swal = inject('$swal')            
             const sortColumn = ref("id");
             const sortDirection = ref(1);
@@ -585,7 +589,8 @@
                 clearTraveldate,
                 checkText,
                 downloadgeneratedcustomExcel,
-                downloadgeneratedcustomPDF
+                downloadgeneratedcustomPDF,
+                authslug
 			}
 		}
 	}

@@ -15,7 +15,7 @@
             </div>
             <div class="form-row">
 	            <div class="col mt-3 text-end">
-	                <router-link :to="{name: 'mytravels.index'}" class="btn btn-secondary me-1">Cancel</router-link>
+	                <router-link :to="{name: 'employeeposition.index'}" class="btn btn-secondary me-1">Cancel</router-link>
 	                <button type="submit" class="btn btn-primary"> Save</button>
 	            </div>
 	        </div>
