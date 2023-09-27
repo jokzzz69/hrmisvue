@@ -36,6 +36,7 @@
         import useOffices from '@/composables/composables-office';
         import { onMounted , inject} from 'vue';
         import useLocations from "@/composables/composables-location";
+        import { useHead } from '@unhead/vue'
 
     export default{
         props: {
@@ -44,7 +45,10 @@
                 type: String
             }
         },
-        setup(props){            
+        setup(props){ 
+            useHead({
+                title: 'Edit Office | BFAR - CAR HRMIS'
+            })           
             const swal = inject('$swal')
             const { errors, office, updateOffice, getOffice } = useOffices()
             const { locations, getLocations} = useLocations()

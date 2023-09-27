@@ -25,11 +25,14 @@
 <script>
 	import { reactive,inject} from "vue";
 	import useEmployeePosition from "@/composables/composables-position";
+	import { useHead } from '@unhead/vue'
 
 	export default {
 		setup(){
 			
-
+			useHead({
+                title: 'Create Employee Positions | BFAR - CAR HRMIS'
+            })
 			const form = reactive({
 			    'name': '',
 			});

@@ -82,9 +82,13 @@
 	import { sortBy, flatten } from 'lodash';
 	import {useRouter} from 'vue-router'
 
+	import { useHead } from '@unhead/vue'
 
 	export default{
 		setup(){
+			useHead({
+                title: 'Employees DTR | BFAR - CAR HRMIS'
+            })
 			const {officerecords,getOfficeemployeesMonitoring} = useOfficerecord()
 			const {offices, getOffices} = useOffices()
 

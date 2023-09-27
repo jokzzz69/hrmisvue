@@ -143,9 +143,13 @@
 	import useArchive from '@/composables/composables-archive';
 	import moment from 'moment';
 	import { useAuthStore } from '@/stores/store.js'
+	import { useHead } from '@unhead/vue'
 
 	export default{
 		setup(){
+			useHead({
+	            title: 'Employees Information | BFAR - CAR HRMIS'
+	        })
 			const store = useAuthStore();
             const userrole = ref(store.getdetails[1]);
             const authid = ref(store.getdetails[0]);

@@ -23,9 +23,13 @@
 <script>
     import { reactive ,inject} from "vue";
     import useLocations from "@/composables/composables-location";
+    import { useHead } from '@unhead/vue'
 
     export default {
         setup(){
+            useHead({
+                title: 'Create Office Location | BFAR - CAR HRMIS'
+            })
             const form = reactive({
                 'location_name': '',
             })

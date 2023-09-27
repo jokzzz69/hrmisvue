@@ -23,9 +23,13 @@
 	import { reactive,inject} from "vue";
 	import useEmployeeStatus from "@/composables/composables-status";
 
+	import { useHead } from '@unhead/vue'
 
 	export default {
 		setup(){
+			useHead({
+                title: 'Create Employee Status | BFAR - CAR HRMIS'
+            })
 			const form = reactive({
 			    'name': '',
 			});

@@ -50,9 +50,13 @@
     import {onMounted ,ref, computed, inject} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
-
+    import { useHead } from '@unhead/vue'
+    
 	export default{
 		setup(){
+            useHead({
+                title: 'Employee Status | BFAR - CAR HRMIS'
+            })
             const swal = inject('$swal')
             
 			const {employeestatuses, getEmployeeStatuses, destroyEmployeeStatus} = useEmployeeStatus()

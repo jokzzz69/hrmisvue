@@ -214,12 +214,16 @@ import PrivacyModal from '@/components/privacy/PrivacyModal.vue';
 
 import moment from 'moment'
 import { useAuthStore } from '@/stores/store.js'
+import { useHead } from '@unhead/vue'
 
 export default{
     components: {
         PrivacyModal
      },
     setup (){
+        useHead({
+            title: 'My Personal Information | BFAR - CAR HRMIS'
+        })
         const swal = inject('$swal')
         const {officerecord,getPersonalRecord}= useOfficerecord()
 

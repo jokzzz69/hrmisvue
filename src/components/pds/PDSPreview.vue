@@ -58,6 +58,7 @@ import { onMounted, ref, inject, onUpdated, computed} from 'vue';
 import moment from 'moment'
 import usePDS from '@/composables/composables-pds';
 import { useNavigationStore } from '@/stores/navigationstore.js'
+import { useHead } from '@unhead/vue'
 
 export default{
 
@@ -74,6 +75,9 @@ export default{
         PDSPreviewPage4
     },
     setup (props){
+        useHead({
+            title: 'PDS Preview | BFAR - CAR HRMIS'
+        })
         const swal = inject('$swal')
         const {downloadPDS} = usePDS();
         const {navigationstore} = useNavigationStore();

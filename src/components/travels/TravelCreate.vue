@@ -68,10 +68,14 @@
 
     import useTravels from '@/composables/composables-travel';
     import 'vue-select/dist/vue-select.css';
+    import { useHead } from '@unhead/vue'
 
     export default {
 
         setup(){  
+            useHead({
+                title: 'Create Travel | BFAR - CAR HRMIS'
+            })
             const form = reactive({
                 'location': '',
                 'purpose': '',

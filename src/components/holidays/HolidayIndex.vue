@@ -60,9 +60,13 @@
 	import { sortBy} from 'lodash';
 	import {useRouter} from 'vue-router'
 	import moment from 'moment'
+	import { useHead } from '@unhead/vue'
 
 	export default{
 		setup(){
+			useHead({
+                title: 'Holidays | BFAR - CAR HRMIS'
+            })
 			const {holidays, getHolidays, destroyHoliday} = useHolidays()
 
 			const searchQuery = ref("");

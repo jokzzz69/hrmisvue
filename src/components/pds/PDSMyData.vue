@@ -62,10 +62,13 @@ import moment from 'moment'
 import { useAuthStore } from '@/stores/store.js'
 import { useNavigationStore } from '@/stores/navigationstore.js'
 
+import { useHead } from '@unhead/vue'
 
 export default{
     setup (){
-
+        useHead({
+            title: 'My PDS | BFAR - CAR HRMIS'
+        })
         const {downloadPDS} = usePDS();
 
 

@@ -68,7 +68,8 @@
     import useEmployees from '@/composables/composables-employees';
     import 'vue-select/dist/vue-select.css';
     import useTravels from '@/composables/composables-travel';
-    
+    import { useHead } from '@unhead/vue'
+
 
     export default {
 
@@ -80,6 +81,9 @@
         },
         
         setup(props){
+            useHead({
+                title: 'Edit Travel | BFAR - CAR HRMIS'
+            })
             const form = reactive({
                 'location': '',
                 'purpose': '',

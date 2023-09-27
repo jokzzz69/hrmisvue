@@ -11,9 +11,13 @@
 <script>
 	import {onMounted ,ref, computed, inject} from 'vue';
 	import {useRouter} from 'vue-router'
+	import { useHead } from '@unhead/vue'
 
 	export default{
 		setup(){
+			useHead({
+                title: 'Forbidden Page | BFAR - CAR HRMIS'
+            })
 			const router = useRouter()
 		
 			onMounted(() => {

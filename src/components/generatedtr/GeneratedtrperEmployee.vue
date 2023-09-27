@@ -125,6 +125,7 @@
     import {formatDate} from '../../helper/formatdate'
     import {formatTime} from '../../helper/formattime'
     import moment from 'moment';
+    import { useHead } from '@unhead/vue'
 
     export default{
         props: {
@@ -134,7 +135,9 @@
             }
         },
         setup(props){
-
+            useHead({
+                title: 'Employee DTR Report | BFAR - CAR HRMIS'
+            })
             const check = ref(false);
             const formClass = ref('');
             const {employee, getEmployee} = useEmployees()

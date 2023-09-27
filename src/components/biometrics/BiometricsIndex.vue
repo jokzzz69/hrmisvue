@@ -152,9 +152,13 @@
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
     import moment from 'moment';
+    import { useHead } from '@unhead/vue'
+
 	export default{
 		setup(){
-
+            useHead({
+                title: 'Biometrics | BFAR - CAR HRMIS'
+            })
             const {getPage, 
                 batch, 
                 getBioTimeMain, 

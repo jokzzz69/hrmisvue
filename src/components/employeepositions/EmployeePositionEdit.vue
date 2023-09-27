@@ -25,7 +25,7 @@
 <script>
 	import { reactive, onMounted, ref, inject} from "vue";
 	import useEmployeePosition from "@/composables/composables-position";
-
+    import { useHead } from '@unhead/vue'
 	export default {
 		props: {
             id: {
@@ -34,6 +34,10 @@
             }
         },
 		setup(props){
+            
+            useHead({
+                title: 'Edit Employee Positions | BFAR - CAR HRMIS'
+            })
 			const swal = inject('$swal')
 
 			const { errors, updateEmployeePosition, employeeposition, getEmployeePosition} = useEmployeePosition()

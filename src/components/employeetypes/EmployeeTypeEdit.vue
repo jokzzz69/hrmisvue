@@ -23,6 +23,7 @@
 <script>
 	import { reactive, onMounted, ref, inject} from "vue";
 	import useEmployeeTypes from "@/composables/composables-type";
+    import { useHead } from '@unhead/vue'
 
 	export default {
 		props: {
@@ -32,6 +33,9 @@
             }
         },
 		setup(props){
+            useHead({
+                title: 'Edit Employee Type | BFAR - CAR HRMIS'
+            })
 			const swal = inject('$swal')
 
 			const { errors, updateEmployeeType, employeetype, getEmployeeType} = useEmployeeTypes()

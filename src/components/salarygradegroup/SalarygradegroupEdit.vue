@@ -33,7 +33,8 @@
 
 <script>
 	import { reactive, onMounted, ref, inject} from "vue";
-	import useSalaryGradeGroup from '../../composables/composables-salarygradegroup';
+	import useSalaryGradeGroup from '@/composables/composables-salarygradegroup';
+    import { useHead } from '@unhead/vue'
 
 	export default {
 		props: {
@@ -43,6 +44,9 @@
             }
         },
 		setup(props){
+            useHead({
+                title: 'Edit Salary Grade | BFAR - CAR HRMIS'
+            })
 			const swal = inject('$swal')
 			const {errors, salarygradegroup, getSalaryGradeGroup, updateSalaryGradeGroup} = useSalaryGradeGroup()
 

@@ -52,9 +52,13 @@
 	import { sortBy} from 'lodash';
 	import {useRouter} from 'vue-router'
 
+	import { useHead } from '@unhead/vue'
 
 	export default{
 		setup(){
+			useHead({
+		        title: 'Roles | BFAR - CAR HRMIS'
+		    })
 			const {roles, getRoles} = useRoles()
 			const searchQuery = ref("");
 			const swal = inject('$swal')

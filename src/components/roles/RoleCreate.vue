@@ -30,9 +30,13 @@
 <script>
     import { reactive ,inject} from "vue";
     import useRoles from '../../composables/composables-role';
+    import { useHead } from '@unhead/vue'
 
     export default {
         setup(){
+            useHead({
+                title: 'Add Role | BFAR - CAR HRMIS'
+            })
             const form = reactive({
                 'name': '',
                 'slug': '',

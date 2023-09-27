@@ -22,6 +22,7 @@
 <script>
 	import { reactive, onMounted, ref, inject} from "vue";
 	import useEmployeeStatus from "@/composables/composables-status";
+    import { useHead } from '@unhead/vue'
 
 	export default {
 		props: {
@@ -31,6 +32,9 @@
             }
         },
 		setup(props){
+            useHead({
+                title: 'Edit Employee Status | BFAR - CAR HRMIS'
+            })
 			const swal = inject('$swal')
 			const { errors, updateEmployeeStatus, employeestatus, getEmployeeStatus} = useEmployeeStatus()
 			onMounted(() => {getEmployeeStatus(props.id)})

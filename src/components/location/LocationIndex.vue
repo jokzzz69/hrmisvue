@@ -51,9 +51,13 @@
 	import { sortBy} from 'lodash';
 	import {useRouter} from 'vue-router'
 
+	import { useHead } from '@unhead/vue'
 
 	export default{
 		setup(){
+			useHead({
+                title: 'Office Locations | BFAR - CAR HRMIS'
+            })
 			const {locations, getLocations, destroyLocation} = useLocations()
 			const searchQuery = ref("");
 			const swal = inject('$swal')

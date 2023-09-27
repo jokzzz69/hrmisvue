@@ -40,9 +40,13 @@
 </template>
 
 <script>
+    import { useHead } from '@unhead/vue'
+
 	export default{
 		setup(){
-	
+            useHead({
+                title: 'About | BFAR - CAR HRMIS'
+            })
 		}
 	}
 </script>

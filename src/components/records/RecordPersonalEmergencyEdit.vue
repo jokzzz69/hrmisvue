@@ -42,10 +42,14 @@ import useOfficerecord from '@/composables/composables-record';
 
 import moment from 'moment'
 import { useAuthStore } from '@/stores/store.js'
+import { useHead } from '@unhead/vue'
 
 export default{
 
     setup (){
+        useHead({
+            title: 'Edit Emergency Contact Information | BFAR - CAR HRMIS'
+        })
         const swal = inject('$swal')
         const {officerecord, getPersonalRecord, updateEmergencyContact, errors}= useOfficerecord()
         const store = useAuthStore();

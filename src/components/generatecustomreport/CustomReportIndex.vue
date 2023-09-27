@@ -432,9 +432,13 @@
     import { useAuthStore } from '@/stores/store.js'
 
     import moment from 'moment'
-    
+    import { useHead } from '@unhead/vue'
+
 	export default{
 		setup(){
+            useHead({
+                title: 'Custom Report | BFAR - CAR HRMIS'
+            })
             const store = useAuthStore();
             const authslug = store.getdetails[1];
 

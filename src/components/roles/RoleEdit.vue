@@ -33,7 +33,11 @@
 import useRoles from '../../composables/composables-role';
 
 import { onMounted, inject } from 'vue';
+import { useHead } from '@unhead/vue'
 
+useHead({
+    title: 'Edit Role | BFAR - CAR HRMIS'
+})
 const swal = inject('$swal')
 
 const {errors, role, getRole, updateRole} = useRoles()

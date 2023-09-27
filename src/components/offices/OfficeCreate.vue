@@ -37,9 +37,13 @@
     import { reactive, onMounted, inject} from "vue";
     import useOffices from "@/composables/composables-office";
     import useLocations from "@/composables/composables-location";
+    import { useHead } from '@unhead/vue'
 
     export default {
         setup(){
+            useHead({
+                title: 'Add Office | BFAR - CAR HRMIS'
+            })
             const swal = inject('$swal')
 
             const form = reactive({

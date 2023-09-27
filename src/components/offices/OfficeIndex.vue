@@ -66,9 +66,13 @@
 	import { sortBy} from 'lodash';
 	import {useRouter} from 'vue-router'
 
+	import { useHead } from '@unhead/vue'
 
 	export default{
 		setup(){
+			useHead({
+                title: 'Offices | BFAR - CAR HRMIS'
+            })
 			const swal = inject('$swal')
 
 			const {offices, getOffices, destroyOffice} = useOffices()

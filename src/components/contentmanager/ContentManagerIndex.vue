@@ -154,11 +154,16 @@
 	import {formatTime} from '../../helper/formattime'
 	import { useAuthStore } from '@/stores/store.js'
 	import ChangeID from '@/components/contentmanager/ChangeID.vue';
+	import { useHead } from '@unhead/vue'
+
 	export default{
 		components: {
 			ChangeID
 		},
 		setup(){
+			useHead({
+                title: 'Debugger | BFAR - CAR HRMIS'
+            })
 			const store = useAuthStore();
             const userrole = ref(store.getdetails[1]);
             const authid = ref(store.getdetails[0]);

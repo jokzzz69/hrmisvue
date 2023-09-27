@@ -85,6 +85,8 @@
     import moment from 'moment';
     import { useAuthStore } from '@/stores/store.js'
     import useBiolog from '@/composables/composables-dtrupdating';
+    import { useHead } from '@unhead/vue'
+    
     export default{
     	props: {
     		id: {
@@ -97,6 +99,9 @@
     		}
     	},
         setup(props){
+            useHead({
+                title: 'Edit DTR | BFAR - CAR HRMIS'
+            })
         	const swal = inject('$swal')
         	const formContent = ref([]);
 

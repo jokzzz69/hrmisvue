@@ -53,9 +53,13 @@
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
     import { useAuthStore } from '@/stores/store.js'
+    import { useHead } from '@unhead/vue'
 
 	export default{
 		setup(){
+            useHead({
+                title: 'Salary Grades | BFAR - CAR HRMIS'
+            })
             const store = useAuthStore();
             const userrole = ref(store.getdetails[1]);
             const authid = ref(store.getdetails[0]);

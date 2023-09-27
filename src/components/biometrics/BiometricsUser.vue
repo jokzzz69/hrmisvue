@@ -37,9 +37,13 @@
     import {onMounted ,ref, computed, inject} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
+    import { useHead } from '@unhead/vue'
 
 	export default{
 		setup(){
+            useHead({
+                title: 'Biometrics Registered | BFAR - CAR HRMIS'
+            })
             const swal = inject('$swal')
             
 			const {mainbiousers, getmainbiometricsuser } = useBioDevice()

@@ -60,9 +60,13 @@
 import useUsers from '@/composables/userscomposables'
 import { onMounted,ref, reactive, inject} from 'vue';
 import { useAuthStore } from '@/stores/store.js'
+import { useHead } from '@unhead/vue'
 
 export default{
     setup(){
+        useHead({
+            title: 'Change Password | BFAR - CAR HRMIS'
+        })
         const store = useAuthStore();
         const id = ref(store.details[0]);
 

@@ -106,9 +106,13 @@ import useOfficerecord from '@/composables/composables-record';
 
 import moment from 'moment'
 import { useAuthStore } from '@/stores/store.js'
+import { useHead } from '@unhead/vue'
 
 export default{
     setup (){
+        useHead({
+            title: 'Edit Birthday and Gender | BFAR - CAR HRMIS'
+        })
         const store = useAuthStore();
         const id = ref(store.details[0]);
 

@@ -127,10 +127,13 @@
     import {formatTime} from '../../helper/formattime'
     import moment from 'moment';
     import { useAuthStore } from '@/stores/store.js'
+    import { useHead } from '@unhead/vue'
 
     export default{
         setup(){
-
+            useHead({
+                title: 'My DTR | BFAR - CAR HRMIS'
+            })
             const store = useAuthStore();
             const id = ref(store.details[0]);
             const userrole = ref(store.details[1]);

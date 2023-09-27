@@ -144,6 +144,7 @@
     import {useRouter} from 'vue-router'
     import {formatTime} from '../../helper/formattime'
     import moment from 'moment';
+    import { useHead } from '@unhead/vue'
 
     export default{
         props: {
@@ -157,7 +158,9 @@
             }
         },
         setup(props){
-
+            useHead({
+                title: 'Employee DTR | BFAR - CAR HRMIS'
+            })
             const {employee, getEmployee} = useEmployees()
             const {biometricsData, getEmployeemonthBio} = useMonitoring()
             

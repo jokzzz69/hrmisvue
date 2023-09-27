@@ -24,10 +24,14 @@
 <script>
 	import { reactive,inject,defineAsyncComponent} from "vue";
 	import useEmployeeTypes from "@/composables/composables-type";
+    import { useHead } from '@unhead/vue'
 
 
 	export default {
 		setup(){
+            useHead({
+                title: 'Create Employee Type | BFAR - CAR HRMIS'
+            })
 			const form = reactive({
 			    'name': '',
 			});

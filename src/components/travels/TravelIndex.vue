@@ -134,9 +134,13 @@
 	import {useRouter} from 'vue-router'
 	import moment from 'moment';
 	import { useAuthStore } from '@/stores/store.js'
+	import { useHead } from '@unhead/vue'
 
 	export default{
 		setup(){
+			useHead({
+          title: 'Employees Travels | BFAR - CAR HRMIS'
+      })
 			const {travels, getTravels, destroyTravel, getfilteredTravels} = useTravels();
 			
 			const store = useAuthStore();

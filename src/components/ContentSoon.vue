@@ -14,9 +14,13 @@
 <script>
 
 import {useRouter} from 'vue-router'
+import { useHead } from '@unhead/vue'
+
 export default {
 	setup(){
-
+        useHead({
+            title: 'Content Soon on BFAR CAR | BFAR - CAR HRMIS'
+        })
 	}
 
 }

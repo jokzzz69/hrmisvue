@@ -10,10 +10,13 @@
 </template>
 <script>
 	import { onMounted, onUnmounted } from "vue";
+	import { useHead } from '@unhead/vue'
 
 	export default{
 		setup(){
-
+			useHead({
+                title: '404 Page | BFAR - CAR HRMIS'
+            })
 			onMounted(() => {
 			  const sbar = document.querySelector(".sidebarleft");
 			  sbar.classList.add("d-none");

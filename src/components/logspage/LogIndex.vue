@@ -75,9 +75,13 @@
     import useUsers from '@/composables/userscomposables';
 	import {onMounted ,ref, computed, inject} from 'vue';
     import moment from 'moment'
+    import { useHead } from '@unhead/vue'
 
 	export default{
 		setup(){
+            useHead({
+                title: 'System Logs | BFAR - CAR HRMIS'
+            })
             const searchQuery = ref("");
 			const {activitylogs,getLogs} = useActivityLogs()
             const {getAuthuser, authuser} = useUsers()

@@ -60,10 +60,12 @@
 </template>
 
 <script>
-	import useActivityLogs from '../../composables/composables-logs';
+	import useActivityLogs from '@/composables/composables-logs';
 	import {onMounted ,ref, computed, inject} from 'vue';
     import moment from 'moment'
-    import useUser from '../../composables/userscomposables';;
+    import useUser from '@/composables/userscomposables';
+    import { useHead } from '@unhead/vue'
+
 	export default{
         props: {
             id: {
@@ -72,6 +74,9 @@
             }
         },
 		setup(props){
+            useHead({
+                title: 'Employee Logs | BFAR - CAR HRMIS'
+            })
             const searchQuery = ref("");
 			const {activitylog,getLog} = useActivityLogs()
             const {getAuthuser} = useUser();

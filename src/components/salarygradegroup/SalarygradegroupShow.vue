@@ -61,6 +61,7 @@
     import {onMounted ,ref, computed, inject} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
+    import { useHead } from '@unhead/vue'
 
 	export default{
         props: {
@@ -71,7 +72,9 @@
 
         },
 		setup(props){
-
+            useHead({
+                title: 'Salary Grade | BFAR - CAR HRMIS'
+            })
             const swal = inject('$swal')            
 			const {salarygradegroup, getSalaryGradeGroup, destroySalaryGradeGroup} = useSalaryGradeGroup()
             const {authuser, getAuthuser} = useUsers()

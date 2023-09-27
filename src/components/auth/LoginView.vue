@@ -61,12 +61,16 @@
     import SiteSeal from '@/components/content/SiteSeal.vue';
     import useEventsBus from '@/components/helper/Eventbus';
     import useAuthenticate from '@/composables/composables-authenticate';
-
+    import { useHead } from '@unhead/vue'
     export default{
         components:{
             SiteSeal
         },
         setup(){
+            useHead({
+                title: 'BFAR - CAR HRMIS | Login'
+            })
+
 
             const {login,errors, checkIfLogin} = useAuthenticate();
             const {emit} = useEventsBus();

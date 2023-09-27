@@ -33,6 +33,8 @@
     import { reactive ,inject, onMounted} from "vue";
     import useHolidays from '../../composables/composables-holidays';
     import moment from 'moment'
+    import { useHead } from '@unhead/vue'
+
     export default {
         props : {
             id: {
@@ -41,6 +43,9 @@
             }
         },
         setup(props){
+            useHead({
+                title: 'Edit Holiday | BFAR - CAR HRMIS'
+            })
             const form = reactive({
                 'name': '',
                 'date': new Date()

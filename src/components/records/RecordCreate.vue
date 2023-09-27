@@ -217,9 +217,13 @@ import useEmployeeTypes from '@/composables/composables-type';
 import useEmployeeStatus from '@/composables/composables-status';
 import useEmployeePosition from '@/composables/composables-position';
 import useSalaryGradeGroup from '@/composables/composables-salarygradegroup';
+import { useHead } from '@unhead/vue'
 
 export default{
     setup (){
+        useHead({
+            title: 'Add Employee | BFAR - CAR HRMIS'
+        })
         const swal = inject('$swal');
         const { errors,  storeOfficerecord } = useOfficerecord();
         const { getEmployeeStatuses, employeestatuses } = useEmployeeStatus();        

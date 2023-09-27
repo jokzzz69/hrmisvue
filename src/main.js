@@ -5,7 +5,12 @@ import './assets/nprogress.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+
+
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
+import { createHead } from '@unhead/vue'
+
 import VueSweetalert2 from 'vue-sweetalert2';
 
 import Datepicker from '@vuepic/vue-datepicker';
@@ -24,12 +29,14 @@ import vSelect from 'vue-select'
 
 axios.defaults.baseURL = 'http://localhost:8000'
 
+const head = createHead()
 const app = createApp(App)
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 app.use(pinia)
 .use(VueSweetalert2)
 .use(router)
+.use(head)
 .component('Datepicker', Datepicker)
 .component("v-select", vSelect)
 

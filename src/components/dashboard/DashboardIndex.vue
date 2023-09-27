@@ -23,13 +23,17 @@
 	import PrivacyModal from '@/components/privacy/PrivacyModal.vue';
 	import useOfficerecord from '@/composables/composables-record';
 	import {ref} from "vue";
-	
+	import { useHead } from '@unhead/vue'
+
 
 	export default{
 		 components: {
 		 	PrivacyModal
 		 },
 		 setup(){
+		 	useHead({
+                title: 'Dashboard | BFAR - CAR HRMIS'
+            })
 		 	const {officerecord, getOfficerecord, } = useOfficerecord()
 
 		 	// Echo.channel(`my-channel`)

@@ -75,6 +75,7 @@
 	import PDSPreviewPage3 from '@/components/pds/PDSPreviewPage3.vue';
 	import moment from 'moment'
 	import { useAuthStore } from '@/stores/store.js'
+	import { useHead } from '@unhead/vue'
 
 	export default{
 		components: {
@@ -82,6 +83,9 @@
 
 	    },
 		setup(){
+			useHead({
+                title: 'Employees PDS | BFAR - CAR HRMIS'
+            })
 			const store = useAuthStore();
             const userrole = ref(store.getdetails[1]);
             const authid = ref(store.getdetails[0]);

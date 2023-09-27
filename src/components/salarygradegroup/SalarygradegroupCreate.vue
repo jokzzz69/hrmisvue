@@ -99,11 +99,15 @@
 
 <script>
 	import { reactive,inject, ref } from "vue";
-	import useSalaryGradeGroup from '../../composables/composables-salarygradegroup';
+	import useSalaryGradeGroup from '@/composables/composables-salarygradegroup';
+	import { useHead } from '@unhead/vue'
 
 
 	export default {
 		setup(){
+			useHead({
+                title: 'Add Salary Grade | BFAR - CAR HRMIS'
+            })
 			const form = reactive({
 			    'name': '',
 			    'year': '',

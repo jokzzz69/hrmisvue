@@ -115,11 +115,14 @@
 	import { sortBy} from 'lodash';
 	import {useRouter} from 'vue-router'
 	import axios from 'axios';
+	import { useHead } from '@unhead/vue'
 
 
 	export default{
 		setup(){
-
+			useHead({
+                title: 'DTR Report | BFAR - CAR HRMIS'
+            })
 			const selected = ref([]);
 			const allSelected = ref(false);
 

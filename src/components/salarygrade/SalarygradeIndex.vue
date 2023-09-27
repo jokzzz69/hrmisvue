@@ -56,6 +56,8 @@
     import {onMounted ,ref, computed, inject} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
+    import { useHead } from '@unhead/vue'
+
 
 	export default{
         props: {
@@ -66,7 +68,9 @@
 
         },
 		setup(props){
-            
+            useHead({
+                title: 'Salary Grades | BFAR - CAR HRMIS'
+            })
             const swal = inject('$swal')            
 			const {salarygrades, getSalaryGrades, destroySalaryGrades} = useSalaryGrade()
             const searchQuery = ref("");

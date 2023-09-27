@@ -109,6 +109,8 @@
     import ArchiveEmployment from '@/components/archive/ArchiveEmployment.vue';
     import { useAuthStore } from '@/stores/store.js'
     import usePDS from '@/composables/composables-pds';
+    import { useHead } from '@unhead/vue'
+
 	export default{
         components: {
             ArchivePDSPage1,
@@ -118,6 +120,9 @@
             ArchiveEmployment
         },
 		setup(){
+            useHead({
+                title: 'Archives | BFAR - CAR HRMIS'
+            })
             const store = useAuthStore();
             const userrole = ref(store.getdetails[1]);
             const authid = ref(store.getdetails[0]);

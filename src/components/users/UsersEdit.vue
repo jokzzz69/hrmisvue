@@ -101,6 +101,8 @@ import { onMounted, ref, inject, reactive} from 'vue';
 import useOffices from '@/composables/composables-office';
 import useRoles from '@/composables/composables-role';
 import { useAuthStore } from '@/stores/store.js'
+import { useHead } from '@unhead/vue'
+
 export default{
 
     props: {
@@ -111,7 +113,9 @@ export default{
     },
 
     setup (props){
-   
+        useHead({
+            title: 'Edit Account | BFAR - CAR HRMIS'
+        })
         const swal = inject('$swal')
         const {errors, user, updateUser, getUser, authuser, getAuthuser} = useUsers()
         const {getOffices, offices} = useOffices()

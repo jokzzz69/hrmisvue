@@ -127,10 +127,14 @@
 	import {useRouter} from 'vue-router'
 	import moment from 'moment';
 
+	import { useHead } from '@unhead/vue'
 
 	export default{		
 	
 		setup(){		
+			useHead({
+                title: 'Accounts | BFAR - CAR HRMIS'
+            })
 			const swal = inject('$swal')
 			const {users, getUsers, activateUser, deactivate, rebootPass, authuser, getAuthuser} = useUser()		
 

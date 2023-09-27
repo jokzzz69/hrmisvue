@@ -213,6 +213,7 @@ import RightNavigation from '@/components/navigation/RightNavigation.vue';
 import { onMounted, ref, inject, onUpdated, reactive} from 'vue';
 import moment from 'moment'
 import { useAuthStore } from '@/stores/store.js'
+import { useHead } from '@unhead/vue'
 
 export default{
 
@@ -220,6 +221,9 @@ export default{
         RightNavigation
     },
     setup (){
+        useHead({
+            title: 'PDS Family Background | BFAR - CAR HRMIS'
+        })
         const store = useAuthStore();
         const id = ref(store.details[0]);
         const swal = inject('$swal')

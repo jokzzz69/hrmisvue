@@ -351,6 +351,7 @@ import useMunicipality from '@/composables/composables-municipality';
 import useProvince from '@/composables/composables-province';
 import RightNavigation from '@/components/navigation/RightNavigation.vue';
 import { onMounted, ref, inject, } from 'vue';
+import { useHead } from '@unhead/vue'
 
 
 export default{
@@ -366,7 +367,9 @@ export default{
     },
     setup (props){
 
-
+        useHead({
+            title: 'Edit PDS | BFAR - CAR HRMIS'
+        })
 
 
         const swal = inject('$swal')
