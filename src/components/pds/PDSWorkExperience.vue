@@ -22,27 +22,27 @@
             <form v-on:submit.prevent="savepds">               
 
                 <template v-if="officerecord.pdsworkexperience">
-                    <div class="pPDSwrap container-fluid pb-4">
+                    <div class="pPDSwrap container-fluid pb-4 pdsWork">
                         <div class="row mt-3 mb-2 headingtitle">
-                            <div class="c_p col-3 pPDSwrap-title text-center d-flex align-items-center">
+                            <div class="c_p col-3 pPDSwrap-title text-center  align-items-center">
                                 <h2>Inclusive Dates <span>(mm/dd/yyyy)</span></h2>                                
                             </div>
-                            <div class="c_p col-2 pPDSwrap-title text-center  d-flex align-items-center">
+                            <div class="c_p col-2 pPDSwrap-title text-center  align-items-center">
                                 <h2>Position Title<span>(Write in full/Do not abbreviate)</span></h2>                                
                             </div>
-                            <div class="c_p col-2 pPDSwrap-title text-center  d-flex align-items-center">
+                            <div class="c_p col-2 pPDSwrap-title text-center  align-items-center">
                                 <h2>Department / Agency / Office /Company</h2>
                             </div>
-                            <div class="c_p col-1 pPDSwrap-title text-center  d-flex align-items-center">
+                            <div class="c_p col-1 pPDSwrap-title text-center  align-items-center">
                                 <h2>Monthly Salary</h2>
                             </div>
-                            <div class="c_p col-1 pPDSwrap-title text-center  d-flex align-items-center">
+                            <div class="c_p col-1 pPDSwrap-title text-center  align-items-center">
                                 <h2>Salary / Job / Pay Grade <span>(if applicable)& STEP (Format "00-0")/ From INCREMENT</span></h2>
                             </div>
-                            <div class="c_p col-1 pPDSwrap-title text-center  d-flex align-items-center">
+                            <div class="c_p col-1 pPDSwrap-title text-center  align-items-center">
                                 <h2>Status of Appointment</h2>
                             </div>
-                            <div class="c_p col-1 pPDSwrap-title text-center  d-flex align-items-center">
+                            <div class="c_p col-1 pPDSwrap-title text-center  align-items-center">
                                 <h2>Gov't Service (Yes / No)</h2>
                             </div>
                             <div class="col-auto "><span class="noContent"></span></div>

@@ -22,18 +22,18 @@
             <form v-on:submit.prevent="savepds">               
 
                 <template v-if="officerecord.pdsvoluntarywork">
-                    <div class="pPDSwrap container-fluid pb-4">
+                    <div class="pPDSwrap container-fluid pb-4 pdsVoluntary">
                         <div class="row mt-3 mb-4 headingtitle">
-                            <div class="c_p col-3 pPDSwrap-title text-center  d-flex align-items-center">
+                            <div class="c_p col-3 pPDSwrap-title text-center  align-items-center">
                                 <h2>Name & Addresses of Organization<span>(Write in full)</span></h2>                                
                             </div>
-                            <div class="c_p col-4 pPDSwrap-title text-center d-flex align-items-center">
+                            <div class="c_p col-4 pPDSwrap-title text-center align-items-center">
                                 <h2>Inclusive Dates <span>(mm/dd/yyyy)</span></h2>                                
                             </div>                            
-                            <div class="c_p col-1 pPDSwrap-title text-center  d-flex align-items-center">
+                            <div class="c_p col-1 pPDSwrap-title text-center align-items-center">
                                 <h2>Number of Hours</h2>
                             </div>
-                            <div class="c_p col-3 pPDSwrap-title text-center  d-flex align-items-center">
+                            <div class="c_p col-3 pPDSwrap-title text-center align-items-center">
                                 <h2>Position / Nature of Work</h2>
                             </div>
                             <div class="col-auto "><span class="noContent"></span></div>
@@ -97,7 +97,7 @@
                                     </div>
                                     
  
-                                    <div class="col-auto pt-2">
+                                    <div class="col col-sm-auto pt-2">
                                         <button class="btn btn-danger" title="Remove row" @click.prevent="removerow(key)"><i class="fa-solid fa-minus"></i></button>
                                     </div>
                                 </div>

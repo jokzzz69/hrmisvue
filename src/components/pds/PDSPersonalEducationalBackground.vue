@@ -21,7 +21,7 @@
             </div>
             <form v-on:submit.prevent="savepds">              
                 <template v-if="officerecord.pdseducationalbackground">
-                    <div class="pPDSwrap container-fluid pb-4">
+                    <div class="pPDSwrap container-fluid pb-4 pds-educ">
                         <div class="row mt-3 headingtitle">
                             <div class="c_p col-3 pPDSwrap-title text-center d-flex align-items-center">
                                 <h2>Name of School <span>Write in full</span></h2>

@@ -22,7 +22,7 @@
             <form v-on:submit.prevent="savepds">               
 
                 <template v-if="officerecord.pdseducationalbackground">
-                    <div class="pPDSwrap container-fluid pb-4">
+                    <div class="pPDSwrap container-fluid pb-4 pdsCSCWRAP">
                         <div class="row mt-3 mb-2 headingtitle">
                             <div class="c_p col-2 pPDSwrap-title text-center d-flex align-items-center">
                                 <h2>Career Service/ Ra 1080 (Board/ Bar) Under Special Laws/ Ces/ Csee Barangay Eligibility / Driver's License</h2>                                

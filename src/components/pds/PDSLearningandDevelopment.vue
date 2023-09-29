@@ -22,21 +22,21 @@
             </div>
             <form v-on:submit.prevent="savepds">               
                 <template v-if="officerecord.pdslearninganddevelopment">
-                    <div class="pPDSwrap container-fluid pb-4">
+                    <div class="pPDSwrap container-fluid pb-4 pdsLD">
                         <div class="row mt-3 mb-4 headingtitle">
-                            <div class="c_p col-3 pPDSwrap-title text-center  d-flex align-items-center">
+                            <div class="c_p col-3 pPDSwrap-title text-center  align-items-center">
                                 <h2>Title Of Learning And Development Interventions/training Programs<span>(Write in full)</span></h2>                                
                             </div>
-                            <div class="c_p col-4 pPDSwrap-title text-center d-flex align-items-center">
+                            <div class="c_p col-4 pPDSwrap-title text-center align-items-center">
                                 <h2>Inclusive Dates Of Attendance <span>(mm/dd/yyyy)</span></h2>                                
                             </div>                            
-                            <div class="c_p col-1 pPDSwrap-title text-center  d-flex align-items-center">
+                            <div class="c_p col-1 pPDSwrap-title text-center align-items-center">
                                 <h2>Number of Hours</h2>
                             </div>
-                            <div class="c_p col-1 pPDSwrap-title text-center  d-flex align-items-center">
+                            <div class="c_p col-1 pPDSwrap-title text-center align-items-center">
                                 <h2>Type of LD ( Managerial / Supervisory / Technical/etc) </h2>
                             </div>
-                            <div class="c_p col-2 pPDSwrap-title text-center  d-flex align-items-center">
+                            <div class="c_p col-2 pPDSwrap-title text-center align-items-center">
                                 <h2>Conducted / Sponsored By <span>(Write in full)</span></h2>
                             </div>
                             <div class="col-auto "><span class="noContent"></span></div>
@@ -71,7 +71,7 @@
 
                                     <div class="col-2 c_p">
                                         <template v-if="key < 1">
-                                            <div  class="form-text floatinghelp">FROM</div>  
+                                            <div  class="form-text floatinghelp">TO</div>  
                                         </template>
                                         <div class="input-group cicH">
                                             <span class="input-group-text p-0" title="Select Date">                                            
@@ -107,7 +107,7 @@
                                         </div>
                                     </div>                                    
  
-                                    <div class="col-auto pt-2">
+                                    <div class="col col-sm-auto pt-2">
                                         <button class="btn btn-danger" title="Remove row" @click.prevent="removerow(key)"><i class="fa-solid fa-minus"></i></button>
                                     </div>
                                 </div>

@@ -99,7 +99,7 @@
                                             <label :for="`child-`+key" class="form-label">Complete Name</label>
                                         </div>
                                     </div>
-                                    <div class="col-2" :cte="key">
+                                    <div class="col col-sm-2" :cte="key">
                                         <div class="form-floating">                                    
                                             <Datepicker auto-apply week-start="0" :enable-time-picker="false" v-model="officerecord.pdsfamilybackgroundchildren[key].dateofbirth" name="dateofbirth" class="date-form-floating" placeholder="Date of Birth"></Datepicker>   
                                         </div>
