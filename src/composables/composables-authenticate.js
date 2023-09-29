@@ -8,6 +8,7 @@ import { usePasswordChange } from '@/stores/changepasswordstore.js'
 import useEventsBus from '@/components/helper/Eventbus';
 import nProgress from "nprogress";
 
+
 export default function useAuthenticate(){
 
 	const {emit}=useEventsBus()
@@ -68,22 +69,25 @@ export default function useAuthenticate(){
     }
     const logout = async () => {
     	axios.defaults.withCredentials = true;
-    	try {
 
-		 	await axios.post('/v1/api/logoutuser');
-		 	localStorage.clear()
-		 	store.setdetails(null);
-		 	navigationstore.setname(null);
-		 	changepasswordstore.setstate(false);
-		 	await router.push({name: 'login.index'})
+		 	await axios.post('/v1/api/logoutuser').then((res) => {
+
+
+		 		store.setdetails(null);
+		 		navigationstore.setname(null);
+		 		changepasswordstore.setstate(false);
+		 		
+		 		
+
+
+		 	}).catch((e) => {
+		 		if (e.response.status === 422) {
+	                errors.value = e.response.data.errors
+	            }
+		 	});
 		 	
-
-		 }catch(e){
-		 	console.error(e);
-		 	if (e.response.status === 422) {
-                errors.value = e.response.data.errors
-            }
-		 }
+			await router.push({name: 'login.index'})
+		 
     }
 
 

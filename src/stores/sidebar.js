@@ -1,21 +1,18 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
-export const usePasswordChange = defineStore('pc', {
+export const useSidebarChange = defineStore('sb', {
 	state:() => ({
-		passwordstate: false
+		isOpen: false
 	}),
 	actions: {
 		setstate(newValue){
-			this.passwordstate = newValue
+			this.isOpen = newValue
 		}
 	},
 	getters: {
 		getstate: (state) => {
-			return state.passwordstate
+			return state.isOpen
 		}
-	},
-	persist: true,
-	
-
+	}
 })

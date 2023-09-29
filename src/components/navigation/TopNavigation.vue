@@ -1,21 +1,16 @@
 <template>
 	<nav class="top-navbar navbar navbar-expand-md navbar-light fixed-top bg-light">
   <div class="container-fluid">
-    <button class="navbar-toggler" type="button" id="sidenavtoggler" data-bs-toggle="collapse" data-bs-target="#sidenavcollapse" aria-controls="sidenavcollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="btn btntopnavbars" type="button" id="sidenavtoggler" @click="displayleftnav">
       <i class="fa-solid fa-bars"></i>
     </button>
 
     <a :href="$router.resolve({name: 'recordpersonal.show'}).href" class="navbar-brand"><span class="nb-mob">HRMIS</span><span class="nb-de">Human Resource Management Information System</span></a>
-        <!-- Left Side Of Navbar -->
-        <ul class="navbar-nav me-auto">
 
-        </ul>
-
-        <!-- Right Side Of Navbar -->
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav ms-auto navbarRight">
             <!-- Authentication Links -->
-            <li class="nav-item me-3 d-flex align-items-center">
-                <div class="text-light pstTime d-none d-sm-block pe-3 ps-3">                   
+            <li class="nav-item d-flex align-items-center">
+                <div class="text-light pstTime pe-3 ps-3">                   
                     <span id="datestring">{{newDate}}</span>
                     <span id="timestring">{{newTime}}</span>
                 </div>
@@ -49,7 +44,8 @@
     import useEventsBus from '@/components/helper/Eventbus';
     import {watch,ref, onMounted} from 'vue';
     import { useNavigationStore } from '@/stores/navigationstore.js';
-
+    
+    
 
 	export default{
 
@@ -57,12 +53,17 @@
 			const {bus,emit}=useEventsBus()
 			const {logout} = useAuthenticate();
             const loggedinName = ref();
-            
+            const shown = ref();
             const navigationstore = useNavigationStore();
+            
+
 
             watch(()=>bus.value.get('userLoggedIn'), (val) => {
-                [loggedinName.value] = val ?? [] 
+                [loggedinName.value] = val ?? []
+            })
 
+            watch(()=>bus.value.get('leftdisplay'), (val) => {
+                [shown.value] = val ?? []
             })
 
 
@@ -108,13 +109,17 @@
                 }      
             })
 
-
+            const displayleftnav = () => {
+                shown.value = !shown.value;
+                emit('leftdisplay', shown.value);
+            }
             
 			return{
 				signout,
                 loggedinName,
                 newDate,
-                newTime
+                newTime,
+                displayleftnav
 			}
 		}
 	}

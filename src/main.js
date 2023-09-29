@@ -9,6 +9,8 @@ import { createPinia } from 'pinia'
 
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
+import { createPersistedState } from 'pinia-plugin-persistedstate'
+
 import { createHead } from '@unhead/vue'
 
 import VueSweetalert2 from 'vue-sweetalert2';
@@ -20,19 +22,28 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import router from './router/router.js'
 import axios from 'axios';
 import nProgress from "nprogress";
-
+import SecureLS from "secure-ls";
 import App from './App.vue'
 
 import vSelect from 'vue-select'
-
-
 
 axios.defaults.baseURL = 'http://localhost:8000'
 
 const head = createHead()
 const app = createApp(App)
 const pinia = createPinia()
-pinia.use(piniaPluginPersistedstate)
+const ls = new SecureLS({encodingType: 'des',isCompression: false, encryptionSecret: 'x7i55ebK@aS!Sgzx'});
+
+pinia.use(createPersistedState({
+
+	key: id => `__bfarhrmis__${id}`,
+	storage: {
+    getItem: key => ls.get(key),
+    setItem: (key, value) => ls.set(key, value),
+    removeItem: key => ls.removeAll()
+  }
+}))
+
 app.use(pinia)
 .use(VueSweetalert2)
 .use(router)

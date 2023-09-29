@@ -1,7 +1,8 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
-export const useNavigationStore = defineStore('navigationname', {
+
+export const useNavigationStore = defineStore('nd', {
 	state:() => ({
 		name: null
 	}),

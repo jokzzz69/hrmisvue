@@ -95,14 +95,10 @@ body{
 	color: #fff !important;
 }
 
-/*#sidenav{
-	background: #fff;
-	box-shadow: .15rem 0 1.75rem #21283226!important;
-	padding-top: 2rem !important;
-	display: flex;
-}*/
+
 #sidenav{
 	background: #fff;
+	z-index: 999;
 }
 #sidenav ul li a{
 	color: #000;
@@ -900,14 +896,19 @@ span.noContent{
 	color: #fff;
 	z-index: 999;
 	left: 2rem;
+	border-color: #fff;
 }
 #sidenavtoggler:hover,
 #sidenavtoggler:focus{
-	color: transparent;
+
+	border-color: #ccc;
 }
 #sidenavtoggler:hover i,
 #sidenavtoggler:focus i{
 	color: #ccc;
+}
+.btntopnavbars{
+
 }
 .fl{
 	float: left;
@@ -1265,6 +1266,40 @@ tr.disabled{
 .nosidebar .content-wrap{
 	width: 100%;
 }
+/**grid layout**/
+.sidebarleft,
+.content-wrap{
+	display: flex;
+}
+.content-wrap{
+	width: 100%;
+}
+.sidebarleft{
+	width: 15%;
+	max-width: calc(15% - 2%);
+}
+#sidenav{
+	position: fixed;
+    z-index: 99;
+    height: calc(100vh - 3.5rem);
+    overflow-y: auto;
+    top: 3.4rem;
+    width: inherit;
+    max-width: inherit;
+    padding:1rem 0 3rem .5rem;
+}
+
+.bdrop{
+	position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,.6);
+    transition: opacity .5s;
+    z-index: 9;
+}
+/*end grid layout*/
 /*end content*/
 @media(max-width: 500px){
 
@@ -1288,8 +1323,55 @@ tr.disabled{
 	    bottom: 2rem;
 	    display: inline-block;
 	}
+
 }
+@media(max-width: 767px){
+	.pstTime span{
+		display: none;
+	}
+	.collapsing {
+	    -webkit-transition: none;
+	    transition: none;
+	    display: none;
+	}
+	.navdrpdwn{
+		display: block !important;
+	}
+	.nav-item.dropdown{
+		position: static;
+	}
+	.dropdown-menu-end{
+		position: absolute !important;
+	}
+}
+
 @media (max-width: 767.98px){
+	.navbarRight{
+		flex-direction: row;
+	}
+	.navbarRight > li:first-child{
+		margin-right: .5rem;
+	}
+	.sidebarleft.nd{
+		width: 0 !important;
+    	overflow: hidden;
+	}
+	#sidenav ul > li > a span
+	{
+		font-size: .75rem;
+	}
+	.cvright{
+		display: none;
+	}
+	.navdrpdwn li{
+		padding: 0 0 0 1rem;
+	}
+	#sidenav ul > li{
+		text-align: left;
+	}
+	#sidenav ul > li > a{
+		padding: .5rem .2rem;
+	}
 	.nb-mob{
 		display: block !important;
 	}
@@ -1299,17 +1381,21 @@ tr.disabled{
 	.ls-frmbutton li{
 		margin-bottom: .5rem;
 	}
+
 	.sidebarleft{
-		position: relative;
-		width: 100%;
-		z-index: 999;
-		margin-top: 55px;
-		background: #fff !important;
-		padding-right: 1rem;
-		padding-left: 1rem;
+		width: 55%;
+		position: fixed;
+	    z-index: 9;
+	    display: block;
+	    left: 0;
+	    top: 0;
+	    max-width: calc(100% - 1%);
 	}
+
 	#sidenav{
-		padding: 0px !important;
+		position: relative;
+		max-width: 100%;
+		width: 100%;
 	}
 	.sidebarleft #sidenav.show{
 		display: flex !important;
@@ -1319,21 +1405,12 @@ tr.disabled{
 		padding-top: 4rem;
 		padding-bottom: 2rem;
 	}
-	#sidenavcollapse{
-		display: none;
-	}
-	#sidenavcollapse.show{
-		display: block;
-	}
+
 	.top-navbar{
 		border-bottom: 1px solid #e3e3e3;
 	}
-	.mainwrap{
-		flex-wrap: wrap;
-	}
-	.sidebarleft,
+
 	.content-wrap{
-		flex: 0 0 auto;
     	width: 100%;
 	}
 	#sidenav ul li a{
@@ -1354,6 +1431,12 @@ tr.disabled{
 	.lg-text{
 		display: none;
 	}
+	.mainwrap{
+		margin-top: 55px;
+	}
+	input[name='inputSearch']{
+		margin-top: 15px;
+	}
 }
 
 
@@ -1363,54 +1446,36 @@ tr.disabled{
 		min-height: 100vh;
 		padding-bottom: 30px;
 	}
-	.content-wrap{
-		width: 87%;
-	}
-	#sidenavcollapse{
-		display: block;
-	}
-	#sidenav{
-		position: fixed;
-	    left: 0;
-	    z-index: 2;
-	    height: calc(100vh - 3.5rem);
-	    min-width: 13%;
-	    overflow-y: auto;
-	}
-	.nb-mob{
+	.bdrop{
 		display: none;
 	}
-	
+	#sidenavtoggler{
+		display: none;
+	}
 }
 
-@media(min-width: 769px) and (max-width:991px){
-	.sidebarleft{
-		width: 30% !important;
+@media(min-width: 768px) and (max-width:991px){
+	.nb-mob{
+		display: block !important;
 	}
-	.content-wrap{
-		width: 70% !important;
+	.nb-de{
+		display: none;
 	}
 	.xs-100{
 		width: 100%;
 	}
+	
 }
 @media (min-width: 992px) {
-	.sidebarleft,
-	#sidenav{
-		width: 20%;
+	.nb-mob{
+		display: none;
 	}
 	.col-chk{
 		width: 4%;
 	}
 }
 @media(min-width: 992px) and (max-width:1024px){
-	.sidebarleft,
-	#sidenav{
-		width: 27% !important;
-	}
-	.content-wrap{
-		width: 73% !important;
-	}
+
 	.sm-50{
 		width: 50%;
 	}
@@ -1420,10 +1485,7 @@ tr.disabled{
 
 }
 @media (min-width: 1281px) {
-	.sidebarleft,
-	#sidenav{
-		width: 13% !important;
-	}
+
 	.navbar-brand{
 		margin-left: 1rem;
 	}

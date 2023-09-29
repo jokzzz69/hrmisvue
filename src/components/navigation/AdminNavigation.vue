@@ -1,6 +1,6 @@
 <template>
     <li>
-    <a href="#" class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#employeerecords-collapse" aria-expanded="false"><i class="fa-solid fa-users-rectangle"></i> Employees Records <i class="cvright fa-solid fa-angle-right"></i>
+    <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#employeerecords-collapse" aria-expanded="false"><i class="fa-solid fa-users-rectangle"></i> <span>Employees Records</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
     <div class="collapse navdrpdwn" id="employeerecords-collapse" style="">
       <ul class="btn-toggle-nav list-unstyled small">
@@ -18,7 +18,7 @@
     </div>          
   </li>
   <li>
-    <a href="#" class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#personaldata-collapse" aria-expanded="false"><i class="fa-regular fa-id-badge"></i> Personal Record <i class="cvright fa-solid fa-angle-right"></i>
+    <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#personaldata-collapse" aria-expanded="false"><i class="fa-regular fa-id-badge"></i> <span>Personal Record</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
     <div class="collapse navdrpdwn" id="personaldata-collapse">
       <ul class="btn-toggle-nav list-unstyled small">
@@ -44,7 +44,7 @@
   </li>
 
 <li>
-   <a href="#" class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#generate-reportcollapse" aria-expanded="false"><i class="fa-solid fa-users-gear"></i>Generate Report <i class="cvright fa-solid fa-angle-right"></i>
+   <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#generate-reportcollapse" aria-expanded="false"><i class="fa-solid fa-users-gear"></i><span>Generate Report</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
     <div class="collapse navdrpdwn" id="generate-reportcollapse">
       <ul class="btn-toggle-nav list-unstyled small">
@@ -59,7 +59,7 @@
 </li>
 
 <li>
-    <a href="#" class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#setting-collapse" aria-expanded="false"><i class="fa-solid fa-gear"></i> Settings <i class="cvright fa-solid fa-angle-right"></i>
+    <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#setting-collapse" aria-expanded="false"><i class="fa-solid fa-gear"></i> <span>Settings</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
     <div  class="collapse navdrpdwn" id="setting-collapse" >
       <ul class="btn-toggle-nav list-unstyled small">             
@@ -87,8 +87,8 @@
     </div>
 </li>
 <li>
-    <a href="#" class="nav-link btn-toggle align-items-center collapsed"  data-bs-toggle="collapse" data-bs-target="#admin-collapse" aria-expanded="true">
-      <i class="fa-solid fa-user-secret"></i>Admin <i class="cvright fa-solid fa-angle-right"></i>
+    <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed"  data-bs-toggle="collapse" data-bs-target="#admin-collapse" aria-expanded="true">
+      <i class="fa-solid fa-user-secret"></i><span>Admin</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
     <div  class="collapse navdrpdwn show" id="admin-collapse" >
       <ul class="btn-toggle-nav list-unstyled small">
@@ -103,14 +103,9 @@
 
 </template>
 <script>
-  import {ref} from 'vue'
-  import { useAuthStore } from '@/stores/store.js'
-
   
   export default{
     setup(){
-      const store = useAuthStore();
-      
 
       return{
         

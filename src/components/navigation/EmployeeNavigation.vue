@@ -2,7 +2,7 @@
 
 <li v-if="userslug == 'office-head'">
     <a href="#" class="nav-link btn-toggle align-items-center collapsed"  data-bs-toggle="collapse" data-bs-target="#empmon-collapse" aria-expanded="true">
-      <i class="fa-solid fa-computer pe-1"></i>DTR Monitoring <i class="cvright fa-solid fa-angle-right"></i>
+      <i class="fa-solid fa-computer pe-1"></i><span>DTR Monitoring</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
     <div  class="collapse navdrpdwn" id="empmon-collapse" >
       <ul class="btn-toggle-nav list-unstyled small">  
@@ -14,7 +14,7 @@
 
 <li>
     <a href="#" class="nav-link btn-toggle align-items-center collapsed"  data-bs-toggle="collapse" data-bs-target="#emprec-collapse" aria-expanded="true">
-      <i class="fa-regular fa-id-badge pe-1"></i>Personal Record <i class="cvright fa-solid fa-angle-right"></i>
+      <i class="fa-regular fa-id-badge pe-1"></i><span>Personal Record</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
     <div  class="collapse navdrpdwn show" id="emprec-collapse" >
       <ul class="btn-toggle-nav list-unstyled small">           
@@ -48,7 +48,7 @@
 <template v-if="id == 4">
 <li>
     <a href="#" class="nav-link btn-toggle align-items-center collapsed"  data-bs-toggle="collapse" data-bs-target="#empf-collapse" aria-expanded="true">
-      <i class="fa-brands fa-wpforms pe-1"></i>Forms <i class="cvright fa-solid fa-angle-right"></i>
+      <i class="fa-brands fa-wpforms pe-1"></i><span>Forms</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
     <div  class="collapse navdrpdwn" id="empf-collapse" >
       <ul class="btn-toggle-nav list-unstyled small">                
