@@ -6,13 +6,26 @@
     </div>
     <div class="row justify-content-md-center">       
         <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-3">     
-            <ul class="ulwidback">  
-                <li>
+            <div class="row mli">  
+                <div class="col-sm-10 col">
                     <label class="col-form-label col-12" for="fdate">Select Date</label>                
                     <Datepicker v-model="monthpicked" id="fdate" auto-apply month-picker @update:model-value="getEmployeeBio" :clearable="false" name="monthpicked" :format="format" :month-change-on-arrows="true"></Datepicker> 
-                </li> 
-                <li class="mt-2" v-if="userrole == 'super-admin' || id == 207 || id == 29 || id == 215"><button class="btn btn-outline-info" @click="gotoEditDTR">Edit</button></li>
-            </ul>
+                </div> 
+                <template v-if="userrole == 'super-admin' || id == 207 || id == 29 || id == 215">
+                    <div class="mt-2 dtredit col col-sm-3">
+                        <button class="btn btn-outline-info" @click="gotoEditDTR">Edit</button>
+                    </div>
+                    <div class="mt-2 col col-sm-7" v-if="isPermanent || userrole == 'super-admin' || userrole == 'admin' || id == 207 || id == 29 || id == 215">
+                        <button class="btn btn-outline-danger" @click="dlpersonnelDTR"><i class="fa-solid fa-file-pdf"></i> Download</button>
+                    </div>
+                </template>
+                <template v-else>
+                    <div class="mt-2 col col-sm-10" v-if="isPermanent">
+                        <button class="btn btn-outline-danger" @click="dlpersonnelDTR"><i class="fa-solid fa-file-pdf"></i> Download</button>
+                    </div>
+                </template>
+                
+            </div>
         </div>            
     </div>
     <div class="row">
@@ -120,14 +133,16 @@
 
 <script>
 
-    import useMonitoring from '../../composables/composables-monitoring';
+    import useMonitoring from '@/composables/composables-monitoring';
     import {onMounted ,ref, computed, reactive} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
-    import {formatTime} from '../../helper/formattime'
+    import {formatTime} from '@/helper/formattime'
     import moment from 'moment';
     import { useAuthStore } from '@/stores/store.js'
     import { useHead } from '@unhead/vue'
+
+    import useGeneratedtr from '@/composables/composables-generatedtr';
 
     export default{
         setup(){
@@ -137,9 +152,17 @@
             const store = useAuthStore();
             const id = ref(store.details[0]);
             const userrole = ref(store.details[1]);
+            const isPermanent = ref(false);
+
+            if(store.details[3] != 1){
+                isPermanent.value = true;
+            }
+
 
             const {biometricsData, getEmployeemonthBio} = useMonitoring()
-            
+            const {downloadperEmployeeDTR} = useGeneratedtr()
+
+
             let sort = ref(false);
             let updatedList = ref([])
             const router = useRouter()
@@ -157,8 +180,20 @@
             });
 
 
+            const form = reactive({
+                'empID': id,
+                'dtrmonthtype': 3,
+                'monthpicked': '',
+                'name': ''
+             })
+
+
             onMounted(() => {
-                getEmployeemonthBio(id.value,monthpicked.value.month+'-'+monthpicked.value.year)
+                getEmployeemonthBio(id.value,monthpicked.value.month+'-'+monthpicked.value.year).then((res) => {
+                    if(biometricsData.value['name'][0]){
+                        form.name = biometricsData.value['name'][0];
+                    }
+                });
 
             })
 
@@ -179,7 +214,10 @@
                router.push({ name: 'dtrupdating.edit', params: { id: id.value, mf: sm} });
             }
 
-
+            const dlpersonnelDTR = async() =>{
+                form.monthpicked = monthpicked.value;
+                await downloadperEmployeeDTR({...form}, form.name);
+            }
 
             return{
                 moment,
@@ -191,7 +229,9 @@
                 currentDate,
                 gotoEditDTR,
                 id,
-                userrole
+                userrole,
+                isPermanent,
+                dlpersonnelDTR
                 
             }
         }

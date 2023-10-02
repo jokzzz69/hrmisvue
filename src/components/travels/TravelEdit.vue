@@ -43,11 +43,18 @@
             </div>           
         </div>
         <div class="row">
-            <div class="col mt-2 mb-3 req">
-                <span class="d-block">Date of Travel <i class="text-danger">*</i></span>
-                <Datepicker class="date-form-floatinghighlights-weekend" :highlight-week-days="[0, 6]" id="dts" range v-model="form.travelrange" placeholder="Date Range" :enable-time-picker="false"  :clearable="false"  :class="errors.travelrange ? 'error-input' : ''" week-start="0"></Datepicker>
-                <span v-if="errors.travelrange" class="text-danger m-error">{{errors.travelrange[0]}}</span>  
-                <small>(mm/dd/yy - mm/dd/yy)</small>
+            <div class="col col-sm-6 mt-2 mb-3 req tsnn">
+                <span class="d-block">Start Date <i class="text-danger">*</i></span>
+                <Datepicker class="date-form-floating highlights-weekend" id="dts" week-start="0" auto-apply v-model="form.travelstart" placeholder="Date Range" :enable-time-picker="false"  :clearable="false"  :class="errors.travelstart ? 'error-input' : ''" :highlight-week-days="[0, 6]"></Datepicker>
+                <span v-if="errors.travelstart" class="text-danger m-error">{{errors.travelstart[0]}}</span>  
+                <small>(mm/dd/yy)</small>
+                
+            </div>
+            <div class="col col-sm-6 mt-2 mb-3 req tsnn">
+                <span class="d-block">End Date <i class="text-danger">*</i></span>
+                <Datepicker class="date-form-floating highlights-weekend" id="dts" week-start="0" auto-apply v-model="form.travelend" placeholder="Date Range" :enable-time-picker="false"  :clearable="false"  :class="errors.travelend ? 'error-input' : ''" :highlight-week-days="[0, 6]"></Datepicker>
+                <span v-if="errors.travelend" class="text-danger m-error">{{errors.travelend[0]}}</span>  
+                <small>(mm/dd/yy)</small>
                 
             </div>
         </div>
@@ -88,7 +95,8 @@
                 'location': '',
                 'purpose': '',
                 'travelordernumber': '',   
-                'travelrange': '',
+                'travelstart': '',
+                'travelend': '',
                 'employees': [],
             })
 
@@ -105,7 +113,8 @@
                     form.location = travel.value.location;
                     form.purpose = travel.value.purpose;
                     form.travelordernumber = travel.value.travelordernumber;
-                    form.travelrange = [travel.value.travelstart, travel.value.travelend];   
+                    form.travelstart = travel.value.travelstart;
+                    form.travelend = travel.value.travelend;
                     form.employees = travel.value.travelids;
                 })
                 

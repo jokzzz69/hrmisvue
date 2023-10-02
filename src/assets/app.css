@@ -1300,6 +1300,16 @@ tr.disabled{
     transition: opacity .5s;
     z-index: 9;
 }
+.tsnn .text-danger.m-error{
+	display: block;
+}
+.mli > div:first-child{
+	margin-right: 33.33333%;
+}
+.mli > div:not(:first-child) button{
+	width: 100%;
+}
+
 /*end grid layout*/
 /*end content*/
 @media(max-width: 500px){

@@ -23,8 +23,16 @@ export default function useAuthenticate(){
 	const currentUser = async() => {
 		axios.defaults.withCredentials = true;	
 		await axios.get('/v1/api/cu').then(response =>{
-			desc.value = [response.data.data.employee_id,response.data.data.roles[0].slug, true];
+
+			desc.value = [
+				response.data.data.employee_id,
+				response.data.data.roles[0].slug, 
+				true,
+				response.data.data.employments[0].type_id
+			];
+
 			store.setdetails(desc.value);
+
 			emit('isLoggedin', true);
 
 			if(response.data.data.userinformation){

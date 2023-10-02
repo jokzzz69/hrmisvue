@@ -52,15 +52,15 @@
 </template>
 
 <script>
-    import useEmployees from '../../composables/composables-employees';
-    import useMonitoring from '../../composables/composables-monitoring';
-    import useGeneratedtr from '../../composables/composables-generatedtr';
+    import useEmployees from '@/composables/composables-employees';
+    import useMonitoring from '@/composables/composables-monitoring';
+    import useGeneratedtr from '@/composables/composables-generatedtr';
 
     import {onMounted ,ref, computed} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
-    import {formatDate} from '../../helper/formatdate'
-    import {formatTime} from '../../helper/formattime'
+    import {formatDate} from '@/helper/formatdate'
+    import {formatTime} from '@/helper/formattime'
     import moment from 'moment';
 
     export default{
@@ -72,7 +72,7 @@
         },
         setup(props){
             const {employee, getEmployee} = useEmployees()
-            const {generateResponse, generatedtruser} = useGeneratedtr()
+            const {downloadperEmployeeDTR} = useGeneratedtr()
             const {monitoringbiometric, getEmployeebiometric} = useMonitoring()
 
       

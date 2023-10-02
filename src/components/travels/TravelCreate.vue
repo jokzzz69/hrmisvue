@@ -38,11 +38,18 @@
             </div>           
         </div>
         <div class="row">
-            <div class="col mt-2 mb-3 req">
-                <span class="d-block">Date of Travel <i class="text-danger">*</i></span>
-                <Datepicker class="date-form-floating highlights-weekend" id="dts" week-start="0" range v-model="form.travelrange" placeholder="Date Range" :enable-time-picker="false"  :clearable="false"  :class="errors.travelrange ? 'error-input' : ''" :highlight-week-days="[0, 6]"></Datepicker>
-                <span v-if="errors.travelrange" class="text-danger m-error">{{errors.travelrange[0]}}</span>  
-                <small>(mm/dd/yy - mm/dd/yy)</small>
+            <div class="col col-sm-6 mt-2 mb-3 req tsnn">
+                <span class="d-block">Start Date <i class="text-danger">*</i></span>
+                <Datepicker class="date-form-floating highlights-weekend" id="dts" week-start="0" auto-apply v-model="form.travelstart" placeholder="Date Start" :enable-time-picker="false"  :clearable="false"  :class="errors.travelstart ? 'error-input' : ''" :highlight-week-days="[0, 6]"></Datepicker>
+                <span v-if="errors.travelstart" class="text-danger m-error">{{errors.travelstart[0]}}</span>  
+                <small>(mm/dd/yy)</small>
+                
+            </div>
+            <div class="col col-sm-6 mt-2 mb-3 req tsnn">
+                <span class="d-block">End Date <i class="text-danger">*</i></span>
+                <Datepicker class="date-form-floating highlights-weekend" id="dts" week-start="0" auto-apply v-model="form.travelend" placeholder="Date End" :enable-time-picker="false"  :clearable="false"  :class="errors.travelend ? 'error-input' : ''" :highlight-week-days="[0, 6]"></Datepicker>
+                <span v-if="errors.travelend" class="text-danger m-error">{{errors.travelend[0]}}</span>  
+                <small>(mm/dd/yy)</small>
                 
             </div>
         </div>
@@ -69,6 +76,9 @@
     import useTravels from '@/composables/composables-travel';
     import 'vue-select/dist/vue-select.css';
     import { useHead } from '@unhead/vue'
+    import {useAuthStore} from '@/stores/store'
+
+
 
     export default {
 
@@ -76,10 +86,15 @@
             useHead({
                 title: 'Create Travel | BFAR - CAR HRMIS'
             })
+            const employeedetails = useAuthStore();
+
+
+
             const form = reactive({
                 'location': '',
                 'purpose': '',
-                'travelrange': '',
+                'travelstart': '',
+                'travelend': '',
                 'travelordernumber': '',
                 'employees': [],
             })
@@ -91,13 +106,16 @@
             const {employees, getEmployeeOptions} = useEmployees()
 
             onMounted(() => {
-                getEmployeeOptions()
+                getEmployeeOptions();
+                if(employeedetails.details[0]){
+                    form.employees.push(parseInt(employeedetails.details[0]))
+                }
             })
 
         
 
             const saveTravel = async () => {               
-     
+
                 await storeTravel({ ...form }).then(() => {
                     if(!errors.value){
                         swal.fire({

@@ -122,8 +122,8 @@
     import {onMounted ,ref, computed, reactive, onUpdated } from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
-    import {formatDate} from '../../helper/formatdate'
-    import {formatTime} from '../../helper/formattime'
+    import {formatDate} from '@/helper/formatdate'
+    import {formatTime} from '@/helper/formattime'
     import moment from 'moment';
     import { useHead } from '@unhead/vue'
 
