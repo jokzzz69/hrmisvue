@@ -1,7 +1,7 @@
 <template>
 	<div class="row">
 		<div class="col-md-12 p-title">
-			<h2>Employees Information</h2>
+			<h2>Employeess Information</h2>
 		</div>
 	</div>
 

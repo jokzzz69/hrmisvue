@@ -11,11 +11,11 @@
                     <label class="col-form-label col-12" for="fdate">Select Date</label>                
                     <Datepicker v-model="monthpicked" id="fdate" auto-apply month-picker @update:model-value="getEmployeeBio" :clearable="false" name="monthpicked" :format="format" :month-change-on-arrows="true"></Datepicker> 
                 </div> 
-                <template v-if="userrole == 'super-admin' || id == 207 || id == 29 || id == 215">
+                <template v-if="userrole == 'super-admin' || userrole == 'admin' || id == 207 || id == 29">
                     <div class="mt-2 dtredit col col-sm-3">
                         <button class="btn btn-outline-info" @click="gotoEditDTR">Edit</button>
                     </div>
-                    <div class="mt-2 col col-sm-7" v-if="isPermanent || userrole == 'super-admin' || userrole == 'admin' || id == 207 || id == 29 || id == 215">
+                    <div class="mt-2 col col-sm-7">
                         <button class="btn btn-outline-danger" @click="dlpersonnelDTR"><i class="fa-solid fa-file-pdf"></i> Download</button>
                     </div>
                 </template>
