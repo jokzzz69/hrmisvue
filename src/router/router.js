@@ -1,7 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router';
 import { useAuthStore } from '@/stores/store.js'
 
-const routes = [
+const routes = [  
   {
     path: '/dashboard',
     name: 'dashboard.index',
@@ -147,15 +147,6 @@ const routes = [
       middleware: ['super-admin','admin','hr']
     }
   },
-  
-  {
-    path: '/monitorofficeemployees',
-    name: 'monitoringofficehead.index',
-    component: () => import('@/components/monitoring/MonitoringOfficehead.vue'),
-    meta: {
-      middleware: ['office-head']
-    }
-  },
   {
     path: '/monitoring',
     name: 'monitoring.index',
@@ -170,9 +161,19 @@ const routes = [
       component: () => import('@/components/monitoring/MonitoringShow.vue'),
       props: true,
       meta: {
-        middleware: ['hr','super-admin','admin']
+        middleware: ['hr','super-admin','admin','employee']
       }
   },
+  {
+    path: '/monitorofficeemployees',
+    name: 'monitoringofficehead.index',
+    component: () => import('@/components/monitoring/MonitoringOfficehead.vue'),
+    meta: {
+      middleware: ['office-head']
+    }
+  },
+  
+  
   {
       path: '/monitoringofficeemployee/:id/view',
       name: 'monitoringofficeemployee.show',

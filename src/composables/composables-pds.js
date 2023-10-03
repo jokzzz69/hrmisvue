@@ -21,8 +21,7 @@ export default function usePDS(){
 		     document.body.appendChild(fileLink);
 		     fileLink.click();
 		});
-		// let response = await axios.get('/v1/api/biooffices');
-		// offices.value = response.data.data;
+
 	}
 
 	const downloadArchivePDS = async (id, name) => {
@@ -40,8 +39,7 @@ export default function usePDS(){
 		     document.body.appendChild(fileLink);
 		     fileLink.click();
 		});
-		// let response = await axios.get('/v1/api/biooffices');
-		// offices.value = response.data.data;
+
 	}
 
 	return{

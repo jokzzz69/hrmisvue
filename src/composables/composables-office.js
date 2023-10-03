@@ -7,13 +7,13 @@ export default function useOffices(){
 	const router = useRouter();
 	const office = ref([]);
 	const errors = ref('');
-	const customoffices = ref([]);
+
 	
 	const storeOffice = async (data) => {
 		axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.post('/v1/api/biooffices/', data)
+            await axios.post('/v1/api/offices/', data)
             await router.push({name: 'offices.index'})
             
         } catch (e) {
@@ -26,30 +26,26 @@ export default function useOffices(){
 
 	const getOffices = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/v1/api/biooffices');
+		let response = await axios.get('/v1/api/offices');
 		offices.value = response.data.data;
 	}
-	const getcustomOffices = async () => {
-		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/v1/api/customlocations');
-		customoffices.value = response.data.data;
-	}
+
 
 	const getOffice = async (id) => {
 		axios.defaults.withCredentials = true;	
-        let response = await axios.get(`/v1/api/biooffice/${id}`)
+        let response = await axios.get(`/v1/api/offices/${id}`)
         office.value = response.data.data[0]
     }
 	const destroyOffice = async (id) => {
 		axios.defaults.withCredentials = true;	
-		await axios.delete('/v1/api/biooffices/' + id);
+		await axios.delete('/v1/api/offices/' + id);
 		
 	}	
 	const updateOffice = async (id) => {
 		axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.patch(`/v1/api/biooffices/${id}`, office.value)
+            await axios.patch(`/v1/api/offices/${id}`, office.value)
             await router.push({ name: 'offices.index' })
         } catch (e) {
             if (e.response.status === 422) {
@@ -67,8 +63,6 @@ export default function useOffices(){
 		getOffices,
 		updateOffice,
 		destroyOffice,
-		getcustomOffices,
-		customoffices,
 		storeOffice
 	}
 }

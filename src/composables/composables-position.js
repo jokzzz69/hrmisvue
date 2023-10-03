@@ -11,24 +11,24 @@ export default function useEmployeePosition(){
 
 	const getEmployeePositions = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/v1/api/bioemployeepositions');
+		let response = await axios.get('/v1/api/positions');
 		employeepositions.value = response.data.data;
 	}
 	const getEmployeePosition = async (id) => {
 		axios.defaults.withCredentials = true;	
-        let response = await axios.get(`/v1/api/bioemployeepositions/${id}`)
+        let response = await axios.get(`/v1/api/positions/${id}`)
         employeeposition.value = response.data.data      
     }
 	const destroyEmployeePosition = async (id) => {
 		axios.defaults.withCredentials = true;	
-		await axios.delete('/v1/api/bioemployeepositions/' + id)
+		await axios.delete('/v1/api/positions/' + id)
 	}
 
 	const storeEmployeePosition = async (data) => {
 		axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.post('/v1/api/bioemployeepositions/', data)
+            await axios.post('/v1/api/positions/', data)
             await router.push({name: 'employeeposition.index'})
             
         } catch (e) {
@@ -42,7 +42,7 @@ export default function useEmployeePosition(){
 		axios.defaults.withCredentials = true;	
         errors.value = ''
         try {
-            await axios.patch(`/v1/api/bioemployeepositions/${id}`, employeeposition.value)
+            await axios.patch(`/v1/api/positions/${id}`, employeeposition.value)
             await router.push({ name: 'employeeposition.index' })
         } catch (e) {
             if (e.response.status === 422) {

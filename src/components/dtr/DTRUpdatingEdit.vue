@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-md-12 p-title">           
-            <h2>Edit 
+            <h2>Edit
                 <template v-if="formContent">
                     {{datetoEdit}}
                 </template>
@@ -131,7 +131,7 @@
 
             onMounted(() => {
 
-                getBiolog(id.value,props.mf).then( () =>{
+                getBiolog(props.id,props.mf).then( () =>{
                 	formContent.value = biolog.value;
                     datetoEdit.value = biolog.value.month[0]+' '+biolog.value.year[0];
                 })

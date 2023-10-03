@@ -19,7 +19,7 @@ export default function useAuthenticate(){
 	const noPassChange = ref(false);
 	const navigationstore = useNavigationStore();
 	const changepasswordstore = usePasswordChange();
-
+	const info = ref();
 	const currentUser = async() => {
 		axios.defaults.withCredentials = true;	
 		await axios.get('/v1/api/cu').then(response =>{
@@ -98,14 +98,22 @@ export default function useAuthenticate(){
 		 
     }
 
+    const getinfo = async () => {
+    	axios.defaults.withCredentials = true;
 
+    	await axios.get('v1/api/info').then((res) => {
+    		info.value = res.data;
+    	});
+    }
 	
 
 	return {
 		login,
 		errors,
 		logout,
-		checkIfLogin
+		checkIfLogin,
+		info,
+		getinfo
 		
 	}
 }

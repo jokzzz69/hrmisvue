@@ -30,9 +30,6 @@
   import EmployeeNavigation from '@/components/navigation/EmployeeNavigation.vue';
   import { usePasswordChange } from '@/stores/changepasswordstore.js'
   import useEventsBus from '@/components/helper/Eventbus';
-
-
-
       
   export default{
     components: {

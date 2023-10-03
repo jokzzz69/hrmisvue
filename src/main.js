@@ -80,6 +80,9 @@ axios.interceptors.response.use(function (response) {
 	}else if(error.response.status === 422){
 		nProgress.done()
 	}
+	else if(error.response.status === 403){
+		window.location.href = "/403";
+	}
 	nProgress.done();
 	return Promise.reject(error);
 });
