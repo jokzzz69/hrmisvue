@@ -48,7 +48,7 @@
                             </div>                    
                             <span v-if="errors['employee.employee_lname']" class="text-danger m-error">{{errors['employee.employee_lname'][0]}}</span>
                         </div>  
-                        <div class="col-sm-2 c_p rpr mb-2">
+                        <div class="col col-sm-2 c_p rpr mb-2">
                             <div class="form-floating">                        
                                 <input type="text" name="extensionname" id="employee_extname" class="form-control" placeholder="enter name ext." v-model="officerecord.employee.employee_extname">
                                 <label for="employee_extname" class="form-label">Name Extension</label>
@@ -61,7 +61,7 @@
                             <div class="col c_p rpl mb-2">                                            
                                 <Datepicker auto-apply week-start="0" :clearable="false" :enable-time-picker="false" v-model="officerecord.pdspersonalinformation.birthdate" name="birthdate" class="date-form-floating" placeholder="Date of Birth"></Datepicker>                           
                             </div> 
-                            <div class="col-sm-7 c_p col-xxl-8 mb-2">
+                            <div class="col col-sm-7 c_p col-xxl-8 mb-2">
                                 <div class="form-floating">                        
                                     <input type="text" name="placeofbirth" id="placeofbirth" class="form-control" placeholder="enter place of birth"  v-model="officerecord.pdspersonalinformation.placeofbirth">    
                                     <label for="placeofbirth" class="form-label">Place of Birth</label>                    

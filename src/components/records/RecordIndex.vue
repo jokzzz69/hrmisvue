@@ -17,120 +17,122 @@
 		    		</div>
 		    	</div>
 		    </div>
-		    <table class="mtable hasActions mt-2 mb-2 table tbllink">
-		    	<thead>
-		    		<tr>
-		    			<th @click="sortTable('employee_id')">ID
-		    				<span v-if="sortColumn == 'employee_id'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		    			</th>
-		    			<th @click="sortTable('employee_fname')">Name
-		                    <span v-if="sortColumn == 'employee_fname'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th @click="sortTable('emergency_contactperson')">Emergency Contact
-		                    <span v-if="sortColumn == 'emergency_contactperson'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th @click="sortTable('type')">Type
-		                    <span v-if="sortColumn == 'type'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th @click="sortTable('status')">Status
-		                    <span v-if="sortColumn == 'status'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th @click="sortTable('position')">Position
-		                    <span v-if="sortColumn == 'position'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th @click="sortTable('office')">Office
-		                    <span v-if="sortColumn == 'office'" class="material-icons">{{arrowIconName}}</span>		                    
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th @click="sortTable('startdate')">Start Date
-		                    <span v-if="sortColumn == 'startdate'" class="material-icons">{{arrowIconName}}</span>		                    
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th></th>
-		    		</tr>
-		    	</thead>
-		    	<tbody>
-		    		<template v-for="officerecord in filteredOfficeRecords" :key="officerecord.employee_id">
+		    <div class="mtmb">
+		    	<table class="mtable hasActions mt-2 mb-2 table tbllink">
+			    	<thead>
+			    		<tr>
+			    			<th @click="sortTable('employee_id')">ID
+			    				<span v-if="sortColumn == 'employee_id'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			    			</th>
+			    			<th @click="sortTable('employee_fname')">Name
+			                    <span v-if="sortColumn == 'employee_fname'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th @click="sortTable('emergency_contactperson')">Emergency Contact
+			                    <span v-if="sortColumn == 'emergency_contactperson'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th @click="sortTable('type')">Type
+			                    <span v-if="sortColumn == 'type'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th @click="sortTable('status')">Status
+			                    <span v-if="sortColumn == 'status'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th @click="sortTable('position')">Position
+			                    <span v-if="sortColumn == 'position'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th @click="sortTable('office')">Office
+			                    <span v-if="sortColumn == 'office'" class="material-icons">{{arrowIconName}}</span>		                    
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th @click="sortTable('startdate')">Start Date
+			                    <span v-if="sortColumn == 'startdate'" class="material-icons">{{arrowIconName}}</span>		                    
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th></th>
+			    		</tr>
+			    	</thead>
+			    	<tbody>
+			    		<template v-for="officerecord in filteredOfficeRecords" :key="officerecord.employee_id">
 
-		    			<tr @click="goshow(officerecord.employee_id)">
-		    				<td>
-		    					<template v-if="officerecord.employee">
-		    						{{officerecord.employee.employee_id}}
-		    					</template>
-		    				</td>
-		    				<td class="ttc"> 	
-		    					<template v-if="officerecord.employee">
-		    						<template v-if="officerecord.employee.employee_fname">
-			    						<template v-if="checkText(officerecord.employee.employee_fname)">{{ officerecord.employee.employee_fname}}&nbsp;</template>
-			    					</template>		
-			    					<template v-if="officerecord.employee.employee_mname.replace(/ /g, '').length > 1">
-			    						<template v-if="checkText(officerecord.employee.employee_mname)">{{ officerecord.employee.employee_mname.charAt(0).toUpperCase() }}. </template>
+			    			<tr @click="goshow(officerecord.employee_id)">
+			    				<td>
+			    					<template v-if="officerecord.employee">
+			    						{{officerecord.employee.employee_id}}
 			    					</template>
-			    					<template v-if="officerecord.employee.employee_lname">
-			    						<template v-if="checkText(officerecord.employee.employee_lname)">{{officerecord.employee.employee_lname}}&nbsp;</template>
-			    					</template>
-			    					<template v-if="officerecord.employee.employee_extname">
-			    						<template v-if="checkText(officerecord.employee.employee_extname)">{{officerecord.employee.employee_extname}}</template>
-			    					</template>	
-		    					</template>			
-		    				</td>
-		    				<td class="ttc">
-		    					{{officerecord.emergency_contactperson}}<template v-if="officerecord.emergency_contactnumber"><br/>0{{officerecord.emergency_contactnumber}}</template>
-		    				</td>
-		    				 <td>
-		    				 	<template v-if="officerecord.employments.length > 0">
-		    				 		<template v-if="officerecord.employments[0].type">
-		    				 			{{officerecord.employments[0].type.name}}
-		    				 		</template>		    				 		
-		    				 	</template>
-		    				 </td>
-		    				 <td>
-		    				 	<template v-if="officerecord.employments.length > 0">
-		    				 		<template v-if="officerecord.employments[0].status">
-		    				 			{{officerecord.employments[0].status.name}}
-		    				 		</template>		    				 		
-		    				 	</template>	
-		    				 </td>
-		    				 <td>
-		    				 	<template v-if="officerecord.employments.length > 0">
-		    				 		<template v-if="officerecord.employments[0].position">
-		    				 			{{officerecord.employments[0].position.name}}
-		    				 		</template>		    				 		
-		    				 	</template>
-		    				 </td>
-			    			<td>
-			    				<template v-if="officerecord.employments.length > 0">
-		    				 		<template v-if="officerecord.employments[0].office">
-		    				 			{{officerecord.employments[0].office.offices_name}}
-		    				 		</template>		    				 		
-		    				 	</template>
-			    			</td>
-			    			<td>
-			    				<template v-if="officerecord.employments.length > 0">
-		    				 		<template v-if="officerecord.employments[0].startdate">
-		    				 			{{moment(new Date(officerecord.employments[0].startdate)).format('MMMM D, Y')}}
-		    				 		</template>		    				 		
-		    				 	</template>
-			    			</td>
-			    			<td @click.stop class="tblcolwid--2btn">
+			    				</td>
+			    				<td class="ttc"> 	
+			    					<template v-if="officerecord.employee">
+			    						<template v-if="officerecord.employee.employee_fname">
+				    						<template v-if="checkText(officerecord.employee.employee_fname)">{{ officerecord.employee.employee_fname}}&nbsp;</template>
+				    					</template>		
+				    					<template v-if="officerecord.employee.employee_mname.replace(/ /g, '').length > 1">
+				    						<template v-if="checkText(officerecord.employee.employee_mname)">{{ officerecord.employee.employee_mname.charAt(0).toUpperCase() }}. </template>
+				    					</template>
+				    					<template v-if="officerecord.employee.employee_lname">
+				    						<template v-if="checkText(officerecord.employee.employee_lname)">{{officerecord.employee.employee_lname}}&nbsp;</template>
+				    					</template>
+				    					<template v-if="officerecord.employee.employee_extname">
+				    						<template v-if="checkText(officerecord.employee.employee_extname)">{{officerecord.employee.employee_extname}}</template>
+				    					</template>	
+			    					</template>			
+			    				</td>
+			    				<td class="ttc">
+			    					{{officerecord.emergency_contactperson}}<template v-if="officerecord.emergency_contactnumber"><br/>0{{officerecord.emergency_contactnumber}}</template>
+			    				</td>
+			    				 <td>
+			    				 	<template v-if="officerecord.employments.length > 0">
+			    				 		<template v-if="officerecord.employments[0].type">
+			    				 			{{officerecord.employments[0].type.name}}
+			    				 		</template>		    				 		
+			    				 	</template>
+			    				 </td>
+			    				 <td>
+			    				 	<template v-if="officerecord.employments.length > 0">
+			    				 		<template v-if="officerecord.employments[0].status">
+			    				 			{{officerecord.employments[0].status.name}}
+			    				 		</template>		    				 		
+			    				 	</template>	
+			    				 </td>
+			    				 <td>
+			    				 	<template v-if="officerecord.employments.length > 0">
+			    				 		<template v-if="officerecord.employments[0].position">
+			    				 			{{officerecord.employments[0].position.name}}
+			    				 		</template>		    				 		
+			    				 	</template>
+			    				 </td>
+				    			<td>
+				    				<template v-if="officerecord.employments.length > 0">
+			    				 		<template v-if="officerecord.employments[0].office">
+			    				 			{{officerecord.employments[0].office.offices_name}}
+			    				 		</template>		    				 		
+			    				 	</template>
+				    			</td>
+				    			<td>
+				    				<template v-if="officerecord.employments.length > 0">
+			    				 		<template v-if="officerecord.employments[0].startdate">
+			    				 			{{moment(new Date(officerecord.employments[0].startdate)).format('MMMM D, Y')}}
+			    				 		</template>		    				 		
+			    				 	</template>
+				    			</td>
+				    			<td @click.stop class="tblcolwid--2btn">
 
-			    				<ul class="ls-frmbutton text-end">
-			    					<li class="me-1 mb-1" v-if="authid != officerecord.employee_id">
-			    						<button class="btn btn-dyellow" @click="archiveEmployee(officerecord.employee_id,officerecord.employments[0].status.id)"><i class="fa-solid fa-box-archive"></i> Archive</button>
-			    					</li>
-	                                <li  v-if="userrole == 'super-admin'"><button title="delete" class="btn btn-outline-danger" @click="deleteOfficeRecord(officerecord.employee_id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
-	                            </ul>
-			    			</td>
-		    			</tr>
-		    		</template>
-		    	</tbody>
-		    </table>
+				    				<ul class="ls-frmbutton text-end">
+				    					<li class="me-1 mb-1" v-if="authid != officerecord.employee_id">
+				    						<button class="btn btn-dyellow" @click="archiveEmployee(officerecord.employee_id,officerecord.employments[0].status.id)"><i class="fa-solid fa-box-archive"></i> Archive</button>
+				    					</li>
+		                                <li  v-if="userrole == 'super-admin'"><button title="delete" class="btn btn-outline-danger" @click="deleteOfficeRecord(officerecord.employee_id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
+		                            </ul>
+				    			</td>
+			    			</tr>
+			    		</template>
+			    	</tbody>
+			    </table>
+		    </div>
 		</div>
 	</div>
 </template>

@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="row mb-2" v-if="officerecord.employee">    
-                <div class="col-1 mb-2">
+                <div class="col col-sm-1 mb-2">
                     <div class="form-floating">
                         <select class="form-select" name="employee_bioid" id="employee_bioid" v-model="officerecord.employee.employee_bioid">
                             <option value="">No Bio</option>

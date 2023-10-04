@@ -1,5 +1,5 @@
 <template>
-	<div v-if="showModal" class="modal-mask">
+	<div v-if="showModal" class="modal-mask pvcmodal">
       <div class="modal-wrapper">
         <div class="modal-container">
 

@@ -13,51 +13,53 @@
 		    		</div>
 		    	</div>
 		    </div>
-		    <table class="mtable mt-2 mb-2 table tbllink">
-		    	<thead>
-		    		<tr>
-		    			<th class="col" @click="sortTable('employee_fname')">Name
-		                    <span v-if="sortColumn == 'employee_fname'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th class="col" @click="sortTable('pdspersonalinformation')">Last Edited
-		                    <span v-if="sortColumn == 'pdspersonalinformation'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th class="col"></th>
-		    		</tr>
-		    	</thead>
-		    	<tbody>
-		    		<template v-for="employee in filteredEmployees" :key="employee.employee_id">
-		
-		    				<tr @click="goshow(employee.employee_id)">			
-							
-		    				<td class="ttc">{{employee.cname}}</td>
-		    				<td>
-		    					<template v-if="employee.pdspersonalinformation">		
-		    						<template v-if="employee.pdspersonalinformation.updated_at">
-		    							{{moment(employee.pdspersonalinformation.updated_at).format('LLLL')}}
-		    						</template>
-		    					</template>
-		    				</td>
-			    			<td @click.stop>
-			    				<ul class="ls-frmbutton text-end">
-			    					<li>
-			    						<button class="btn btn-download btn-outline-danger" @click.prevent="downloadselectedpds(employee.employee_id, employee.cname)">
-			    							Download
-			    						</button>
-			    					</li>
-	                               	<li v-if="userrole == 'super-admin'" >
-                                        <button title="Reset Data" class="btn btn-teal" @click="resetPDS(employee.employee_id)">
-                                            <i class="fa-solid fa-eraser"></i> Reset
-                                        </button>
-                                    </li>                               	
-	                            </ul>
-			    			</td>
-		    			</tr>
-		    		</template>
-		    	</tbody>
-		    </table>
+		    <div class="mtmb">
+		    	<table class="mtable mt-2 mb-2 table tbllink">
+			    	<thead>
+			    		<tr>
+			    			<th class="col" @click="sortTable('employee_fname')">Name
+			                    <span v-if="sortColumn == 'employee_fname'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th class="col" @click="sortTable('pdspersonalinformation')">Last Edited
+			                    <span v-if="sortColumn == 'pdspersonalinformation'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th class="col"></th>
+			    		</tr>
+			    	</thead>
+			    	<tbody>
+			    		<template v-for="employee in filteredEmployees" :key="employee.employee_id">
+			
+			    				<tr @click="goshow(employee.employee_id)">			
+								
+			    				<td class="ttc">{{employee.cname}}</td>
+			    				<td>
+			    					<template v-if="employee.pdspersonalinformation">		
+			    						<template v-if="employee.pdspersonalinformation.updated_at">
+			    							{{moment(employee.pdspersonalinformation.updated_at).format('LLLL')}}
+			    						</template>
+			    					</template>
+			    				</td>
+				    			<td @click.stop>
+				    				<ul class="ls-frmbutton text-end">
+				    					<li>
+				    						<button class="btn btn-download btn-outline-danger" @click.prevent="downloadselectedpds(employee.employee_id, employee.cname)">
+				    							Download
+				    						</button>
+				    					</li>
+		                               	<li v-if="userrole == 'super-admin'" >
+	                                        <button title="Reset Data" class="btn btn-teal" @click="resetPDS(employee.employee_id)">
+	                                            <i class="fa-solid fa-eraser"></i> Reset
+	                                        </button>
+	                                    </li>                               	
+		                            </ul>
+				    			</td>
+			    			</tr>
+			    		</template>
+			    	</tbody>
+			    </table>
+		    </div>
 		</div>
 	</div>
 </template>

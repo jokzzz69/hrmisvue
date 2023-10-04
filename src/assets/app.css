@@ -773,15 +773,7 @@ input[type=number] {
 .rytviewsidenav ul li a:hover{
 	text-decoration: underline;
 }
-.hideRyt{
-	flex: 0 0 auto !important;
-    width: 0% !important;
-    margin-right: -9999px;
-    -webkit-transition: all 1s ease-in-out;
-  	-moz-transition: all 1s ease-in-out;
-  	-o-transition: all 1s ease-in-out;
-  	transition: all 1s ease-in-out;
-}
+
 .ul-dptop{
 	padding-left: 0px;
 }
@@ -1368,6 +1360,10 @@ tr.disabled{
 }
 
 @media (max-width: 767.98px){
+	.pvcmodal p{
+		margin-bottom: .5rem;
+		font-size: .9em;
+	}
 	.col.ssl table {
 		margin-top: 1rem;
 	    display: inline-block;
@@ -1512,19 +1508,41 @@ tr.disabled{
 		top: 55px;
 		right: 200px;
 	}
-	.hideRyt .posFixed{
-		width: 0 !important;
-		overflow: hidden;
-		right: -99px;
+
+	.right-navigation .posFixed{
+		width: 0;
+		right: -9999px;
 	}
-	.hideRyt .btn-rsidebar{
+	.btn-rsidebar.wb{
+		display: none;
+	}
+	.btn-rsidebar.mb{
+		width: 30px;
+		right: 0px;
+	}
+	.mbshow .posFixed{
+		width: 200px;
 		right: 0;
+	}
+	.mbshow .btn-rsidebar.mb{
+		right: 200px;
 	}
 }
 
 
 @media (min-width: 768px) {
-
+	.hideRyt{
+		flex: 0 0 auto !important;
+	    width: 0% !important;
+	    margin-right: -9999px;
+	    -webkit-transition: all 1s ease-in-out;
+	  	-moz-transition: all 1s ease-in-out;
+	  	-o-transition: all 1s ease-in-out;
+	  	transition: all 1s ease-in-out;
+	}
+	.btn-rsidebar.mb{
+		display: none;
+	}
 	.mainwrap{
 		padding-top:  55px;
 		min-height: 100vh;

@@ -15,59 +15,61 @@
                 <input type="text" name="inputSearch"  placeholder="search..." class="form-control border-blue" v-model="searchQuery">
             </div>
         </div>    </div>
-	<table class="mtable mt-2 mb-2 table tbllink">
-        <thead>
-            <tr>
-                <th @click="sortTable('name')">Name
-                    <span v-if="sortColumn == 'name'" class="material-icons">{{arrowIconName}}</span>
-                    <span v-else class="material-icons">sort</span>
-                </th>
-                <th @click="sortTable('datearachived')">Date Archived
-                    <span v-if="sortColumn == 'name'" class="material-icons">{{arrowIconName}}</span>
-                    <span v-else class="material-icons">sort</span>
-                </th>
-                 <th>
-                     
-                 </th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <template v-for="archive in filteredArchives" :key="archive.id">
+	   <div class="mtmb">
+        <table class="mtable mt-2 mb-2 table tbllink">
+            <thead>
                 <tr>
-                    <td>
-                        <template v-if="archive.name">
-                           {{ archive.name}}
-                        </template>
-
-                    </td>
-            		<td>
-                        <template v-if="archive.created_at">
-                            {{moment(archive.created_at).format('LLLL')}}
-                        </template>                			
-            		</td>
-                    <td class="text-end">
-                        <ul class="ls-frmbutton">
-                            <li>
-                                <router-link :to="{ name: 'archives.restore', params: { id: archive.id } }" class="btn btn-outline-secondary" title="Restore"><i class="fa-solid fa-trash-can-arrow-up"></i> <span class="actionText">Restore</span>
-                                </router-link>
-                            </li>
-                            <li>
-                                <button class="btn btn-violet" @click="showEmployment(archive.id,archive.name)" title="View Employment"> 
-                                    <i class="fa-solid fa-person-digging"></i> <span class="btn-txtspan">View Employment</span>
-                                </button>
-                            </li>
-                            <li>
-                                <button class="btn btn-outline-danger" title="View PDS"  @click="showModalPDS(archive.id,archive.name)"> 
-                                    <i class="fa-regular fa-file-lines"></i> <span class="btn-txtspan">View PDS</span>
-                                </button>
-                            </li>
-                        </ul>
-                    </td>
+                    <th @click="sortTable('name')">Name
+                        <span v-if="sortColumn == 'name'" class="material-icons">{{arrowIconName}}</span>
+                        <span v-else class="material-icons">sort</span>
+                    </th>
+                    <th @click="sortTable('datearachived')">Date Archived
+                        <span v-if="sortColumn == 'name'" class="material-icons">{{arrowIconName}}</span>
+                        <span v-else class="material-icons">sort</span>
+                    </th>
+                     <th>
+                         
+                     </th>
                 </tr>
-            </template>
-        </tbody>
-    </table>
+            </thead>
+
+            <tbody>
+                <template v-for="archive in filteredArchives" :key="archive.id">
+                    <tr>
+                        <td>
+                            <template v-if="archive.name">
+                               {{ archive.name}}
+                            </template>
+
+                        </td>
+                        <td>
+                            <template v-if="archive.created_at">
+                                {{moment(archive.created_at).format('LLLL')}}
+                            </template>                         
+                        </td>
+                        <td class="text-end">
+                            <ul class="ls-frmbutton">
+                                <li>
+                                    <router-link :to="{ name: 'archives.restore', params: { id: archive.id } }" class="btn btn-outline-secondary" title="Restore"><i class="fa-solid fa-trash-can-arrow-up"></i> <span class="actionText">Restore</span>
+                                    </router-link>
+                                </li>
+                                <li>
+                                    <button class="btn btn-violet" @click="showEmployment(archive.id,archive.name)" title="View Employment"> 
+                                        <i class="fa-solid fa-person-digging"></i> <span class="btn-txtspan">View Employment</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="btn btn-outline-danger" title="View PDS"  @click="showModalPDS(archive.id,archive.name)"> 
+                                        <i class="fa-regular fa-file-lines"></i> <span class="btn-txtspan">View PDS</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>   
+       </div>
 
 
 

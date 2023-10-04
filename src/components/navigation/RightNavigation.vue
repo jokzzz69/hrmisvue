@@ -1,13 +1,12 @@
-<template>
-    
-    <div class="col-2 brl ptpb" :class="rshow">
-        <a href="#" @click="btnClick" class="btn-rsidebar"><span class="material-icons">{{iconname}}</span></a>
+<template>    
+    <div class="col-2 brl ptpb right-navigation" :class="{hideRyt:rshow, mbshow: mshow}">
+        <a href="#" @click="btnClick" class="btn-rsidebar wb"><span class="material-icons">{{iconname}}</span></a>
+        <a href="#" @click="btnClickMobile" class="btn-rsidebar mb"><span class="material-icons">{{micon}}</span></a>
         <div class="menu posFixed">
             <span class="rff fs-5">Personal Data</span>
             <ul class="rsidebar">
                 <li>
-                    <router-link :to="{ name: 'pdspersonal.show' }">Personal Information</router-link>
-                
+                    <router-link :to="{ name: 'pdspersonal.show' }">Personal Information</router-link>                
                 </li>
                 <li>
                     <router-link :to="{ name: 'pdspersonalfamilybackground.show'}">Family Background</router-link>
@@ -42,7 +41,10 @@ import usePDS from '@/composables/composables-pds';
             const navigationstore = useNavigationStore();
             const rshow = ref('');
             const iconname = ref('arrow_forward');
+            const micon = ref('arrow_backward');
             const {downloadPDS} = usePDS();
+            const mshow = ref(false);
+            const mshowclass =ref();
             const btnClick = async () =>{
                 if(rshow.value != 'hideRyt'){
                     rshow.value = "hideRyt";
@@ -56,11 +58,22 @@ import usePDS from '@/composables/composables-pds';
             const downloadmypds = async(id) =>{
                 await downloadPDS(id,navigationstore.name);
             }
+            const btnClickMobile = () => {
+                mshow.value = !mshow.value;
+                if(mshow.value){
+                    micon.value = 'arrow_forward';
+                }else{
+                    micon.value = 'arrow_backward';
+                }
+            }
             return {
                 rshow,
                 btnClick,
                 iconname,
-                downloadmypds
+                downloadmypds,
+                btnClickMobile,
+                mshow,
+                micon
             }
         }
     }
