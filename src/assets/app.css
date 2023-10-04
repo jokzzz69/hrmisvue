@@ -1329,7 +1329,9 @@ tr.disabled{
 	.nb-de{
 		display: none;
 	}
-	
+	.navbar-brand{
+		position: absolute;
+	}
 	
 }
 @media(max-width: 767px){
@@ -1349,6 +1351,7 @@ tr.disabled{
 	}
 	.nav-item.dropdown{
 		position: static;
+		z-index: 999;
 	}
 	.dropdown-menu-end{
 		position: absolute !important;

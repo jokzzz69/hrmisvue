@@ -13,71 +13,74 @@
 		    		</div>
 		    	</div>
 		    </div>
-		    <table class="mtable mt-2 mb-2 table tbllink">
-		    	<thead>
-		    		<tr>
-		    			<th @click="sortTable('employee_id')">Bio ID
-		                    <span v-if="sortColumn == 'employee_id'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		    			<th @click="sortTable('employee_fname')">First Name
-		                    <span v-if="sortColumn == 'employee_fname'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th @click="sortTable('employee_mname')">Middle Name
-		                    <span v-if="sortColumn == 'employee_mname'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th @click="sortTable('employee_lname')"> Last Name
-		                    <span v-if="sortColumn == 'employee_lname'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th @click="sortTable('position')"> Position
-		                    <span v-if="sortColumn == 'position'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th @click="sortTable('office')">Office
-		                    <span v-if="sortColumn == 'office'" class="material-icons">{{arrowIconName}}</span>	
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
+		    <div>
+		    	<table class="mtable mt-2 mb-2 table tbllink">
+			    	<thead>
+			    		<tr>
+			    			<th @click="sortTable('employee_id')">Bio ID
+			                    <span v-if="sortColumn == 'employee_id'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			    			<th @click="sortTable('employee_fname')">First Name
+			                    <span v-if="sortColumn == 'employee_fname'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th @click="sortTable('employee_mname')">Middle Name
+			                    <span v-if="sortColumn == 'employee_mname'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th @click="sortTable('employee_lname')"> Last Name
+			                    <span v-if="sortColumn == 'employee_lname'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th @click="sortTable('position')"> Position
+			                    <span v-if="sortColumn == 'position'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th @click="sortTable('office')">Office
+			                    <span v-if="sortColumn == 'office'" class="material-icons">{{arrowIconName}}</span>	
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
 
-		    		</tr>
-		    	</thead>
-		    	<tbody>
-		    		<template v-for="officerecord in filteredOfficeRecords" :key="officerecord.employee_id">
-		    			<tr @click="goshow(officerecord.employee_id)">
-		    				<td>
-		    					<template v-if="officerecord.type">
-		    						<template v-if="officerecord.type.id> 0">
-		    							<span class="text-danger">{{officerecord.employee_id}}</span>
-		    						</template>
-		    						<template v-else>
-		    							<span class="text-primary">{{officerecord.employee_id}}</span>
-		    						</template>
-		    					</template>
-		    					<template v-else>
-		    						<span>{{officerecord.employee_id}}</span>
-		    					</template>
-		    				</td>
-		    				<td class="ttc">{{officerecord.employee.employee_fname}}</td>
-		    				<td class="ttc">{{officerecord.employee.employee_mname}}</td>
-		    				<td class="ttc">{{officerecord.employee.employee_lname}} {{officerecord.employee.employee_extname}}</td>
-		    				<td>		
+			    		</tr>
+			    	</thead>
+			    	<tbody>
+			    		<template v-for="officerecord in filteredOfficeRecords" :key="officerecord.employee_id">
+			    			<tr @click="goshow(officerecord.employee_id)">
+			    				<td>
+			    					<template v-if="officerecord.type">
+			    						<template v-if="officerecord.type.id> 0">
+			    							<span class="text-danger">{{officerecord.employee_id}}</span>
+			    						</template>
+			    						<template v-else>
+			    							<span class="text-primary">{{officerecord.employee_id}}</span>
+			    						</template>
+			    					</template>
+			    					<template v-else>
+			    						<span>{{officerecord.employee_id}}</span>
+			    					</template>
+			    				</td>
+			    				<td class="ttc">{{officerecord.employee.employee_fname}}</td>
+			    				<td class="ttc">{{officerecord.employee.employee_mname}}</td>
+			    				<td class="ttc">{{officerecord.employee.employee_lname}} {{officerecord.employee.employee_extname}}</td>
+			    				<td>		
 
-		    					<span v-if="officerecord.employments.length > 0">
-		    						{{officerecord.employments[0].position.name}}
-		    					</span>
-		    				</td>
-			    			<td>
-			    				<span v-if="officerecord.employments.length > 0">
-			    					{{officerecord.employments[0].office.offices_name}}
-				    			</span>
-				    		</td>
+			    					<span v-if="officerecord.employments.length > 0">
+			    						{{officerecord.employments[0].position.name}}
+			    					</span>
+			    				</td>
+				    			<td>
+				    				<span v-if="officerecord.employments.length > 0">
+				    					{{officerecord.employments[0].office.offices_name}}
+					    			</span>
+					    		</td>
 
-		    			</tr>
-		    		</template>
-		    	</tbody>
-		    </table>
+			    			</tr>
+			    		</template>
+			    	</tbody>
+			    </table>
+		    </div>
+		    
 		</div>
 	</div>
 </template>
