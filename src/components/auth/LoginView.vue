@@ -1,7 +1,7 @@
 <template>
-    <div class="mainguest">        
+     
         <div class="container">
-        <div class="loginPage min-vh-100 align-items-center">
+        <div class="loginPage align-items-center">
             <div class="row justify-content-center ">
                 <div class="col-12 text-center mt-3">
                     <div class="webHead">
@@ -52,7 +52,7 @@
             </div>
         </div>
     </div>
-    </div>
+
     <SiteSeal/>
 </template>
 <script>

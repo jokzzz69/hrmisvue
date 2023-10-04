@@ -2,7 +2,7 @@
     <footer>        
         <div class="container-fluid">
             <div class="row">
-                <div class="col spFooterWrap text-center bg-dark text-light pt-1 pb-1 d-none d-sm-block">
+                <div class="col spFooterWrap text-center bg-dark text-light pt-1 pb-1">
                     <span>BFAR - HRMIS v3.0 | Copyright © 2023 Regional Fisheries Information Management Center</span>
                 </div>
             </div>

@@ -11,7 +11,7 @@
     </div>
   </template>
   <template v-else>
-    <main>
+    <main class="guest">
       <RouterView/>
     </main>
   </template>

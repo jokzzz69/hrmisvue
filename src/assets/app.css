@@ -973,6 +973,7 @@ span.noContent{
 	width: 100%;
 	z-index: 99999999;
 	bottom: 0;
+	background: rgba(33, 37, 41, 0.8) !important;
 }
 .spFooter{
 	text-align: center;
@@ -981,8 +982,8 @@ span.noContent{
 	float: left;
 	width: 100%;
 	font-weight: bold;
-
 }
+
 .bg-blue{
 	background: #0f1b91;
 }

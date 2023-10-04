@@ -64,24 +64,8 @@
 .passwordEye .input-group-text:hover{
 	cursor: pointer;
 }
-.spFooterWrap{
-	position: fixed;
-	width: 100%;
-	z-index: 99999999;
-	bottom: 0;
-	background: rgba(33, 37, 41, 0.8) !important;
-}
-.spFooter{
-	text-align: center;
-}
-.spFooter span{
-	float: left;
-	width: 100%;
-	font-weight: bold;
 
-}
 .col.ssl table{
-	position: absolute;
 	right: 1rem;
     bottom: 4rem;
 }
@@ -107,14 +91,14 @@
 {
 	background-color: transparent !important;
 }
-
-.mainguest{
+main.guest{
 	background: url('../img/bg.jpg');
 	min-height: 100vh;
-    background-repeat: no-repeat !important;
+	background-repeat: no-repeat !important;
     background-position: bottom center !important;
 	background-size: cover !important;
 }
+
 .bb{
 /*	border:1px solid #0033ff;*/
 border: 2px solid #fff;
@@ -193,16 +177,20 @@ border: 2px solid #fff;
 }
 .loginPage{
 	padding-top: 3rem;
+	min-height: 100vh;
 }
 .sseal{
 	position: absolute;
     bottom: 5%;
     right: 1%;
 }
+
 @media(max-width: 500px){
   	.loginPage {
   		padding-top: 0px;
+  		min-height: 5px;
   	}
+
   	.webHead-text span{
   		font-size: 1.5rem;
   	}
