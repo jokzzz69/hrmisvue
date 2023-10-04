@@ -28,6 +28,7 @@ import App from './App.vue'
 import vSelect from 'vue-select'
 
 axios.defaults.baseURL = 'http://localhost:8000'
+//axios.defaults.baseURL = 'https://hrmis.bfarcar.da.gov.ph'
 
 const head = createHead()
 const app = createApp(App)

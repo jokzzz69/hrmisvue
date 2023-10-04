@@ -297,11 +297,7 @@ export default{
             getSalaryGradeGroups()
             
         })
-        const hc = {
-            headers: {
-                'xlr': 1
-            }
-        }
+
        const slctSGG = async (id,key) => {
             getSalaryGradeName(id).then(() => {
                 salarygradenamesArr.value[key] = salarygradenames.value;

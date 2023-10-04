@@ -15,7 +15,7 @@ export default function useBioDevice(){
 
 	const getPage = async() =>{
 		axios.defaults.withCredentials = true;	
-		await axios.get('http://localhost:8001/bio/api/biometricsdevice').then((response) =>{
+		await axios.get('https://online.bfarcar.da.gov.ph/bio/api/biometricsdevice').then((response) =>{
 			batch.value = response.data.data;
 		});		
 	}
@@ -23,27 +23,27 @@ export default function useBioDevice(){
 
 	const getBioTimeMain = async () => {
 		axios.defaults.withCredentials = true;
-		await axios.get('http://localhost:8001/bio/api/getmainbiometrics').then((response) =>{
+		await axios.get('https://online.bfarcar.da.gov.ph/bio/api/getmainbiometrics').then((response) =>{
 			mainbio.value = response.data.data;
 		});			        
     }  	   	
     const getBioTimeRFMIC = async () => {
     	axios.defaults.withCredentials = true;	
-    	await axios.get('http://localhost:8001/bio/api/getrfimcbiometrics').then((response) =>{
+    	await axios.get('https://online.bfarcar.da.gov.ph/bio/api/getrfimcbiometrics').then((response) =>{
 			rfimcbio.value = response.data.data; 
 		});	
 
     }
     const getBioTimeFMRED= async () => {
     	axios.defaults.withCredentials = true;	
-    	await axios.get('http://localhost:8001/bio/api/getfmredbiometrics').then((response) =>{
+    	await axios.get('https://online.bfarcar.da.gov.ph/bio/api/getfmredbiometrics').then((response) =>{
 			fmredbio.value = response.data.data; 
 		});	
 
     }
     const getBioTimeBENGUET = async () => {
     	axios.defaults.withCredentials = true;	
-        await axios.get('http://localhost:8001/bio/api/getbenguetbiometrics').then((response) =>{
+        await axios.get('https://online.bfarcar.da.gov.ph/bio/api/getbenguetbiometrics').then((response) =>{
 			benguetbio.value = response.data.data; 
 		});	
     }
@@ -51,21 +51,21 @@ export default function useBioDevice(){
 
     const currRFMIC = async () => {
     	axios.defaults.withCredentials = true;	
-    	await axios.get('http://localhost:8001/bio/api/currfimcbiometrics').then((response) =>{
+    	await axios.get('https://online.bfarcar.da.gov.ph/bio/api/currfimcbiometrics').then((response) =>{
 			rfimcbio.value = response.data.data; 
 		});	
 
     }
     const currFMRED= async () => {
     	axios.defaults.withCredentials = true;	
-    	await axios.get('http://localhost:8001/bio/api/curfmredbiometrics').then((response) =>{
+    	await axios.get('https://online.bfarcar.da.gov.ph/bio/api/curfmredbiometrics').then((response) =>{
 			fmredbio.value = response.data.data; 
 		});	
  
     }
     const currBENGUET = async () => {
     	axios.defaults.withCredentials = true;	
-    	await axios.get('http://localhost:8001/bio/api/curbenguetbiometrics').then((response) =>{
+    	await axios.get('https://online.bfarcar.da.gov.ph/bio/api/curbenguetbiometrics').then((response) =>{
 			benguetbio.value = response.data.data; 
 		});	
     }
@@ -73,14 +73,14 @@ export default function useBioDevice(){
 
     const setBioTimeMain = async () => {
     	axios.defaults.withCredentials = true;	
-    	await axios.get('http://localhost:8001/bio/api/biometricdevice').then((response) =>{
+    	await axios.get('https://online.bfarcar.da.gov.ph/bio/api/biometricdevice').then((response) =>{
 			mainbio.value = response.data.data; 
 		});	 
     }
     const setBioTimeRFMIC = async () => {
     	axios.defaults.withCredentials = true;	
 
-    	await axios.post('http://localhost:8001/bio/api/setrfimcbiometrics').then((response) =>{
+    	await axios.post('https://online.bfarcar.da.gov.ph/bio/api/setrfimcbiometrics').then((response) =>{
 			rfimcbio.value = response.data.data; 
 		});	 
 
@@ -89,7 +89,7 @@ export default function useBioDevice(){
     const setBioTimeFMRED = async () => {
     	axios.defaults.withCredentials = true;	
 
-    	await axios.post('http://localhost:8001/bio/api/setfmredbiometrics').then((response) =>{
+    	await axios.post('https://online.bfarcar.da.gov.ph/bio/api/setfmredbiometrics').then((response) =>{
 			fmredbio.value = response.data.data; 
 		});	 
 
@@ -97,7 +97,7 @@ export default function useBioDevice(){
     const setBioTimeBENGUET = async () => {
     	axios.defaults.withCredentials = true;	
 
-    	await axios.post('http://localhost:8001/bio/api/setbenguetbiometrics').then((response) =>{
+    	await axios.post('https://online.bfarcar.da.gov.ph/bio/api/setbenguetbiometrics').then((response) =>{
 			benguetbio.value = response.data.data; 
 		});	 
 
@@ -107,7 +107,7 @@ export default function useBioDevice(){
 
 	const getmainbiometricsuser = async() => {
 		axios.defaults.withCredentials = true;	
-		await axios.get('http://localhost:8001/bio/api/getmainbiouser').then((response) =>{
+		await axios.get('https://online.bfarcar.da.gov.ph/bio/api/getmainbiouser').then((response) =>{
 			mainbiousers.value = response.data.data; 
 		});	
 

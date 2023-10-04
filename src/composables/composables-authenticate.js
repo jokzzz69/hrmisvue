@@ -60,8 +60,8 @@ export default function useAuthenticate(){
 	const login = async (data) => {
         errors.value = ''
         axios.defaults.withCredentials = true;		
-		await axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
-			axios.post('http://localhost:8000/login', data).then(res => {
+		await axios.get('/sanctum/csrf-cookie').then(response => {
+			axios.post('/login', data).then(res => {
 			 	currentUser();
 			}).catch(e => {
 				nProgress.done();
@@ -73,7 +73,7 @@ export default function useAuthenticate(){
     }
     const checkIfLogin = async() => {
     	axios.defaults.withCredentials = true;	
-    	await axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
+    	await axios.get('/sanctum/csrf-cookie').then(response => {
     		currentUser();
     	
     	});
