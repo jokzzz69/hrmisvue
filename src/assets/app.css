@@ -1333,10 +1333,7 @@ tr.disabled{
 	
 }
 @media(max-width: 767px){
-	.col.ssl table {
-		margin-top: 1rem;
-	    display: inline-block;
-	}
+	
 
 	.pstTime span,
 	.spfltxt{
@@ -1362,11 +1359,11 @@ tr.disabled{
 }
 
 @media (max-width: 767.98px){
-	.col.ssl table{
-		position: absolute;
-		right: 1rem;
-	    bottom: 4rem;
+	.col.ssl table {
+		margin-top: 1rem;
+	    display: inline-block;
 	}
+	
 	.navbarRight{
 		flex-direction: row;
 	}
@@ -1538,6 +1535,11 @@ tr.disabled{
 	.btn-rsidebar{
 		position: relative;
 	    left: -45px;
+	}
+	.col.ssl table{
+		position: absolute;
+		right: 1rem;
+	    bottom: 4rem;
 	}
 }
 
