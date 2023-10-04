@@ -1329,15 +1329,17 @@ tr.disabled{
 	.nb-de{
 		display: none;
 	}
+	
+	
+}
+@media(max-width: 767px){
 	.col.ssl table {
-	    bottom: 2rem;
+		margin-top: 1rem;
 	    display: inline-block;
 	}
 
-
-}
-@media(max-width: 767px){
-	.pstTime span{
+	.pstTime span,
+	.spfltxt{
 		display: none;
 	}
 	.collapsing {
@@ -1360,6 +1362,11 @@ tr.disabled{
 }
 
 @media (max-width: 767.98px){
+	.col.ssl table{
+		position: absolute;
+		right: 1rem;
+	    bottom: 4rem;
+	}
 	.navbarRight{
 		flex-direction: row;
 	}
@@ -1389,7 +1396,8 @@ tr.disabled{
 	.nb-mob{
 		display: block !important;
 	}
-	.nb-de{
+	.nb-de,
+	.spfltxt{
 		display: none;
 	}
 	.ls-frmbutton li{
@@ -1510,6 +1518,7 @@ tr.disabled{
 
 
 @media (min-width: 768px) {
+
 	.mainwrap{
 		padding-top:  55px;
 		min-height: 100vh;
