@@ -125,18 +125,30 @@ export default function useUsers(){
     const acceptPrivacy = async(data) => {
     	axios.defaults.withCredentials = true;	
     	errors.value = ''
-    	try{
-    		await axios.post('/v1/api/acceptprivacy/')
-    	}catch(e){
-    		if (e.response.status === 422) {
+
+		await axios.post('/v1/api/acceptprivacy/','',{
+            	headers: {
+            		'xlr': 1
+            	}
+            }).catch((e) => {
+			if (e.response.status === 422) {
                 errors.value = e.response.data.errors
             }
-    	}
+		})
+
+    		
+
     }
     const getPrivacy = async () => {
     	axios.defaults.withCredentials = true;	
-		let response = await axios.get('/v1/api/privacy');
-		privacy.value = response.data;	
+		await axios.get('/v1/api/privacy',{
+            	headers: {
+            		'xlr': 1
+            	}
+            }).then((response) => {
+			privacy.value = response.data;
+		});
+		
 	}
 
 	return{

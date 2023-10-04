@@ -22,7 +22,11 @@ export default function useAuthenticate(){
 	const info = ref();
 	const currentUser = async() => {
 		axios.defaults.withCredentials = true;	
-		await axios.get('/v1/api/cu').then(response =>{
+		await axios.get('/v1/api/cu',{
+            	headers: {
+            		'xlr': 1
+            	}
+            }).then(response =>{
 
 			desc.value = [
 				response.data.data.employee_id,
@@ -57,7 +61,6 @@ export default function useAuthenticate(){
         errors.value = ''
         axios.defaults.withCredentials = true;		
 		await axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
-
 			axios.post('http://localhost:8000/login', data).then(res => {
 			 	currentUser();
 			}).catch(e => {

@@ -11,7 +11,11 @@ export default function useSalaryGradeGroup(){
 	const salarygradesteps = ref([]);
 	const errors = ref('');
 	
-
+	const hc = {
+        headers: {
+            'xlr': 1
+        }
+    }
 	const getSalaryGradeGroups = async () => {
 		axios.defaults.withCredentials = true;	
 		let response = await axios.get('/v1/api/salarygradegroups');
@@ -25,12 +29,12 @@ export default function useSalaryGradeGroup(){
 
     const getSalaryGradeName = async(id) => {
     	axios.defaults.withCredentials = true;	
-    	let response = await axios.get(`/v1/api/salarygradegroups/salarygrade/${id}`)
+    	let response = await axios.get(`/v1/api/salarygradegroups/salarygrade/${id}`,hc)
     	salarygradenames.value = response.data.data;
     }
     const getSalaryGradeSteps = async(id) => {
     	axios.defaults.withCredentials = true;	
-    	let response = await axios.get(`/v1/api/salarygradegroups/salarygradesteps/${id}`)
+    	let response = await axios.get(`/v1/api/salarygradegroups/salarygradesteps/${id}`,hc)
     	salarygradesteps.value = response.data.data;
     }
 

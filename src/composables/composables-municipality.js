@@ -10,25 +10,39 @@ export default function useMunicipality(){
 	const provmun = ref([]);
 	const perprovmun = ref([]);
 
+	const hc = {
+        headers: {
+            'xlr': 1
+        }
+    };
+
 	const getMunicipalities = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/v1/api/municipalities')
-		provmun.value = response.data.data;		
+		await axios.get('/v1/api/municipalities',hc).then((response) => {
+			provmun.value = response.data.data;
+		})
+		
 	}
 	const getMunicipality = async (id) => {
 		axios.defaults.withCredentials = true;	
-        let response = await axios.get(`/v1/api/municipalities/${id}`)
-        municipality.value = response.data.data
+        await axios.get(`/v1/api/municipalities/${id}`,hc).then((response) => {
+        	municipality.value = response.data.data
+        })
+        
     }
 	const getProvMun = async (id) => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get(`/v1/api/provmunicipalities/${id}`);
-		provmun.value = response.data.data;
+		await axios.get(`/v1/api/provmunicipalities/${id}`,hc).then((response) => {
+			provmun.value = response.data.data;
+		})
+		
 	}
 	const getperProvMun = async (id) => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get(`/v1/api/provmunicipalities/${id}`);
-		perprovmun.value = response.data.data;
+		await axios.get(`/v1/api/provmunicipalities/${id}`,hc).then((response) => {
+			perprovmun.value = response.data.data;
+		});
+		
 	}
 	
 

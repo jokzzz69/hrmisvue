@@ -63,7 +63,9 @@ app.mount('#app')
 
 
 axios.interceptors.request.use(config => {
-  nProgress.start()
+  if(!config.headers.xlr){
+		nProgress.start()
+	}  
   return config
 })
 

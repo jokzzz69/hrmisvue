@@ -10,13 +10,25 @@ export default function useProvince(){
 
 	const getProvinces = async () => {
 		axios.defaults.withCredentials = true;	
-		let response = await axios.get('/v1/api/provinces')
-		provinces.value = response.data.data;		
+		await axios.get('/v1/api/provinces',{
+		    headers: {
+		        'xlr': 1
+		    }
+		}).then((response) => {
+			provinces.value = response.data.data;
+		})
+				
 	}
 	const getProvince = async (id) => {
 		axios.defaults.withCredentials = true;	
-        let response = await axios.get(`/v1/api/provinces/${id}`)
-        province.value = response.data.data
+        await axios.get(`/v1/api/provinces/${id}`,{
+	        headers: {
+	            'xlr': 1
+	        }
+	    }).then((response) => {
+	    	province.value = response.data.data
+	    })
+        
     }
 	
 
