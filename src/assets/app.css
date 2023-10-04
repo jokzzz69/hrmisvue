@@ -1332,6 +1332,9 @@ tr.disabled{
 	.navbar-brand{
 		position: absolute;
 	}
+	.mtmb{
+		overflow-x: auto;
+	}
 	
 }
 @media(max-width: 767px){

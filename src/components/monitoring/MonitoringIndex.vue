@@ -13,7 +13,7 @@
 		    		</div>
 		    	</div>
 		    </div>
-		    <div>
+		    <div class="mtmb">
 		    	<table class="mtable mt-2 mb-2 table tbllink">
 			    	<thead>
 			    		<tr>
