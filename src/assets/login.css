@@ -65,10 +65,7 @@
 	cursor: pointer;
 }
 
-.col.ssl table{
-	right: 1rem;
-    bottom: 4rem;
-}
+
 .img-res{
 	max-width: 100%;
 }
@@ -175,10 +172,7 @@ border: 2px solid #fff;
 .is-invalid ~ .pwlabel{
 	top: 8px;
 }
-.loginPage{
-	padding-top: 3rem;
-	min-height: 100vh;
-}
+
 .sseal{
 	position: absolute;
     bottom: 5%;
@@ -186,10 +180,7 @@ border: 2px solid #fff;
 }
 
 @media(max-width: 500px){
-  	.loginPage {
-  		padding-top: 0px;
-  		min-height: 5px;
-  	}
+
 
   	.webHead-text span{
   		font-size: 1.5rem;
