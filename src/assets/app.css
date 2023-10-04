@@ -1335,6 +1335,9 @@ tr.disabled{
 	.mtmb{
 		overflow-x: auto;
 	}
+	.mtmb table{
+		text-wrap: nowrap;
+	}
 	
 }
 @media(max-width: 767px){
