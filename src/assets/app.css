@@ -1547,6 +1547,9 @@ tr.disabled{
 	.mbshow .btn-rsidebar.mb{
 		right: 200px;
 	}
+	.spfltxt{
+		display: none;
+	}
 }
 
 
@@ -1591,6 +1594,9 @@ tr.disabled{
 		position: absolute;
 		right: 1rem;
 	    bottom: 4rem;
+	}
+	.spsltxt{
+		display: none;
 	}
 
 }
