@@ -70,9 +70,12 @@
 			    						<template v-if="officerecord.employee.employee_fname">
 				    						<template v-if="checkText(officerecord.employee.employee_fname)">{{ officerecord.employee.employee_fname}}&nbsp;</template>
 				    					</template>		
-				    					<template v-if="officerecord.employee.employee_mname.replace(/ /g, '').length > 1">
-				    						<template v-if="checkText(officerecord.employee.employee_mname)">{{ officerecord.employee.employee_mname.charAt(0).toUpperCase() }}. </template>
+				    					<template v-if="officerecord.employee.employee_mname">
+				    						<template v-if="officerecord.employee.employee_mname.replace(/ /g, '').length > 1">
+					    						<template v-if="checkText(officerecord.employee.employee_mname)">{{ officerecord.employee.employee_mname.charAt(0).toUpperCase() }}. </template>
+					    					</template>
 				    					</template>
+				    					
 				    					<template v-if="officerecord.employee.employee_lname">
 				    						<template v-if="checkText(officerecord.employee.employee_lname)">{{officerecord.employee.employee_lname}}&nbsp;</template>
 				    					</template>

@@ -72,7 +72,7 @@
             })
 
 
-            const {login,errors, checkIfLogin} = useAuthenticate();
+            const {login,errors} = useAuthenticate();
             const {emit} = useEventsBus();
             const auth = reactive({
                 'username': '',
