@@ -638,6 +638,14 @@ const routes = [
       name: 'login.index',
       component: () => import('@/components/auth/LoginView.vue'),
   },
+  {
+    path: '/employeeslist',
+    name: 'employeeslist.view',
+    component: () => import('@/components/records/RecordEmployeeView.vue'),
+    meta: {
+      middleware: ['hr','super-admin','admin','employee','office-head']
+    }
+  }
   
 ]
 

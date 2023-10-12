@@ -13,7 +13,6 @@
        <template v-else-if="userslug == 'employee' || userslug == 'office-head'">
          <EmployeeNavigation/>
        </template>
-
         <li class="nav-link">
             <router-link :to="{ name: 'about.index' }"><i class="fa-solid fa-circle-info"></i> <span>About</span></router-link>
         </li>
@@ -30,7 +29,7 @@
   import EmployeeNavigation from '@/components/navigation/EmployeeNavigation.vue';
   import { usePasswordChange } from '@/stores/changepasswordstore.js'
   import useEventsBus from '@/components/helper/Eventbus';
-      
+  
   export default{
     components: {
       AdminNavigation,

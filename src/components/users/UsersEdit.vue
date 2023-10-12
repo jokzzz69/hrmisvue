@@ -52,7 +52,7 @@
 
                 <div class="col-4 mb-2 req">                                                                     
                     <div class="form-floating">
-                        <select class="form-select" name="employee_type" v-model="form.userrole" id="employee_type">  
+                        <select class="form-select" name="employee_type" v-model="form.userrole" id="employee_type" @change="getPermissions">  
                             <option disabled value="">Please select one</option>
                             <template v-if="authuser.roles">
                                 <template v-if="authuser.roles[0].slug != 'super-admin'">
@@ -82,9 +82,28 @@
                         <span v-if="errors.office_head" class="text-danger m-error">{{errors.office_head[0]}}</span>                       
                     </div>
                 </div>
-            </div>
-          
+            </div>   
+            <div class="row">
+                <div class="col">
+                    Permissions                    
+                </div>
+                <div class="col-12 permissions">
+                    <template v-if="permissions.permissions">
+                        <ul class="list-inline mt-1">
+                            <template v-for="permission in permissions.permissions">
+                                <li class="list-inline-item">
+                                    <input type="checkbox" :value="permission.id" class="btn-check" :id="permission.slug" v-model="form.userpermissions">
+                                <label :class="permission.slug" class="btn" :for="permission.slug">{{permission.name}}</label>
+                                </li>
+                            </template>
+                    </ul>
+                    </template>
+                </div>
+            </div>      
         </div>
+
+
+        
         <div class="form-row">
             <div class="col text-end">
             	<router-link :to="{name: 'users.index'}" class="btn btn-secondary me-1">Cancel</router-link>
@@ -100,6 +119,7 @@ import useUsers from '@/composables/userscomposables';
 import { onMounted, ref, inject, reactive} from 'vue';
 import useOffices from '@/composables/composables-office';
 import useRoles from '@/composables/composables-role';
+import usePermissions from '@/composables/composables-permissions';
 import { useAuthStore } from '@/stores/store.js'
 import { useHead } from '@unhead/vue'
 
@@ -120,6 +140,7 @@ export default{
         const {errors, user, updateUser, getUser, authuser, getAuthuser} = useUsers()
         const {getOffices, offices} = useOffices()
         const {roles, getRoles} = useRoles()
+        const {permissions, getPermissionsbyRole} = usePermissions()
 
         const store = useAuthStore();
 
@@ -129,7 +150,8 @@ export default{
             'userrole': '',
             'office_head': '',
             'username': '',
-            'overwrite': ''
+            'overwrite': '',
+            'userpermissions': []
         })
         
 
@@ -137,16 +159,27 @@ export default{
             getUser(props.id).then(res => {
                 
                 form.office_head = user.value.office_head;
+                form.username = user.value.username;
                 if(user.value.roles){
                     form.userrole = user.value.roles[0].id;
                 }
-                form.username = user.value.username;
+  
                 
+                if(user.value.permissions){
+                   
+                    for (var i = 0; i < user.value.permissions.length; i++) {
+
+                        form.userpermissions.push(user.value.permissions[i].id);
+                    }
+
+                }
+
+                getPermissionsbyRole(form.userrole)
             }), 
             getOffices(),
             getRoles(),
             getAuthuser()
-  
+            
         })
 
         const saveUser = async () => {            
@@ -169,7 +202,9 @@ export default{
                 }
             })
         }
-
+        const getPermissions = async(id) => {
+            await getPermissionsbyRole(form.userrole);
+        }
         return{
             errors,
             saveUser,
@@ -181,7 +216,9 @@ export default{
             user,
             authuser,
             form,
-            userrole
+            userrole,
+            getPermissions,
+            permissions
         
         }
     }

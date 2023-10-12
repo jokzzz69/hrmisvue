@@ -27,12 +27,14 @@ export default function useAuthenticate(){
             		'xlr': 1
             	}
             }).then(response =>{
-
+            	console.log(response.data.data);
 			desc.value = [
 				response.data.data.employee_id,
 				response.data.data.roles[0].slug, 
 				true,
-				response.data.data.employments[0].type_id
+				response.data.data.employments[0].type_id,
+				response.data.data.permissions,
+
 			];
 
 			store.setdetails(desc.value);

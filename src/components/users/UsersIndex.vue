@@ -37,6 +37,7 @@
 		                <th class="nc">
 		                	Access Level
 		                </th>
+		          
 		                <th class="nc"></th>
 		    		</tr>
 		    	</thead>
@@ -75,6 +76,7 @@
 			    					</template>
 			    				</template>
 			    			</td>
+
 			    			<td class="text-end">
 			    				<ul class="ls-frmbutton">		    					
 			    				

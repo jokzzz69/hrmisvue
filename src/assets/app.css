@@ -660,18 +660,73 @@ input[type=number] {
 }
 
 /*badge*/
-.hr.badge{
+.hr.badge,
+.create.badge{
 	background: #57838D !important;
 }
-.employee.badge{
+.employee.badge,
+.edit.badge{
 	background: #50B4D8 !important;
 }
-.admin.badge{
+.admin.badge,
+.view.badge{
 	background: #5B51D8 !important;
 }
-.super-admin.badge{
+.super-admin.badge,
+.delete.badge{
 	background: #833AB4 !important;
 }
+
+.btn.create{
+	--bs-btn-color: #506fd9;
+    --bs-btn-border-color: #506fd9;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #506fd9;
+    --bs-btn-hover-border-color: #506fd9;    
+    --bs-btn-active-bg: #506fd9;
+    --bs-btn-active-border-color: #506fd9;
+}
+.btn.edit{
+	--bs-btn-color: #35465d;
+    --bs-btn-border-color: #35465d;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #35465d;
+    --bs-btn-hover-border-color: #35465d;    
+    --bs-btn-active-bg: #35465d;
+    --bs-btn-active-border-color: #35465d;
+}
+.btn.view{
+	--bs-btn-color: #5f99cf;
+    --bs-btn-border-color: #5f99cf;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #5f99cf;
+    --bs-btn-hover-border-color: #5f99cf;    
+    --bs-btn-active-bg: #5f99cf;
+    --bs-btn-active-border-color: #5f99cf;
+}
+.btn.delete{
+	--bs-btn-color: #00a7ce;
+    --bs-btn-border-color: #00a7ce;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #00a7ce;
+    --bs-btn-hover-border-color: #00a7ce;    
+    --bs-btn-active-bg: #00a7ce;
+    --bs-btn-active-border-color: #00a7ce;
+}
+
+.btn.viewemployees{
+	--bs-btn-color: #57838D;
+    --bs-btn-border-color: #57838D;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #57838D;
+    --bs-btn-hover-border-color: #57838D;    
+    --bs-btn-active-bg: #57838D;
+    --bs-btn-active-border-color: #57838D;
+}
+.permissions .btn-check:checked+.btn{
+	color: #fff !important;
+}
+
 .error-input{
 	border-color: #ff0000 !important;
 }

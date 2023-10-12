@@ -29,6 +29,7 @@
 
         </li>
         <li class="nav-link"><router-link :to="{ name: 'recordpersonal.show' }"><i class="fa-solid fa-address-card"></i> Personal Information</router-link></li>
+        <li class="nav-link" v-if="showViewemployees"><router-link :to="{ name: 'employeeslist.view' }"><i class="fa-solid fa-users-rectangle"></i> All Employees</router-link></li>
         <li class="nav-link"><router-link :to="{ name: 'pdsmydata.show' }"><i class="fa-solid fa-user-pen"></i> Personal Data Sheet</router-link></li>
         <li class="nav-link"><router-link :to="{ name: 'travels.index' }"><i class="fa-solid fa-car-side"></i> Travels</router-link></li>
         
@@ -72,10 +73,18 @@
       const store = useAuthStore();
       const userslug = ref(store.details[1]);
       const id = ref(store.details[0]);
+      const permissions = ref(store.details[4]);
+
+      const showViewemployees = ref(false);
+
+      if(permissions.value.includes('viewemployees')){
+        showViewemployees.value = true;
+      }
 
       return {
         userslug,
-        id
+        id,
+        showViewemployees
       }
     }
   }

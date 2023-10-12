@@ -72,8 +72,10 @@ export default function useUsers(){
 	}
 	const getUser = async (id) => {
 		axios.defaults.withCredentials = true;	
-        let response = await axios.get(`/v1/api/user/${id}`)
-        user.value = response.data.data[0]
+        let response = await axios.get(`/v1/api/user/${id}`).then((response) => {
+        	user.value = response.data.data
+        })
+        
     }
     const getAuthuser = async() => {
     	axios.defaults.withCredentials = true;	

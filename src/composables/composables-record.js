@@ -4,6 +4,7 @@ import {useRouter} from 'vue-router'
 
 export default function useOfficerecord(){
 	const officerecords = ref([]);
+
     const officerecord = ref([]);
 	const router = useRouter();
 	const errors = ref('');
@@ -13,6 +14,14 @@ export default function useOfficerecord(){
 		let response = await axios.get('/v1/api/officerecords');
 		officerecords.value = response.data.data;
 	}
+
+    const getOfficerecordsEmployee = async () =>{
+         axios.defaults.withCredentials = true;
+        await axios.get('/v1/api/employeeslist').then((response) => {
+            officerecords.value = response.data.data;
+        });
+        
+    }
     const getOfficerecordsMonitoring = async () => {
         
         axios.defaults.withCredentials = true;
@@ -307,6 +316,7 @@ export default function useOfficerecord(){
         getOfficerecordsMonitoring,
         getOfficeemployeesMonitoring,
         updateContact,
-        updateActiveemployment
+        updateActiveemployment,
+        getOfficerecordsEmployee
 	}
 }
