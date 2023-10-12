@@ -179,7 +179,7 @@
             const isnumber = (event) => {
      
             	if(!/^[0-9:]+$/.test(event.key)){
-                    console.log(event.key);
+
             		return event.preventDefault();
             	}
             }

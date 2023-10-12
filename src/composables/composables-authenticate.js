@@ -27,7 +27,7 @@ export default function useAuthenticate(){
             		'xlr': 1
             	}
             }).then(response =>{
-            	console.log(response.data.data);
+
 			desc.value = [
 				response.data.data.employee_id,
 				response.data.data.roles[0].slug, 
