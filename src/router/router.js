@@ -60,15 +60,7 @@ const routes = [
       middleware: ['super-admin','admin']
     }
   },
-  {
-    path: '/dtr/:id/preview',
-    name: 'dtrupdating.index',
-    component: () => import('@/components/dtr/DTRUpdatingIndex.vue'),
-    props: true,
-    meta: {
-      middleware: ['hr','super-admin','admin','employee','office-head']
-    }
-  },
+
   {
     path: '/dtr/:id/:mf/edit',
     name: 'dtrupdating.edit',
@@ -186,7 +178,7 @@ const routes = [
   {
       path: '/mydailytimerecord',
       name: 'monitoring.employee',
-      component: () => import('@/components/monitoring/MonitoringEmployee.vue'),
+      component: () => import('@/components/monitoring/MonitoringOwn.vue'),
       meta: {
         middleware: ['hr','super-admin','admin','employee','office-head']
       }

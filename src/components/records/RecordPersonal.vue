@@ -12,6 +12,12 @@
             </div>
         </div>
         <div class="row mb-2">    
+            <div class="col-1">
+                <div class="form-floating lblform-floating">    
+                    <span class="form-control lfc-disp" id="name">{{officerecord.employee_id}}</span>
+                    <label for="name" class="form-label">ID Number</label>
+                </div>
+            </div>
             <div class="col mb-2">
                 <div class="form-floating lblform-floating">                    
                     <span class="form-control lfc-disp" id="name">{{officerecord.employee.employee_fname}} {{officerecord.employee.employee_mname}} {{officerecord.employee.employee_lname}}</span>

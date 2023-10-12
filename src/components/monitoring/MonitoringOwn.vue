@@ -120,9 +120,7 @@
                                         </template>
                                     </td>
                                 </template>
-
-                            </template>
-                            
+                            </template>                            
                         </tr>
                     </template>
                 </tbody>
