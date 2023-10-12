@@ -15,7 +15,7 @@
 		    	</div>
 		    </div>
 		    <div class="mtmb">
-		    	<table class="mtable hasActions mt-2 mb-2 table">
+		    	<table class="mtable hasActions mt-2 mb-2 table tblempinfo">
 			    	<thead>
 			    		<tr>
 			    			<th @click="sortTable('employee_id')">ID
@@ -43,11 +43,31 @@
 			                    <span v-if="sortColumn == 'office'" class="material-icons">{{arrowIconName}}</span>		                    
 			                    <span v-else class="material-icons">sort</span>
 			                </th>
-			                <th @click="sortTable('startdate')">Start Date
+			                <th @click="sortTable('startdate')">Birth Date
 			                    <span v-if="sortColumn == 'startdate'" class="material-icons">{{arrowIconName}}</span>		                    
 			                    <span v-else class="material-icons">sort</span>
 			                </th>
-			
+							<th>
+								Blood Type
+							</th>
+							<th>
+								Email Address
+							</th>
+							<th>
+								GSIS
+							</th>
+							<th>
+								SSS
+							</th>
+							<th>
+								TIN
+							</th>
+							<th>
+								PAGIBIG
+							</th>
+							<th>
+								PhilHealth
+							</th>
 			    		</tr>
 			    	</thead>
 			    	<tbody>
@@ -101,10 +121,45 @@
 			    				 	</template>
 				    			</td>
 				    			<td>
-				    				<template v-if="officerecord.employments.length > 0">
-			    				 		<template v-if="officerecord.employments[0].startdate">
-			    				 			{{moment(new Date(officerecord.employments[0].startdate)).format('MMMM D, Y')}}
+				    				<template v-if="officerecord.pdspersonalinformation">
+			    				 		<template v-if="officerecord.pdspersonalinformation.birthdate">			    				 
+			    				 			{{moment(new Date(officerecord.pdspersonalinformation.birthdate)).format('MMMM D, Y')}}   		
 			    				 		</template>		    				 		
+			    				 	</template>
+				    			</td>
+				    			<td>
+				    				<template v-if="officerecord.pdspersonalinformation">
+			    				 		 {{officerecord.pdspersonalinformation.bloodtype}} 		
+			    				 	</template>
+				    			</td>
+				    			<td>
+				    				<template v-if="officerecord.pdspersonalinformation">
+			    				 		 {{officerecord.pdspersonalinformation.emailaddress}} 		
+			    				 	</template>
+				    			</td>
+				    			<td>
+				    				<template v-if="officerecord.pdspersonalinformation">
+			    				 		 {{officerecord.pdspersonalinformation.gsis_id}} 		
+			    				 	</template>
+				    			</td>
+				    			<td>
+				    				<template v-if="officerecord.pdspersonalinformation">
+			    				 		 {{officerecord.pdspersonalinformation.sss_no}} 		
+			    				 	</template>
+				    			</td>
+				    			<td>
+				    				<template v-if="officerecord.pdspersonalinformation">
+			    				 		 {{officerecord.pdspersonalinformation.tin_no}} 		
+			    				 	</template>
+				    			</td>
+				    			<td>
+				    				<template v-if="officerecord.pdspersonalinformation">
+			    				 		 {{officerecord.pdspersonalinformation.pagibig_id}} 		
+			    				 	</template>
+				    			</td>
+				    			<td>
+				    				<template v-if="officerecord.pdspersonalinformation">
+			    				 		 {{officerecord.pdspersonalinformation.philhealth_no}} 		
 			    				 	</template>
 				    			</td>
 
