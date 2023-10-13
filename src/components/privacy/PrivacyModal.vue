@@ -52,7 +52,7 @@
 
   import useAuthenticate from '@/composables/composables-authenticate';
   import useEventsBus from '@/components/helper/Eventbus';
-
+  import { usePrivacyStore } from '@/stores/pristore.js'
 
 
 
@@ -63,6 +63,8 @@
 
 			const {logoutuser,acceptPrivacy, getUser, user, privacy, getPrivacy} = useUsers()
       const showModal = ref(false)
+      const pristore = usePrivacyStore();
+
 
       onMounted(() => {
 
@@ -81,6 +83,8 @@
       const acceptFunc = async () => {
           await acceptPrivacy('')  
           showModal.value = false
+          pristore.setdil(true);
+
       }
 
 

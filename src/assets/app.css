@@ -1405,6 +1405,9 @@ tr.disabled{
 	.mtmb table{
 		text-wrap: nowrap;
 	}
+	.mobnone{
+		display: none;
+	}
 }
 @media(max-width: 767px){
 	

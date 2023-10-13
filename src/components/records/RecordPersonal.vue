@@ -5,7 +5,7 @@
         </div>
     </div>
 
-    <div class="pProfilewrap container-fluid mb-4" v-if="officerecord.employee">
+    <div class="pProfilewrap container-fluid mb-4" v-if="officerecord.employee" :class="mbclass ? '': 'mobnone'">
         <div class="row mt-3">
             <div class="col pProfilewrap-title">
                 <h2>Basic Info</h2>
@@ -155,7 +155,7 @@
 
     </div>
 
-    <div class="pProfilewrap container-fluid mb-4" v-if="officerecord">
+    <div class="pProfilewrap container-fluid mb-4" v-if="officerecord"  :class="mbclass ? '': 'mobnone'">
         <div class="row mt-3">
             <div class="col pProfilewrap-title">
                 <h2>Employment</h2>
@@ -225,7 +225,7 @@
 
 <script>
 
-import { onMounted, ref, inject, reactive} from 'vue';
+import { onMounted, ref, inject, reactive, watch} from 'vue';
 
 
 import useOfficerecord from '@/composables/composables-record';
@@ -234,6 +234,10 @@ import PrivacyModal from '@/components/privacy/PrivacyModal.vue';
 import moment from 'moment'
 import { useAuthStore } from '@/stores/store.js'
 import { useHead } from '@unhead/vue'
+import useEventsBus from '@/components/helper/Eventbus';
+
+import { usePrivacyStore } from '@/stores/pristore.js'
+
 
 export default{
     components: {
@@ -245,21 +249,27 @@ export default{
         })
         const swal = inject('$swal')
         const {officerecord,getPersonalRecord}= useOfficerecord()
-
+        const pristore = usePrivacyStore();
         const store = useAuthStore();
         const id = ref(store.details[0]);
         const address = ref();
-
+        const {bus,emit}=useEventsBus()
+        const mbclass = ref(false);
         onMounted(() => {   
-            getPersonalRecord(id.value).then(() => {
-             
+            getPersonalRecord(id.value).then(() => {             
                 if(officerecord.value.pdsaddress){
                     getAddress(officerecord.value.pdsaddress);
-                }
-                
-                
-                
+                }                
             })
+
+            mbclass.value = pristore.dil;
+
+        })
+
+
+        pristore.$subscribe((m,s) => {
+            mbclass.value = pristore.dil;
+
         })
 
         const checkText = (text) => {
@@ -313,6 +323,7 @@ export default{
                 address.value = tempString.replace(/,\s*$/, "");
             }
         }
+
         
         return{   
             officerecord,
@@ -320,7 +331,8 @@ export default{
             moment,
             id,
             checkText,
-            address
+            address,
+            mbclass
             
         }
     }

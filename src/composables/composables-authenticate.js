@@ -5,6 +5,7 @@ import {useRouter} from 'vue-router'
 import { useAuthStore } from '@/stores/store.js'
 import { useNavigationStore } from '@/stores/navigationstore.js'
 import { usePasswordChange } from '@/stores/changepasswordstore.js'
+import { usePrivacyStore } from '@/stores/pristore.js'
 import useEventsBus from '@/components/helper/Eventbus';
 import nProgress from "nprogress";
 
@@ -19,6 +20,7 @@ export default function useAuthenticate(){
 	const noPassChange = ref(false);
 	const navigationstore = useNavigationStore();
 	const changepasswordstore = usePasswordChange();
+	const pristore = usePrivacyStore();
 	const info = ref();
 	const currentUser = async() => {
 		axios.defaults.withCredentials = true;	
@@ -77,15 +79,10 @@ export default function useAuthenticate(){
     	axios.defaults.withCredentials = true;
 
 		 	await axios.post('/v1/api/logoutuser').then((res) => {
-
-
 		 		store.setdetails(null);
 		 		navigationstore.setname(null);
 		 		changepasswordstore.setstate(false);
-		 		
-		 		
-
-
+		 		pristore.setdil(false); 		
 		 	}).catch((e) => {
 		 		if (e.response.status === 422) {
 	                errors.value = e.response.data.errors
