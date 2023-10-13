@@ -47,7 +47,7 @@
             </div>
 
             <div class="form-row mt-2">
-                <router-link :to="{name: 'dashboard.index'}" title="return to dashboard" class="btn btn-secondary me-1">Cancel</router-link>
+                <router-link :to="{name: 'recordpersonal.show'}" title="return to dashboard" class="btn btn-secondary me-1">Cancel</router-link>
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </form>
