@@ -96,6 +96,7 @@
         <li class="nav-link"><router-link :to="{ name: 'users.index' }"><i class="fa-solid fa-users-line"></i> Users</router-link></li>
         <li class="nav-link"><router-link :to="{ name: 'logs.index' }"><i class="fa-regular fa-file-lines"></i> Logs</router-link></li>
         <li class="nav-link"><router-link :to="{ name: 'roles.index' }"><i class="fa-solid fa-person-digging"></i>  Roles</router-link></li>
+        <li class="nav-link"><router-link :to="{ name: 'permissions.index' }"><i class="fa-solid fa-diagram-successor"></i>  Permissions</router-link></li>
         <li class="nav-link"><router-link :to="{ name: 'cmi.index' }"><i class="fa-solid fa-user-secret"></i> Debug</router-link></li>
       </ul>
     </div>

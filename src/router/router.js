@@ -542,6 +542,32 @@ const routes = [
       middleware: ['super-admin','admin']
     }
   },
+
+  {
+    path: '/permissions',
+    name: 'permissions.index',
+    component: () => import('@/components/permissions/PermissionsIndex.vue'),
+    meta: {
+      middleware: ['super-admin','admin']
+    }
+  },
+  {
+    path: '/permissions/create',
+    name: 'permissions.create',
+    component: () => import('@/components/permissions/PermissionsCreate.vue'),
+    meta: {
+      middleware: ['super-admin','admin']
+    }
+  },
+  {
+    path: '/permissions/:id/edit',
+    name: 'permissions.edit',
+    props: true,
+    component: () => import('@/components/permissions/PermissionsEdit.vue'),
+    meta: {
+      middleware: ['super-admin','admin']
+    }
+  },
   {
     path: '/travels',
     name: 'travels.index',

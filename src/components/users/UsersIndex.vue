@@ -154,9 +154,10 @@
 
 			const filteredEmployees = computed(function(){
 				return biousers.value.filter(
-					(biouser) => biouser.employee_fname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 || 
-							  biouser.employee_mname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ||
-							  biouser.employee_lname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ||
+					(biouser) => (biouser.employee_fname && biouser.employee_fname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1) || 
+							  (biouser.employee_mname && biouser.employee_mname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1) ||
+							  (biouser.employee_lname && biouser.employee_lname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1) ||
+
 							  (biouser.employee_extname && biouser.employee_extname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1) ||
 							  (biouser.useraccount && biouser.useraccount.username.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1) ||
 							  (biouser.useraccount && biouser.useraccount.last_login && moment(biouser.useraccount.last_login).format('MMMM DD, yyyy hh:mm A').toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1)
