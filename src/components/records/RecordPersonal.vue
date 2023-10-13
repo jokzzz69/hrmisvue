@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="row mb-2">    
-            <div class="col-1">
+            <div class="col col-sm-1">
                 <div class="form-floating lblform-floating">    
                     <span class="form-control lfc-disp" id="name">{{officerecord.employee_id}}</span>
                     <label for="name" class="form-label">ID Number</label>
@@ -24,8 +24,10 @@
                     <label for="name" class="form-label">Name</label>
                 </div>
             </div>
-            <div class="col-auto align-self-center col-edit">
-                <router-link :to="{ name: 'recordpersonalname.edit'}"><i class="fas fa-edit"></i></router-link>
+            <div class="col col-sm-auto align-self-center col-edit pi-edit">
+                <router-link :to="{ name: 'recordpersonalname.edit'}">
+                    <i class="fas fa-edit"></i> <span>Edit</span>
+                </router-link>
             </div>     
         </div> 
 
@@ -65,9 +67,9 @@
                     </div>
                 </div>
             </template>  
-           <div class="col-auto align-self-center col-edit">
+           <div class="col-auto align-self-center col-edit pi-edit">
                 <template v-if="officerecord.pdspersonalinformation.birthdate || officerecord.pdspersonalinformation.sex || officerecord.pdspersonalinformation.placeofbirth">
-                    <router-link :to="{ name: 'recordpersonalbirthdaygender.edit'}"><i class="fas fa-edit"></i></router-link>
+                    <router-link :to="{ name: 'recordpersonalbirthdaygender.edit'}"><i class="fas fa-edit"></i> <span>Edit</span></router-link>
                 </template>
                 
             </div>       
@@ -108,8 +110,8 @@
                     <label for="name" class="form-label">Email Address</label>
                 </div>
             </div>
-            <div class="col-auto align-self-center col-edit" v-if="officerecord.pdspersonalinformation.emailaddress || officerecord.pdspersonalinformation.telephone_no || officerecord.pdspersonalinformation.mobile_no">
-                <router-link :to="{ name: 'recordpersonalcontact.edit'}"><i class="fas fa-edit"></i></router-link>
+            <div class="col-auto align-self-center col-edit pi-edit" v-if="officerecord.pdspersonalinformation.emailaddress || officerecord.pdspersonalinformation.telephone_no || officerecord.pdspersonalinformation.mobile_no">
+                <router-link :to="{ name: 'recordpersonalcontact.edit'}"><i class="fas fa-edit"></i> <span>Edit</span></router-link>
             </div>
         </div> 
 
@@ -136,8 +138,8 @@
                     <label for="name" class="form-label">Emergency Contact Number</label>
                 </div>
             </div>
-            <div class="col-auto align-self-center col-edit">
-                <router-link :to="{ name: 'recordpersonalcontactperson.edit' }"><i class="fas fa-edit"></i></router-link>
+            <div class="col-auto align-self-center col-edit pi-edit">
+                <router-link :to="{ name: 'recordpersonalcontactperson.edit' }"><i class="fas fa-edit"></i> <span>Edit Emergency Contact</span></router-link>
             </div>   
         </div> 
         <div class="row mb-2" v-if="address">

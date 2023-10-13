@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 mb-2 req">                
+                <div class="col col-sm-5 mb-2 req mm-b">
                     <div class="form-floating">
                         <select class="form-select" name="bmonth" :class="errors.type ? 'error-input' : ''" v-model="form.month">
                             <option disabled value="">Select Month</option>
@@ -34,14 +34,14 @@
                     </div> 
                     <span v-if="errors['month']" class="text-danger m-error">{{errors['month'][0]}}</span>            
                 </div>
-                <div class="col-2 req">
+                <div class="col col-sm-2 req mm-b">
                     <div class="form-floating">
                         <input type="number" name="day" placeholder="enter month" id="bday" class="form-control" v-model="form.day" min="1" max="31">
                         <label for="byear" class="form-label">Day</label>
                     </div>
                     <span v-if="errors['day']" class="text-danger m-error">{{errors['day'][0]}}</span>     
                 </div>
-                <div class="col-5 req">
+                <div class="col col-sm-5 req mm-b">
                     <div class="form-floating">
                         <input type="number" name="year" placeholder="enter year" id="byear" min="1930" max="2023" class="form-control" v-model="form.year">
                         <label for="bday" class="form-label">Year</label>

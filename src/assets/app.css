@@ -864,6 +864,9 @@ input[type=number] {
 	padding-left: 5px;
 	padding-right: 5px;
 }
+.pi-edit a{
+	text-decoration: none;
+}
 .pProfilewrap,
 .pPDSwrap{
 	border:1px solid #ccc;
@@ -1402,7 +1405,6 @@ tr.disabled{
 	.mtmb table{
 		text-wrap: nowrap;
 	}
-	
 }
 @media(max-width: 767px){
 	
@@ -1511,6 +1513,7 @@ tr.disabled{
 
 	.content-wrap{
     	width: 100%;
+    	min-height: calc(100vh - 55px);
 	}
 	#sidenav ul li a{
 		border-radius: 0px;
@@ -1605,8 +1608,10 @@ tr.disabled{
 	.spfltxt{
 		display: none;
 	}
+	div.mm-b{
+		margin-bottom: .5rem;
+	}
 }
-
 
 @media (min-width: 768px) {
 	.hideRyt{
@@ -1653,6 +1658,10 @@ tr.disabled{
 	.spsltxt{
 		display: none;
 	}
+	.pi-edit span{
+		display: none;
+	}
+	
 
 }
 
