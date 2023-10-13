@@ -140,6 +140,17 @@
                 <router-link :to="{ name: 'recordpersonalcontactperson.edit' }"><i class="fas fa-edit"></i></router-link>
             </div>   
         </div> 
+        <div class="row mb-2" v-if="address">
+            <div class="col">
+                <div class="form-floating lblform-floating">                    
+                    <span class="form-control lfc-disp">
+                      {{address}}
+                    </span>
+                    <label for="name" class="form-label">Residential Address</label>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div class="pProfilewrap container-fluid mb-4" v-if="officerecord">
@@ -235,9 +246,18 @@ export default{
 
         const store = useAuthStore();
         const id = ref(store.details[0]);
+        const address = ref();
 
         onMounted(() => {   
-            getPersonalRecord(id.value)
+            getPersonalRecord(id.value).then(() => {
+             
+                if(officerecord.value.pdsaddress){
+                    getAddress(officerecord.value.pdsaddress);
+                }
+                
+                
+                
+            })
         })
 
         const checkText = (text) => {
@@ -252,14 +272,53 @@ export default{
             let val = (value/1).toFixed(2);
             return val.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
         }
+        const getAddress = (data) =>{
+            let tempString = '';
+   
+            if(data.residential_barangay != null ||
+                data.residential_house_no != null ||
+                data.residential_municipality != null ||
+                data.residential_province != null ||
+                data.residential_street != null ||
+                data.residential_subdivision != null ||
+                data.residential_zipcode != null){
 
+                if(data.residential_house_no){
+                    tempString+= data.residential_house_no+', ';  
+                }
+                if(data.residential_street){
+                    tempString+= data.residential_street+', '; 
+                }
+                if(data.residential_subdivision){
+                    tempString+= data.residential_subdivision+', '; 
+                }
+                if(data.residential_barangay){
+                    tempString+= data.residential_barangay+', '; 
+                }
+                if(data.pdsaddressres_mun){
+                    tempString+= data.pdsaddressres_mun.citymunDesc+', '; 
+                }
+                if(data.pdsaddressres_prov){
+                    tempString+= data.pdsaddressres_prov.provDesc+' '; 
+                }
+                if(data.residential_zipcode){
+                    tempString+= data.residential_zipcode; 
+                }
 
+  
+            }
+            if(tempString){
+                address.value = tempString.replace(/,\s*$/, "");
+            }
+        }
+        
         return{   
             officerecord,
             formatPrice,
             moment,
             id,
-            checkText
+            checkText,
+            address
             
         }
     }
