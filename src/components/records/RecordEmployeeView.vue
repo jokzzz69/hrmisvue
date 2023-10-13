@@ -244,11 +244,11 @@
 	                	filteredOfficeRecords.value.sort((a, b) => (a['employments'][0]['startdate'] > b['employments'][0]['startdate'] ? 1 : -1));
 	                }else if(columnName === 'emergency_contactperson') {
 	                	filteredOfficeRecords.value.sort((a, b) => {
-	                		if (a[columnName] === null) {
+	                		if (a[columnName] === null || a[columnName] === '') {
 							    return 1;
 							  }
 
-							  if (b[columnName] === null) {
+							  if (b[columnName] === null || b[columnName] === '') {
 							    return -1;
 							  }
 
@@ -278,11 +278,11 @@
 	                	filteredOfficeRecords.value.sort((a, b) => (a['employments'][0]['startdate'] < b['employments'][0]['startdate'] ? 1 : -1));
 	                }else if(columnName === 'emergency_contactperson') {
 	                	filteredOfficeRecords.value.sort((a, b) => {
-	                		if (a[columnName] === null) {
+	                		if (a[columnName] === null  || a[columnName] === '') {
 							    return 1;
 							  }
 
-							  if (b[columnName] === null) {
+							  if (b[columnName] === null  || b[columnName] === '') {
 							    return -1;
 							  }
 

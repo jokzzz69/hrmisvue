@@ -55,7 +55,7 @@
 </template>
 
 <script>
-	import useRoles from '../../composables/composables-role';
+	import useRoles from '@/composables/composables-role';
 	import {onMounted ,ref, computed, inject} from 'vue';
 	import { sortBy} from 'lodash';
 	import {useRouter} from 'vue-router'
@@ -72,11 +72,7 @@
 			const swal = inject('$swal')
 			let sort = ref(false);
 
-
-
-
-			const router = useRouter()
-			
+			const router = useRouter()			
 			const sortColumn = ref("id");
         	const sortDirection = ref(1);
 			const arrowIconName = ref("arrow_drop_up");		
@@ -96,10 +92,10 @@
 	            sortDirection.value = -1 * sortDirection.value;
 	            if (sortDirection.value == 1) {
 	                arrowIconName.value = "arrow_drop_up";
-	                filteredLocations.value.sort((a, b) => (a[columnName] > b[columnName] ? 1 : -1));
+	                filteredRoles.value.sort((a, b) => (a[columnName] > b[columnName] ? 1 : -1));
 	            } else {
 	                arrowIconName.value = "arrow_drop_down";
-	                filteredLocations.value.sort((a, b) => (a[columnName] < b[columnName] ? 1 : -1));
+	                filteredRoles.value.sort((a, b) => (a[columnName] < b[columnName] ? 1 : -1));
 	            }
 	        }
 
