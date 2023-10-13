@@ -116,9 +116,9 @@
 
 			const filteredEmployees = computed(function(){
 				return employees.value.filter(
-					(employee) => employee.employee_fname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 || 
-							  employee.employee_mname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ||
-							  employee.employee_lname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ||
+					(employee) => (employee.employee_fname && employee.employee_fname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1) || 
+							  (employee.employee_mname && employee.employee_mname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1) ||
+							  (employee.employee_lname && employee.employee_lname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1) ||
 							  (employee.employee_extname && employee.employee_extname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ) ||
 							  (employee.pdspersonalinformation && employee.pdspersonalinformation.updated_at && moment(employee.pdspersonalinformation.updated_at).format('LLLL').toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1)
 				);
