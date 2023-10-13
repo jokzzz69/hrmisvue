@@ -183,12 +183,11 @@
 			const filteredOfficeRecords = computed(function(){
 				return officerecords.value.filter(
 					(officerecord) => 
-						(officerecord.employee_id.toString().toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ) || 
+						(officerecord.employee_id && officerecord.employee_id.toString().toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ) || 
 						(officerecord.emergency_contactperson && officerecord.emergency_contactperson.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ) || 
-						(officerecord.employee && officerecord.employee.employee_fname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ) || 
-						(officerecord.employee && officerecord.employee.employee_mname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ) ||
-						(officerecord.employee && officerecord.employee.employee_lname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ) ||
-
+						(officerecord.employee && officerecord.employee.employee_fname && officerecord.employee.employee_fname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ) || 
+						(officerecord.employee && officerecord.employee.employee_mname && officerecord.employee.employee_mname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ) ||
+						(officerecord.employee && officerecord.employee.employee_lname && officerecord.employee.employee_lname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ) ||
 						(officerecord.employments && officerecord.employments[0].office && officerecord.employments[0].office.offices_name.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1)	||
 						(officerecord.employments && officerecord.employments[0].position && officerecord.employments[0].position.name.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1)	||
 						(officerecord.employments && officerecord.employments[0].status && officerecord.employments[0].status.name.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1)	||

@@ -23,6 +23,7 @@
 		                    <span v-if="sortColumn == 'name'" class="material-icons">{{arrowIconName}}</span>
 		                    <span v-else class="material-icons">sort</span>
 		                </th>
+		                <th>Permissions</th>
 		                <th @click="sortTable('slug')">Slug
 		                    <span v-if="sortColumn == 'slug'" class="material-icons">{{arrowIconName}}</span>
 		                    <span v-else class="material-icons">sort</span>
@@ -34,6 +35,13 @@
 		    			<tr @click="goshow(role.id)" v-if="role.id !== 1">
 		    				<td>
 		    					{{role.name}}
+		    				</td>
+		    				<td>
+		    					<template v-if="role.permissions">
+		    						<template v-for="permission in role.permissions" :key="permission.id">
+		    							<span class="badge badge-pill bg-primary me-1">{{permission.name}}</span>
+		    						</template>
+		    					</template>
 		    				</td>
 		    				<td>
 		    					{{role.slug}}
