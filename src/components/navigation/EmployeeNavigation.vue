@@ -32,7 +32,7 @@
         <li class="nav-link" v-if="showViewemployees"><router-link :to="{ name: 'employeeslist.view' }"><i class="fa-solid fa-users-rectangle"></i> All Employees</router-link></li>
         <li class="nav-link"><router-link :to="{ name: 'pdsmydata.show' }"><i class="fa-solid fa-user-pen"></i> Personal Data Sheet</router-link></li>
         <li class="nav-link"><router-link :to="{ name: 'travels.index' }"><i class="fa-solid fa-car-side"></i> Travels</router-link></li>
-        <li class="nav-link"><router-link :to="{ name: 'travels.index' }"><i class="fa-solid fa-person-through-window"></i> Leave / Absent</router-link></li>
+
         
         <template v-if="id == 4">
           <li class="nav-link"><a href="#" class="text-danger"><i class="fa-regular fa-pen-to-square"></i> Office ID</a></li>

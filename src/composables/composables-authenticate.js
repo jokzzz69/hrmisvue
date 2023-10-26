@@ -22,6 +22,10 @@ export default function useAuthenticate(){
 	const changepasswordstore = usePasswordChange();
 	const pristore = usePrivacyStore();
 	const info = ref();
+
+	const hrmis = ''; //add v1 on live
+
+
 	const currentUser = async() => {
 		axios.defaults.withCredentials = true;	
 		await axios.get('/v1/api/cu',{
@@ -64,8 +68,8 @@ export default function useAuthenticate(){
 	const login = async (data) => {
         errors.value = ''
         axios.defaults.withCredentials = true;		
-		await axios.get('/sanctum/csrf-cookie').then(response => {
-			axios.post('/login', data).then(res => {
+		await axios.get(hrmis+'/sanctum/csrf-cookie').then(response => {
+			axios.post(hrmis+'/login', data).then(res => {
 			 	currentUser();
 			}).catch(e => {
 				nProgress.done();
