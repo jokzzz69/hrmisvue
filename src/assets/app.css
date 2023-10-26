@@ -56,7 +56,9 @@ body{
 	background: transparent !important;
 	border-color: transparent;
 }
-.passwordEye .input-group-text:hover{
+.passwordEye .input-group-text:hover,
+.li-leavedetails li div label:hover,
+.li-leavedetails li div input:hover{
 	cursor: pointer;
 }
 .col-chk{
@@ -356,8 +358,12 @@ body{
 .p-15{
 	padding: 15px;
 }
-.error-inputsl .vs__dropdown-toggle{
+.error-inputsl .vs__dropdown-toggle,
+.br-error{
 	border-color: #ff0000 !important;
+}
+.sp-aberror{
+	position: absolute;
 }
 .sl2-floating .vs__dropdown-toggle{
 	height: calc(3.5rem + 2px);
@@ -1021,7 +1027,7 @@ span.noContent{
 .spFooterWrap{
 	position: fixed;
 	width: 100%;
-	z-index: 99999999;
+	z-index: 999;
 	bottom: 0;
 	background: rgba(33, 37, 41, 0.8) !important;
 }
@@ -1665,8 +1671,10 @@ tr.disabled{
 		display: none;
 	}
 	
-
-}
+	.mh-200{
+		min-height: 200px;
+	}
+}	
 
 @media(min-width: 768px) and (max-width:991px){
 	.nb-mob{

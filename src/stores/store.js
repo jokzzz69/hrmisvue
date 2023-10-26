@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-
+import { parse, stringify } from 'zipson'
 export const useAuthStore = defineStore('ua', {
 	state:() => ({
 		details: null
@@ -15,7 +15,9 @@ export const useAuthStore = defineStore('ua', {
 			return state.details
 		}
 	},
-	persist: true,
+	persist: {
+		persist: true
+	}
 	
 
 })

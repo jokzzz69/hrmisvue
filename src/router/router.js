@@ -234,6 +234,74 @@ const routes = [
     }
   },
   {
+    path: '/leaverecords',
+    name: 'leaverecords.index',
+    component: () => import('@/components/leave/LeaveIndex.vue'),
+    meta: {
+      middleware: ['super-admin','admin','hr']
+    }
+  },
+  {
+    path: '/leaverecords/create',
+    name: 'leaverecords.create',
+    component: () => import('@/components/leave/LeaveCreate.vue'),
+    meta: {
+      middleware: ['super-admin','admin','hr']
+    }
+  },
+  {
+    path: '/leavetypes',
+    name: 'leavetypes.index',
+    component: () => import('@/components/leavetypes/LeaveTypesIndex.vue'),
+    meta: {
+      middleware: ['super-admin','admin','hr']
+    }
+  },
+  {
+    path: '/leavetypes/create',
+    name: 'leavetypes.create',
+    component: () => import('@/components/leavetypes/LeaveTypesCreate.vue'),
+    meta: {
+      middleware: ['super-admin','admin','hr']
+    }
+  },
+  {
+    path: '/leavetypes/:id/',
+    name: 'leavetypes.edit',
+    component: () => import('@/components/leavetypes/LeaveTypesEdit.vue'),
+    props: true,
+    meta: {
+      middleware: ['hr','super-admin','admin']
+    }
+  },
+
+  {
+    path: '/leavetypesdetails',
+    name: 'leavetypesdetails.index',
+    component: () => import('@/components/leavetypesdetails/LeaveTypesDetailsIndex.vue'),
+    meta: {
+      middleware: ['super-admin','admin','hr']
+    }
+  },
+  {
+    path: '/leavetypesdetails/create',
+    name: 'leavetypesdetails.create',
+    component: () => import('@/components/leavetypesdetails/LeaveTypesDetailsCreate.vue'),
+    meta: {
+      middleware: ['super-admin','admin','hr']
+    }
+  },
+  {
+    path: '/leavetypesdetails/:id/',
+    name: 'leavetypesdetails.edit',
+    component: () => import('@/components/leavetypesdetails/LeaveTypesDetailsEdit.vue'),
+    props: true,
+    meta: {
+      middleware: ['hr','super-admin','admin']
+    }
+  },
+
+  {
     path: '/employeestatus',
     name: 'employeestatus.index',
     component: () => import('@/components/employeestatus/EmployeeStatusIndex.vue'),

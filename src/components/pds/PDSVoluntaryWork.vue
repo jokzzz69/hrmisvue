@@ -54,7 +54,7 @@
                                         </template>
                                         <div class="input-group cicH">
                                             <span class="input-group-text p-0" title="Select Date">                                            
-                                                <Datepicker auto-apply :enable-time-picker="false" v-model="officerecord.pdsvoluntarywork[key].voluntary_from" @update:model-value="hfrom(key)" class="date-form-floating">
+                                                <Datepicker :teleport="true" auto-apply :enable-time-picker="false" v-model="officerecord.pdsvoluntarywork[key].voluntary_from" @update:model-value="hfrom(key)" class="date-form-floating">
                                                     <template #trigger>
                                                         <p class="cic m-0 p-15"><i class="fa-solid fa-calendar-days"></i></p>
                                                     </template>
@@ -70,7 +70,7 @@
                                         </template>
                                         <div class="input-group cicH">
                                             <span class="input-group-text p-0" title="Select Date">                                            
-                                                <Datepicker auto-apply :enable-time-picker="false" v-model="officerecord.pdsvoluntarywork[key].voluntary_to" @update:model-value="hto(key)" class="date-form-floating">
+                                                <Datepicker :teleport="true" auto-apply :enable-time-picker="false" v-model="officerecord.pdsvoluntarywork[key].voluntary_to" @update:model-value="hto(key)" class="date-form-floating">
                                                     <template #trigger>
                                                         <p class="cic m-0 p-15"><i class="fa-solid fa-calendar-days"></i></p>
                                                     </template>
