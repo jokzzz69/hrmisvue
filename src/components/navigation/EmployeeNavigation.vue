@@ -21,10 +21,10 @@
                       
         <li class="nav-link">
             <template v-if="userslug == 'office-head'">
-              <router-link :to="{ name: 'monitoring.employee' }"><i class="fa-solid fa-fingerprint"></i> My Daily Time Record</router-link>
+              <router-link :to="{ name: 'mydailytimerecord.index' }"><i class="fa-solid fa-fingerprint"></i> My Daily Time Record</router-link>
             </template>
             <template v-else>
-              <router-link :to="{ name: 'monitoring.employee' }"><i class="fa-solid fa-fingerprint"></i> Daily Time Record</router-link>
+              <router-link :to="{ name: 'mydailytimerecord.index' }"><i class="fa-solid fa-fingerprint"></i> Daily Time Record</router-link>
             </template>
 
         </li>
@@ -32,7 +32,7 @@
         <li class="nav-link" v-if="showViewemployees"><router-link :to="{ name: 'employeeslist.view' }"><i class="fa-solid fa-users-rectangle"></i> All Employees</router-link></li>
         <li class="nav-link"><router-link :to="{ name: 'pdsmydata.show' }"><i class="fa-solid fa-user-pen"></i> Personal Data Sheet</router-link></li>
         <li class="nav-link"><router-link :to="{ name: 'travels.index' }"><i class="fa-solid fa-car-side"></i> Travels</router-link></li>
-
+        <li class="nav-link"><router-link :to="{ name: 'myleaverecords.index' }"><i class="fa-solid fa-person-through-window"></i> Absent <template v-if="usertype != 1">/ Leave </template> Records</router-link></li>
         
         <template v-if="id == 4">
           <li class="nav-link"><a href="#" class="text-danger"><i class="fa-regular fa-pen-to-square"></i> Office ID</a></li>
@@ -74,6 +74,7 @@
       const store = useAuthStore();
       const userslug = ref(store.details[1]);
       const id = ref(store.details[0]);
+      const usertype = ref(store.details[3]);
       const permissions = ref(store.details[4]);
 
       const showViewemployees = ref(false);
@@ -85,7 +86,8 @@
       return {
         userslug,
         id,
-        showViewemployees
+        showViewemployees,
+        usertype
       }
     }
   }

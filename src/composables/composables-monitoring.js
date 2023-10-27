@@ -39,6 +39,12 @@ export default function useMonitoring(){
            }
         }
 	}
+	const getPerEmployeeDTR = async (data) => {
+		axios.defaults.withCredentials = true;
+		await axios.get(`/v1/api/employeedtrrecords/${data}`).then((response) =>{
+			biometricsData.value = response.data.data
+		});
+	}
 	return{
 		errors,
 		monitoringbiometric,
@@ -47,6 +53,7 @@ export default function useMonitoring(){
 		getEmployeebiometric,
 		getOfficeEmployeeBio,
 		getEmployeemonthBio,
-		biometricsData
+		biometricsData,
+		getPerEmployeeDTR
 	}
 }

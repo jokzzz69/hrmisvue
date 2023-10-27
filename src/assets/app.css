@@ -1383,6 +1383,13 @@ tr.disabled{
   background: #555; 
 }
 /*end grid layout*/
+.tbl-leave thead th:last-child{
+	width: auto;
+}
+.tbl-leave span.italic{
+	font-style: italic;
+	color: #766969;
+}
 /*end content*/
 @media(max-width: 500px){
 
@@ -1673,6 +1680,9 @@ tr.disabled{
 	
 	.mh-200{
 		min-height: 200px;
+	}
+	.duration-col .card .row:first-child .btn-remove-duration{
+		margin-top: 1rem;
 	}
 }	
 

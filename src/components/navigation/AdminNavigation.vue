@@ -11,7 +11,7 @@
 
           <li class="nav-link"><router-link :to="{name: 'travels.index'}">Employees Travels</router-link></li>
           <li class="nav-link"><router-link :to="{name: 'archives.index'}">Employees Archived</router-link></li>
-          <li class="nav-link"><router-link :to="{name: 'leaverecords.index'}">Employees Leave / Absence</router-link></li>
+          <li class="nav-link"><router-link :to="{name: 'leaverecords.index'}">Employees Absent <template v-if="usertype != 1 || userslug != 'employee'"> / Leave</template></router-link></li>
 
           <li class="nav-link"><a href="#" class="text-danger">Employees Assessment</a></li>               
 
@@ -24,16 +24,18 @@
     <div class="collapse navdrpdwn" id="personaldata-collapse">
       <ul class="btn-toggle-nav list-unstyled small">
           <li class="nav-link">
-            <router-link :to="{ name: 'monitoring.employee' }">My DTR</router-link>
+            <router-link :to="{ name: 'mydailytimerecord.index' }">My DTR</router-link>
 
           </li>
 
           <li class="nav-link"><router-link :to="{ name: 'recordpersonal.show' }">My Information</router-link></li>
           <li class="nav-link"><router-link :to="{ name: 'pdsmydata.show' }">My PDS</router-link></li>
+          <li class="nav-link"><router-link :to="{name: 'myleaverecords.index'}">My Absent <template v-if="usertype != 1"> / Leave</template> Records</router-link></li>
           <li class="nav-link"><a href="#" class="text-danger">My Office ID</a></li>
           <li class="nav-link"><a href="#" class="text-danger">My Payslip</a></li>
           <li class="nav-link"><a href="#" class="text-danger">My Contract</a></li>
-          <li class="nav-link"><a href="#" class="text-danger">My Leave Records</a></li>
+      
+          
           <li class="nav-link"><a href="#" class="text-danger">My IPCR</a></li>
           <li class="nav-link"><a href="#" class="text-danger">My COE</a></li>
           <li class="nav-link"><a href="#" class="text-danger">My Clearance</a></li>
@@ -116,8 +118,10 @@
     setup(){
       const store = useAuthStore();
       const userslug = ref(store.details[1]);
+      const usertype = ref(store.details[3]);
       return{
-        userslug
+        userslug,
+        usertype
       }
     }
   }

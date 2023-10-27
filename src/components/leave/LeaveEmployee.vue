@@ -6,7 +6,7 @@
                 Records</h2>
         </div>
     </div>
-    <div class="row">        
+	<div class="row">        
         <div class="col-auto">
             <router-link :to="{ name: 'leaverecords.create' }" class="btn btn-blue">New Record <i class="fa-solid fa-plus"></i></router-link>
         </div>
@@ -17,20 +17,14 @@
         </div>
 
     </div>
-    <table class="mtable hasActions mt-2 mb-2 table tbl-leave">
+	<table class="mtable hasActions mt-2 mb-2 table tbl-leave">
             <thead>
                 <tr>
-                    <th>
-                        Employee
-                    </th>
                     <th>
                         Type
                     </th>
                     <th>
                         Inclusive Dates
-                    </th>
-                    <th>
-                        Created By
                     </th>
 
                      <th>
@@ -43,15 +37,15 @@
                 <template v-for="leaverecord in filteredLeaveRecords" :key="leaverecord.id">
                     <tr>
                         <td>
-                            <template v-if="leaverecord.owner">
-                                {{leaverecord.owner.name}}
-                            </template>
-                        </td>
-                        <td>
 
                             <template v-if="leaverecord.leavetypes">
                                 <template v-for="(leavetype,key) in leaverecord.leavetypes">
                                     {{leavetype.name}}<template v-if="leaverecord.leavetypes.length - 1 != key">, </template>
+                                </template>
+                                <template v-if="userid != leaverecord.createdby">
+                                    <template v-if="leaverecord.creator.name">
+                                        <br/><span class="italic">Created by: {{leaverecord.creator.name}}</span>
+                                    </template>
                                 </template>
                             </template>
 
@@ -66,21 +60,17 @@
                                 </template>
                             </template>
                         </td>
-                        <td>
-                            <template v-if="leaverecord.owner">
-                                {{leaverecord.creator.name}}
-                            </template>
-                        </td>
-                        <td @click.stop>
+      
+                		<td @click.stop>
 
-                                <ul class="ls-frmbutton text-end" v-if="userslug == 'super-admin' || userslug == 'admin' || leaverecord.createdby == userid">
+                                <ul class="ls-frmbutton text-end">
                                     <li class="mb-1">
                                         <router-link title="Edit" :to="{name: 'leaverecords.edit', params : {id: leaverecord.id}}" class="btn btn-violet"><i class="sm-icons fa-solid fa-pen-to-square"></i> <span  class="lg-text">Edit</span></router-link>
                                     </li>
                                     <li><button title="delete" class="btn btn-outline-danger" @click="deleteLeaveRecord(leaverecord.id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
                                 </ul>
                     
-                        </td>
+                		</td>
                     </tr>
                 </template>
             </tbody>
@@ -98,8 +88,8 @@
     import {useAuthStore} from '@/stores/store.js'
     import moment from 'moment'
     import {dualdateformat} from '@/helper/dualdateformat.js'
-    export default{
-        setup(){
+	export default{
+		setup(){
             useHead({
                 title: 'Employee Leave Records | BFAR - CAR HRMIS'
             })
@@ -111,7 +101,7 @@
 
             const usertype = store.getdetails[3];
 
-            const {leaverecords, getLeaveRecords, destroyLeaveRecord} = useLeaveRecords();
+            const {leaverecords, getEmployeeLeaveRecords, destroyLeaveRecord} = useLeaveRecords();
 
             const searchQuery = ref("");
             const arrowIconName = ref("arrow_drop_up");     
@@ -119,7 +109,7 @@
             const sortDirection = ref(1);
 
 
-            const callback = (leavetypes,searchQuery) => { 
+			const callback = (leavetypes,searchQuery) => { 
                 const newArr = [];
                 for (var i = 0; i <= leavetypes.length; i++) {
                     newArr.push(leavetypes[i] && leavetypes[i].name.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1)
@@ -145,10 +135,9 @@
             const filteredLeaveRecords = computed(function(){
                 return leaverecords.value.filter(
                     (leaverecord) => leaverecord.leaveoption.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ||
-                                     (leaverecord.creator && leaverecord.creator.name && leaverecord.creator.name.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1) ||
-                                     (leaverecord.owner && leaverecord.owner.name && leaverecord.owner.name.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1) ||
-                                     callback(leaverecord.leavetypes, searchQuery.value) || 
-                                    datecallback(leaverecord.leaveduration, searchQuery.value)
+                                     callback(leaverecord.leavetypes, searchQuery.value) ||
+                                     datecallback(leaverecord.leaveduration, searchQuery.value)
+                                    
                 );
             });
 
@@ -168,7 +157,7 @@
 
             onMounted(() =>{
 
-                getLeaveRecords()
+                getEmployeeLeaveRecords()
                 
             })
 
@@ -192,7 +181,7 @@
                 if (x > 0) {
 
                     await destroyLeaveRecord(id);
-                    await getLeaveRecords().then(() => {
+                    await getEmployeeLeaveRecords().then(() => {
                         swal.fire({
                             toast: true,
                             position: 'top-end',
@@ -217,7 +206,7 @@
                 router.push({name: 'leaverecords.edit', params: { id: id }});
             }
             
-            return {
+			return {
                 filteredLeaveRecords,
                 sortTable,
                 sortColumn,
@@ -231,7 +220,7 @@
                 usertype,
                 moment,
                 dualdateformat
-            }
-        }
-    }
+			}
+		}
+	}
 </script>

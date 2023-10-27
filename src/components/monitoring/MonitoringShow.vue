@@ -91,41 +91,69 @@
                                 </template>                                  
                             </template>
                             <template v-else>
+                                <template v-if="dtr.leaveid">
+                                    <template v-if="dtr.d == 1">                                        
+                                            <td class="bg-lightgray noboxshadow ps-3" :rowspan="dtr.leavetotaldays" valign="middle">
+                                                <strong>{{dtr.leavetype}}</strong>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>  
+                                    </template>
+                                    <template v-else>
+                                        <template v-if="biometricsData.biometricsData[k-1]">        
+                                            <template v-if="biometricsData.biometricsData[k-1].leaveid != dtr.leaveid">
+                                                <td class="bg-lightgray noboxshadow ps-3" :rowspan="dtr.leavetotaldays" valign="middle">
+                                                   <strong>{{dtr.leavetype}}</strong>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
 
-                                <template v-if="dtr.dtr_timeinam == null && dtr.dtr_timeinpm == null && dtr.dtr_timeoutam == null && dtr.dtr_timeoutpm == null && dtr.status != null">  
-                                    <td class="text-danger">{{dtr.status}}</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                            </template>
+                                            <template v-else>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </template>
+                                        </template>  
+                                    </template> 
                                 </template>
-                                
-                                <template v-else-if="dtr.dtr_timeinam == null && dtr.dtr_timeinpm == null && dtr.dtr_timeoutam == null && dtr.dtr_timeoutpm == null && dtr.holiday != null">  
-                                    <td class="text-danger text-start ps-5" colspan="4">{{dtr.holiday}}</td>                
-                                </template>
-
                                 <template v-else>
-                                    <td>
-                                        <template v-if="dtr.dtr_timeinam">
-                                            {{moment(dtr.dtr_timeinam,'HH:mm').format('hh:mm')}}
-                                        </template>                                
-                                    </td>
-                                    <td>
-                                        <template v-if="dtr.dtr_timeoutam">
-                                            {{moment(dtr.dtr_timeoutam,'HH:mm').format('hh:mm')}}
-                                        </template>
-                                    </td>
-                                    <td>
-                                        <template v-if="dtr.dtr_timeinpm">
-                                            {{moment(dtr.dtr_timeinpm,'HH:mm').format('hh:mm')}}
-                                        </template>
-                                    </td>
-                                    <td>
-                                        <template v-if="dtr.dtr_timeoutpm">
-                                            {{moment(dtr.dtr_timeoutpm,'HH:mm').format('hh:mm')}}
-                                        </template>
-                                    </td>
-                                </template>
+                                    <template v-if="dtr.dtr_timeinam == null && dtr.dtr_timeinpm == null && dtr.dtr_timeoutam == null && dtr.dtr_timeoutpm == null && dtr.status != null">  
+                                        <td class="text-danger">{{dtr.status}}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </template>
+                                    
+                                    <template v-else-if="dtr.dtr_timeinam == null && dtr.dtr_timeinpm == null && dtr.dtr_timeoutam == null && dtr.dtr_timeoutpm == null && dtr.holiday != null">  
+                                        <td class="text-danger text-start ps-5" colspan="4">{{dtr.holiday}}</td>                
+                                    </template>
 
+                                    <template v-else>
+                                        <td>
+                                            <template v-if="dtr.dtr_timeinam">
+                                                {{moment(dtr.dtr_timeinam,'HH:mm').format('hh:mm')}}
+                                            </template>                                
+                                        </td>
+                                        <td>
+                                            <template v-if="dtr.dtr_timeoutam">
+                                                {{moment(dtr.dtr_timeoutam,'HH:mm').format('hh:mm')}}
+                                            </template>
+                                        </td>
+                                        <td>
+                                            <template v-if="dtr.dtr_timeinpm">
+                                                {{moment(dtr.dtr_timeinpm,'HH:mm').format('hh:mm')}}
+                                            </template>
+                                        </td>
+                                        <td>
+                                            <template v-if="dtr.dtr_timeoutpm">
+                                                {{moment(dtr.dtr_timeoutpm,'HH:mm').format('hh:mm')}}
+                                            </template>
+                                        </td>
+                                    </template>
+                                </template>
                             </template>
                             
                         </tr>

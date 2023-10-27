@@ -177,8 +177,8 @@ const routes = [
   },
   {
       path: '/mydailytimerecord',
-      name: 'monitoring.employee',
-      component: () => import('@/components/monitoring/MonitoringOwn.vue'),
+      name: 'mydailytimerecord.index',
+      component: () => import('@/components/dtr/MyDailyTimeRecord.vue'),
       meta: {
         middleware: ['hr','super-admin','admin','employee','office-head']
       }
@@ -242,11 +242,28 @@ const routes = [
     }
   },
   {
+    path: '/myleaverecords',
+    name: 'myleaverecords.index',
+    component: () => import('@/components/leave/LeaveEmployee.vue'),
+    meta: {
+      middleware: ['hr','super-admin','admin','employee','office-head']
+    }
+  },
+  {
     path: '/leaverecords/create',
     name: 'leaverecords.create',
     component: () => import('@/components/leave/LeaveCreate.vue'),
     meta: {
-      middleware: ['super-admin','admin','hr']
+      middleware: ['super-admin','admin','hr','employee','office-head']
+    }
+  },
+  {
+    path: '/leaverecords/:id/',
+    name: 'leaverecords.edit',
+    component: () => import('@/components/leave/LeaveEdit.vue'),
+    props: true,
+    meta: {
+      middleware: ['hr','super-admin','admin','employee','office-head']
     }
   },
   {
