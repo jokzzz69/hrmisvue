@@ -20,29 +20,24 @@
               </label>
             </div>
         </template>
-        
+
         <template v-if="userslug != 'employee'">
             <div class="row">
-                <div class="col">
-                    <div class="form-floating">
-                      <select class="form-select mt-2" id="flselectemp" v-model="form.employee_id">
-                        <option value="" disabled>----</option>
-                        <option v-for="employee in employees" :key="employee.id" :value="employee.id">
-                            {{employee.label}}
-                        </option>
-                      </select>
-                      <label for="flselectemp">Select Employee</label>
+                <div class="col mt-2 mb-2">
+                    <div class="req">
+                        <span class="form-label mb-1">Select Employee </span>
+                           <v-select class="sp2wrap  sl2-floating"  placeholder="Select Employees" v-model="form.employee_id" :reduce="employees => employees.id" :options="employees" :class="errors.employees ? 'error-inputsl' : ''"/>
                     </div>
+                    <span v-if="errors.employees" class="text-danger m-error">{{errors.employees[0]}}</span> 
                 </div>
             </div>
         </template>
-
         <template v-if="displayLeave">
              <div class="row align-items-end">
                 <div class="col">
                     <div class="date-form-floating req">
                         <span class="mb-2 d-block">Date of Filing <span class="text-danger">*</span></span>
-                        <Datepicker v-model="form.dateoffiling" auto-apply :clearable="true" :highlight-week-days="[0, 6]" week-start="0"  :class="errors.dateoffiling ? 'error-input' : ''" :enable-time-picker="false" name="dateoffiling" placeholder="Select date of filing (yyyy-mm-dd)" @update:model-value="handleFiling(key)" :format="format"></Datepicker>
+                        <Datepicker v-model="form.dateoffiling" auto-apply :clearable="true" :highlight-week-days="[0, 6]" week-start="0"  :class="errors.dateoffiling ? 'error-input' : ''" :enable-time-picker="false" name="dateoffiling" placeholder="Select date of filing" @update:model-value="handleFiling(key)" :format="format"></Datepicker>
                         <span v-if="errors.dateoffiling" class="text-danger m-error sp-aberror">{{errors.dateoffiling[0]}}</span>  
                     </div>
                 </div>
@@ -98,7 +93,7 @@
                                 </span>
   
                 
-                                <Datepicker :enable-time-picker="false"   class="date-form-floating highlights-weekend" id="dts" week-start="0" auto-apply v-model="form.leaveduration[key].leavestart" placeholder="Date Start (yyyy-mm-dd)"  :clearable="false" :class="errors[`leaveduration.${key}.leavestart`] ? 'error-input' : ''" :highlight-week-days="[0, 6]" :teleport="true" @update:model-value="handleStartDate(key)" :format="format"></Datepicker>
+                                <Datepicker :enable-time-picker="false"   class="date-form-floating highlights-weekend" id="dts" week-start="0" auto-apply v-model="form.leaveduration[key].leavestart" placeholder="Date Start"  :clearable="false" :class="errors[`leaveduration.${key}.leavestart`] ? 'error-input' : ''" :highlight-week-days="[0, 6]" :teleport="true" @update:model-value="handleStartDate(key)" :format="format" :max-date="getmaxdate(key)"></Datepicker>
                                     
 
                                 
@@ -111,10 +106,10 @@
                                     </template>
                                 </template>
                                 </span>
-                                <Datepicker class="date-form-floating highlights-weekend" id="dts1" week-start="0" auto-apply v-model="form.leaveduration[key].leaveend" placeholder="Date End (yyyy-mm-dd)" :enable-time-picker="false"  :clearable="false" :class="errors[`leaveduration.${key}.leaveend`] ? 'error-input' : ''" :highlight-week-days="[0, 6]" :teleport="true" @update:model-value="handleEndDate(key)" :format="format"></Datepicker>       
+                                <Datepicker class="date-form-floating highlights-weekend" id="dts1" week-start="0" auto-apply v-model="form.leaveduration[key].leaveend" placeholder="Date End" :enable-time-picker="false"  :clearable="false" :class="errors[`leaveduration.${key}.leaveend`] ? 'error-input' : ''" :highlight-week-days="[0, 6]" :teleport="true" @update:model-value="handleEndDate(key)" :format="format" :min-date="getmindate(key)"></Datepicker>       
              
                             </div>
-                            <div class="col-auto">
+                            <div class="col-auto" v-if="form.leaveoption == 1">
                                 <button class="btn btn-danger btn-remove-duration" @click.prevent="removeduration(key)">-</button>
                             </div>
                         </div>          
@@ -124,7 +119,7 @@
         </div>
         
         
-        <div class="row">
+        <div class="row" v-if="form.leaveoption == 1">
             <div class="col text-center mt-2">
                 <button class="btn btn-primary" @click.prevent="addduration">+ Add Inclusive Dates</button>
             </div>
@@ -275,6 +270,10 @@
             }
             const chkleaveoption = () =>{
                 displayLeave.value = !displayLeave.value;
+                if(displayLeave.value != 1){
+                    form.leaveduration.splice(1);
+                    divs.splice(1);
+                }
             }
             const chkOthers = () =>{
                 if(form.leavetypes.includes(14)){
@@ -314,7 +313,19 @@
             }
             const format = (k) => {
                
-                return moment(k).format('YYYY-MM-DD');
+                
+                return moment(k).format('MMMM D, Y');
+            }
+            const getmaxdate = (key) => {
+                if(form.leaveduration[key].leaveend != ''){
+                    return new Date(form.leaveduration[key].leaveend);
+                }
+                
+            }
+            const getmindate = (key) => {
+                if(form.leaveduration[key].leavestart != ''){
+                    return new Date(form.leaveduration[key].leavestart); 
+                }                
             }
             return{
                 form,
@@ -336,7 +347,9 @@
                 handleStartDate,
                 handleEndDate,
                 handleFiling,
-                format
+                format,
+                getmaxdate,
+                getmindate
             }
         }
     }

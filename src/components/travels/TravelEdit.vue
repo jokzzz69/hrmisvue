@@ -22,7 +22,7 @@
         <div class="row mt-3"> 
             <div class="col">
                 <div class="form-floating mb-2 req">                
-                    <input  placeholder="enter  travel order number" @keydown.space.prevent  type="text" name="travelordernumber"  id="travelordernumber" :class="errors.travelordernumber ? 'error-input' : ''" class="form-control" v-model="form.travelordernumber">
+                    <input  placeholder="enter  travel order number" @keydown.space.prevent  type="text" name="travelordernumber"  id="travelordernumber" :class="errors.travelordernumber ? 'error-input' : ''" class="form-control" v-model="form.travelordernumber" @keypress="isnumber($event)" @paste="isnumberPaste">
                     <label for="travelordernumber" class="form-label">Travel Order #</label>
                 </div>
                 <span v-if="errors.travelordernumber" class="text-danger m-error">{{errors.travelordernumber[0]}}</span> 
@@ -45,14 +45,14 @@
         <div class="row">
             <div class="col col-sm-6 mt-2 mb-3 req tsnn">
                 <span class="d-block">Start Date <i class="text-danger">*</i></span>
-                <Datepicker class="date-form-floating highlights-weekend" id="dts" week-start="0" auto-apply v-model="form.travelstart" placeholder="Date Range" :enable-time-picker="false"  :clearable="false"  :class="errors.travelstart ? 'error-input' : ''" :highlight-week-days="[0, 6]"></Datepicker>
+                <Datepicker class="date-form-floating highlights-weekend" id="dts" week-start="0" auto-apply v-model="form.travelstart" placeholder="Date Range" :enable-time-picker="false"  :clearable="false"  :class="errors.travelstart ? 'error-input' : ''" :highlight-week-days="[0, 6]" @update:model-value="handleStartDate(key)" :format="format" :max-date="getmaxdate(key)"></Datepicker>
                 <span v-if="errors.travelstart" class="text-danger m-error">{{errors.travelstart[0]}}</span>  
                 <small>(mm/dd/yy)</small>
                 
             </div>
             <div class="col col-sm-6 mt-2 mb-3 req tsnn">
                 <span class="d-block">End Date <i class="text-danger">*</i></span>
-                <Datepicker class="date-form-floating highlights-weekend" id="dts" week-start="0" auto-apply v-model="form.travelend" placeholder="Date Range" :enable-time-picker="false"  :clearable="false"  :class="errors.travelend ? 'error-input' : ''" :highlight-week-days="[0, 6]"></Datepicker>
+                <Datepicker class="date-form-floating highlights-weekend" id="dts" week-start="0" auto-apply v-model="form.travelend" placeholder="Date Range" :enable-time-picker="false"  :clearable="false"  :class="errors.travelend ? 'error-input' : ''" :highlight-week-days="[0, 6]" @update:model-value="handleEndDate(key)" :format="format" :min-date="getmindate(key)"></Datepicker>
                 <span v-if="errors.travelend" class="text-danger m-error">{{errors.travelend[0]}}</span>  
                 <small>(mm/dd/yy)</small>
                 
@@ -76,7 +76,7 @@
     import 'vue-select/dist/vue-select.css';
     import useTravels from '@/composables/composables-travel';
     import { useHead } from '@unhead/vue'
-
+    import moment from 'moment'
 
     export default {
 
@@ -143,13 +143,54 @@
                     }
                 })
             }
-            
+            const handleStartDate = async(key) =>{           
+                form.travelstart  = moment(form.travelstart).format('YYYY-MM-DD');                   
+            }
+            const handleEndDate = async(key) =>{           
+                form.travelend = moment(form.travelend).format('YYYY-MM-DD');                   
+            }
+            const format = (k) => {
+               
+                return moment(k).format('MMMM D, Y');
+            }
+            const isnumber = (event) => {
+     
+                if(!/^[0-9.]+$/.test(event.key)){
+
+                    return event.preventDefault();
+                }
+            }
+            const isnumberPaste = (event) => {
+                if(!/^[0-9.]+$/.test(event.clipboardData.getData('text/plain'))){
+
+                    return event.preventDefault();
+                }
+              
+            }
+            const getmaxdate = (key) => {
+                if(form.travelend != ''){
+                    return new Date(form.travelend);
+                }
+                
+            }
+            const getmindate = (key) => {
+                if(form.travelstart != ''){
+                    return new Date(form.travelstart); 
+                }                
+            }
             return{
                 form,
                 errors,
                 saveTravel,
                 employees,
-                travel
+                travel,
+                handleStartDate,
+                handleEndDate,
+                format,
+                isnumber,
+                isnumberPaste,
+                getmaxdate,
+                getmindate
 
             }
         }
