@@ -1455,7 +1455,7 @@ tr.disabled{
 		margin-bottom: .5rem;
 		font-size: .9em;
 	}
-	.pvcmodal ..modal-container{
+	.pvcmodal .modal-container{
 		padding: 20px 15px;
 	}
 	.col.ssl table {
