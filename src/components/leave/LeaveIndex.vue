@@ -73,7 +73,7 @@
                         </td>
                         <td @click.stop>
 
-                                <ul class="ls-frmbutton text-end" v-if="userslug == 'super-admin' || userslug == 'admin' || leaverecord.createdby == userid">
+                                <ul class="ls-frmbutton text-end" v-if="userslug == 'super-admin' || userslug == 'admin' || leaverecord.createdby == userid || leaverecord.employee_id == userid" >
                                     <li class="mb-1">
                                         <router-link title="Edit" :to="{name: 'leaverecords.edit', params : {id: leaverecord.id}}" class="btn btn-violet"><i class="sm-icons fa-solid fa-pen-to-square"></i> <span  class="lg-text">Edit</span></router-link>
                                     </li>
