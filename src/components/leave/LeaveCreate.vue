@@ -145,6 +145,7 @@
     import {useAuthStore} from '@/stores/store.js'
     import {useRouter} from 'vue-router'
     import moment from 'moment'
+    import 'vue-select/dist/vue-select.css';
 	export default {
 		setup(){
             useHead({
