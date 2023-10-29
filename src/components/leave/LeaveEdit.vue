@@ -239,7 +239,7 @@
                     displayoptions.value = true;
                 }else{
 
-                    if(userslug == 'super-admin' || userslug == 'admin'){
+                    if(userslug == 'super-admin' || userslug == 'admin' || userslug == 'hr'){
                         displayoptions.value = true;
                     }else{
                         displayoptions.value = false;
