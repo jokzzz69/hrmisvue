@@ -144,7 +144,7 @@
 
             const filteredLeaveRecords = computed(function(){
                 return leaverecords.value.filter(
-                    (leaverecord) => leaverecord.leaveoption.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ||
+                    (leaverecord) => 
                                      (leaverecord.creator && leaverecord.creator.name && leaverecord.creator.name.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1) ||
                                      (leaverecord.owner && leaverecord.owner.name && leaverecord.owner.name.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1) ||
                                      callback(leaverecord.leavetypes, searchQuery.value) || 

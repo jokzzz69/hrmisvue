@@ -134,7 +134,7 @@
 
             const filteredLeaveRecords = computed(function(){
                 return leaverecords.value.filter(
-                    (leaverecord) => leaverecord.leaveoption.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ||
+                    (leaverecord) => 
                                      callback(leaverecord.leavetypes, searchQuery.value) ||
                                      datecallback(leaverecord.leaveduration, searchQuery.value)
                                     

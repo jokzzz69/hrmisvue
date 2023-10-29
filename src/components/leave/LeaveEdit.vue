@@ -42,7 +42,7 @@
                 <div class="col">
                     <div class="date-form-floating req">
                         <span class="mb-2 d-block">Date of Filing <span class="text-danger">*</span></span>
-                        <Datepicker v-model="form.dateoffiling" auto-apply :clearable="true" :highlight-week-days="[0, 6]" week-start="0"  :class="errors.dateoffiling ? 'error-input' : ''" :enable-time-picker="false" name="dateoffiling" placeholder="Select date of filing (mm/dd/yyyy)"></Datepicker>
+                        <Datepicker v-model="form.dateoffiling" auto-apply :clearable="true" :highlight-week-days="[0, 6]" week-start="0"  :class="errors.dateoffiling ? 'error-input' : ''" :enable-time-picker="false" name="dateoffiling" placeholder="Select date of filing (yyyy-mm-dd)" @update:model-value="handleFiling(key)" :format="format"></Datepicker>
                         <span v-if="errors.dateoffiling" class="text-danger m-error sp-aberror">{{errors.dateoffiling[0]}}</span>  
                     </div>
                 </div>
@@ -96,8 +96,11 @@
                                     </template>
                                 </template>
                                 </span>
-                                <Datepicker class="date-form-floating highlights-weekend" id="dts" week-start="0" auto-apply v-model="form.leaveduration[key].leavestart" placeholder="Date Start (mm/dd/yy)" :enable-time-picker="false"  :clearable="false" :class="errors[`leaveduration.${key}.leavestart`] ? 'error-input' : ''" :highlight-week-days="[0, 6]" :teleport="true"></Datepicker>
+  
+                
+                                <Datepicker :enable-time-picker="false"   class="date-form-floating highlights-weekend" id="dts" week-start="0" auto-apply v-model="form.leaveduration[key].leavestart" placeholder="Date Start (yyyy-mm-dd)"  :clearable="false" :class="errors[`leaveduration.${key}.leavestart`] ? 'error-input' : ''" :highlight-week-days="[0, 6]" :teleport="true" @update:model-value="handleStartDate(key)" :format="format"></Datepicker>
                                     
+
                                 
                             </div>
                             <div class="col  mt-1 mb-1 req tsnn">
@@ -108,7 +111,7 @@
                                     </template>
                                 </template>
                                 </span>
-                                <Datepicker class="date-form-floating highlights-weekend" id="dts1" week-start="0" auto-apply v-model="form.leaveduration[key].leaveend" placeholder="Date End (mm/dd/yy)" :enable-time-picker="false"  :clearable="false" :class="errors[`leaveduration.${key}.leaveend`] ? 'error-input' : ''" :highlight-week-days="[0, 6]" :teleport="true"></Datepicker>       
+                                <Datepicker class="date-form-floating highlights-weekend" id="dts1" week-start="0" auto-apply v-model="form.leaveduration[key].leaveend" placeholder="Date End (yyyy-mm-dd)" :enable-time-picker="false"  :clearable="false" :class="errors[`leaveduration.${key}.leaveend`] ? 'error-input' : ''" :highlight-week-days="[0, 6]" :teleport="true" @update:model-value="handleEndDate(key)" :format="format"></Datepicker>       
              
                             </div>
                             <div class="col-auto">
@@ -146,7 +149,7 @@
     import useEmployees from '@/composables/composables-employees'
     import {useAuthStore} from '@/stores/store.js'
     import {useRouter} from 'vue-router'
-
+    import moment from 'moment'
     export default {
         props: {
             id: {
@@ -217,10 +220,10 @@
                             divs.push({
                                 id: x,
                             })
-
+                    
                             form.leaveduration.push({
-                                'leavestart':leaverecord.value.leaveduration[x].leavestart,
-                                'leaveend':leaverecord.value.leaveduration[x].leaveend
+                                'leavestart': moment(leaverecord.value.leaveduration[x].leavestart).format('YYYY-MM-DD'),
+                                'leaveend':moment(leaverecord.value.leaveduration[x].leaveend).format('YYYY-MM-DD')
                             })
                         }
                         add.value = divs.length;
@@ -250,6 +253,7 @@
         
             })
             const saveLeaveRecord = async () => {
+
                 await updateLeaveRecord(props.id,{ ...form }).then(() => {
                     if(!errors.value){
                         swal.fire({
@@ -299,6 +303,19 @@
                 form.leaveduration.splice(index,1);
                 divs.splice(index,1);
             }
+            const handleStartDate = async(key) =>{           
+                form.leaveduration[key].leavestart = moment(form.leaveduration[key].leavestart).format('YYYY-MM-DD');                   
+            }
+            const handleEndDate = async(key) =>{           
+                form.leaveduration[key].leaveend = moment(form.leaveduration[key].leaveend).format('YYYY-MM-DD');                   
+            }
+            const handleFiling = async(key) =>{           
+                form.dateoffiling = moment(form.dateoffiling).format('YYYY-MM-DD');                   
+            }
+            const format = (k) => {
+               
+                return moment(k).format('YYYY-MM-DD');
+            }
             return{
                 form,
                 errors,
@@ -315,7 +332,11 @@
                 cancelback,
                 divs,
                 addduration,
-                removeduration
+                removeduration,
+                handleStartDate,
+                handleEndDate,
+                handleFiling,
+                format
             }
         }
     }
