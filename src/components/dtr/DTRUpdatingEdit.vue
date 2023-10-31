@@ -43,20 +43,20 @@
                                 </td>
                             </template> 
                             <td>
-                                    <input class="form-control" @keypress="isnumber($event)" :class="errors ? gk(errors,k,'dtr_timeinam') : ''" type="text" v-model="dtr.dtr_timeinam">
+                                    <input class="form-control" :id="'dtr_timeinam-'+k" @keypress="isnumber($event)" :class="errors ? gk(errors,k,'dtr_timeinam') : ''" type="text" v-model="dtr.dtr_timeinam">
                             </td>
                             <td>
-                                	<input class="form-control" @keypress="isnumber($event)" :class="errors ? gk(errors,k,'dtr_timeoutam') : ''" type="text"  v-model="dtr.dtr_timeoutam">
+                                	<input class="form-control" :id="'dtr_timeoutam-'+k" @keypress="isnumber($event)" :class="errors ? gk(errors,k,'dtr_timeoutam') : ''" type="text"  v-model="dtr.dtr_timeoutam">
           
                             </td>
                             <td>
                    
-                                	<input class="form-control" @keypress="isnumber($event)" :class="errors ? gk(errors,k,'dtr_timeinpm') : ''" type="text"  v-model="dtr.dtr_timeinpm">
+                                	<input class="form-control" :id="'dtr_timeinpm-'+k" @keypress="isnumber($event)" :class="errors ? gk(errors,k,'dtr_timeinpm') : ''" type="text"  v-model="dtr.dtr_timeinpm">
         
                             </td>
                             <td>
              
-                                	<input class="form-control" @keypress="isnumber($event)" :class="errors ? gk(errors,k,'dtr_timeoutpm') : ''"  type="text"  v-model="dtr.dtr_timeoutpm">
+                                	<input class="form-control" :id="'dtr_timeoutpm-'+k" @keypress="isnumber($event)" :class="errors ? gk(errors,k,'dtr_timeoutpm') : ''"  type="text"  v-model="dtr.dtr_timeoutpm">
  
                             </td>
 

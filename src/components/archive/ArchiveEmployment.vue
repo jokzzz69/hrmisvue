@@ -10,26 +10,26 @@
             <div class="row mb-2">            
                 <div class="col col-sm-3 mb-2">                
                     <div class="form-floating">
-                        <label class="form-control frm-lbl">{{archive.employee_fname}}</label>
+                        <span class="form-control frm-lbl nobr" id="name">{{archive.employee_fname}}</span>
                         <label for="name" class="form-label">First Name</label>
                     </div>                     
                 
                 </div>  
                 <div class="col col-sm-3 mb-2">                
                     <div class="form-floating">
-                        <label class="form-control frm-lbl">{{archive.employee_mname}}</label>
+                        <span class="form-control frm-lbl nobr">{{archive.employee_mname}}</span>
                         <label for="mname" class="form-label">Middle Name</label>
                     </div>
                 </div>                
                 <div class="col col-sm-4 mb-2">                
                     <div class="form-floating">
-                        <label class="form-control frm-lbl">{{archive.employee_lname}}</label>
+                        <span class="form-control frm-lbl nobr">{{archive.employee_lname}}</span>
                         <label for="name" class="form-label">Last Name</label>
                     </div>
                 </div>  
                 <div class="col col-sm-2 mb-2">                  
                     <div class="form-floating">
-                        <label class="form-control frm-lbl">{{archive.employee_extname}}</label>
+                        <span class="form-control frm-lbl nobr">{{archive.employee_extname}}</span>
                         <label for="employee_extname" class="form-label">Ext. (Jr, Sr)</label>
                     </div>
                 </div>  
@@ -43,13 +43,13 @@
             <div class="row mb-2">
                 <div class="col mb-2">
                     <div class="form-floating">
-                        <label class="form-control frm-lbl">{{archive.emergency_contactperson}}</label>
+                        <span class="form-control frm-lbl nobr">{{archive.emergency_contactperson}}</span>
                         <label for="name" class="form-label">Person</label>
                     </div> 
                 </div>
                 <div class="col mb-2">
                     <div class="form-floating">
-                        <label class="form-control frm-lbl">{{archive.emergency_contactnumber}}</label>
+                        <span class="form-control frm-lbl nobr">{{archive.emergency_contactnumber}}</span>
                         <label for="name" class="form-label">Number</label>
                     </div>
                 </div>

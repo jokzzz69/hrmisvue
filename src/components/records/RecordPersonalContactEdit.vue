@@ -9,19 +9,19 @@
             <div class="col-12 mb-2">                
                 <div class="form-floating">
                     <input type="text" name="telephone_no" placeholder="enter first name" id="telephone_no" class="form-control" v-model="officerecord.pdspersonalinformation.telephone_no">
-                    <label for="name" class="form-label">Telephone Number</label>
+                    <label for="telephone_no" class="form-label">Telephone Number</label>
                 </div>         
             </div>  
             <div class="col-12 mb-2">                
                 <div class="form-floating">
                     <input type="text" name="contactnumber" placeholder="enter middle name" id="contactnumber" class="form-control" v-model="officerecord.pdspersonalinformation.mobile_no">
-                    <label for="name" class="form-label">Mobile Number</label>
+                    <label for="contactnumber" class="form-label">Mobile Number</label>
                 </div>
             </div> 
             <div class="col-12 mb-2">                
                 <div class="form-floating">
                     <input type="text" name="emailaddress" placeholder="enter middle name" id="emailaddress" class="form-control" v-model="officerecord.pdspersonalinformation.emailaddress"  :class="errors['employee.emailaddress'] ? 'error-input' : ''">
-                    <label for="name" class="form-label">Email Address</label>                    
+                    <label for="emailaddress" class="form-label">Email Address</label>                    
                     <span v-if="errors['emailaddress']" class="text-danger m-error">{{errors['emailaddress'][0]}}</span>
                 </div>
             </div>                

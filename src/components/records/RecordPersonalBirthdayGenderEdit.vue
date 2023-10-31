@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col col-sm-5 mb-2 req mm-b">
                     <div class="form-floating">
-                        <select class="form-select" name="bmonth" :class="errors.type ? 'error-input' : ''" v-model="form.month">
+                        <select class="form-select" id="bmonth" name="bmonth" :class="errors.type ? 'error-input' : ''" v-model="form.month">
                             <option disabled value="">Select Month</option>
                             <option value="0">January</option>     
                             <option value="1">February</option>     
@@ -37,14 +37,14 @@
                 <div class="col col-sm-2 req mm-b">
                     <div class="form-floating">
                         <input type="number" name="day" placeholder="enter month" id="bday" class="form-control" v-model="form.day" min="1" max="31">
-                        <label for="byear" class="form-label">Day</label>
+                        <label for="bday" class="form-label">Day</label>
                     </div>
                     <span v-if="errors['day']" class="text-danger m-error">{{errors['day'][0]}}</span>     
                 </div>
                 <div class="col col-sm-5 req mm-b">
                     <div class="form-floating">
                         <input type="number" name="year" placeholder="enter year" id="byear" min="1930" max="2023" class="form-control" v-model="form.year">
-                        <label for="bday" class="form-label">Year</label>
+                        <label for="byear" class="form-label">Year</label>
                     </div>
                     <span v-if="errors['year']" class="text-danger m-error">{{errors['year'][0]}}</span>     
                 </div>
@@ -53,7 +53,7 @@
             <div class="row mt-2">
                 <div class="col-12-8">
                     <div class="form-floating">                        
-                        <input type="text" name="placeofbirth" class="form-control" placeholder="enter place of birth"  v-model="form.placeofbirth">    
+                        <input type="text" name="placeofbirth" id="placeofbirth" class="form-control" placeholder="enter place of birth"  v-model="form.placeofbirth">    
                         <label for="placeofbirth" class="form-label">Place of Birth</label>                    
                     </div>
                     

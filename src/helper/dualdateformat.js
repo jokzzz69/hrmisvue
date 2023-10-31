@@ -17,16 +17,16 @@ export function dualdateformat(start,end){
                 month = endARR[1];
 
                 if(startARR[2] == endARR[2]){
-                    textstring = moment(start).format('MMMM D, Y')
+                    textstring = moment(new Date(start)).format('MMMM D, Y')
                 }else{
-                    textstring = moment(start).format('MMMM D')+' - '+moment(end).format('D, Y');
+                    textstring = moment(new Date(start)).format('MMMM D')+' - '+moment(new Date(end)).format('D, Y');
                 }
 
             }else{
-                textstring = moment(start).format('MMMM D')+' - '+moment(end).format('MMMM D, Y');
+                textstring = moment(new Date(start)).format('MMMM D')+' - '+moment(new Date(end)).format('MMMM D, Y');
             }
         }else{
-            textstring = moment(start).format('MMMM D, Y')+' - '+moment(end).format('MMMM D, Y');
+            textstring = moment(new Date(start)).format('MMMM D, Y')+' - '+moment(new Date(end)).format('MMMM D, Y');
         }
         
         return textstring;

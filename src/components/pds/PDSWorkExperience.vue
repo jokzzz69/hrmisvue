@@ -62,7 +62,7 @@
                                                     </template>
                                                 </Datepicker>                                          
                                             </span>
-                                            <input type="text" class="form-control"  v-model="officerecord.pdsworkexperience[key].workexp_from">
+                                            <input type="text" class="form-control" :id="`expfrom-${key}`"  v-model="officerecord.pdsworkexperience[key].workexp_from">
                                         </div>
 
                                
@@ -79,48 +79,48 @@
                                                     </template>
                                                 </Datepicker>                                          
                                             </span>
-                                            <input type="text" class="form-control"  v-model="officerecord.pdsworkexperience[key].workexp_to">
+                                            <input type="text" class="form-control" :id="`expto-${key}`" v-model="officerecord.pdsworkexperience[key].workexp_to">
                                         </div>                                    
                                             
                                     </div>                    
                                     <div class="col-2 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="workexp_positiontitle" class="form-control" placeholder="enter title" v-model="officerecord.pdsworkexperience[key].workexp_positiontitle">   
-                                            <label class="form-label">Title</label>
+                                            <input type="text" :id="`exppostitle-${key}`" name="workexp_positiontitle" class="form-control" placeholder="enter title" v-model="officerecord.pdsworkexperience[key].workexp_positiontitle">   
+                                            <label :for="`exppostitle-${key}`" class="form-label">Title</label>
                                         </div>
                                     </div>
                                     <div class="col-2 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="workexp_agency" class="form-control" placeholder="enter agency" v-model="officerecord.pdsworkexperience[key].workexp_agency">   
-                                            <label class="form-label">Agency</label>
+                                            <input :id="`expagency-${key}`" type="text" name="workexp_agency" class="form-control" placeholder="enter agency" v-model="officerecord.pdsworkexperience[key].workexp_agency">   
+                                            <label :for="`expagency-${key}`" class="form-label">Agency</label>
                                         </div>
                                     </div>
                                     <div class="col-1 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="number" name="workexp_monthlysalary" step="0.01" class="form-control" placeholder="enter monthly salary"  v-model="officerecord.pdsworkexperience[key].workexp_monthlysalary">   
-                                            <label class="form-label">Salary</label>
+                                            <input :id="`expsalary-${key}`" type="number" name="workexp_monthlysalary" step="0.01" class="form-control" placeholder="enter monthly salary"  v-model="officerecord.pdsworkexperience[key].workexp_monthlysalary">   
+                                            <label :for="`expsalary-${key}`" class="form-label">Salary</label>
                                         </div>
                                     </div>
                                     <div class="col-1 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="workexp_salarygrade" class="form-control" placeholder="enter salary grade"  v-model="officerecord.pdsworkexperience[key].workexp_salarygrade">   
-                                            <label class="form-label">Grade</label>
+                                            <input type="text" :id="`expsgrade-${key}`" name="workexp_salarygrade" class="form-control" placeholder="enter salary grade"  v-model="officerecord.pdsworkexperience[key].workexp_salarygrade">   
+                                            <label :for="`expsgrade-${key}`" class="form-label">Grade</label>
                                         </div>
                                     </div>
                                     <div class="col-1 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="workexp_statusofappointment" class="form-control" placeholder="enter salary grade"  v-model="officerecord.pdsworkexperience[key].workexp_statusofappointment">   
-                                            <label class="form-label">Status</label>
+                                            <input :id="`expstatusofappoinment-${key}`" type="text" name="workexp_statusofappointment" class="form-control" placeholder="enter salary grade"  v-model="officerecord.pdsworkexperience[key].workexp_statusofappointment">   
+                                            <label :for="`expstatusofappoinment-${key}`" class="form-label">Status</label>
                                         </div>
                                     </div>
                                     <div class="col c_p mb-2">
                                         <div class="form-floating">
-                                            <select class="form-select" placeholder="select Option" v-model="officerecord.pdsworkexperience[key].workexp_governmentservice">
+                                            <select class="form-select" :id="`expsv-${key}`" placeholder="select Option" v-model="officerecord.pdsworkexperience[key].workexp_governmentservice">
                                                 <option value="" disabled>Options</option>
                                                 <option value="1">Yes</option>
                                                 <option value="2">No</option>
                                             </select>
-                                            <label>Gov't Service</label>
+                                            <label :for="`expsv-${key}`">Gov't Service</label>
                                         </div>
                                     </div>
  

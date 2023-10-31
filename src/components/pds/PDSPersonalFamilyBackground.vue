@@ -101,7 +101,7 @@
                                     </div>
                                     <div class="col col-sm-2" :cte="key">
                                         <div class="form-floating">                                    
-                                            <Datepicker auto-apply week-start="0" :enable-time-picker="false" v-model="officerecord.pdsfamilybackgroundchildren[key].dateofbirth" name="dateofbirth" class="date-form-floating" placeholder="Date of Birth"></Datepicker>   
+                                            <Datepicker :teleport="true" auto-apply week-start="0" :enable-time-picker="false" v-model="officerecord.pdsfamilybackgroundchildren[key].dateofbirth" name="dateofbirth" class="date-form-floating" placeholder="Date of Birth"></Datepicker>   
                                         </div>
                                     </div>
                                     <div class="col-auto pt-2">

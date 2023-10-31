@@ -43,8 +43,8 @@
                                 <div class="row mb-2 mt-2 cmpads" >
                                     <div class="col-3 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="voluntary_organizationname" class="form-control" placeholder="enter organization" v-model="officerecord.pdsvoluntarywork[key].voluntary_organizationname">   
-                                            <label class="form-label">Name & Address</label>
+                                            <input :id="`volname-${key}`" type="text" name="voluntary_organizationname" class="form-control" placeholder="enter organization" v-model="officerecord.pdsvoluntarywork[key].voluntary_organizationname">   
+                                            <label :for="`volname-${key}`" class="form-label">Name & Address</label>
                                         </div>
                                     </div>       
 
@@ -60,7 +60,7 @@
                                                     </template>
                                                 </Datepicker>                                          
                                             </span>
-                                            <input type="text" class="form-control"  v-model="officerecord.pdsvoluntarywork[key].voluntary_from">
+                                            <input type="text" :id="`volfrom-${key}`" class="form-control"  v-model="officerecord.pdsvoluntarywork[key].voluntary_from">
                                         </div>                               
                                     </div>
 
@@ -76,7 +76,7 @@
                                                     </template>
                                                 </Datepicker>                                          
                                             </span>
-                                            <input type="text" class="form-control"  v-model="officerecord.pdsvoluntarywork[key].voluntary_to">
+                                            <input type="text" :id="`volto-${key}`" class="form-control"  v-model="officerecord.pdsvoluntarywork[key].voluntary_to">
                                         </div>                               
                                     </div>
 
@@ -85,14 +85,14 @@
 
                                     <div class="col-1 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="number" name="voluntary_numberofhours" step="0.01" class="form-control" placeholder="enter number of hours"  v-model="officerecord.pdsvoluntarywork[key].voluntary_numberofhours">   
-                                            <label class="form-label">Hours</label>
+                                            <input type="number" :id="`volhours-${key}`" name="voluntary_numberofhours" step="0.01" class="form-control" placeholder="enter number of hours"  v-model="officerecord.pdsvoluntarywork[key].voluntary_numberofhours">   
+                                            <label :for="`volhours-${key}`" class="form-label">Hours</label>
                                         </div>
                                     </div>
                                     <div class="col-3 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="voluntary_position" class="form-control" placeholder="enter position" v-model="officerecord.pdsvoluntarywork[key].voluntary_position">   
-                                            <label class="form-label">Nature of Work</label>
+                                            <input :id="`volposition-${key}`" type="text" name="voluntary_position" class="form-control" placeholder="enter position" v-model="officerecord.pdsvoluntarywork[key].voluntary_position">   
+                                            <label :for="`volposition-${key}`" class="form-label">Nature of Work</label>
                                         </div>
                                     </div>
                                     

@@ -1183,8 +1183,11 @@ td.Sunday{
 	border-color: transparent !important;
 	background: transparent !important;
 }
+.nobr{
+	border:none;
+}
 .frm-lbl{
-	background: transparent;
+	background: transparent;	
 	border-bottom: 1px solid #ced4da !important;
 	border-radius: 0px;
 	padding-bottom: 1px !important;

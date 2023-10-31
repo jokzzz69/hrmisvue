@@ -151,7 +151,7 @@
 	import useEmployees from '@/composables/composables-employees';
 	import useCM from '@/composables/composables-contentmanager';
 	import moment from 'moment';
-	import {formatTime} from '../../helper/formattime'
+	import {formatTime} from '@/helper/formattime'
 	import { useAuthStore } from '@/stores/store.js'
 	import ChangeID from '@/components/contentmanager/ChangeID.vue';
 	import { useHead } from '@unhead/vue'

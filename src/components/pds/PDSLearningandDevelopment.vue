@@ -47,8 +47,8 @@
                                 <div class="row mb-2 mt-2 cmpads" >
                                     <div class="col-3 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="lnd_program" class="form-control" placeholder="enter organization" v-model="officerecord.pdslearninganddevelopment[key].lnd_program">   
-                                            <label class="form-label">Title</label>
+                                            <input :id="`lndorg-${key}`" type="text" name="lnd_program" class="form-control" placeholder="enter organization" v-model="officerecord.pdslearninganddevelopment[key].lnd_program">   
+                                            <label :for="`lndorg-${key}`" class="form-label">Title</label>
                                         </div>
                                     </div>
 
@@ -65,7 +65,7 @@
                                                     </template>
                                                 </Datepicker>                                          
                                             </span>
-                                            <input type="text" class="form-control"  v-model="officerecord.pdslearninganddevelopment[key].lnd_from">
+                                            <input type="text" :id="`lndfrom-${key}`" class="form-control"  v-model="officerecord.pdslearninganddevelopment[key].lnd_from">
                                         </div>                               
                                     </div>
 
@@ -81,7 +81,7 @@
                                                     </template>
                                                 </Datepicker>                                          
                                             </span>
-                                            <input type="text" class="form-control"  v-model="officerecord.pdslearninganddevelopment[key].lnd_to">
+                                            <input type="text" :id="`lndto-${key}`" class="form-control"  v-model="officerecord.pdslearninganddevelopment[key].lnd_to">
                                         </div>                               
                                     </div>
 
@@ -90,20 +90,20 @@
 
                                     <div class="col-1 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="number" name="lnd_numberofhours" step="0.01" class="form-control" placeholder="enter number of hours"  v-model="officerecord.pdslearninganddevelopment[key].lnd_numberofhours">   
-                                            <label class="form-label">Hours</label>
+                                            <input :id="`lndhours-${key}`" type="number" name="lnd_numberofhours" step="0.01" class="form-control" placeholder="enter number of hours"  v-model="officerecord.pdslearninganddevelopment[key].lnd_numberofhours">   
+                                            <label :for="`lndhours-${key}`" class="form-label">Hours</label>
                                         </div>
                                     </div>
                                     <div class="col-1 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="lnd_type" class="form-control" placeholder="enter number of hours"  v-model="officerecord.pdslearninganddevelopment[key].lnd_type">   
-                                            <label class="form-label">Type</label>
+                                            <input :id="`lndtype-${key}`" type="text" name="lnd_type" class="form-control" placeholder="enter number of hours"  v-model="officerecord.pdslearninganddevelopment[key].lnd_type">   
+                                            <label :for="`lndtype-${key}`" class="form-label">Type</label>
                                         </div>
                                     </div>
                                     <div class="col-2 c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="lnd_sponsor" class="form-control" placeholder="enter position" v-model="officerecord.pdslearninganddevelopment[key].lnd_sponsor">   
-                                            <label class="form-label">Sponsor</label>
+                                            <input :id="`lndsponsor-${key}`" type="text" name="lnd_sponsor" class="form-control" placeholder="enter position" v-model="officerecord.pdslearninganddevelopment[key].lnd_sponsor">   
+                                            <label :for="`lndsponsor-${key}`" class="form-label">Sponsor</label>
                                         </div>
                                     </div>                                    
  

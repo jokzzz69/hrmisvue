@@ -434,24 +434,24 @@
                             <div class="row">
                                 <div class="col mb-2">
                                     <div class="form-floating">                                    
-                                        <input type="text" name="li_govissuedid" class="form-control" placeholder="enter reference name" v-model="officerecord.pdslastinformation.li_govissuedid">   
-                                        <label class="form-label">Government Issued ID:</label>
+                                        <input type="text" id="li_govissuedid" name="li_govissuedid" class="form-control" placeholder="enter reference name" v-model="officerecord.pdslastinformation.li_govissuedid">   
+                                        <label for="li_govissuedid" class="form-label">Government Issued ID:</label>
                                     </div>
                                 </div> 
                             </div>                       
                             <div class="row">
                                 <div class="col mb-2">
                                     <div class="form-floating">                                    
-                                        <input type="text" name="li_licenseno" class="form-control" placeholder="enter reference name" v-model="officerecord.pdslastinformation.li_licenseno">   
-                                        <label class="form-label">ID/License/Passport No.:</label>
+                                        <input id="li_licenseno" type="text" name="li_licenseno" class="form-control" placeholder="enter reference name" v-model="officerecord.pdslastinformation.li_licenseno">   
+                                        <label for="li_licenseno" class="form-label">ID/License/Passport No.:</label>
                                     </div>
                                 </div> 
                             </div>
                             <div class="row">
                                 <div class="col mb-2">
                                     <div class="form-floating">                                    
-                                        <input type="text" name="li_placeordate" class="form-control" placeholder="enter reference name" v-model="officerecord.pdslastinformation.li_placeordate">   
-                                        <label class="form-label">Date/Place of Issuance:</label>
+                                        <input id="li_placeordate" type="text" name="li_placeordate" class="form-control" placeholder="enter reference name" v-model="officerecord.pdslastinformation.li_placeordate">   
+                                        <label for="li_placeordate" class="form-label">Date/Place of Issuance:</label>
                                     </div>
                                 </div> 
                             </div>  

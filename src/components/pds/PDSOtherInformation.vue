@@ -33,8 +33,8 @@
                                     <div class="row mb-2 mt-2 cmpads sss" >                                        
                                         <div class="col c_p">
                                             <div class="form-floating">                                    
-                                                <input type="text" name="oi_description" class="form-control" placeholder="enter organization" v-model="officerecord.pdsotherinformation[key].oi_description">   
-                                                <label class="form-label">Skills & Hobbies</label>
+                                                <input type="text" :id="`o-hob-${key}`" name="oi_description" class="form-control" placeholder="enter organization" v-model="officerecord.pdsotherinformation[key].oi_description">   
+                                                <label :for="`o-hob-${key}`" class="form-label">Skills & Hobbies</label>
                                             </div>
                                         </div>                                        
                                         
@@ -62,8 +62,8 @@
                                     <div class="row mb-2 mt-2 cmpads" >                                
                                         <div class="col c_p">
                                             <div class="form-floating">                                    
-                                                <input type="text" name="oi_description" class="form-control" placeholder="enter organization" v-model="officerecord.pdsotherinformation[key].oi_description">   
-                                                <label class="form-label">Distinction / Recognition</label>
+                                                <input :id="`o-rec-${key}`" type="text" name="oi_description" class="form-control" placeholder="enter organization" v-model="officerecord.pdsotherinformation[key].oi_description">   
+                                                <label :for="`o-rec-${key}`" class="form-label">Distinction / Recognition</label>
                                             </div>
                                         </div>
                                         <div class="col-auto pt-2">
@@ -89,8 +89,8 @@
                                 <div class="row mb-2 mt-2 cmpads" >                                    
                                     <div class="col c_p">
                                         <div class="form-floating">                                    
-                                            <input type="text" name="oi_description" class="form-control" placeholder="enter organization" v-model="officerecord.pdsotherinformation[key].oi_description">   
-                                            <label class="form-label">Membership</label>
+                                            <input :id="`o-mem-${key}`" type="text" name="oi_description" class="form-control" placeholder="enter organization" v-model="officerecord.pdsotherinformation[key].oi_description">   
+                                            <label :for="`o-mem-${key}`" class="form-label">Membership</label>
                                         </div>
                                     </div>
                                     <div class="col-auto pt-2">

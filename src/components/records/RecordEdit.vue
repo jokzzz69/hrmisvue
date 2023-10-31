@@ -17,7 +17,7 @@
             <div class="row mb-2" v-if="officerecord.employee">    
                 <div class="col col-sm-1 mb-2">
                     <div class="form-floating">
-                        <select class="form-select" name="employee_bioid" id="employee_bioid" v-model="officerecord.employee.employee_bioid">
+                        <select class="form-select"  name="employee_bioid" id="employee_bioid" v-model="officerecord.employee.employee_bioid">
                             <option value="">No Bio</option>
                             <option v-for="id in availablewcids" :value="id">
                                 {{id}}
@@ -86,39 +86,39 @@
                     <div class="row mb-2">
                         <div class="col mb-2 req">                
                             <div class="form-floating">
-                                <select class="form-select" :name="`type_id[${key}]`" :id="`type_id[${key}]`"  v-model="officerecord.employments[key].type_id" :class="errors[`employments.${key}.type_id`] ? 'error-input' : ''">
+                                <select class="form-select" :name="`type_id[${key}]`" :id="`type_id-${key}`"  v-model="officerecord.employments[key].type_id" :class="errors[`employments.${key}.type_id`] ? 'error-input' : ''">
                                     <option disabled value="">Select type</option>
                                     <option v-for="employeetype in employeetypes" :value="employeetype.id">
                                         {{employeetype.name}}
                                     </option>               
                                 </select>
-                                <label :for="`type_id[${key}]`" class="form-label">Employment Type</label>
+                                <label :for="`type_id-${key}`" class="form-label">Employment Type</label>
                             </div>
                             <span v-if="errors[`employments.${key}.type_id`]" class="text-danger m-error">{{errors[`employments.${key}.type_id`][0]}}</span>
                         </div>                           
                         <div class="col mb-2">                
                             <div class="form-floating">
-                                <select class="form-select" name="position" id="position" v-model="officerecord.employments[key].position_id">
+                                <select class="form-select" name="position" :id="`position-${key}`" v-model="officerecord.employments[key].position_id">
                                     <option disabled value="0">Select position</option>
                                     <option v-for="employeeposition in employeepositions" :value="employeeposition.id">
                                         {{employeeposition.name}}
                                     </option>               
                                 </select>
-                                <label for="position" class="form-label">Position</label>
+                                <label :for="`position-${key}`" class="form-label">Position</label>
                             </div>
                         </div> 
                         <div class="col mb-2">                    
                             <div class="form-floating">                                    
-                                <select class="form-select" name="sg_year" id="sg_year"  v-model="officerecord.employments[key].salarygradegroups_id" @change="slctSGG(officerecord.employments[key].salarygradegroups_id,key)">
+                                <select class="form-select" name="sg_year" :id="`sgyear-${key}`" v-model="officerecord.employments[key].salarygradegroups_id" @change="slctSGG(officerecord.employments[key].salarygradegroups_id,key)">
                                     <option disabled value="">Select year</option>
                                     <option :value="salarygradegroup.id" v-for="salarygradegroup in salarygradegroups">{{salarygradegroup.year}}</option>
                                 </select>
-                                <label for="sg_year" class="form-label">Salary Grade Year</label>                
+                                <label :for="`sgyear-${key}`" class="form-label">Salary Grade Year</label>                
                             </div>
                         </div>
                         <div class="col mb-2">                    
                             <div class="form-floating">
-                                <select class="form-select" name="sg_id" id="sg_id"  v-model="officerecord.employments[key].salarygrades_id" @change="slctSG(officerecord.employments[key].salarygrades_id,key)">
+                                <select class="form-select" name="sg_id" :id="`sg-${key}`"  v-model="officerecord.employments[key].salarygrades_id" @change="slctSG(officerecord.employments[key].salarygrades_id,key)">
 
                                     <option v-if="salarygradenames.length > 0" disabled value="">Select salary grade </option>
                                     <option v-else disabled value="">No salary grade for the selected year!</option>
@@ -126,38 +126,38 @@
                                         {{salarygrade.name}}
                                     </option>             
                                 </select>
-                                <label for="sg_id" class="form-label">Salary Grade </label>                
+                                <label :for="`sg-${key}`" class="form-label">Salary Grade </label>                
                             </div>
                         </div>
                         <div class="col mb-2">                    
                             <div class="form-floating">
-                                <select class="form-select" name="sg_steps" id="sg_steps" v-model="officerecord.employments[key].salarygrades_steps_id">
+                                <select class="form-select" name="sg_steps" :id="`sgsteps-${key}`" v-model="officerecord.employments[key].salarygrades_steps_id">
                                     <option v-if="salarygradesteps.length > 0" disabled value="">Select step</option>
                                     <option v-else disabled value="">No steps for the selected salary grade!</option>
                                     <option :value="salarygradestep.id" v-for="salarygradestep in salarygradestepsArr[key]">{{salarygradestep.name}} - {{formatPrice(salarygradestep.value)}}</option>             
                                 </select>
-                                <label for="sg_steps" class="form-label">Salary Grade Steps</label>                
+                                <label :for="`sgsteps-${key}`" class="form-label">Salary Grade Steps</label>                
                             </div>
                         </div>             
                     </div>
                     <div class="row">
                         <div class="col mb-2 req">                
                             <div class="form-floating">
-                                <select class="form-select" :name="`office_id[${key}]`" :id="`office_id[${key}]`" v-model="officerecord.employments[key].office_id" :class="errors[`employments.${key}.office_id`] ? 'error-input' : ''">
+                                <select class="form-select" :name="`office_id[${key}]`" :id="`office-${key}`" v-model="officerecord.employments[key].office_id" :class="errors[`employments.${key}.office_id`] ? 'error-input' : ''">
                                     <option disabled value="">Select one</option>
                                     <option :value="office.offices_id"  v-for="office in offices">{{office.offices_name}}</option>
                                 </select>      
-                                <label :for="`office_id[${key}]`" class="form-label">Office</label>
+                                <label :for="`office-${key}`" class="form-label">Office</label>
                             </div>
                             <span v-if="errors[`employments.${key}.office_id`]" class="text-danger m-error">{{errors[`employments.${key}.office_id`][0]}}</span>
                         </div> 
                         <div class="col mb-2 req">                
                             <div class="form-floating">
-                                <select class="form-select" :name="`status_id[${key}]`" :id="`status_id[${key}]`" @change="selectChange(officerecord.employments[key].id)" v-model="officerecord.employments[key].status_id" :class="errors[`employments.${key}.status_id`] ? 'error-input' : ''">
+                                <select class="form-select" :name="`status_id[${key}]`" :id="`status-${key}`" @change="selectChange(officerecord.employments[key].id)" v-model="officerecord.employments[key].status_id" :class="errors[`employments.${key}.status_id`] ? 'error-input' : ''">
                                     <option disabled value="">Select one</option>
                                     <option :value="status.id"  v-for="status in employeestatuses">{{status.name}}</option>
                                 </select>    
-                                <label :for="`status_id[${key}]`" class="form-label text-danger">Status</label>
+                                <label :for="`status-${key}`" class="form-label text-danger">Status</label>
                             </div>
                             <span v-if="errors[`employments.${key}.status_id`]" class="text-danger m-error">{{errors[`employments.${key}.status_id`][0]}}</span>
                         </div> 
