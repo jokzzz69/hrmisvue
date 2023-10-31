@@ -55,7 +55,7 @@
                         <ul class="list-unstyled li--50 li-leavedetails mb-0">                    
                             <template v-for="leavetype in leavetypes" :key="leavetype.id">
                                 <li>
-                                    <div class="form-check form-switch childCheck">
+                                    <div class="form-check form-switch childCheck" v-if="leavetype.id != 14">
                                           <input class="form-check-input" :id="'lt-'+leavetype.id"  type="checkbox" checked v-model="form.leavetypes" :value="leavetype.id" @change="chkOthers">
                                           <label class="form-check-label" :for="'lt-'+leavetype.id" ><strong>{{leavetype.name}}</strong> 
                                             <template v-if="leavetype.description">
