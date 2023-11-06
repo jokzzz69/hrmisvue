@@ -89,51 +89,51 @@ const routes = [
     }
   },
   {
-    path: '/offices',
+    path: '/settings-hrmis/offices',
     name: 'offices.index',
-    component: () => import('@/components/offices/OfficeIndex.vue'),
+    component: () => import('@/components/settings-hrmis/offices/OfficeIndex.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   
   {
-    path: '/offices/:id/edit',
+    path: '/settings-hrmis/offices/:id/edit',
     name: 'offices.edit',
-    component: () => import('@/components/offices/OfficeEdit.vue'),
+    component: () => import('@/components/settings-hrmis/offices/OfficeEdit.vue'),
     props: true,
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/offices/create',
+    path: '/settings-hrmis/offices/create',
     name: 'offices.create',
-    component: () => import('@/components/offices/OfficeCreate.vue'),
+    component: () => import('@/components/settings-hrmis/offices/OfficeCreate.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/locations',
+    path: '/settings-hrmis/locations',
     name: 'locations.index',
-    component: () => import ('@/components/location/LocationIndex.vue'),
+    component: () => import ('@/components/settings-hrmis/location/LocationIndex.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/locations/create',
+    path: '/settings-hrmis/locations/create',
     name: 'locations.create',
-    component: () => import('@/components/location/LocationCreate.vue'),
+    component: () => import('@/components/settings-hrmis/location/LocationCreate.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/locations/:id/edit',
+    path: '/settings-hrmis/locations/:id/edit',
     name: 'locations.edit',
-    component: () => import('@/components/location/LocationEdit.vue'),
+    component: () => import('@/components/settings-hrmis/location/LocationEdit.vue'),
     props: true,
     meta: {
       middleware: ['super-admin','admin','hr']
@@ -209,25 +209,25 @@ const routes = [
     }
   },
   {
-    path: '/employeetypes',
+    path: '/settings-hrmis/employeetypes',
     name: 'employeetype.index',
-    component: () => import('@/components/employeetypes/EmployeeTypeIndex.vue'),
+    component: () => import('@/components/settings-hrmis/employeetypes/EmployeeTypeIndex.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/employeetypes/create',
+    path: '/settings-hrmis/employeetypes/create',
     name: 'employeetype.create',
-    component: () => import('@/components/employeetypes/EmployeeTypeCreate.vue'),
+    component: () => import('@/components/settings-hrmis/employeetypes/EmployeeTypeCreate.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/employeetypes/:id/',
+    path: '/settings-hrmis/employeetypes/:id/',
     name: 'employeetype.edit',
-    component: () => import('@/components/employeetypes/EmployeeTypeEdit.vue'),
+    component: () => import('@/components/settings-hrmis/employeetypes/EmployeeTypeEdit.vue'),
     props: true,
     meta: {
       middleware: ['super-admin','admin','hr']
@@ -267,25 +267,25 @@ const routes = [
     }
   },
   {
-    path: '/leavetypes',
+    path: '/settings-forms/leavetypes',
     name: 'leavetypes.index',
-    component: () => import('@/components/leavetypes/LeaveTypesIndex.vue'),
+    component: () => import('@/components/settings-forms/leavetypes/LeaveTypesIndex.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/leavetypes/create',
+    path: '/settings-forms/leavetypes/create',
     name: 'leavetypes.create',
-    component: () => import('@/components/leavetypes/LeaveTypesCreate.vue'),
+    component: () => import('@/components/settings-forms/leavetypes/LeaveTypesCreate.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/leavetypes/:id/',
+    path: '/settings-forms/leavetypes/:id/',
     name: 'leavetypes.edit',
-    component: () => import('@/components/leavetypes/LeaveTypesEdit.vue'),
+    component: () => import('@/components/settings-forms/leavetypes/LeaveTypesEdit.vue'),
     props: true,
     meta: {
       middleware: ['hr','super-admin','admin']
@@ -293,25 +293,25 @@ const routes = [
   },
 
   {
-    path: '/leavetypesdetails',
+    path: '/settings-forms/leavetypesdetails',
     name: 'leavetypesdetails.index',
-    component: () => import('@/components/leavetypesdetails/LeaveTypesDetailsIndex.vue'),
+    component: () => import('@/components/settings-forms/leavetypesdetails/LeaveTypesDetailsIndex.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/leavetypesdetails/create',
+    path: '/settings-forms/leavetypesdetails/create',
     name: 'leavetypesdetails.create',
-    component: () => import('@/components/leavetypesdetails/LeaveTypesDetailsCreate.vue'),
+    component: () => import('@/components/settings-forms/leavetypesdetails/LeaveTypesDetailsCreate.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/leavetypesdetails/:id/',
+    path: '/settings-forms/leavetypesdetails/:id/',
     name: 'leavetypesdetails.edit',
-    component: () => import('@/components/leavetypesdetails/LeaveTypesDetailsEdit.vue'),
+    component: () => import('@/components/settings-forms/leavetypesdetails/LeaveTypesDetailsEdit.vue'),
     props: true,
     meta: {
       middleware: ['hr','super-admin','admin']
@@ -319,25 +319,25 @@ const routes = [
   },
 
   {
-    path: '/employeestatus',
+    path: '/settings-hrmis/employeestatus',
     name: 'employeestatus.index',
-    component: () => import('@/components/employeestatus/EmployeeStatusIndex.vue'),
+    component: () => import('@/components/settings-hrmis/employeestatus/EmployeeStatusIndex.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/employeestatus/create',
+    path: '/settings-hrmis/employeestatus/create',
     name: 'employeestatus.create',
-    component: () => import('@/components/employeestatus/EmployeeStatusCreate.vue'),
+    component: () => import('@/components/settings-hrmis/employeestatus/EmployeeStatusCreate.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/employeestatus/:id/',
+    path: '/settings-hrmis/employeestatus/:id/',
     name: 'employeestatus.edit',
-    component: () => import('@/components/employeestatus/EmployeeStatusEdit.vue'),
+    component: () => import('@/components/settings-hrmis/employeestatus/EmployeeStatusEdit.vue'),
     props: true,
     meta: {
       middleware: ['super-admin','admin','hr']
@@ -345,25 +345,25 @@ const routes = [
   },
   
   {
-    path: '/employeeposition',
+    path: '/settings-hrmis/employeeposition',
     name: 'employeeposition.index',
-    component: () => import('@/components/employeepositions/EmployeePositionIndex.vue'),
+    component: () => import('@/components/settings-hrmis/employeepositions/EmployeePositionIndex.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/employeeposition/create',
+    path: '/settings-hrmis/employeeposition/create',
     name: 'employeeposition.create',
-    component: () => import('@/components/employeepositions/EmployeePositionCreate.vue'),
+    component: () => import('@/components/settings-hrmis/employeepositions/EmployeePositionCreate.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/employeeposition/:id/',
+    path: '/settings-hrmis/employeeposition/:id/',
     name: 'employeeposition.edit',
-    component: () => import('@/components/employeepositions/EmployeePositionEdit.vue'),
+    component: () => import('@/components/settings-hrmis/employeepositions/EmployeePositionEdit.vue'),
     props: true,
     meta: {
       middleware: ['super-admin','admin','hr']
@@ -371,34 +371,34 @@ const routes = [
   },
 
   {
-    path: '/salarygrades/:id/',
+    path: '/settings-hrmis/salarygrades/:id/',
     name: 'salarygrade.index',
-    component: () => import('@/components/salarygrade/SalarygradeIndex.vue'),
+    component: () => import('@/components/settings-hrmis/salarygrade/SalarygradeIndex.vue'),
     props: true,
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/salarygradegroups',
+    path: '/settings-hrmis/salarygradegroups',
     name: 'salarygradegroup.index',
-    component: () => import('@/components/salarygradegroup/SalarygradegroupIndex.vue'),
+    component: () => import('@/components/settings-hrmis/salarygradegroup/SalarygradegroupIndex.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/salarygradegroups/create',
+    path: '/settings-hrmis/salarygradegroups/create',
     name: 'salarygradegroup.create',
-    component: () => import('@/components/salarygradegroup/SalarygradegroupCreate.vue'),
+    component: () => import('@/components/settings-hrmis/salarygradegroup/SalarygradegroupCreate.vue'),
     meta: {
       middleware: ['super-admin','admin']
     }
   },
   {
-    path: '/salarygradegroups/:id',
+    path: '/settings-hrmis/salarygradegroups/:id',
     name: 'salarygradegroup.show',
-    component: () => import('@/components/salarygradegroup/SalarygradegroupShow.vue'),
+    component: () => import('@/components/settings-hrmis/salarygradegroup/SalarygradegroupShow.vue'),
     props: true,
     meta: {
       middleware: ['super-admin','admin','hr']
@@ -687,42 +687,42 @@ const routes = [
     }
   },
   {
-    path: '/holidaylist',
+    path: '/settings-hrmis/holidaylist',
     name: 'holidays.index',
-    component: () => import('@/components/holidays/HolidayIndex.vue'),
+    component: () => import('@/components/settings-hrmis/holidays/HolidayIndex.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/holidaylist/create',
+    path: '/settings-hrmis/holidaylist/create',
     name: 'holidays.create',
-    component: () => import('@/components/holidays/HolidayCreate.vue'),
+    component: () => import('@/components/settings-hrmis/holidays/HolidayCreate.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/holidaylist/:id/edit',
+    path: '/settings-hrmis/holidaylist/:id/edit',
     name: 'holidays.edit',
     props: true,
-    component: () => import('@/components/holidays/HolidayEdit.vue'),
+    component: () => import('@/components/settings-hrmis/holidays/HolidayEdit.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/biometrics',
+    path: '/settings-hrmis/biometrics',
     name: 'biometrics.index',
-    component: () => import('@/components/biometrics/BiometricsIndex.vue'),
+    component: () => import('@/components/settings-hrmis/biometrics/BiometricsIndex.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }
   },
   {
-    path: '/biometricsuser',
+    path: '/settings-hrmis/biometricsuser',
     name: 'biometricsuser.index',
-    component: () => import('@/components/biometrics/BiometricsUser.vue'),
+    component: () => import('@/components/settings-hrmis/biometrics/BiometricsUser.vue'),
     meta: {
       middleware: ['super-admin','admin','hr']
     }

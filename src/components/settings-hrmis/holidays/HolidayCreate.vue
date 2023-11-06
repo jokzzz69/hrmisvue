@@ -31,7 +31,7 @@
 </template>
 <script>
     import { reactive ,inject} from "vue";
-    import useHolidays from '../../composables/composables-holidays';
+    import useHolidays from '@/composables/composables-holidays';
     import moment from 'moment'
     import { useHead } from '@unhead/vue'
 

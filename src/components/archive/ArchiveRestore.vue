@@ -208,8 +208,8 @@ import { onMounted, ref, inject, reactive} from 'vue';
 import useOffices from '@/composables/composables-office';
 import useEmployeeTypes from '@/composables/composables-type';
 import useEmployeeStatus from '@/composables/composables-status';
-import useEmployeePosition from '../../composables/composables-position';
-import useSalaryGradeGroup from '../../composables/composables-salarygradegroup';
+import useEmployeePosition from '@/composables/composables-position';
+import useSalaryGradeGroup from '@/composables/composables-salarygradegroup';
 import useArchive from '@/composables/composables-archive';
 export default{
     props: {

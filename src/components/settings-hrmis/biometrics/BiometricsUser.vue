@@ -33,7 +33,7 @@
 </template>
 
 <script>
-	import useBioDevice from '../../composables/composables-biometricsdevice';
+	import useBioDevice from '@/composables/composables-biometricsdevice';
     import {onMounted ,ref, computed, inject} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'

@@ -99,7 +99,7 @@
 </template>
 
 <script>
-	import useArchive from '../../composables/composables-archive';
+	import useArchive from '@/composables/composables-archive';
     import {onMounted ,ref, computed, inject} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'

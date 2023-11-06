@@ -1,54 +1,59 @@
 <template>
-    <div class="row">
-        <div class="col-md-12 p-title">
-            <h2>Leave Types</h2>
-        </div>
-    </div>
-	<div class="row">        
-        <div class="col-auto">
-            <router-link :to="{ name: 'leavetypes.create' }" class="btn btn-blue">New Leave Type <i class="fa-solid fa-plus"></i></router-link>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <input type="text" name="inputSearch"  placeholder="search..." class="form-control border-blue" v-model="searchQuery">
+    <div class="row w-right-nav">
+        <div class="col col-w-settings">
+            <div class="row">
+                <div class="col-md-12 p-title">
+                    <h2>Leave Types</h2>
+                </div>
             </div>
+            <div class="row">        
+                <div class="col-auto">
+                    <router-link :to="{ name: 'leavetypes.create' }" class="btn btn-blue">New Leave Type <i class="fa-solid fa-plus"></i></router-link>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <input type="text" name="inputSearch"  placeholder="search..." class="form-control border-blue" v-model="searchQuery">
+                    </div>
+                </div>
+
+            </div>
+            <table class="mtable hasActions mt-2 mb-2 table tbllink">
+                    <thead>
+                        <tr>
+                            <th @click="sortTable('name')">Name
+                                <span v-if="sortColumn == 'name'" class="material-icons">{{arrowIconName}}</span>
+                                <span v-else class="material-icons">sort</span>
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                             <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <template v-for="leavetype in filteredLeaveTypes" :key="leavetype.id">
+                            <tr @click="goshow(leavetype.id)">
+                                <td>
+                                    {{ leavetype.name }}
+                                </td>
+                                <td>
+                                    {{leavetype.description}}
+                                </td>
+                                <td @click.stop>
+                                    <template v-if="leavetype.createdby == userid || userslug == 'admin' || userslug == 'super-admin'">
+                                        <ul class="ls-frmbutton text-end">
+                                            <li><button title="delete" class="btn btn-outline-danger" @click="deleteLeaveType(leavetype.id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
+                                        </ul>
+                                    </template>                           
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
         </div>
-
+        <RightNavForms/>
     </div>
-	<table class="mtable hasActions mt-2 mb-2 table tbllink">
-            <thead>
-                <tr>
-                    <th @click="sortTable('name')">Name
-                        <span v-if="sortColumn == 'name'" class="material-icons">{{arrowIconName}}</span>
-                        <span v-else class="material-icons">sort</span>
-                    </th>
-                    <th>
-                        Description
-                    </th>
-                     <th></th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <template v-for="leavetype in filteredLeaveTypes" :key="leavetype.id">
-                    <tr @click="goshow(leavetype.id)">
-                        <td>
-                            {{ leavetype.name }}
-                        </td>
-                        <td>
-                            {{leavetype.description}}
-                        </td>
-                		<td @click.stop>
-                            <template v-if="leavetype.createdby == userid || userslug == 'admin' || userslug == 'super-admin'">
-                                <ul class="ls-frmbutton text-end">
-                                    <li><button title="delete" class="btn btn-outline-danger" @click="deleteLeaveType(leavetype.id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
-                                </ul>
-                            </template>                           
-                		</td>
-                    </tr>
-                </template>
-            </tbody>
-        </table>
 </template>
 
 <script>
@@ -58,7 +63,12 @@
     import {useRouter} from 'vue-router'
     import { useHead } from '@unhead/vue'
     import {useAuthStore} from '@/stores/store.js'
+    import RightNavForms from '@/components/navigation/RightNavForms.vue';
+
 	export default{
+        components: {
+            RightNavForms
+        },
 		setup(){
             useHead({
                 title: 'Employee Leave Types | BFAR - CAR HRMIS'

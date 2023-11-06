@@ -75,8 +75,8 @@
 
 <script>
 
-	import useOfficerecord from '../../composables/composables-record';
-	import useOffices from '../../composables/composables-office';
+	import useOfficerecord from '@/composables/composables-record';
+	import useOffices from '@/composables/composables-office';
 
 	import {onMounted ,ref, computed} from 'vue';
 	import { sortBy, flatten } from 'lodash';

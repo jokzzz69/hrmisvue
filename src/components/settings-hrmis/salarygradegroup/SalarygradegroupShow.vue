@@ -56,8 +56,8 @@
 
 <script>
 
-	import useSalaryGradeGroup from '../../composables/composables-salarygradegroup';
-    import useUsers from '../../composables/userscomposables';
+	import useSalaryGradeGroup from '@/composables/composables-salarygradegroup';
+    import useUsers from '@/composables/userscomposables';
     import {onMounted ,ref, computed, inject} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'

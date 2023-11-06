@@ -30,7 +30,7 @@
 
 <script setup>
 
-import useRoles from '../../composables/composables-role';
+import useRoles from '@/composables/composables-role';
 
 import { onMounted, inject } from 'vue';
 import { useHead } from '@unhead/vue'

@@ -1,57 +1,67 @@
 <template>
     <div class="row">
-        <div class="col-md-12 p-title">
-            <h2>Employee Types</h2>
-        </div>
-    </div>
-	<div class="row">        
-        <div class="col-auto">
-            <router-link :to="{ name: 'employeetype.create' }" class="btn btn-blue">New Employee Type <i class="fa-solid fa-plus"></i></router-link>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <input type="text" name="inputSearch"  placeholder="search..." class="form-control border-blue" v-model="searchQuery">
+        <div class="col col-w-settings">
+            <div class="row">
+                <div class="col-md-12 p-title">
+                    <h2>Employee Types</h2>
+                </div>
             </div>
+            <div class="row">        
+                <div class="col-auto">
+                    <router-link :to="{ name: 'employeetype.create' }" class="btn btn-blue">New Employee Type <i class="fa-solid fa-plus"></i></router-link>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <input type="text" name="inputSearch"  placeholder="search..." class="form-control border-blue" v-model="searchQuery">
+                    </div>
+                </div>
+
+            </div>
+            <table class="mtable hasActions mt-2 mb-2 table tbllink">
+                    <thead>
+                        <tr>
+                            <th @click="sortTable('name')">Name
+                                <span v-if="sortColumn == 'name'" class="material-icons">{{arrowIconName}}</span>
+                                <span v-else class="material-icons">sort</span>
+                            </th>
+                             <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <template v-for="item in filteredEmployeeTypes" :key="item.id">
+                            <tr @click="goshow(item.id)">
+                                <td>
+                                    {{ item.name }}
+                                </td>
+                                <td @click.stop>
+                                    <ul class="ls-frmbutton text-end">
+                                        <li><button title="delete" class="btn btn-outline-danger" @click="deleteEmployeeType(item.id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
+                                    </ul>
+                                    
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
         </div>
-
+        <RightNavHrmis/>
     </div>
-	<table class="mtable hasActions mt-2 mb-2 table tbllink">
-            <thead>
-                <tr>
-                    <th @click="sortTable('name')">Name
-                        <span v-if="sortColumn == 'name'" class="material-icons">{{arrowIconName}}</span>
-                        <span v-else class="material-icons">sort</span>
-                    </th>
-                     <th></th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <template v-for="item in filteredEmployeeTypes" :key="item.id">
-                    <tr @click="goshow(item.id)">
-                        <td>
-                            {{ item.name }}
-                        </td>
-                		<td @click.stop>
-                            <ul class="ls-frmbutton text-end">
-                                <li><button title="delete" class="btn btn-outline-danger" @click="deleteEmployeeType(item.id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
-                            </ul>
-                			
-                		</td>
-                    </tr>
-                </template>
-            </tbody>
-        </table>
+    
 </template>
 
 <script>
-	import useEmployeeTypes from '../../composables/composables-type';
+	import useEmployeeTypes from '@/composables/composables-type';
     import {onMounted ,ref, computed, inject} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
     import { useHead } from '@unhead/vue'
+    import RightNavHrmis from '@/components/navigation/RightNavHrmis.vue';
 
 	export default{
+        components: {
+            RightNavHrmis
+        },
 		setup(){
             useHead({
                 title: 'Employee Types | BFAR - CAR HRMIS'

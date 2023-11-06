@@ -71,7 +71,7 @@
 
 <script>
     import { reactive ,inject, onMounted,ref} from "vue";
-    import useRoles from '../../composables/composables-role';
+    import useRoles from '@/composables/composables-role';
     import useEmployees from '@/composables/composables-employees';
     import 'vue-select/dist/vue-select.css';
     import useTravels from '@/composables/composables-travel';

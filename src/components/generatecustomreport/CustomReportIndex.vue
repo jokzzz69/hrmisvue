@@ -427,7 +427,7 @@
     import {onMounted ,ref, computed, inject, reactive} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'    
-    import useCustomReport from '../../composables/composables-customreport';
+    import useCustomReport from '@/composables/composables-customreport';
     import useLocations from '@/composables/composables-location';
     import { useAuthStore } from '@/stores/store.js'
 

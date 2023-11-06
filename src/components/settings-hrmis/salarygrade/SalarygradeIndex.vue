@@ -52,7 +52,7 @@
 </template>
 
 <script>
-	import useSalaryGrade from '../../composables/composables-salarygrade';
+	import useSalaryGrade from '@/composables/composables-salarygrade';
     import {onMounted ,ref, computed, inject} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'

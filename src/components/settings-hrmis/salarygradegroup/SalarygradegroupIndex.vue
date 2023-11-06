@@ -1,61 +1,70 @@
 <template>
     <div class="row">
-        <div class="col-md-12 p-title">
-            <h2>Salary Grades</h2>
-        </div>
-    </div>
-	<div class="row">
-
-        <div class="col-auto" v-if="authuser.roles">
-            <template v-if="authuser.roles[0].slug == 'super-admin'">
-                <router-link :to="{ name: 'salarygradegroup.create' }" title="Create New" class="btn btn-blue">New Salary Grade <i class="fa-solid fa-plus"></i></router-link>
-            </template>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <input type="text" name="inputSearch"  placeholder="search..." class="form-control border-blue" v-model="searchQuery">
+        <div class="col col-w-settings">
+            <div class="row">
+                <div class="col-md-12 p-title">
+                    <h2>Salary Grades</h2>
+                </div>
             </div>
-        </div>
+            <div class="row">
 
+                <div class="col-auto" v-if="authuser.roles">
+                    <template v-if="authuser.roles[0].slug == 'super-admin'">
+                        <router-link :to="{ name: 'salarygradegroup.create' }" title="Create New" class="btn btn-blue">New Salary Grade <i class="fa-solid fa-plus"></i></router-link>
+                    </template>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <input type="text" name="inputSearch"  placeholder="search..." class="form-control border-blue" v-model="searchQuery">
+                    </div>
+                </div>
+
+            </div>
+            <table class="mtable hasActions mt-2 mb-2 table tbllink">
+                    <thead>
+                        <tr>
+                            <th @click="sortTable('name')">Name
+                                <span v-if="sortColumn == 'name'" class="material-icons">{{arrowIconName}}</span>
+                                <span v-else class="material-icons">sort</span>
+                            </th>     
+                            <th></th>             
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template v-for="salarygradegroup in filteredSalaryGradeGroups" :key="salarygradegroup.id">
+                            <tr @click="goshow(salarygradegroup.id,salarygradegroup.name)">
+                                <td>
+                                    {{ salarygradegroup.name }}
+                                </td>
+                                <td @click.stop>
+                                    <ul v-if="userrole == 'super-admin'" class="ls-frmbutton text-end">
+                                        <li><button title="delete" class="btn btn-outline-danger" @click="deleteSalaryGradeGroup(salarygradegroup.id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
+                                    </ul>                           
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+        </div>
+        <RightNavHrmis/>
     </div>
-	<table class="mtable hasActions mt-2 mb-2 table tbllink">
-            <thead>
-                <tr>
-                    <th @click="sortTable('name')">Name
-                        <span v-if="sortColumn == 'name'" class="material-icons">{{arrowIconName}}</span>
-                        <span v-else class="material-icons">sort</span>
-                    </th>     
-                    <th></th>             
-                </tr>
-            </thead>
-            <tbody>
-                <template v-for="salarygradegroup in filteredSalaryGradeGroups" :key="salarygradegroup.id">
-                    <tr @click="goshow(salarygradegroup.id,salarygradegroup.name)">
-                        <td>
-                            {{ salarygradegroup.name }}
-                        </td>
-                		<td @click.stop>
-                            <ul v-if="userrole == 'super-admin'" class="ls-frmbutton text-end">
-                                <li><button title="delete" class="btn btn-outline-danger" @click="deleteSalaryGradeGroup(salarygradegroup.id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
-                            </ul>                			
-                		</td>
-                    </tr>
-                </template>
-            </tbody>
-        </table>
 </template>
 
 <script>
-	import useSalaryGradeGroup from '../../composables/composables-salarygradegroup';
-    import useUsers from '../../composables/userscomposables';
+	import useSalaryGradeGroup from '@/composables/composables-salarygradegroup';
+    import useUsers from '@/composables/userscomposables';
 
     import {onMounted ,ref, computed, inject} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
     import { useAuthStore } from '@/stores/store.js'
     import { useHead } from '@unhead/vue'
+    import RightNavHrmis from '@/components/navigation/RightNavHrmis.vue';
 
 	export default{
+        components: {
+            RightNavHrmis
+        },
 		setup(){
             useHead({
                 title: 'Salary Grades | BFAR - CAR HRMIS'
