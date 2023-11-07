@@ -36,7 +36,7 @@
 		setup(props){
             
             useHead({
-                title: 'Edit Employee Positions | BFAR - CAR HRMIS'
+                title: 'Settings - Edit Employee Positions | BFAR - CAR HRMIS'
             })
 			const swal = inject('$swal')
 

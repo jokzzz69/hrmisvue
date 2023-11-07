@@ -1,6 +1,6 @@
 <template>
 
-<li v-if="userslug == 'office-head'">
+<li v-if="userslug.includes('office-head')">
     <a href="#" class="nav-link btn-toggle align-items-center collapsed"  data-bs-toggle="collapse" data-bs-target="#empmon-collapse" aria-expanded="true">
       <i class="fa-solid fa-computer pe-1"></i><span>DTR Monitoring</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
@@ -20,7 +20,7 @@
       <ul class="btn-toggle-nav list-unstyled small">           
                       
         <li class="nav-link">
-            <template v-if="userslug == 'office-head'">
+            <template v-if="userslug.includes('office-head')">
               <router-link :to="{ name: 'mydailytimerecord.index' }"><i class="fa-solid fa-fingerprint"></i> My Daily Time Record</router-link>
             </template>
             <template v-else>

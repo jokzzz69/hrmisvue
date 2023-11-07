@@ -34,16 +34,16 @@ const head = createHead()
 const app = createApp(App)
 const pinia = createPinia()
 const ls = new SecureLS({encodingType: 'des',isCompression: false, encryptionSecret: 'x7i55ebK@aS!Sgzx'});
-//pinia.use(piniaPluginPersistedstate);
-pinia.use(createPersistedState({
+pinia.use(piniaPluginPersistedstate);
+// pinia.use(createPersistedState({
 
-	key: id => `__bfarhrmis__${id}`,
-	storage: {
-    getItem: key => ls.get(key),
-    setItem: (key, value) => ls.set(key, value),
-    removeItem: key => ls.removeAll()
-  }
-}))
+// 	key: id => `__bfarhrmis__${id}`,
+// 	storage: {
+//     getItem: key => ls.get(key),
+//     setItem: (key, value) => ls.set(key, value),
+//     removeItem: key => ls.removeAll()
+//   }
+// }))
 
 app.use(pinia)
 .use(VueSweetalert2)

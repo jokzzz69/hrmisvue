@@ -13,8 +13,8 @@
 		    		</div>
 		    	</div>
 		    </div>
-		    <div class="mtmb">
-		    	<table class="mtable mt-2 mb-2 table tbllink">
+		    <div class="mtmb mt-2 mb-2 tblWrap">
+		    	<table class="mtable table tbllink">
 			    	<thead>
 			    		<tr>
 			    			<th class="col" @click="sortTable('employee_fname')">Name

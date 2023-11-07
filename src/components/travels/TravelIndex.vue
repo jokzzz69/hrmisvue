@@ -27,8 +27,8 @@
                     <Datepicker v-model="form.date" id="fdate" auto-apply month-picker @update:model-value="getTravelbyMonth" placeholder="Select Month" :clearable="true" name="monthpicked" :format="format" :month-change-on-arrows="true"></Datepicker> 
 		    	</div>
 		    </div>
-		    <div class="mtmb">
-		    	<table class="mtable mt-2 mb-2 table nottbllink">
+		    <div class="mtmb tblWrap mt-2 mb-2">
+		    	<table class="mtable table nottbllink">
 		    	<thead>
 		    		<tr>
 		    			<th @click="sortTable('id')" v-if="userrole == 'super-admin'"  class="w-5">ID

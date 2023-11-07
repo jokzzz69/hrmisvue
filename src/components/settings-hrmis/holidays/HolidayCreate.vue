@@ -38,7 +38,7 @@
     export default {
         setup(){
             useHead({
-                title: 'Add Holiday | BFAR - CAR HRMIS'
+                title: 'Settings - Add Holiday | BFAR - CAR HRMIS'
             })
             const form = reactive({
                 'name': '',

@@ -61,7 +61,7 @@
       const {bus,emit}=useEventsBus()
       const {logout} = useAuthenticate();
 
-			const {logoutuser,acceptPrivacy, getUser, user, privacy, getPrivacy} = useUsers()
+			const {logoutuser,acceptPrivacy, privacy, getPrivacy} = useUsers()
       const showModal = ref(false)
       const pristore = usePrivacyStore();
 

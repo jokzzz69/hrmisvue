@@ -42,7 +42,7 @@
 	export default{
 		setup(){
             useHead({
-                title: 'Biometrics Registered | BFAR - CAR HRMIS'
+                title: 'Settings - Biometrics Registered | BFAR - CAR HRMIS'
             })
             const swal = inject('$swal')
             

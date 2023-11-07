@@ -74,7 +74,7 @@
         },
 		setup(){
             useHead({
-                title: 'Employee Leave Types Details | BFAR - CAR HRMIS'
+                title: 'Settings - Employee Leave Types Details | BFAR - CAR HRMIS'
             })
             const swal = inject('$swal')
             

@@ -17,7 +17,8 @@
         </div>
 
     </div>
-	<table class="mtable hasActions mt-2 mb-2 table tbl-leave">
+	<div class="tblWrap mt-2 mb-2">
+        <table class="mtable hasActions table tbl-leave">
             <thead>
                 <tr>
                     <th>
@@ -34,53 +35,72 @@
             </thead>
 
             <tbody>
-                <template v-for="leaverecord in filteredLeaveRecords" :key="leaverecord.id">
-                    <tr>
-                        <td>
+                <template v-if="filteredLeaveRecords.length">
+                    <template v-for="leaverecord in filteredLeaveRecords" :key="leaverecord.id">
+                        <tr>
+                            <td>
 
-                            <template v-if="leaverecord.leavetypes">
-                                <template v-for="(leavetype,key) in leaverecord.leavetypes">
-                                    {{leavetype.name}}<template v-if="leaverecord.leavetypes.length - 1 != key">, </template>
-                                </template>
-                                <template v-if="userid != leaverecord.createdby">
-                                    <template v-if="leaverecord.creator.name">
-                                        <br/><span class="italic">Created by: {{leaverecord.creator.name}}</span>
+                                <template v-if="leaverecord.leavetypes">
+                                    <template v-for="(leavetype,key) in leaverecord.leavetypes">
+                                        {{leavetype.name}}<template v-if="leaverecord.leavetypes.length - 1 != key">, </template>
+                                    </template>
+                                    <template v-if="userid != leaverecord.createdby">
+                                        <template v-if="leaverecord.creator.name">
+                                            <br/><span class="italic">Created by: {{leaverecord.creator.name}}</span>
+                                        </template>
                                     </template>
                                 </template>
-                            </template>
 
-                        </td>
+                            </td>
 
-                        <td>
-                            <template v-if="leaverecord.leaveduration">
+                            <td>
+                                <template v-if="leaverecord.leaveduration">
 
-                                <template v-for="(leaveduration, x) in leaverecord.leaveduration">
-                                    {{dualdateformat(leaveduration.leavestart, leaveduration.leaveend)}}
-                                    <template v-if="x != leaverecord.leaveduration.length -1"> | </template>                                                                       
+                                    <template v-for="(leaveduration, x) in leaverecord.leaveduration">
+                                        {{dualdateformat(leaveduration.leavestart, leaveduration.leaveend)}}
+                                        <template v-if="x != leaverecord.leaveduration.length -1"> | </template>                                                                       
+                                    </template>
                                 </template>
-                            </template>
-                        </td>
-      
-                		<td @click.stop>
+                            </td>
 
-                                <ul class="ls-frmbutton text-end">
-                                    <li class="mb-1">
-                                        <router-link title="Edit" :to="{name: 'leaverecords.edit', params : {id: leaverecord.id}}" class="btn btn-violet"><i class="sm-icons fa-solid fa-pen-to-square"></i> <span  class="lg-text">Edit</span></router-link>
-                                    </li>
-                                    <li><button title="delete" class="btn btn-outline-danger" @click="deleteLeaveRecord(leaverecord.id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
-                                </ul>
-                    
-                		</td>
+                            <td @click.stop>
+
+                                    <ul class="ls-frmbutton text-end">
+                                        <li class="mb-1">
+                                            <router-link title="Edit" :to="{name: 'leaverecords.edit', params : {id: leaverecord.id}}" class="btn btn-violet"><i class="sm-icons fa-solid fa-pen-to-square"></i> <span  class="lg-text">Edit</span></router-link>
+                                        </li>
+                                        <li><button title="delete" class="btn btn-outline-danger" @click="deleteLeaveRecord(leaverecord.id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
+                                    </ul>
+                        
+                            </td>
+                        </tr>
+                    </template>
+                </template>
+                <template v-else>
+                    <template v-if="!noData">
+                        <tr class="pr nodata">
+                            <td colspan="3">
+                                <LoadingComponent/>
+                            </td>
+                        </tr>
+                    </template>
+                </template>
+                <template v-if="noData">
+                    <tr class="nodata">
+                        <td colspan="3" class="text-center"> 
+                            No Data
+                        </td>
                     </tr>
                 </template>
             </tbody>
-        </table>
+        </table>   
+    </div>
 </template>
 
 <script>
 
     import useLeaveRecords from '@/composables/composables-leave'
-
+    import LoadingComponent from '@/components/loader/LoadingComponent.vue';
     import {onMounted ,ref, computed, inject} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
@@ -89,6 +109,9 @@
     import moment from 'moment'
     import {dualdateformat} from '@/helper/dualdateformat.js'
 	export default{
+        components: {
+            LoadingComponent
+        },
 		setup(){
             useHead({
                 title: 'Employee Leave Records | BFAR - CAR HRMIS'
@@ -97,7 +120,7 @@
             const store = useAuthStore()
 
             const userid = store.getdetails[0];
-            const userslug = store.getdetails[1];
+
 
             const usertype = store.getdetails[3];
 
@@ -155,9 +178,17 @@
                 }
             }
 
+            const noData = ref(false)
+
             onMounted(() =>{
 
-                getEmployeeLeaveRecords()
+                getEmployeeLeaveRecords().then((response) => {
+                    if(leaverecords.value.length > 0){
+                        noData.value = false;
+                    }else{
+                        noData.value = true;
+                    }  
+                })
                 
             })
 
@@ -215,11 +246,12 @@
                 searchQuery,
                 deleteLeaveRecord,
                 goshow,
-                userslug,
+
                 userid,
                 usertype,
                 moment,
-                dualdateformat
+                dualdateformat,
+                noData
 			}
 		}
 	}

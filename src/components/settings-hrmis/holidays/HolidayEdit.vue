@@ -44,7 +44,7 @@
         },
         setup(props){
             useHead({
-                title: 'Edit Holiday | BFAR - CAR HRMIS'
+                title: 'Settings - Edit Holiday | BFAR - CAR HRMIS'
             })
             const form = reactive({
                 'name': '',

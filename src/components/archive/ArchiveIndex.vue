@@ -15,8 +15,8 @@
                 <input type="text" name="inputSearch"  placeholder="search..." class="form-control border-blue" v-model="searchQuery">
             </div>
         </div>    </div>
-	   <div class="mtmb">
-        <table class="mtable mt-2 mb-2 table tbllink">
+	   <div class="mtmb mt-2 mb-2 tblWrap">
+        <table class="mtable table tbllink">
             <thead>
                 <tr>
                     <th @click="sortTable('name')">Name

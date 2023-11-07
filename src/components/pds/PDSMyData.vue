@@ -6,7 +6,8 @@
     </div>
     <div class="row">
         <div class="col">
-            <table class="mtable mt-2 mb-2 table nottbllink">
+            <div class="tblWrap mt-2">
+                <table class="mtable table nottbllink">
                 <thead>
                     <tr>
                         <th>Details</th>
@@ -46,6 +47,7 @@
                     </template>
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
     

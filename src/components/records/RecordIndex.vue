@@ -17,8 +17,8 @@
 		    		</div>
 		    	</div>
 		    </div>
-		    <div class="mtmb">
-		    	<table class="mtable hasActions mt-2 mb-2 table tbllink">
+		    <div class="mtmb tblWrap mt-2 mb-2">
+		    	<table class="mtable hasActions  table tbllink">
 			    	<thead>
 			    		<tr>
 			    			<th @click="sortTable('employee_id')">ID

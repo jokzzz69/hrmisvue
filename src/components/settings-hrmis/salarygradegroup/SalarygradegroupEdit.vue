@@ -45,7 +45,7 @@
         },
 		setup(props){
             useHead({
-                title: 'Edit Salary Grade | BFAR - CAR HRMIS'
+                title: 'Settings - Edit Salary Grade | BFAR - CAR HRMIS'
             })
 			const swal = inject('$swal')
 			const {errors, salarygradegroup, getSalaryGradeGroup, updateSalaryGradeGroup} = useSalaryGradeGroup()

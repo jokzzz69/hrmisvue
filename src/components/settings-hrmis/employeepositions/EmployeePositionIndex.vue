@@ -14,11 +14,12 @@
                 <div class="col">
                     <div class="form-group">
                         <input type="text" name="inputSearch"  placeholder="search..." class="form-control border-blue" v-model="searchQuery">
-                </div>
+                    </div>
                 </div>
 
             </div>
-            <table class="mtable hasActions mt-2 mb-2 table tbllink">
+            <div class="tblWrap mt-3">
+                <table class="mtable hasActions table tbllink">
                     <thead>
                         <tr>
                             <th @click="sortTable('name')">Name
@@ -45,6 +46,8 @@
                         </template>
                     </tbody>
                 </table>
+            </div>
+            
         </div>
         <RightNavHrmis/>
     </div>
@@ -64,7 +67,7 @@
         },
 		setup(){
             useHead({
-                title: 'Employee Positions | BFAR - CAR HRMIS'
+                title: 'Settings - Employee Positions | BFAR - CAR HRMIS'
             })
             const swal = inject('$swal')
             

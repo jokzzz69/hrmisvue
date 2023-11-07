@@ -33,7 +33,7 @@
         },
 		setup(props){
             useHead({
-                title: 'Edit Employee Status | BFAR - CAR HRMIS'
+                title: 'Settings - Edit Employee Status | BFAR - CAR HRMIS'
             })
 			const swal = inject('$swal')
 			const { errors, updateEmployeeStatus, employeestatus, getEmployeeStatus} = useEmployeeStatus()

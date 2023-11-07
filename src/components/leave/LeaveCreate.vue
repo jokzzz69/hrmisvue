@@ -21,7 +21,7 @@
             </div>
         </template>
         
-        <template v-if="userslug != 'employee'">
+        <template v-if="userslug.includes('employee')">
             <div class="row">
                 <div class="col mt-2 mb-2">
                     <div class="req">
@@ -191,7 +191,7 @@
                 if(usertype != 1){
                     displayoptions.value = true;
                 }else{
-                    if(userslug == 'super-admin' || userslug == 'admin'){
+                    if(userslug.includes('super-admin') || userslug.includes('admin')){
                         displayoptions.value = true;
                     }
                 }

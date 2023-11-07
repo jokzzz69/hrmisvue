@@ -9,7 +9,7 @@
           <li class="nav-link"><router-link :to="{ name: 'pds.index'}">Employees PDS</router-link></li>
           <li class="nav-link"><router-link :to="{ name: 'travels.index' }">Employees Travels</router-link></li>
           <li class="nav-link"><router-link :to="{name: 'archives.index'}">Employees Archived</router-link></li>
-          <li class="nav-link"><router-link :to="{name: 'leaverecords.index'}">Employees Absent <template v-if="usertype != 1 || userslug != 'employee'"> / Leave</template></router-link></li>
+          <li class="nav-link"><router-link :to="{name: 'leaverecords.index'}">Employees Absent <template v-if="usertype != 1"> / Leave</template></router-link></li>
       </ul>
     </div>          
   </li>
@@ -60,10 +60,8 @@
   export default{
     setup(){
       const store = useAuthStore();
-      const userslug = ref(store.details[1]);
       const usertype = ref(store.details[3]);
       return{
-        userslug,
         usertype
       }
     }

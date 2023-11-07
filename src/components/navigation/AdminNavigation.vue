@@ -1,4 +1,21 @@
 <template>
+  <li>
+    <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#communications" aria-expanded="true"><i class="fa-solid fa-tower-cell"></i> <span>Communications</span> <i class="cvright fa-solid fa-angle-right"></i>
+    </a>
+    <div class="collapse navdrpdwn show" id="communications" style="">
+      <ul class="btn-toggle-nav list-unstyled small">
+          <li class="nav-link"><router-link :to="{ name: 'monitoring.index' }"><i class="fa-solid fa-envelope-open-text"></i> <span>Incoming</span></router-link></li>
+          <li class="nav-link"><router-link :to="{ name: 'record.index'}"><i class="fa-regular fa-paper-plane"></i> <span>Routed</span></router-link></li>
+          
+          <li class="nav-link"><router-link :to="{ name: 'pds.index'}"><i class="fa-solid fa-person-digging"></i> <span>Actions Taken</span></router-link></li>
+
+          <li class="nav-link"><router-link :to="{name: 'travels.index'}"><i class="fa-regular fa-file-lines"></i> <span>Draft</span></router-link></li>
+      </ul>
+    </div>          
+  </li>
+
+
+  
     <li>
     <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#employeerecords-collapse" aria-expanded="false"><i class="fa-solid fa-users-rectangle"></i> <span>Employees Records</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
@@ -11,7 +28,7 @@
 
           <li class="nav-link"><router-link :to="{name: 'travels.index'}">Employees Travels</router-link></li>
           <li class="nav-link"><router-link :to="{name: 'archives.index'}">Employees Archived</router-link></li>
-          <li class="nav-link"><router-link :to="{name: 'leaverecords.index'}">Employees Absent <template v-if="usertype != 1 || userslug != 'employee'"> / Leave</template></router-link></li>
+          <li class="nav-link"><router-link :to="{name: 'leaverecords.index'}">Employees Absent <template v-if="usertype != 1"> / Leave</template></router-link></li>
 
           <li class="nav-link"><a href="#" class="text-danger">Employees Assessment</a></li>               
 
@@ -68,14 +85,15 @@
       <ul class="btn-toggle-nav list-unstyled small">             
         <li class="nav-link"><router-link :to="{ name: 'offices.index' }"><i class="fa-solid fa-sitemap"></i> HRMIS</router-link></li>
         <li class="nav-link"><router-link :to="{ name: 'leavetypes.index' }"><i class="fa-brands fa-wpforms"></i> Forms</router-link></li>
+        <li class="nav-link"><router-link :to="{ name: 'documenttypes.index' }"><i class="fa-solid fa-sliders"></i> Communication</router-link></li>
       </ul>
     </div>
 </li>
 <li>
-    <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed"  data-bs-toggle="collapse" data-bs-target="#admin-collapse" aria-expanded="true">
+    <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed"  data-bs-toggle="collapse" data-bs-target="#admin-collapse" aria-expanded="false">
       <i class="fa-solid fa-user-secret"></i><span>Admin</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
-    <div  class="collapse navdrpdwn show" id="admin-collapse" >
+    <div  class="collapse navdrpdwn" id="admin-collapse" >
       <ul class="btn-toggle-nav list-unstyled small">
         
         <li class="nav-link"><router-link :to="{ name: 'users.index' }"><i class="fa-solid fa-users-line"></i> Users</router-link></li>
@@ -94,10 +112,10 @@
   export default{
     setup(){
       const store = useAuthStore();
-      const userslug = ref(store.details[1]);
+      
       const usertype = ref(store.details[3]);
       return{
-        userslug,
+
         usertype
       }
     }

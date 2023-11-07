@@ -39,7 +39,7 @@
         },
 		setup(props){
             useHead({
-                title: 'Edit Employee Leave Type | BFAR - CAR HRMIS'
+                title: 'Settings - Edit Employee Leave Type | BFAR - CAR HRMIS'
             })
 			const swal = inject('$swal')
 

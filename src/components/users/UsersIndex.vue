@@ -64,15 +64,14 @@
 			    			<td>
 
 			    				<template v-for="user in users" :key="user.employee_id">
-
 			    					<template v-if="user.employee_id == employee.employee_id">
-
-			    						<template v-if="user.roles[0]">
-			    							<span :class="user.roles[0].slug" class="badge text-bg-primary">
-				    							{{user.roles[0].name}}
-				    						</span> 
+			    						<template v-if="user.roles.length">
+			    							<template v-for="userrole in user.roles" :key="userrole.id">
+			    								<span :class="userrole.slug" class="badge text-bg-primary me-1">
+					    							{{userrole.name}}
+					    						</span> 
+			    							</template>			    							
 			    						</template>
-
 			    					</template>
 			    				</template>
 			    			</td>

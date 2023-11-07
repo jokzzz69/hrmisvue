@@ -45,14 +45,14 @@
         <div class="row">
             <div class="col col-sm-6 mt-2 mb-3 req tsnn">
                 <span class="d-block">Start Date <i class="text-danger">*</i></span>
-                <Datepicker class="date-form-floating highlights-weekend" id="dts" week-start="0" auto-apply v-model="form.travelstart" placeholder="Date Range" :enable-time-picker="false"  :clearable="false"  :class="errors.travelstart ? 'error-input' : ''" :highlight-week-days="[0, 6]" @update:model-value="handleStartDate(key)" :format="format" :max-date="getmaxdate(key)"></Datepicker>
+                <Datepicker class="date-form-floating highlights-weekend" id="dts" week-start="0" auto-apply v-model="form.travelstart" placeholder="Date Range" :enable-time-picker="false"  :clearable="false"  :class="errors.travelstart ? 'error-input' : ''" :highlight-week-days="[0, 6]" @update:model-value="handleStartDate()" :format="format" :max-date="getmaxdate()"></Datepicker>
                 <span v-if="errors.travelstart" class="text-danger m-error">{{errors.travelstart[0]}}</span>  
                 <small>(mm/dd/yy)</small>
                 
             </div>
             <div class="col col-sm-6 mt-2 mb-3 req tsnn">
                 <span class="d-block">End Date <i class="text-danger">*</i></span>
-                <Datepicker class="date-form-floating highlights-weekend" id="dts" week-start="0" auto-apply v-model="form.travelend" placeholder="Date Range" :enable-time-picker="false"  :clearable="false"  :class="errors.travelend ? 'error-input' : ''" :highlight-week-days="[0, 6]" @update:model-value="handleEndDate(key)" :format="format" :min-date="getmindate(key)"></Datepicker>
+                <Datepicker class="date-form-floating highlights-weekend" id="dts" week-start="0" auto-apply v-model="form.travelend" placeholder="Date Range" :enable-time-picker="false"  :clearable="false"  :class="errors.travelend ? 'error-input' : ''" :highlight-week-days="[0, 6]" @update:model-value="handleEndDate()" :format="format" :min-date="getmindate()"></Datepicker>
                 <span v-if="errors.travelend" class="text-danger m-error">{{errors.travelend[0]}}</span>  
                 <small>(mm/dd/yy)</small>
                 
@@ -143,10 +143,10 @@
                     }
                 })
             }
-            const handleStartDate = async(key) =>{           
+            const handleStartDate = async() =>{           
                 form.travelstart  = moment(form.travelstart).format('YYYY-MM-DD');                   
             }
-            const handleEndDate = async(key) =>{           
+            const handleEndDate = async() =>{           
                 form.travelend = moment(form.travelend).format('YYYY-MM-DD');                   
             }
             const format = (k) => {

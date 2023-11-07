@@ -166,7 +166,7 @@
         },
 		setup(){
             useHead({
-                title: 'Biometrics | BFAR - CAR HRMIS'
+                title: 'Settings - Biometrics | BFAR - CAR HRMIS'
             })
             const {getPage, 
                 batch, 

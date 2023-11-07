@@ -69,7 +69,7 @@
         },
 		setup(props){
             useHead({
-                title: 'Salary Grades | BFAR - CAR HRMIS'
+                title: 'Settings - Salary Grades | BFAR - CAR HRMIS'
             })
             const swal = inject('$swal')            
 			const {salarygrades, getSalaryGrades, destroySalaryGrades} = useSalaryGrade()

@@ -35,7 +35,6 @@
                             <input class="form-control error-input" type="password" placeholder="secret" name="overwrite" v-model="form.overwrite">
                             <label>Token Overwrite</label>
                         </div>
-
                     </div>
 
                 </template>
@@ -50,56 +49,68 @@
                     </div>  
                 </template> 
 
-                <div class="col-4 mb-2 req">                                                                     
-                    <div class="form-floating">
-                        <select class="form-select" name="employee_type" v-model="form.userrole" id="employee_type" @change="getPermissions">  
-                            <option disabled value="">Please select one</option>
-                            <template v-if="authuser.roles">
-                                <template v-if="authuser.roles[0].slug != 'super-admin'">
-                                    <template v-for="role in roles.slice(1,5)">
-                                        <option :value="role.id">{{role.name}}</option>
-                                    </template>
-                                </template>
-                                <template v-else>
-                                    <template v-for="role in roles">
-                                        <option :value="role.id">{{role.name}}</option>
-                                    </template>
-                                </template> 
-                            </template>               
-                        </select>
-                        <label for="employee_type" class="form-label">Select Role</label>   
-                    </div>
-                </div> 
-                <div class="col mb-2" v-if="form.userrole === 5">                 
-                    <div class="form-floating">
-                        <select class="form-select" name="office" id="office" v-model="form.office_head" :class="errors.office_head ? 'error-input' : ''">  
-                            <option disabled value="">Please select one</option>
-                            <template v-for="office in offices">
-                                <option :value="office.offices_id">{{office.offices_name}}</option>
-                            </template>            
-                        </select>
-                        <label for="office" class="form-label noreq">Select Office</label>    
-                        <span v-if="errors.office_head" class="text-danger m-error">{{errors.office_head[0]}}</span>                       
-                    </div>
-                </div>
+                
+                
             </div>   
-            <div class="row">
-                <div class="col">
-                    Permissions                    
-                </div>
-                <div class="col-12 permissions">
-                    <template v-if="permissions.permissions">
-                        <ul class="list-inline mt-1">
-                            <template v-for="permission in permissions.permissions">
-                                <li class="list-inline-item">
-                                    <input type="checkbox" :value="permission.id" class="btn-check" :id="permission.slug" v-model="form.userpermissions">
-                                <label :class="permission.slug" class="btn" :for="permission.slug">{{permission.name}}</label>
+            <div class="row rap">
+                <div class="col col-sm-7">
+                    <div class="cwrap">
+                        <div class="cwrap--title">
+                            <strong>Roles and Permission</strong>
+                        </div>
+                        <div class="cwrap--content">
+                            <ul class="list-unstyled">
+                                <li v-for="role in roles" :key="role.id">
+                                    <div class="form-check form-switch fpar">
+                                      <input class="form-check-input"  v-model="form.userroles" type="checkbox" role="switch" 
+                                      :id="'role-'+role.id" 
+                                      :value="role.id"
+                                      @change="checkid(role.id)">
+                                      <label class="form-check-label" :for="'role-'+role.id">{{role.name}}</label>
+                                    </div>
+
+                                    <ul class="list-unstyled cwrap--content--child list-inline">
+                                        <template v-for="permission in permissions" :key="permission.id">
+                                            <li class="list-inline-item" v-if="permission.roles[0].id == role.id">
+                                                <div class="form-check form-switch">
+                                                  
+
+                                                  <template v-if="permission.id != 21">
+                                                      <input class="form-check-input" v-model="form.userpermissions" type="checkbox" role="switch" :id="permission.id" :value="permission.id" disabled>
+                                                  </template>
+                                                  <template v-else>
+                               
+                                                          <input class="form-check-input" v-model="form.userpermissions" type="checkbox" role="switch" :id="permission.id" :value="permission.id">
+                      
+                                                  </template>
+                                                  <label class="form-check-label" :for="permission.id">{{permission.name}}</label>
+                                                </div>
+                                            </li>
+                                        </template>
+                                        
+                                    </ul>
+
+                                    <template v-if="role.id == 5">
+                                        <div v-if="form.userroles.includes(5)">                                 
+                                            <select class="form-select" name="office" id="office" v-model="form.office_head" :class="errors.office_head ? 'error-input' : ''">
+                                                    <option disabled value="">Please select one</option>
+                                                    <template v-for="office in offices">
+                                                        <option :value="office.offices_id">{{office.offices_name}}</option>
+                                                    </template>            
+                                                </select>                        
+                              
+                                        </div>
+                                    </template>
                                 </li>
-                            </template>
-                    </ul>
-                    </template>
+                            </ul>
+
+
+                        </div>
+                    </div>
                 </div>
-            </div>      
+
+            </div>
+    
         </div>
 
 
@@ -140,14 +151,14 @@ export default{
         const {errors, user, updateUser, getUser, authuser, getAuthuser} = useUsers()
         const {getOffices, offices} = useOffices()
         const {roles, getRoles} = useRoles()
-        const {permissions, getPermissionsbyRole} = usePermissions()
+        const {permissions, getPermissions} = usePermissions()
 
         const store = useAuthStore();
 
         const userrole = ref(store.details[1]);
 
         const form = reactive({
-            'userrole': '',
+            'userroles': [],
             'office_head': '',
             'username': '',
             'overwrite': '',
@@ -159,26 +170,19 @@ export default{
             getUser(props.id).then(res => {
                 
                 form.office_head = user.value.office_head;
-                form.username = user.value.username;
-                if(user.value.roles){
-                    form.userrole = user.value.roles[0].id;
-                }
-  
+                form.username = user.value.username;             
+
+              
+                form.userroles = user.value.rolesids;
+                form.userpermissions = user.value.permissionsids;
                 
-                if(user.value.permissions){
-                   
-                    for (var i = 0; i < user.value.permissions.length; i++) {
-
-                        form.userpermissions.push(user.value.permissions[i].id);
-                    }
-
-                }
-
-                getPermissionsbyRole(form.userrole)
+  
             }), 
             getOffices(),
             getRoles(),
+            getPermissions(),
             getAuthuser()
+            
             
         })
 
@@ -202,9 +206,121 @@ export default{
                 }
             })
         }
-        const getPermissions = async(id) => {
-            await getPermissionsbyRole(form.userrole);
+
+        const checkid = (id) =>{
+                var arrS = [1,2,3,4];
+                var arrA = [5,6,7,8];
+                var arrH = [9,10,11,12];
+                var arrE = [13,14,15,16,21];
+                var arrO = [17,18,19,20];
+                var arrCV = [24,25,26,27];
+                var arrCE = [28,29,30,31];
+
+            if(form.userroles.includes(id)){
+                if(id < 6){
+                    for (var x = 1; x < 6; x++) {
+                        if(id != x){
+                            var index = form.userroles.indexOf(x);                    
+                            if(index > -1){
+                                form.userroles.splice(index, 1);
+                            }                                 
+                        }                    
+                    }
+                    for (var i = 1; i < 22; i++) {
+                        var index = form.userpermissions.indexOf(i);                    
+                        if(index > -1){
+                            form.userpermissions.splice(index, 1);
+                        }  
+                    }
+
+                }else{
+                    for (var x = 6; x < 8; x++) {
+                        if(id != x){
+                            var index = form.userroles.indexOf(x);                    
+                            if(index > -1){
+                                form.userroles.splice(index, 1);
+                            }                                 
+                        }                    
+                    }
+                    for (var i = 24; i < 32; i++) {
+                        var index = form.userpermissions.indexOf(i);                    
+                        if(index > -1){
+                            form.userpermissions.splice(index, 1);
+                        }  
+                    } 
+                }
+                if(id == 1){
+                    form.userpermissions.push(1,2,3,4);
+                }else if(id == 2){
+                    form.userpermissions.push(5,6,7,8);
+                }else if(id == 3){
+                    form.userpermissions.push(9,10,11,12);
+                }else if(id == 4){
+                    form.userpermissions.push(13,14,15,16,21);
+                }else if(id == 5){
+                    form.userpermissions.push(17,18,19,20);
+                }else if(id == 6){
+                    form.userpermissions.push(24,25,26,27);
+                }else if(id == 7){
+                    form.userpermissions.push(28,29,30,31);
+                }
+
+            }else{              
+
+                if(id==1){                    
+                    for (var i = 0; i < arrS.length; i++) {
+                        var index = form.userpermissions.indexOf(arrS[i]);
+                        if(index > -1){
+                            form.userpermissions.splice(index, 1);
+                        }
+                    }
+                }else if(id==2){                    
+                    for (var i = 0; i < arrA.length; i++) {
+                        var index = form.userpermissions.indexOf(arrA[i]);
+                        if(index > -1){
+                            form.userpermissions.splice(index, 1);
+                        }
+                    }
+                }else if(id==3){                    
+                    for (var i = 0; i < arrH.length; i++) {
+                        var index = form.userpermissions.indexOf(arrH[i]);
+                        if(index > -1){
+                            form.userpermissions.splice(index, 1);
+                        }
+                    }
+                }else if(id==4){                    
+                    for (var i = 0; i < arrE.length; i++) {
+                        var index = form.userpermissions.indexOf(arrE[i]);
+                        if(index > -1){
+                            form.userpermissions.splice(index, 1);
+                        }
+                    }
+                }else if(id==5){                    
+                    for (var i = 0; i < arrO.length; i++) {
+                        var index = form.userpermissions.indexOf(arrO[i]);
+                        if(index > -1){
+                            form.userpermissions.splice(index, 1);
+                        }
+                    }
+                }else if(id==6){                    
+                    for (var i = 0; i < arrCV.length; i++) {
+                        var index = form.userpermissions.indexOf(arrCV[i]);
+                        if(index > -1){
+                            form.userpermissions.splice(index, 1);
+                        }
+                    }
+                }else if(id==7){                    
+                    for (var i = 0; i < arrCE.length; i++) {
+                        var index = form.userpermissions.indexOf(arrCE[i]);
+                        if(index > -1){
+                            form.userpermissions.splice(index, 1);
+                        }
+                    }
+                }
+
+            }
         }
+
         return{
             errors,
             saveUser,
@@ -218,7 +334,8 @@ export default{
             form,
             userrole,
             getPermissions,
-            permissions
+            permissions,
+            checkid
         
         }
     }

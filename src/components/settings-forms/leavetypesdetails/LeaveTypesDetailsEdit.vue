@@ -47,7 +47,7 @@
         },
 		setup(props){
             useHead({
-                title: 'Edit Leave Type Details | BFAR - CAR HRMIS'
+                title: 'Settings - Edit Leave Type Details | BFAR - CAR HRMIS'
             })
 			const form = reactive({
 			    'name': '',

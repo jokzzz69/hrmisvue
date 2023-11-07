@@ -4,13 +4,13 @@
     <div class="bdrop" v-if="leftdisplay" @click="bdropclick"></div>
     <nav id="sidenav" class="flex-column flex-shrink-0 text-white">
       <ul class="nav nav-pills flex-column mb-auto leftnav-wrap"  @click.prevent="hideonM"> 
-       <template v-if="userslug == 'super-admin' || userslug == 'admin'">
+       <template v-if="userslug.includes('super-admin') || userslug.includes('admin')">
          <AdminNavigation/>
        </template>
-       <template v-else-if="userslug == 'hr'">
+       <template v-else-if="userslug.includes('hr')">
          <HrNavigation/>
        </template>
-       <template v-else-if="userslug == 'employee' || userslug == 'office-head'">
+       <template v-else-if="userslug.includes('employee') || userslug.includes('office-head')">
          <EmployeeNavigation/>
        </template>
         <li class="nav-link">

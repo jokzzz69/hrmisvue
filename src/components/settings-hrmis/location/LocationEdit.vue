@@ -29,7 +29,7 @@ import { onMounted, inject } from 'vue';
 import { useHead } from '@unhead/vue'
 
 useHead({
-    title: 'Edit Office Location | BFAR - CAR HRMIS'
+    title: 'Settings - Edit Office Location | BFAR - CAR HRMIS'
 })
 const swal = inject('$swal')
 const { errors, location, updateLocation, getLocation } = useLocations()

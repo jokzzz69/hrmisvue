@@ -106,7 +106,7 @@
 	export default {
 		setup(){
 			useHead({
-                title: 'Add Salary Grade | BFAR - CAR HRMIS'
+                title: 'Settings - Add Salary Grade | BFAR - CAR HRMIS'
             })
 			const form = reactive({
 			    'name': '',

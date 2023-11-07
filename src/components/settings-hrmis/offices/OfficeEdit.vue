@@ -47,7 +47,7 @@
         },
         setup(props){ 
             useHead({
-                title: 'Edit Office | BFAR - CAR HRMIS'
+                title: 'Settings - Edit Office | BFAR - CAR HRMIS'
             })           
             const swal = inject('$swal')
             const { errors, office, updateOffice, getOffice } = useOffices()

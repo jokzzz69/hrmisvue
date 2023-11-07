@@ -74,7 +74,7 @@
         },
 		setup(){
 			useHead({
-                title: 'Holidays | BFAR - CAR HRMIS'
+                title: 'Settings - Holidays | BFAR - CAR HRMIS'
             })
 			const {holidays, getHolidays, destroyHoliday} = useHolidays()
 

@@ -756,8 +756,151 @@ const routes = [
     meta: {
       middleware: ['hr','super-admin','admin','employee','office-head']
     }
-  }
-  
+  },
+  //
+  {
+    path: '/settings-communication/documenttypes',
+    name: 'documenttypes.index',
+    component: () => import('@/components/settings-communication/documenttypes/DocumentTypesIndex.vue'),
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    }
+  },
+  {
+    path: '/settings-communication/documenttypes/create',
+    name: 'documenttypes.create',
+    component: () => import('@/components/settings-communication/documenttypes/DocumentTypesCreate.vue'),
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    }
+  },
+  {
+    path: '/settings-communication/documenttypes/:id/edit',
+    name: 'documenttypes.edit',
+    component: () => import('@/components/settings-communication/documenttypes/DocumentTypesEdit.vue'),
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    }
+  },
+  {
+    path: '/settings-communication/classifications',
+    name: 'classifications.index',
+    component: () => import('@/components/settings-communication/classifications/ClassificationsIndex.vue'),
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    }
+  },
+  {
+    path: '/settings-communication/classifications/create',
+    name: 'classifications.create',
+    component: () => import('@/components/settings-communication/classifications/ClassificationsCreate.vue'),
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    }
+  },
+  {
+    path: '/settings-communication/classifications/:id/edit',
+    name: 'classifications.edit',
+    component: () => import('@/components/settings-communication/classifications/ClassificationsEdit.vue'),
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    }
+  },
+  {
+    path: '/settings-communication/notes',
+    name: 'notes.index',
+    component: () => import('@/components/settings-communication/notes/NotesIndex.vue'),
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    }
+  },
+  {
+    path: '/settings-communication/notes/create',
+    name: 'notes.create',
+    component: () => import('@/components/settings-communication/notes/NotesCreate.vue'),
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    }
+  },
+  {
+    path: '/settings-communication/notes/:id/edit',
+    name: 'notes.edit',
+    component: () => import('@/components/settings-communication/notes/NotesEdit.vue'),
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    }
+  },
+  {
+    path: '/settings-communication/actions',
+    name: 'actions.index',
+    component: () => import('@/components/settings-communication/actions/ActionsIndex.vue'),
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    }
+  },
+  {
+    path: '/settings-communication/actions/create',
+    name: 'actions.create',
+    component: () => import('@/components/settings-communication/actions/ActionsCreate.vue'),
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    }
+  },
+  {
+    path: '/settings-communication/actions/:id/edit',
+    name: 'actions.edit',
+    component: () => import('@/components/settings-communication/actions/ActionsEdit.vue'),
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    }
+  },
+  {
+    path: '/settings-communication/communicationgroups',
+    name: 'communicationgroups.index',
+    component: () => import('@/components/settings-communication/groups/CommunicationGroupsIndex.vue'),
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    }
+  },
+  {
+    path: '/settings-communication/communicationgroups/create',
+    name: 'communicationgroups.create',
+    component: () => import('@/components/settings-communication/groups/CommunicationGroupsCreate.vue'),
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    }
+  },
+  {
+    path: '/settings-communication/communicationgroups/:id/edit',
+    name: 'communicationgroups.edit',
+    component: () => import('@/components/settings-communication/groups/CommunicationGroupsEdit.vue'),
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    }
+  },
+  {
+    path: '/settings-communication/communicationgroups/:id/groups',
+    name: 'communicationgroups.groups',
+    component: () => import('@/components/settings-communication/groups/CommunicationGroupsAddEmployees.vue'),
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    }
+  },
+  {
+    path: '/settings-communication/editdocumentnumbering',
+    name: 'startingnumber.edit',
+    component: () => import('@/components/settings-communication/startingnumber/StartingNumber.vue'),
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    }
+  },
 ]
 
 
@@ -768,35 +911,60 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const store = useAuthStore();
-  const details = store.getdetails;
+  
+ const store = useAuthStore();
+  let userslug = null;
 
+
+
+  if(store.getdetails){
+    if(store.getdetails[1].length > 0){
+      userslug = store.getdetails[1];
+    }else{
+      userslug = 1;
+    }
+
+    
+  }
 
   const loginQuery = { path: "/login", query: { redirect: to.fullPath } };
   const notfound = { path: "/ ", query: { redirect: to.fullPath } };
   const middleware = to.meta.middleware;
 
-  let userslug = '';
+ // let userslug = '';
   var counter = 0;
 
+
   if(!middleware){
-     if(to.name == 'login.index' && details){
+
+
+     if(to.name == 'login.index' && userslug){
+
       next({name: 'recordpersonal.show'})
-     }else{
-      next()
+     }else{       
+
+        next()
+
      }
      
   }else{
-    if(!details){
+
+    if(!userslug){
       return next({name: 'login.index'});
-    }else{
-      userslug = details[1];
+    }else if(userslug == 1){
+      return next({name: 'forbidden.index'});
+    }else{   
+
       counter = 0;
 
-      if(middleware.includes(userslug)){
-        counter++;
-      }      
+      for (var i = 0; i < userslug.length; i++) {
+        if(middleware.includes(userslug[i])){
+
+          counter++;
+        }
+      }
     }
+
 
     if(counter > 0){
       next()
@@ -806,7 +974,6 @@ router.beforeEach((to, from, next) => {
 
 
   }
- 
 
 
 });

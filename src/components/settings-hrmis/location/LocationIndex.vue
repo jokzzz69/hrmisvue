@@ -66,7 +66,7 @@
 		},
 		setup(){
 			useHead({
-                title: 'Office Locations | BFAR - CAR HRMIS'
+                title: 'Settings - Office Locations | BFAR - CAR HRMIS'
             })
 			const {locations, getLocations, destroyLocation} = useLocations()
 			const searchQuery = ref("");

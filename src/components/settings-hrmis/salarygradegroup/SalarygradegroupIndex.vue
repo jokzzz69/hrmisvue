@@ -67,7 +67,7 @@
         },
 		setup(){
             useHead({
-                title: 'Salary Grades | BFAR - CAR HRMIS'
+                title: 'Settings - Salary Grades | BFAR - CAR HRMIS'
             })
             const store = useAuthStore();
             const userrole = ref(store.getdetails[1]);

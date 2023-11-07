@@ -64,7 +64,7 @@
         },
 		setup(){
             useHead({
-                title: 'Employee Status | BFAR - CAR HRMIS'
+                title: 'Settings - Employee Status | BFAR - CAR HRMIS'
             })
             const swal = inject('$swal')
             

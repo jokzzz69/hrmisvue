@@ -17,7 +17,8 @@
         </div>
 
     </div>
-    <table class="mtable hasActions mt-2 mb-2 table tbl-leave">
+    <div class="tblWrap mt-2 mb-2">
+        <table class="mtable hasActions table tbl-leave">
             <thead>
                 <tr>
                     <th>
@@ -73,7 +74,7 @@
                         </td>
                         <td @click.stop>
 
-                                <ul class="ls-frmbutton text-end" v-if="userslug == 'super-admin' || userslug == 'admin' || leaverecord.createdby == userid || leaverecord.employee_id == userid" >
+                                <ul class="ls-frmbutton text-end" v-if="userslug.includes('super-admin') || userslug.includes('admin') || leaverecord.createdby == userid || leaverecord.employee_id == userid" >
                                     <li class="mb-1">
                                         <router-link title="Edit" :to="{name: 'leaverecords.edit', params : {id: leaverecord.id}}" class="btn btn-violet"><i class="sm-icons fa-solid fa-pen-to-square"></i> <span  class="lg-text">Edit</span></router-link>
                                     </li>
@@ -85,6 +86,7 @@
                 </template>
             </tbody>
         </table>
+    </div>
 </template>
 
 <script>

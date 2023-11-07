@@ -28,20 +28,26 @@ export default function useAuthenticate(){
 
 	const currentUser = async() => {
 		axios.defaults.withCredentials = true;	
+		const pluck = (arr, key) => arr.map(i => i[key]);
 		await axios.get('/v1/api/cu',{
             	headers: {
             		'xlr': 1
             	}
             }).then(response =>{
 
-			desc.value = [
-				response.data.data.employee_id,
-				response.data.data.roles[0].slug, 
-				true,
-				response.data.data.employments[0].type_id,
-				response.data.data.permissions,
+            	if(response.data.data.userinformation){
+            		desc.value = [
+            			response.data.data.employee_id,
+            			pluck(response.data.data.roles,'slug'),
+            			true,
+            			response.data.data.employments[0].type_id,
+            			response.data.data.permissions,
+            			response.data.data.userinformation.cname
+            		];
+            	}else{
+            		desc.value = [response.data.data.employee_id,pluck(response.data.data.roles,'slug'),'Guest'];
+            	}
 
-			];
 
 			store.setdetails(desc.value);
 

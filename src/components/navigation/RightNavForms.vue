@@ -8,7 +8,7 @@
 
                 <li class="nav-link"><router-link :to="{ name: 'leavetypes.index' }">Leave Types</router-link></li>
                
-                <li class="nav-link" v-if="userslug == 'super-admin'"><router-link :to="{ name: 'leavetypesdetails.index' }">Leave Types Details</router-link></li>
+                <li class="nav-link" v-if="userslug.includes('super-admin')"><router-link :to="{ name: 'leavetypesdetails.index' }">Leave Types Details</router-link></li>
 
             </ul>
         </div>

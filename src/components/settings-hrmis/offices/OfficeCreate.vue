@@ -42,7 +42,7 @@
     export default {
         setup(){
             useHead({
-                title: 'Add Office | BFAR - CAR HRMIS'
+                title: 'Settings - Add Office | BFAR - CAR HRMIS'
             })
             const swal = inject('$swal')
 

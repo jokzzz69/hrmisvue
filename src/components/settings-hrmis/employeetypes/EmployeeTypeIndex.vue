@@ -64,7 +64,7 @@
         },
 		setup(){
             useHead({
-                title: 'Employee Types | BFAR - CAR HRMIS'
+                title: 'Settings - Employee Types | BFAR - CAR HRMIS'
             })
             const swal = inject('$swal')
             

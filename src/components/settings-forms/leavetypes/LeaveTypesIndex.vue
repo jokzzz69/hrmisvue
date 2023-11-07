@@ -41,7 +41,7 @@
                                     {{leavetype.description}}
                                 </td>
                                 <td @click.stop>
-                                    <template v-if="leavetype.createdby == userid || userslug == 'admin' || userslug == 'super-admin'">
+                                    <template v-if="leavetype.createdby == userid ||userslug.includes('admin') || userslug.includes('super-admin')">
                                         <ul class="ls-frmbutton text-end">
                                             <li><button title="delete" class="btn btn-outline-danger" @click="deleteLeaveType(leavetype.id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
                                         </ul>
@@ -71,7 +71,7 @@
         },
 		setup(){
             useHead({
-                title: 'Employee Leave Types | BFAR - CAR HRMIS'
+                title: 'Settings - Employee Leave Types | BFAR - CAR HRMIS'
             })
             const swal = inject('$swal')
             const store = useAuthStore()
