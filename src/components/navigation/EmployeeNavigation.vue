@@ -1,11 +1,11 @@
 <template>
 
 <li v-if="userslug.includes('office-head')">
-    <a href="#" class="nav-link btn-toggle align-items-center collapsed"  data-bs-toggle="collapse" data-bs-target="#empmon-collapse" aria-expanded="true">
+    <a href="#" class="nav-link btn-toggle align-items-center collapsed emplinks"  data-bs-toggle="collapse" data-bs-target="#empmon-collapse" aria-expanded="true">
       <i class="fa-solid fa-computer pe-1"></i><span>DTR Monitoring</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
     <div  class="collapse navdrpdwn" id="empmon-collapse" >
-      <ul class="btn-toggle-nav list-unstyled small">  
+      <ul class="btn-toggle-nav list-unstyled small wid--ic">  
         
         <li class="nav-link"><router-link :to="{ name: 'monitoringofficehead.index' }"><i class="fa-solid fa-users-rectangle"></i> Employees DTR</router-link></li>       
       </ul>
@@ -13,11 +13,14 @@
 </li>
 
 <li>
-    <a href="#" class="nav-link btn-toggle align-items-center collapsed"  data-bs-toggle="collapse" data-bs-target="#emprec-collapse" aria-expanded="true">
+    <a href="#" class="nav-link btn-toggle align-items-center collapsed emplinks"  data-bs-toggle="collapse" data-bs-target="#emprec-collapse" aria-expanded="true">
       <i class="fa-regular fa-id-badge pe-1"></i><span>Personal Record</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
-    <div  class="collapse navdrpdwn show" id="emprec-collapse" >
-      <ul class="btn-toggle-nav list-unstyled small">           
+    <div class="empNavTitle">
+      <span class="lblM lbl-left-nav">Personal Record</span>
+    </div>
+    <div  class="collapse navdrpdwn show empnav" id="emprec-collapse" >
+      <ul class="btn-toggle-nav list-unstyled small wid--ic">           
                       
         <li class="nav-link">
             <template v-if="userslug.includes('office-head')">
@@ -47,23 +50,19 @@
       </ul>
     </div>
 </li>
-<template v-if="id == 4">
 <li>
-    <a href="#" class="nav-link btn-toggle align-items-center collapsed"  data-bs-toggle="collapse" data-bs-target="#empf-collapse" aria-expanded="true">
-      <i class="fa-brands fa-wpforms pe-1"></i><span>Forms</span> <i class="cvright fa-solid fa-angle-right"></i>
-    </a>
-    <div  class="collapse navdrpdwn" id="empf-collapse" >
-      <ul class="btn-toggle-nav list-unstyled small">                
-        <li class="nav-link"><a href="#" class="text-danger"><i class="fa-regular fa-pen-to-square"></i> Leave Records</a></li>
-        <li class="nav-link"><a href="#" class="text-danger"><i class="fa-regular fa-pen-to-square"></i> IPCR Form</a></li>
-        <li class="nav-link"><a href="#" class="text-danger"><i class="fa-regular fa-pen-to-square"></i> COS Clearance</a></li>
-        <li class="nav-link"><a href="#" class="text-danger"><i class="fa-regular fa-pen-to-square"></i> COS Assessment</a></li>
-        <li class="nav-link"><a href="#" class="text-danger"><i class="fa-regular fa-pen-to-square"></i> Locator Slip</a></li>
+    <div class="empNavTitle">
+      <span class="lblM lbl-left-nav">Others</span>
+    </div>
+    <div  class="navdrpdwn" id="emprec-collapse" >
+      <ul class="btn-toggle-nav list-unstyled small wid--ic">           
+                      
+        <li class="nav-link">
+            <router-link :to="{ name: 'about.index' }"><i class="fa-solid fa-circle-info"></i> <span>About</span></router-link>
+        </li>
       </ul>
     </div>
 </li>
-</template>
-
 </template>
 
 <script>

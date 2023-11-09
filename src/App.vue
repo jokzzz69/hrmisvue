@@ -5,7 +5,7 @@
       <LeftNavigation/>
       <main class="content-wrap">
         <div class="container-fluid">
-          <RouterView />
+          <RouterView :key="$route.fullPath"/>
         </div>
       </main>
     </div>

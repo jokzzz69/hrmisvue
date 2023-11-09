@@ -67,8 +67,8 @@
 		    		</tr>
 		    	</thead>
 		    	<tbody>
-
-		    		<template v-for="travel in filteredTravels" :key="travel.id">
+		    		<template v-if="filteredTravels.length > 0">
+		    			<template v-for="travel in filteredTravels" :key="travel.id">
 		    			<tr>
 		    				<td v-if="userrole == 'super-admin'">
 		    					{{travel.id}}
@@ -121,6 +121,25 @@
 		    				</td>
 		    			</tr>
 		    		</template>
+		    		</template>
+		    		<template v-else>
+                <template v-if="!noData">
+                    <tr class="pr nodata">
+                        <td colspan="8">
+                            <LoadingComponent/>
+                        </td>
+                    </tr>
+                </template>
+            </template>
+            <template v-if="noData">
+                <tr class="pr nodata">
+                    <td colspan="8" class="text-center"> No Entry</td>
+
+                </tr>
+            </template>
+
+
+
 		    	</tbody>
 		    </table>
 		    </div>
@@ -137,8 +156,11 @@
 	import moment from 'moment';
 	import { useAuthStore } from '@/stores/store.js'
 	import { useHead } from '@unhead/vue'
-
+	import LoadingComponent from '@/components/loader/LoadingComponent.vue';
 	export default{
+		components: {
+			LoadingComponent
+		},
 		setup(){
 			useHead({
           title: 'Employees Travels | BFAR - CAR HRMIS'
@@ -164,8 +186,16 @@
 	            }
 			});
 
+			const noData = ref(false);
+
 			onMounted(() => {
-				getTravels()
+				getTravels().then(() =>{
+					if(travels.value.length > 0){
+              noData.value = false;
+          }else{
+              noData.value = true;
+          } 
+				})
 			})	
 			const callback = (travelemployees,searchQuery) => {	
 				const newArr = [];
@@ -243,7 +273,14 @@
         return moment(date).format('MMMM Y');
       }
       const getTravelbyMonth = async () =>{
-          await getfilteredTravels({...form});
+      		noData.value = false;
+          await getfilteredTravels({...form}).then(() =>{
+						if(travels.value.length > 0){
+		            noData.value = false;
+		        }else{
+		            noData.value = true;
+		        } 
+					});
       }
 
 			const goshow = (id) => {
@@ -272,7 +309,8 @@
 				format,
 				form,
 				userrole,
-				authid
+				authid,
+				noData
 			}
 		}
 	}

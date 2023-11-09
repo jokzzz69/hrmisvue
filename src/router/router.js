@@ -901,6 +901,170 @@ const routes = [
       middleware: ['communicationencoder','super-admin','admin']
     }
   },
+
+  {
+    path: '/allnotifications',
+    name: 'notifications.index',
+    component: () => import('@/components/cm/notifications/NotificationsIndex.vue'),
+  },
+
+  {
+    path: '/communications',
+    name: 'communications.index',
+    alias: ['/'],
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin','communicationviewer']
+    },
+    component: () => import('@/components/cm/communications/CommunicationIndex.vue')
+  },
+  {
+    path: '/communications/create',
+    name: 'communications.create',
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    },
+    component: () => import('@/components/cm/communications/CommunicationCreate.vue')
+  },
+
+  {
+    path: '/communicationsearch/:content',
+    name: 'communications.search',
+    component: () => import('@/components/cm/communications/CommunicationSearch.vue'),
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin','communicationviewer']
+    }
+  },  
+  {
+    path: '/communicationspage/:id',
+    name: 'communications.page',
+    component: () => import('@/components/cm/communications/CommunicationPage.vue'),
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin','communicationviewer']
+    }
+  },
+  {
+    path: '/communications/:id',
+    name: 'communications.show',
+    component:  () => import('@/components/cm/communications/CommunicationShow.vue'),
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin','communicationviewer']
+    }
+  },
+  {
+    path: '/draft',
+    name: 'communications-draft.index',
+    component: () => import('@/components/cm/communications-draft/CommunicationDraftIndex.vue'),
+  },
+  {
+    path: '/draft/:id',
+    name: 'communications-draft.edit',
+    component: () => import('@/components/cm/communications-draft/CommunicationDraftEdit.vue'),
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin','communicationviewer']
+    }
+  },
+  {
+    path: '/draftpage/:id',
+    name: 'communications-draftpage.show',
+    component: () => import('@/components/cm/communications-draft/CommunicationDraftPage.vue'),
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin','communicationviewer']
+    }
+  },
+  {
+    path: '/draftsearch/:content',
+    name: 'communications-draft.search',
+    component: () => import('@/components/cm/communications-draft/CommunicationDraftSearch.vue'),
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin','communicationviewer']
+    }
+  },
+
+
+  {
+    path: '/routedcommunications',
+    name: 'communications-routed.index',
+    component: () => import('@/components/cm/communications-routed/CommunicationsRoutedIndex.vue'),
+  },
+  {
+    path: '/routedcommunicationspage/:id',
+    name: 'communications-routedpage.show',
+    component: () => import('@/components/cm/communications-routed/CommunicationRoutedPage.vue'),
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin','communicationviewer']
+    }
+  },
+  {
+    path: '/routedcommunicationsedit/:id',
+    name: 'communications-routed.edit',
+    component: () => import('@/components/cm/communications-routed/CommunicationRoutedEdit.vue'),
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin','communicationviewer']
+    }
+  },
+  {
+    path: '/routedcommunicationssearch/:content',
+    name: 'communications-routed.search',
+    component: () => import('@/components/cm/communications-routed/CommunicationRoutedSearch.vue'),
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin','communicationviewer']
+    }
+  },
+
+  {
+    path: '/routedcommunications/:id',
+    name: 'communications-routed.show',
+    component: () => import('@/components/cm/communications-routed/CommunicationRoutedShow.vue'),
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin','communicationviewer']
+    }
+  },
+
+  {
+    path: '/actionstaken',
+    name: 'actionstaken.index',
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin','communicationviewer']
+    },
+    component: () => import('@/components/cm/communications-employeeactions/ActionTakenIndex.vue')
+  },
+  {
+    path: '/actionstaken/:id/edit',
+    name: 'actionstaken.edit',
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin','communicationviewer']
+    },
+    component: () => import('@/components/cm/communications-employeeactions/ActionTakenEdit.vue')
+  },
+  {
+    path: '/actionstakenpage/:id',
+    name: 'actionstaken.page',
+    component: () => import('@/components/cm/communications-employeeactions/ActionTakenPage.vue'),
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin','communicationviewer']
+    }
+  },
+  {
+    path: '/actionstakensearch/:content',
+    name: 'actionstaken.search',
+    component: () => import('@/components/cm/communications-employeeactions/ActionTakenSearch.vue'),
+    props: true,
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin','communicationviewer']
+    }
+  },
 ]
 
 

@@ -71,7 +71,7 @@ export default function useTravels(){
         }        
 
         let response = await axios.get(`/v1/api/getfilteredtravel/${newData}`);
-        travels.value = response.data.data;        
+        travels.value = response.data.data;
     }
 
 	return{

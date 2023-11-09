@@ -1,0 +1,170 @@
+<template>
+    <div class="row" :class="props.err ? 'file-attach-invalid' : ''">
+        <div class="col col-sm-12 attachedfiles">
+            <div class="border p-2 fileUploadedWrap">
+                <template v-if="attachfiledetails.uploadedfiles.length < 1">
+                    No File Attached. 
+                </template>
+ 
+                <section class="loading-area" v-if="showProgress">
+                    <div class="fileuprow" v-for="(file,index) in tempVars.files">
+                        <i class="fa-solid fa-file-lines"></i>
+                        <div class="content">
+                            <div class="details">
+                                <span class="name">{{file.name}}</span>
+                                <span class="percent">{{file.loading+'%'}}</span>
+                            </div>
+                            <div class="loading-bar">
+                                <div class="loading" :style="{width: file.loading +'%'}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="uploaded-area">
+                    <div class="fileuprow" v-for="(file,index) in attachfiledetails.uploadedfiles">
+                        <div class="content upload">
+                            <i class="fa-solid fa-file-lines"></i>
+                            <div class="details">
+                                <span class="name">{{file.name}}</span>
+                                <span class="size">{{file.size}}</span>
+                            </div>
+                        </div>
+                        <div class="uploadedicons">
+                            <i class="fa-solid fa-circle-check" title="Uploaded Successfully"></i>
+                            <button class="p-0" title="Remove" @click.prevent="removeAttached(index)"><i class="fa-regular fa-circle-xmark"></i></button>
+                        </div>
+                    </div>
+                </section>
+            </div>                
+        </div>
+
+        <div class="col col-sm-12">
+            <div class="mt-4 mainLabel">
+                <h6>Attach Files: <span class="text-danger">*</span></h6>
+            </div>
+            <span v-if="props.err" class="text-danger m-error">{{props.err}}</span>
+            <div class="drgDrp" @dragenter.prevent="toggleDrgdrpActive" @dragleave.prevent="toggleDrgdrpActive" @dragover.prevent @drop.prevent="drop" :class="{'active-drgdrp': active}">
+                <span class="icon fs-2"><i class="fa-solid fa-cloud-arrow-up"></i></span>
+                <span>Drag & Drop</span>
+                <span>OR</span>
+                <label for="drgDRpFile">Select File</label>
+                <input type="file" name="drpfiles" id="drgDRpFile" class="drgDRpFile" multiple @change="selectedFile"/>
+            </div>
+            <div id="emailHelp" class="form-text"><i>Supports: PDF, Word, Excel and Images</i></div>
+        </div>
+        
+    </div>
+</template>
+<script>
+    import { reactive,inject, ref, onMounted} from "vue";
+    import useManageFile from '@/composables/composables-managefile';
+
+
+    export default{
+        props: {
+            err: {
+                required: true,
+                type: String
+            }
+        },
+        setup(props,{emit}){
+            const showProgress = ref(true);
+            const active = ref(false);
+
+
+            const attachfiledetails = reactive({
+                'uploadedfiles': [],
+                'uploadedfileid': [],
+            });
+            const {uploadTempAttachment, attachedtemp} = useManageFile()
+
+            const tempVars = reactive({
+                'attachedfiles': [],                
+                'files': []
+            });
+
+
+            const selectedFile = async() => {
+
+               const tempSelected = document.querySelector('.drgDRpFile').files;
+
+               if(tempSelected){
+                    for (var file of tempSelected) {
+                        if(allowedExtensions.exec(file.name)){
+                            tempVars.attachedfiles.push(file);
+                        }
+                    }
+                    upLoadFile(tempVars.attachedfiles)
+               }              
+            }
+
+            const allowedExtensions = /(\.doc|\.docx|\.pdf|\.tex|\.txt|\.xlsx|\.csv|\.png|\.jpg|\.jpeg|\.tiff|\.pptx|\.pptm|\.ppt)$/i;
+
+            const drop = (e) => {
+                active.value = !active.value;       
+                if(e.dataTransfer.files){ 
+                    for (var file of e.dataTransfer.files) {
+                        if(allowedExtensions.exec(file.name)){
+                            tempVars.attachedfiles.push(file);
+                        }
+                    }
+                    upLoadFile(tempVars.attachedfiles)
+
+                }
+            }           
+            const toggleDrgdrpActive = async () =>{
+                active.value = !active.value;
+            }
+
+            const uploadConfig = {
+                onUploadProgress: ({loaded, total}) => {
+                    tempVars.files[0].loading = Math.floor((loaded / total) * 100);
+                    if(loaded == total){
+                        const fileSize = (total < 1024) ? total +' KB' : (loaded / (1024*1024)).toFixed(2)+' MB';
+                        attachfiledetails.uploadedfiles.push({name: tempVars.files[0].name, size: fileSize});   
+                        tempVars.files = [];               
+                        showProgress.value = true;                                   
+                    }                                             
+                }
+            }
+
+
+
+            const upLoadFile = async(files) =>{
+          
+                //remove from uploaded by key
+                for (var x = 0; x < files.length; x++) {
+
+                    const formData = new FormData();
+                    formData.append('file[]', files[x]);
+
+                    tempVars.files.push({name: files[x].name, loading: 0 });
+
+                    await uploadTempAttachment(formData,uploadConfig).then(res => {
+                        attachfiledetails.uploadedfileid.push(attachedtemp.value.id);
+                        emit('getUploadedFile',attachfiledetails.uploadedfileid);
+                    })
+                }
+                tempVars.attachedfiles = [];
+            }
+
+            const removeAttached = (index) => {
+                attachfiledetails.uploadedfiles.splice(index,1);
+                attachfiledetails.uploadedfileid.splice(index,1);
+            }
+             
+            return{
+                selectedFile,
+                drop,
+                toggleDrgdrpActive,
+                removeAttached,
+                active,
+                attachfiledetails,
+                showProgress,
+                tempVars,
+                props
+
+            }
+        }
+    }
+</script>

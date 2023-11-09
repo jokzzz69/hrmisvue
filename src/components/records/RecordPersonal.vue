@@ -14,14 +14,14 @@
         <div class="row mb-2">    
             <div class="col col-sm-1">
                 <div class="form-floating lblform-floating">    
-                    <span class="form-control lfc-disp" id="empid">{{officerecord.employee_id}}</span>
-                    <label for="empid" class="form-label">ID Number</label>
+                    <span class="form-control formfloatinglblT" id="empid">{{officerecord.employee_id}}</span>
+                    <span class="form-span formfloatinglblB">ID Number</span>
                 </div>
             </div>
             <div class="col mb-2">
                 <div class="form-floating lblform-floating">                    
-                    <span class="form-control lfc-disp" id="empname">{{officerecord.employee.employee_fname}} {{officerecord.employee.employee_mname}} {{officerecord.employee.employee_lname}}</span>
-                    <label for="empname" class="form-label">Name</label>
+                    <span class="form-control formfloatinglblT" id="empname">{{officerecord.employee.employee_fname}} {{officerecord.employee.employee_mname}} {{officerecord.employee.employee_lname}}</span>
+                    <span class="form-span formfloatinglblB">Name</span>
                 </div>
             </div>
             <div class="col col-sm-auto align-self-center col-edit pi-edit">
@@ -35,27 +35,27 @@
             <template v-if="officerecord.pdspersonalinformation.birthdate">
                 <div class="col mb-2">
                     <div class="form-floating lblform-floating">                    
-                        <span class="form-control lfc-disp" id="empbday">                            
+                        <span class="form-control formfloatinglblT" id="empbday">                            
                                 {{moment(officerecord.pdspersonalinformation.birthdate).format('MMMM D, YYYY')}}
                         </span>
-                        <label for="empbday" class="form-label">Birthdate</label>
+                        <span class="form-span formfloatinglblB">Birthdate</span>
                     </div>
                 </div>
             </template>
             <template v-if="officerecord.pdspersonalinformation.placeofbirth">
                 <div class="col mb-2">
                     <div class="form-floating lblform-floating">                    
-                        <span class="form-control lfc-disp" id="bdayplace">                            
+                        <span class="form-control formfloatinglblT" id="bdayplace">                            
                                 {{officerecord.pdspersonalinformation.placeofbirth}}
                         </span>
-                        <label for="bdayplace" class="form-label">Birth Place</label>
+                        <span class="form-span formfloatinglblB">Birth Place</span>
                     </div>
                 </div>
             </template>
             <template v-if="officerecord.pdspersonalinformation.sex">
                 <div class="col mb-2">
                     <div class="form-floating lblform-floating">                    
-                        <span class="form-control lfc-disp"  id="sex">                        
+                        <span class="form-control formfloatinglblT"  id="sex">                        
                                 <span v-if="officerecord.pdspersonalinformation.sex == 1">
                                     Male
                                 </span>
@@ -63,7 +63,7 @@
                                     Female
                                 </span>                                
                         </span>
-                        <label for="sex" class="form-label">Gender</label>
+                        <span class="formfloatinglblB">Gender</span>
                     </div>
                 </div>
             </template>  
@@ -77,7 +77,7 @@
         <div class="row mb-2" v-if="officerecord.pdspersonalinformation">    
             <div class="col mb-2" v-if="officerecord.pdspersonalinformation.telephone_no || officerecord.pdspersonalinformation.mobile_no">
                 <div class="form-floating lblform-floating">                    
-                    <span class="form-control lfc-disp" id="cnumber">                   
+                    <span class="form-control formfloatinglblT" id="cnumber">                   
                            <template v-if="officerecord.pdspersonalinformation.mobile_no">
                                <template v-if="checkText(officerecord.pdspersonalinformation.mobile_no)">
                                     {{officerecord.pdspersonalinformation.mobile_no}}
@@ -94,20 +94,20 @@
                                 </template>                              
                            </template>
                     </span>
-                    <label for="cnumber" class="form-label">Contact Number</label>
+                    <span class="form-span formfloatinglblB">Contact Number</span>
                 </div>
             </div>
             
             <div class="col mb-2" v-if="officerecord.pdspersonalinformation.emailaddress">
                 <div class="form-floating lblform-floating">                    
-                    <span class="form-control lfc-disp" id="emailaddress">
+                    <span class="form-control formfloatinglblT" id="emailaddress">
 
                         <template v-if="officerecord.pdspersonalinformation.emailaddress && checkText(officerecord.pdspersonalinformation.emailaddress)">
                             {{officerecord.pdspersonalinformation.emailaddress}}
                         </template>
                         
                     </span>
-                    <label for="emailaddress" class="form-label">Email Address</label>
+                    <span class="formfloatinglblB">Email Address</span>
                 </div>
             </div>
             <div class="col-auto align-self-center col-edit pi-edit" v-if="officerecord.pdspersonalinformation.emailaddress || officerecord.pdspersonalinformation.telephone_no || officerecord.pdspersonalinformation.mobile_no">
@@ -118,24 +118,24 @@
         <div class="row mb-2">    
             <div class="col mb-2">
                 <div class="form-floating lblform-floating">                    
-                    <span class="form-control lfc-disp" id="cperson">          
+                    <span class="form-control formfloatinglblT" id="cperson">          
                         <template v-if="officerecord.emergency_contactperson && checkText(officerecord.emergency_contactperson)">
                             {{officerecord.emergency_contactperson}}
                         </template>    
                         
                     </span>
-                    <label for="cperson" class="form-label">Emergency Contact Person</label>
+                    <span class="formfloatinglblB">Emergency Contact Person</span>
                 </div>
             </div>
             <div class="col mb-2">
                 <div class="form-floating lblform-floating">                    
-                    <span class="form-control lfc-disp" id="cnumber">
+                    <span class="form-control formfloatinglblT" id="cnumber">
                         <template v-if="officerecord.emergency_contactnumber && checkText(officerecord.emergency_contactnumber)">
                             {{officerecord.emergency_contactnumber}}
                         </template>
                         
                     </span>
-                    <label for="cnumber" class="form-label">Emergency Contact Number</label>
+                    <span class="formfloatinglblB">Emergency Contact Number</span>
                 </div>
             </div>
             <div class="col-auto align-self-center col-edit pi-edit">
@@ -145,10 +145,10 @@
         <div class="row mb-2" v-if="address">
             <div class="col">
                 <div class="form-floating lblform-floating">                    
-                    <span class="form-control lfc-disp" id="empresidential">
+                    <span class="form-control formfloatinglblT" id="empresidential">
                       {{address}}
                     </span>
-                    <label for="empresidential" class="form-label">Residential Address</label>
+                    <span class="formfloatinglblB">Residential Address</span>
                 </div>
             </div>
         </div>
@@ -164,14 +164,14 @@
         <div class="row mb-2">
             <div class="col mb-2" v-if="officerecord.employments">
                 <div class="form-floating lblform-floating">                    
-                    <span class="form-control lfc-disp" id="emptype">{{officerecord.employments[0].type.name}}</span>
-                    <label for="emptype" class="form-label">Type</label>
+                    <span class="form-control formfloatinglblT" id="emptype">{{officerecord.employments[0].type.name}}</span>
+                    <span class="formfloatinglblB">Type</span>
                 </div>
             </div>
             <div class="col" v-if="officerecord.employments">
                 <div class="form-floating lblform-floating">                    
-                    <span class="form-control lfc-disp mhlabel" id="empofficename">{{officerecord.employments[0].office.offices_name}}</span>
-                    <label for="empofficename" class="form-label">Office</label>
+                    <span class="form-control formfloatinglblT mhspan" id="empofficename">{{officerecord.employments[0].office.offices_name}}</span>
+                    <span class="formfloatinglblB">Office</span>
                 </div>
             </div>
         </div>
@@ -181,16 +181,16 @@
                 <div class="col mb-2" v-if="officerecord.employments[0].position_id != 0">
                     <template v-if="officerecord.employments[0].position">                    
                         <div class="form-floating lblform-floating">
-                            <span class="form-control lfc-disp" id="empposition">{{officerecord.employments[0].position.name}}</span>
-                            <label for="empposition" class="form-label">Position</label>
+                            <span class="form-control formfloatinglblT" id="empposition">{{officerecord.employments[0].position.name}}</span>
+                            <span class="formfloatinglblB">Position</span>
                         </div>
                     </template>
                 </div>  
 
                 <div class="col" v-if="officerecord.employments[0].startdate">
                     <div class="form-floating lblform-floating">                    
-                        <span class="form-control lfc-disp mhlabel" id="empsdate">{{moment(officerecord.employments[0].startdate).format('MMMM D, YYYY')}}</span>
-                        <label for="empsdate" class="form-label">Start Date</label>
+                        <span class="form-control formfloatinglblT mhspan" id="empsdate">{{moment(officerecord.employments[0].startdate).format('MMMM D, YYYY')}}</span>
+                        <span class="formfloatinglblB">Start Date</span>
                     </div>
                 </div>  
 
@@ -204,14 +204,14 @@
             <template v-if="officerecord.employments">
                 <div class="col mb-2" v-if="officerecord.employments[0].salarygrade">
                     <div class="form-floating lblform-floating">                    
-                        <span class="form-control lfc-disp" id="sgname">{{officerecord.employments[0].salarygrade.name}}</span>
-                        <label for="sgname" class="form-label">Salary Grade</label>
+                        <span class="form-control formfloatinglblT" id="sgname">{{officerecord.employments[0].salarygrade.name}}</span>
+                        <span class="formfloatinglblB">Salary Grade</span>
                     </div>
                 </div>
                 <div class="col mb-2" v-if="officerecord.employments[0].salarygradestep">                
                     <div class="form-floating lblform-floating">
-                        <span class="form-control lfc-disp mhlabel" id="sgvalue">₱ {{formatPrice(officerecord.employments[0].salarygradestep.value)}}</span>
-                        <label for="sgvalue" class="form-label">Value</label>
+                        <span class="form-control formfloatinglblT mhspan" id="sgvalue">₱ {{formatPrice(officerecord.employments[0].salarygradestep.value)}}</span>
+                        <span class="formfloatinglblB">Value</span>
                     </div>
                 </div>  
             </template>

@@ -26,12 +26,22 @@ import SecureLS from "secure-ls";
 import App from './App.vue'
 
 import vSelect from 'vue-select'
+import directives from "./directives/index";
+import screenresizedirective from "./directives/screenResize";
+
+import Echo from 'laravel-echo';
+
 
 axios.defaults.baseURL = 'http://localhost:8000'
 //axios.defaults.baseURL = 'https://hrmis.bfarcar.da.gov.ph'
 
+const liveBr = ''; //add v1
 const head = createHead()
 const app = createApp(App)
+
+directives(app);
+screenresizedirective(app);
+
 const pinia = createPinia()
 const ls = new SecureLS({encodingType: 'des',isCompression: false, encryptionSecret: 'x7i55ebK@aS!Sgzx'});
 pinia.use(piniaPluginPersistedstate);
@@ -44,6 +54,33 @@ pinia.use(piniaPluginPersistedstate);
 //     removeItem: key => ls.removeAll()
 //   }
 // }))
+
+
+window.Echo = new Echo({
+	broadcaster: 'pusher',
+    //live: 3bde0cd24971da05b5b4
+    //lcocal: 4dfbd2c7269d43b99ae8
+    key: '4dfbd2c7269d43b99ae8',
+    cluster: 'ap1',
+    forceTLS: true,
+    authorizer: (channel, options) => {
+      return {
+        authorize: (socketId, callback) => {
+          axios.defaults.withCredentials = true;
+          axios.post(liveBr+'/broadcasting/auth',{
+              socket_id: socketId,
+              channel_name: channel.name,
+            }).then((response) => {
+              callback(false, response.data);
+            })
+            .catch((error) => {
+              callback(true, error);
+            });
+        },
+      };
+    }
+});
+
 
 app.use(pinia)
 .use(VueSweetalert2)

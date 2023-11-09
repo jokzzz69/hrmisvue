@@ -16,7 +16,9 @@
                 </div>
                 
             </li>
-            
+            <li class="nav-item dropdown" v-if="userslug.includes('communicationencoder') || userslug.includes('communicationviewer') || userslug.includes('super-admin') || userslug.includes('admin')">
+                <Notifications/>
+            </li>
             <li class="nav-item dropdown">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{loggedinName}}</a>
 
@@ -44,19 +46,22 @@
     import useEventsBus from '@/components/helper/Eventbus';
     import {watch,ref, onMounted} from 'vue';
     import { useNavigationStore } from '@/stores/navigationstore.js';
-    
-    
+    import { useAuthStore } from '@/stores/store.js'
+    import Notifications from '@/components/cm/notifications/Notifications.vue';
 
 	export default{
-
+        components: {
+            Notifications
+        },
 		setup(){
 			const {bus,emit}=useEventsBus()
 			const {logout} = useAuthenticate();
             const loggedinName = ref();
             const shown = ref();
+            const store = useAuthStore();
             const navigationstore = useNavigationStore();
             
-
+            const userslug = ref(store.details[1]);
 
             watch(()=>bus.value.get('userLoggedIn'), (val) => {
                 [loggedinName.value] = val ?? []
@@ -119,7 +124,8 @@
                 loggedinName,
                 newDate,
                 newTime,
-                displayleftnav
+                displayleftnav,
+                userslug
 			}
 		}
 	}

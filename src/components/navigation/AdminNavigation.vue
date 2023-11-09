@@ -1,25 +1,9 @@
 <template>
+
   <li>
-    <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#communications" aria-expanded="true"><i class="fa-solid fa-tower-cell"></i> <span>Communications</span> <i class="cvright fa-solid fa-angle-right"></i>
+    <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#employeerecords-collapse" aria-expanded="true"><i class="fa-solid fa-users-rectangle"></i> <span>Employees Records</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
-    <div class="collapse navdrpdwn show" id="communications" style="">
-      <ul class="btn-toggle-nav list-unstyled small">
-          <li class="nav-link"><router-link :to="{ name: 'monitoring.index' }"><i class="fa-solid fa-envelope-open-text"></i> <span>Incoming</span></router-link></li>
-          <li class="nav-link"><router-link :to="{ name: 'record.index'}"><i class="fa-regular fa-paper-plane"></i> <span>Routed</span></router-link></li>
-          
-          <li class="nav-link"><router-link :to="{ name: 'pds.index'}"><i class="fa-solid fa-person-digging"></i> <span>Actions Taken</span></router-link></li>
-
-          <li class="nav-link"><router-link :to="{name: 'travels.index'}"><i class="fa-regular fa-file-lines"></i> <span>Draft</span></router-link></li>
-      </ul>
-    </div>          
-  </li>
-
-
-  
-    <li>
-    <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#employeerecords-collapse" aria-expanded="false"><i class="fa-solid fa-users-rectangle"></i> <span>Employees Records</span> <i class="cvright fa-solid fa-angle-right"></i>
-    </a>
-    <div class="collapse navdrpdwn" id="employeerecords-collapse" style="">
+    <div class="collapse navdrpdwn show" id="employeerecords-collapse" style="">
       <ul class="btn-toggle-nav list-unstyled small">
           <li class="nav-link"><router-link :to="{ name: 'monitoring.index' }">Employees DTR</router-link></li>
           <li class="nav-link"><router-link :to="{ name: 'record.index'}">Employees Information</router-link></li>
@@ -82,7 +66,7 @@
     <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#setting-collapse" aria-expanded="false"><i class="fa-solid fa-gear"></i> <span>Settings</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
     <div  class="collapse navdrpdwn" id="setting-collapse" >
-      <ul class="btn-toggle-nav list-unstyled small">             
+      <ul class="btn-toggle-nav list-unstyled small wid--ic">             
         <li class="nav-link"><router-link :to="{ name: 'offices.index' }"><i class="fa-solid fa-sitemap"></i> HRMIS</router-link></li>
         <li class="nav-link"><router-link :to="{ name: 'leavetypes.index' }"><i class="fa-brands fa-wpforms"></i> Forms</router-link></li>
         <li class="nav-link"><router-link :to="{ name: 'documenttypes.index' }"><i class="fa-solid fa-sliders"></i> Communication</router-link></li>
@@ -91,10 +75,10 @@
 </li>
 <li>
     <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed"  data-bs-toggle="collapse" data-bs-target="#admin-collapse" aria-expanded="false">
-      <i class="fa-solid fa-user-secret"></i><span>Admin</span> <i class="cvright fa-solid fa-angle-right"></i>
+      <i class="fa-solid fa-user-secret"></i> <span>Admin</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
     <div  class="collapse navdrpdwn" id="admin-collapse" >
-      <ul class="btn-toggle-nav list-unstyled small">
+      <ul class="btn-toggle-nav list-unstyled small wid--ic">
         
         <li class="nav-link"><router-link :to="{ name: 'users.index' }"><i class="fa-solid fa-users-line"></i> Users</router-link></li>
         <li class="nav-link"><router-link :to="{ name: 'logs.index' }"><i class="fa-regular fa-file-lines"></i> Logs</router-link></li>
