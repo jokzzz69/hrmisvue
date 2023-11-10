@@ -50,7 +50,16 @@
 							</ul>
 
 						</div>
+						<div class="action--taken--attachments">
+						<template v-if="actiontaken.attachments">
+				            <template v-if="actiontaken.attachments.length > 0">
+				                <AttachmentPreview :files="actiontaken.attachments"/>
+				            </template>
+				        </template>
 					</div>
+					</div>
+
+					
 				</div>
 
 			</template>
@@ -79,10 +88,12 @@
 	import Echo from 'laravel-echo'
 	import axios from 'axios';
 	import {useNotificationStore} from '@/stores/notificationstore.js';
+	import AttachmentPreview from '@/components/cm/reusables/AttachmentPreview.vue';
 
 	export default{
 		components: {
-			LoadingComponentDiv
+			LoadingComponentDiv,
+			AttachmentPreview
 		},
 		props: {
 			id : {

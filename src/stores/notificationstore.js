@@ -19,7 +19,6 @@ export const useNotificationStore = defineStore('nsn', {
             }).then((response) => {
             	this.total.__nc = response.data.__nc;
             	this.total.__rc = response.data.__rc;
-            	console.log(response);
             });
 		}
 	},

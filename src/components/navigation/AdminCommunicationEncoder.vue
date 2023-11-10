@@ -6,7 +6,7 @@
       <ul class="btn-toggle-nav list-unstyled small wid--ic">
           <li class="nav-link">
             <router-link :to="{ name: 'communications.create' }" class="btn btn-blue w-100 mt-2 new__commBTN"> 
-              <i class="fa-solid fa-pen-fancy"></i> New Communication
+              <i class="fa-solid fa-plus"></i> New Communication
             </router-link>
           </li>
           <li class="nav-link w__c">

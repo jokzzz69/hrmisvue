@@ -25,7 +25,7 @@
         							<span class="fs-5 text-white">No Preview Available</span>
         						</div>
         						<div class="col-12 text-center" @click.prevent.stop>
-        							<button @click.prevent="downloadfile" class="btn btn-blue"><i class="fa-solid fa-download"></i> Download</button>
+        							<button @click.prevent="downloadfile" class="btn btn-semiblue"><i class="fa-solid fa-download"></i> Download</button>
         						</div>
 	        				</div>
 						</div>			        	

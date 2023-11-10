@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col pAgeEmail--title">
             <ul class="d-flex list-unstyled align-items-center mh-45 mb-2">
-                <li class="col col-auto me-4"><h2 class="ps-1">Sent Edit</h2></li>
+                <li class="col col-auto me-4"><h2 class="ps-1">Routed Edit</h2></li>
             </ul>
             <div class="btn--backWrap mb-1 btn--backWrap--edit">
                 <button title="Return Back / Cancel" class="btn btn__back" @click.prevent="$router.go(-1)"><i class="fa-solid fa-arrow-left"></i></button>
@@ -161,7 +161,7 @@
                     <template v-if="showReturnForward">
                          <ul class="list-unstyled">
                              <li><p class="mb-0">Return / Forward to:</p></li>
-                             <li><v-select multiple class="rforwardto" placeholder="Select Employee" v-model="communicationform.notesreturnforward" :reduce="users => users.id" :options="users"/></li>
+                             <li><v-select multiple class="rforwardto" placeholder="Select Employee" v-model="communicationform.notesreturnforward" :reduce="employees => employees.id" :options="employees"/></li>
                          </ul>
                     </template>
 
@@ -223,12 +223,12 @@
     import useClassifications from '@/composables/composables-classifications';
     import useNotes from '@/composables/composables-notes';
     import useActions from '@/composables/composables-actions';
-    import useUsers from '@/composables/composables-users';
+
     import 'vue-select/dist/vue-select.css';
     import {useRouter} from 'vue-router'
     import moment from 'moment';
     import useManageFile from '@/composables/composables-managefile';
-
+    import useEmployees from '@/composables/composables-employees';
 
     export default {
         components: {
@@ -250,7 +250,9 @@
             const {communicationgroups, getCommunicationGroups} = useCommunicationGroups()
             const {notes, getNotes} = useNotes()
             const {actions, getActions} = useActions()
-            const { users, getCommunicationUsers} = useUsers()
+   
+            const {employees, getEmployeeOptions} = useEmployees()
+
             const torInclusive = ref(false);
             const {uploadTempAttachment, attachedtemp} = useManageFile()
             
@@ -357,7 +359,7 @@
                 }),
                 getNotes(),
                 getActions(),
-                getCommunicationUsers()
+                getEmployeeOptions()
 
             })
 
@@ -544,7 +546,7 @@
                 showReturnForward,
                 showCheckInclusiveDate,
                 filterNonNumeric,
-                users,
+                employees,
                 checkInclusive,
                 torInclusive,
                 props,

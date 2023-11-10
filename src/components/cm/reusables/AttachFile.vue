@@ -116,6 +116,7 @@
                             attachfiledetails.attachedfiles.push(file);
                         }
                     }
+
                     upLoadFile(attachfiledetails.attachedfiles)
                }              
             }
@@ -162,7 +163,7 @@
             const upLoadFile = async(files) =>{
             	disabledbutton.value = true;
                 for (var x = 0; x < files.length; x++) {
-                	
+   
                 	if(!attachfiledetails.files[x]){
                 		const formData = new FormData();
 	                    formData.append('file[]', files[x]);
@@ -208,6 +209,7 @@
        				attachfiledetails.files.push({name: props.attachments[i].name, size: props.attachments[i].size, loading: 100});
 
            		}
+      
            })
 
  
