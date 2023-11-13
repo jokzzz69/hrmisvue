@@ -57,82 +57,103 @@
 			    		</tr>
 			    	</thead>
 			    	<tbody>
-			    		<template v-for="officerecord in filteredOfficeRecords" :key="officerecord.employee_id">
+			    		<template v-if="filteredOfficeRecords.length > 0">
+			    			<template v-for="officerecord in filteredOfficeRecords" :key="officerecord.employee_id">
 
-			    			<tr @click="goshow(officerecord.employee_id)">
-			    				<td>
-			    					<template v-if="officerecord.employee">
-			    						{{officerecord.employee.employee_id}}
-			    					</template>
-			    				</td>
-			    				<td class="ttc"> 	
-			    					<template v-if="officerecord.employee">
-			    						<template v-if="officerecord.employee.employee_fname">
-				    						<template v-if="checkText(officerecord.employee.employee_fname)">{{ officerecord.employee.employee_fname}}&nbsp;</template>
-				    					</template>		
-				    					<template v-if="officerecord.employee.employee_mname">
-				    						<template v-if="officerecord.employee.employee_mname.replace(/ /g, '').length > 1">
-					    						<template v-if="checkText(officerecord.employee.employee_mname)">{{ officerecord.employee.employee_mname.charAt(0).toUpperCase() }}. </template>
+				    			<tr @click="goshow(officerecord.employee_id)">
+				    				<td>
+				    					<template v-if="officerecord.employee">
+				    						{{officerecord.employee.employee_id}}
+				    					</template>
+				    				</td>
+				    				<td class="ttc"> 	
+				    					<template v-if="officerecord.employee">
+				    						<template v-if="officerecord.employee.employee_fname">
+					    						<template v-if="checkText(officerecord.employee.employee_fname)">{{ officerecord.employee.employee_fname}}&nbsp;</template>
+					    					</template>		
+					    					<template v-if="officerecord.employee.employee_mname">
+					    						<template v-if="officerecord.employee.employee_mname.replace(/ /g, '').length > 1">
+						    						<template v-if="checkText(officerecord.employee.employee_mname)">{{ officerecord.employee.employee_mname.charAt(0).toUpperCase() }}. </template>
+						    					</template>
 					    					</template>
-				    					</template>
-				    					
-				    					<template v-if="officerecord.employee.employee_lname">
-				    						<template v-if="checkText(officerecord.employee.employee_lname)">{{officerecord.employee.employee_lname}}&nbsp;</template>
-				    					</template>
-				    					<template v-if="officerecord.employee.employee_extname">
-				    						<template v-if="checkText(officerecord.employee.employee_extname)">{{officerecord.employee.employee_extname}}</template>
-				    					</template>	
-			    					</template>			
-			    				</td>
-			    				<td class="ttc">
-			    					{{officerecord.emergency_contactperson}}<template v-if="officerecord.emergency_contactnumber"><br/>0{{officerecord.emergency_contactnumber}}</template>
-			    				</td>
-			    				 <td>
-			    				 	<template v-if="officerecord.employments.length > 0">
-			    				 		<template v-if="officerecord.employments[0].type">
-			    				 			{{officerecord.employments[0].type.name}}
-			    				 		</template>		    				 		
-			    				 	</template>
-			    				 </td>
-			    				 <td>
-			    				 	<template v-if="officerecord.employments.length > 0">
-			    				 		<template v-if="officerecord.employments[0].status">
-			    				 			{{officerecord.employments[0].status.name}}
-			    				 		</template>		    				 		
-			    				 	</template>	
-			    				 </td>
-			    				 <td>
-			    				 	<template v-if="officerecord.employments.length > 0">
-			    				 		<template v-if="officerecord.employments[0].position">
-			    				 			{{officerecord.employments[0].position.name}}
-			    				 		</template>		    				 		
-			    				 	</template>
-			    				 </td>
-				    			<td>
-				    				<template v-if="officerecord.employments.length > 0">
-			    				 		<template v-if="officerecord.employments[0].office">
-			    				 			{{officerecord.employments[0].office.offices_name}}
-			    				 		</template>		    				 		
-			    				 	</template>
-				    			</td>
-				    			<td>
-				    				<template v-if="officerecord.employments.length > 0">
-			    				 		<template v-if="officerecord.employments[0].startdate">
-			    				 			{{moment(new Date(officerecord.employments[0].startdate)).format('MMMM D, Y')}}
-			    				 		</template>		    				 		
-			    				 	</template>
-				    			</td>
-				    			<td @click.stop class="tblcolwid--2btn">
-
-				    				<ul class="ls-frmbutton text-end">
-				    					<li class="me-1 mb-1" v-if="authid != officerecord.employee_id">
-				    						<button class="btn btn-dyellow" @click="archiveEmployee(officerecord.employee_id,officerecord.employments[0].status.id)"><i class="fa-solid fa-box-archive"></i> Archive</button>
-				    					</li>
-		                                <li  v-if="userrole == 'super-admin'"><button title="delete" class="btn btn-outline-danger" @click="deleteOfficeRecord(officerecord.employee_id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
-		                            </ul>
-				    			</td>
-			    			</tr>
+					    					
+					    					<template v-if="officerecord.employee.employee_lname">
+					    						<template v-if="checkText(officerecord.employee.employee_lname)">{{officerecord.employee.employee_lname}}&nbsp;</template>
+					    					</template>
+					    					<template v-if="officerecord.employee.employee_extname">
+					    						<template v-if="checkText(officerecord.employee.employee_extname)">{{officerecord.employee.employee_extname}}</template>
+					    					</template>	
+				    					</template>			
+				    				</td>
+				    				<td class="ttc">
+				    					{{officerecord.emergency_contactperson}}<template v-if="officerecord.emergency_contactnumber"><br/>0{{officerecord.emergency_contactnumber}}</template>
+				    				</td>
+				    				 <td>
+				    				 	<template v-if="officerecord.employments.length > 0">
+				    				 		<template v-if="officerecord.employments[0].type">
+				    				 			{{officerecord.employments[0].type.name}}
+				    				 		</template>		    				 		
+				    				 	</template>
+				    				 </td>
+				    				 <td>
+				    				 	<template v-if="officerecord.employments.length > 0">
+				    				 		<template v-if="officerecord.employments[0].status">
+				    				 			{{officerecord.employments[0].status.name}}
+				    				 		</template>		    				 		
+				    				 	</template>	
+				    				 </td>
+				    				 <td>
+				    				 	<template v-if="officerecord.employments.length > 0">
+				    				 		<template v-if="officerecord.employments[0].position">
+				    				 			{{officerecord.employments[0].position.name}}
+				    				 		</template>		    				 		
+				    				 	</template>
+				    				 </td>
+					    			<td>
+					    				<template v-if="officerecord.employments.length > 0">
+				    				 		<template v-if="officerecord.employments[0].office">
+				    				 			{{officerecord.employments[0].office.offices_name}}
+				    				 		</template>		    				 		
+				    				 	</template>
+					    			</td>
+					    			<td>
+					    				<template v-if="officerecord.employments.length > 0">
+				    				 		<template v-if="officerecord.employments[0].startdate">
+				    				 			{{moment(new Date(officerecord.employments[0].startdate)).format('MMMM D, Y')}}
+				    				 		</template>		    				 		
+				    				 	</template>
+					    			</td>
+					    			<td @click.stop class="tblcolwid--2btn">
+					    				<ul class="ls-frmbutton text-end">
+					    					<li class="me-1 mb-1" v-if="authid != officerecord.employee_id">
+					    						<button class="btn btn-dyellow" @click="archiveEmployee(officerecord.employee_id,officerecord.employments[0].status.id)"><i class="fa-solid fa-box-archive"></i> Archive</button>
+					    					</li>
+			                                <li  v-if="userrole == 'super-admin'"><button title="delete" class="btn btn-outline-danger" @click="deleteOfficeRecord(officerecord.employee_id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
+			                            </ul>
+					    			</td>
+				    			</tr>
+				    		</template>
 			    		</template>
+			    		<template v-else>
+                            <template v-if="!noData">
+                                <tr class="pr nodata">
+                                	<td colspan="9">
+	                                	<template v-if="searchQuery && !filteredOfficeRecords.length">               
+					                    	No Result Found		                
+					                    </template>
+	                                    <template v-else>                                    	
+		                                    <LoadingComponent/>
+	                                    </template>
+                                	</td>
+                                </tr>
+                            </template>
+                        </template>
+                        <template v-if="noData">                                
+                            <tr class="nodata pr">
+                                <td colspan="9"><span class="nodata">Record is Empty </span>
+                                </td>
+                            </tr>
+                        </template>
 			    	</tbody>
 			    </table>
 		    </div>
@@ -149,8 +170,12 @@
 	import moment from 'moment';
 	import { useAuthStore } from '@/stores/store.js'
 	import { useHead } from '@unhead/vue'
+	import LoadingComponent from '@/components/loader/LoadingComponent.vue';
 
 	export default{
+		components: {
+			LoadingComponent
+		},
 		setup(){
 			useHead({
 	            title: 'Employees Information | BFAR - CAR HRMIS'
@@ -171,8 +196,16 @@
 			const arrowIconName = ref("arrow_drop_up");			
 
 			const swal = inject('$swal')
+			const noData = ref(false)
+
 			onMounted(() => {
-				getOfficerecords()
+				getOfficerecords().then(() =>{
+					if(officerecords.value.length > 0){
+                        noData.value = false;
+                    }else{
+                        noData.value = true;
+                    }
+				})
 			})		
 
 			const archiveForm = reactive({
@@ -435,7 +468,8 @@
 				archiveEmployee,
 				moment,
 				userrole,
-				authid
+				authid,
+				noData
 			}
 		}
 	}

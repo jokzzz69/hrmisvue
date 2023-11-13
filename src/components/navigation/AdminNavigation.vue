@@ -48,7 +48,7 @@
   </li>
 
 <li>
-   <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#generate-reportcollapse" aria-expanded="false"><i class="fa-solid fa-users-gear"></i><span>Generate Report</span> <i class="cvright fa-solid fa-angle-right"></i>
+   <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#generate-reportcollapse" aria-expanded="false"><i class="fa-solid fa-users-gear"></i><span> Generate Report</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
     <div class="collapse navdrpdwn" id="generate-reportcollapse">
       <ul class="btn-toggle-nav list-unstyled small">

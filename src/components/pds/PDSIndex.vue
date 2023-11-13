@@ -29,34 +29,55 @@
 			    		</tr>
 			    	</thead>
 			    	<tbody>
-			    		<template v-for="employee in filteredEmployees" :key="employee.employee_id">
-			
-			    				<tr @click="goshow(employee.employee_id)">			
-								
-			    				<td class="ttc">{{employee.cname}}</td>
-			    				<td>
-			    					<template v-if="employee.pdspersonalinformation">		
-			    						<template v-if="employee.pdspersonalinformation.updated_at">
-			    							{{moment(employee.pdspersonalinformation.updated_at).format('LLLL')}}
-			    						</template>
-			    					</template>
-			    				</td>
-				    			<td @click.stop>
-				    				<ul class="ls-frmbutton text-end">
-				    					<li>
-				    						<button class="btn btn-download btn-outline-danger" @click.prevent="downloadselectedpds(employee.employee_id, employee.cname)">
-				    							Download
-				    						</button>
-				    					</li>
-		                               	<li v-if="userrole == 'super-admin'" >
-	                                        <button title="Reset Data" class="btn btn-teal" @click="resetPDS(employee.employee_id)">
-	                                            <i class="fa-solid fa-eraser"></i> Reset
-	                                        </button>
-	                                    </li>                               	
-		                            </ul>
-				    			</td>
-			    			</tr>
+			    		<template v-if="filteredEmployees.length > 0">
+			    			<template v-for="employee in filteredEmployees" :key="employee.employee_id">			
+				    			<tr @click="goshow(employee.employee_id)">
+				    				<td class="ttc">{{employee.cname}}</td>
+				    				<td>
+				    					<template v-if="employee.pdspersonalinformation">		
+				    						<template v-if="employee.pdspersonalinformation.updated_at">
+				    							{{moment(employee.pdspersonalinformation.updated_at).format('LLLL')}}
+				    						</template>
+				    					</template>
+				    				</td>
+					    			<td @click.stop>
+					    				<ul class="ls-frmbutton text-end">
+					    					<li>
+					    						<button class="btn btn-download btn-outline-danger" @click.prevent="downloadselectedpds(employee.employee_id, employee.cname)">
+					    							Download
+					    						</button>
+					    					</li>
+			                               	<li v-if="userrole == 'super-admin'" >
+		                                        <button title="Reset Data" class="btn btn-teal" @click="resetPDS(employee.employee_id)">
+		                                            <i class="fa-solid fa-eraser"></i> Reset
+		                                        </button>
+		                                    </li>                               	
+			                            </ul>
+					    			</td>
+				    			</tr>
+				    		</template>
 			    		</template>
+			    		<template v-else>
+                            <template v-if="!noData">
+                                <tr class="pr nodata">
+                                	<td colspan="3">
+	                                	<template v-if="searchQuery && !filteredEmployees.length">               
+					                    	No Result Found		                
+					                    </template>
+	                                    <template v-else>                                    	
+		                                    <LoadingComponent/>
+	                                    </template>
+                                	</td>
+                                </tr>
+                            </template>
+                        </template>
+                        <template v-if="noData">                                
+                            <tr class="nodata pr">
+                                <td colspan="3"><span class="nodata">PDS is Empty </span>
+                                </td>
+                            </tr>
+                        </template>
+
 			    	</tbody>
 			    </table>
 		    </div>
@@ -78,11 +99,11 @@
 	import moment from 'moment'
 	import { useAuthStore } from '@/stores/store.js'
 	import { useHead } from '@unhead/vue'
-
+	import LoadingComponent from '@/components/loader/LoadingComponent.vue';
 	export default{
 		components: {
 	        PDSPreviewPage1,
-
+	        LoadingComponent
 	    },
 		setup(){
 			useHead({
@@ -111,7 +132,17 @@
 				showModal.value = true;
 				previewID.value = id;
 			}
-			onMounted(getEmployees)		
+			const noData = ref(false)
+
+			onMounted(() =>{
+				getEmployees().then(() => {
+					if(employees.value.length > 0){
+                        noData.value = false;
+                    }else{
+                        noData.value = true;
+                    }
+				})
+			})		
 
 
 			const filteredEmployees = computed(function(){
@@ -246,7 +277,8 @@
 				checkText,
 				authid,
 				userrole,
-				downloadselectedpds
+				downloadselectedpds,
+				noData
 			}
 		}
 	}

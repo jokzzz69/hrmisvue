@@ -80,7 +80,7 @@
                         <template v-else>
                             <template v-if="!noData">
                                 <tr class="pr nodata">
-                                    <td colspan="6">
+                                    <td colspan="7">
                                         <LoadingComponent/>
                                     </td>
                                 </tr>
@@ -88,7 +88,7 @@
                         </template>
                         <template v-if="noData">
                             <tr class="nodata">
-                                <td colspan="6 text-center"> No Results Found</td>
+                                <td colspan="7" class="text-center"> No Results Found</td>
                             </tr>
                         </template>
                     </tbody>
@@ -105,7 +105,7 @@
     import {useRouter} from 'vue-router'
     import moment from 'moment'
     import {formatmaildate} from '@/helper/formatmaildate'
-    import TooltipArr from "@/components/reusables/TooltipArr.vue";
+    import TooltipArr from "@/components/cm/reusables/TooltipArr.vue";
     import LoadingComponent from '@/components/loader/LoadingComponent.vue';
 
     export default{

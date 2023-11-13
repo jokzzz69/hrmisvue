@@ -32,9 +32,22 @@
        <template v-else-if="userslug.includes('employee') || userslug.includes('office-head')">
          <EmployeeNavigation/>
        </template>
-        <li v-if="userslug.includes('super-admin') || userslug.includes('admin') || userslug.includes('hr')">
-            <router-link :to="{ name: 'about.index' }" class="nav-link"><i class="fa-solid fa-circle-info"></i> <span>About</span></router-link>
-        </li>
+
+       <li v-if="userslug.includes('super-admin') || userslug.includes('admin')  || userslug.includes('hr')">
+         <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#about" aria-expanded="false"><i class="fa-solid fa-circle-info"></i><span> About</span> <i class="cvright fa-solid fa-angle-right"></i>
+          </a>
+          <div class="collapse navdrpdwn" id="about">
+            <ul class="btn-toggle-nav list-unstyled small">
+                <li class="nav-link">
+                  <router-link  :to="{ name: 'about.index' }"> HRMIS</router-link>
+                </li>      
+                <li class="nav-link">
+                  <router-link  :to="{ name: 'aboutcms.index' }"> CMDTS</router-link>
+                </li>
+            </ul>
+          </div>        
+      </li>
+
       </ul>
   </nav>
   </aside>

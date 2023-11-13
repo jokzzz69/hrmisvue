@@ -34,39 +34,61 @@
             </thead>
 
             <tbody>
-                <template v-for="archive in filteredArchives" :key="archive.id">
-                    <tr>
-                        <td>
-                            <template v-if="archive.name">
-                               {{ archive.name}}
-                            </template>
+                <template v-if="filteredArchives.length > 0">
+                    <template v-for="archive in filteredArchives" :key="archive.id">
+                        <tr>
+                            <td>
+                                <template v-if="archive.name">
+                                   {{ archive.name}}
+                                </template>
 
-                        </td>
-                        <td>
-                            <template v-if="archive.created_at">
-                                {{moment(archive.created_at).format('LLLL')}}
-                            </template>                         
-                        </td>
-                        <td class="text-end">
-                            <ul class="ls-frmbutton">
-                                <li>
-                                    <router-link :to="{ name: 'archives.restore', params: { id: archive.id } }" class="btn btn-outline-secondary" title="Restore"><i class="fa-solid fa-trash-can-arrow-up"></i> <span class="actionText">Restore</span>
-                                    </router-link>
-                                </li>
-                                <li>
-                                    <button class="btn btn-violet" @click="showEmployment(archive.id,archive.name)" title="View Employment"> 
-                                        <i class="fa-solid fa-person-digging"></i> <span class="btn-txtspan">View Employment</span>
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="btn btn-outline-danger" title="View PDS"  @click="showModalPDS(archive.id,archive.name)"> 
-                                        <i class="fa-regular fa-file-lines"></i> <span class="btn-txtspan">View PDS</span>
-                                    </button>
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>
+                            </td>
+                            <td>
+                                <template v-if="archive.created_at">
+                                    {{moment(archive.created_at).format('LLLL')}}
+                                </template>                         
+                            </td>
+                            <td class="text-end">
+                                <ul class="ls-frmbutton">
+                                    <li>
+                                        <router-link :to="{ name: 'archives.restore', params: { id: archive.id } }" class="btn btn-outline-secondary" title="Restore"><i class="fa-solid fa-trash-can-arrow-up"></i> <span class="actionText">Restore</span>
+                                        </router-link>
+                                    </li>
+                                    <li>
+                                        <button class="btn btn-violet" @click="showEmployment(archive.id,archive.name)" title="View Employment"> 
+                                            <i class="fa-solid fa-person-digging"></i> <span class="btn-txtspan">View Employment</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button class="btn btn-outline-danger" title="View PDS"  @click="showModalPDS(archive.id,archive.name)"> 
+                                            <i class="fa-regular fa-file-lines"></i> <span class="btn-txtspan">View PDS</span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </template>
                 </template>
+                <template v-else>
+                            <template v-if="!noData">
+                                <tr class="pr nodata">
+                                    <td colspan="3">
+                                        <template v-if="searchQuery && !filteredOfficeRecords.length">               
+                                            No Result Found                     
+                                        </template>
+                                        <template v-else>                                       
+                                            <LoadingComponent/>
+                                        </template>
+                                    </td>
+                                </tr>
+                            </template>
+                        </template>
+                        <template v-if="noData">                                
+                            <tr class="nodata pr">
+                                <td colspan="3"><span class="nodata">Archive is Empty </span>
+                                </td>
+                            </tr>
+                        </template>
             </tbody>
         </table>   
        </div>
@@ -112,14 +134,15 @@
     import { useAuthStore } from '@/stores/store.js'
     import usePDS from '@/composables/composables-pds';
     import { useHead } from '@unhead/vue'
-
+    import LoadingComponent from '@/components/loader/LoadingComponent.vue';
 	export default{
         components: {
             ArchivePDSPage1,
             ArchivePDSPage2,
             ArchivePDSPage3,
             ArchivePDSPage4,
-            ArchiveEmployment
+            ArchiveEmployment,
+            LoadingComponent
         },
 		setup(){
             useHead({
@@ -143,9 +166,16 @@
             const typecontent = ref(0);
             const modaltitle = ref('');            
             const router = useRouter()
-			
+			const noData = ref(false)
+
             onMounted(() => {
-                getArchives()
+                getArchives().then(() =>{
+                    if(archives.value.length > 0){
+                        noData.value = false;
+                    }else{
+                        noData.value = true;
+                    }
+                })
 
             })
 
@@ -229,7 +259,8 @@
                 typecontent,
                 authid,
                 userrole,
-                dlArchivePDS
+                dlArchivePDS,
+                noData
 			}
 		}
 	}

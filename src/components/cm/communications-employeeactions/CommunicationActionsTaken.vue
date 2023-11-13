@@ -147,7 +147,7 @@
                 if (x > 0) {
 
                     await destroyActionTaken(id);
-                    await getActionTaken(props.id).then(() => {
+                    await getActionTaken(props.id,config).then(() => {
                         swal.fire({
                             toast: true,
                             position: 'top-end',
@@ -196,7 +196,12 @@
                 }
             })
             const reloadActionsTakenList = async() =>{
-            	getActionTaken(props.id).then(() =>{
+            	const cf = {
+	                headers: {
+	                    'xlr': 1
+	                }
+	            }
+            	getActionTaken(props.id,cf).then(() =>{
 					checkifdata()
 				});
             }
@@ -219,6 +224,7 @@
 					form.defaultmessage = '';
 				});
 			}
+
 			return{
 				actionstaken,
 				profileimageurl,

@@ -69,76 +69,79 @@
 		    	<tbody>
 		    		<template v-if="filteredTravels.length > 0">
 		    			<template v-for="travel in filteredTravels" :key="travel.id">
-		    			<tr>
-		    				<td v-if="userrole == 'super-admin'">
-		    					{{travel.id}}
-		    				</td>
-		    				<td>
-		    					<template v-if="travel.travelemployees">
+			    			<tr>
+			    				<td v-if="userrole == 'super-admin'">
+			    					{{travel.id}}
+			    				</td>
+			    				<td>
+			    					<template v-if="travel.travelemployees">
 
-		    						<template v-for="(emp,k) in travel.travelemployees" :key="emp.id">		
-										<template v-if="emp.employee">					
-					    					{{ emp.employee.name }}				    	
-										</template>
-										<template v-if="k < travel.travelemployees.length - 1">, <br/></template>
-		    						</template>		    		
-		    					</template>
-		    				</td>
-		    				<td>
-		    					{{travel.travelordernumber}}
-		    				</td>
-		    				<td>
-		    					<template v-if="travel.travelstart">
-		    						{{moment(new Date(travel.travelstart)).format('MMMM D, Y')}}
-		    					</template>	    					
-		    				</td>
-		    				<td>
-		    					<template v-if="travel.travelend">
-		    						{{moment(new Date(travel.travelend)).format('MMMM D, Y')}}
-		    					</template>	  
-		    				</td>
-		    				<td>
-		    					{{travel.location}}
-		    				</td>
-		    				<td>
-		    					{{travel.purpose}}
-		    				</td>
-		    				<td>
-		    					<template v-if="travel.createdby">
-		    						{{travel.createdby.name}}
-		    					</template>
-		    				</td>
-		    				<td class="tblcolwid--2btn">
-		    					<ul class="ls-frmbutton text-end" v-if="travel.can.update">
-		    						<li class="mb-1">
-		    							<router-link title="Edit" :to="{name: 'travel.edit', params : {id: travel.id}}" class="btn btn-violet"><i class="sm-icons fa-solid fa-pen-to-square"></i> <span  class="lg-text">Edit</span></router-link>
-		    						</li>
-	                  <li>
-	                  	<button title="delete" class="btn btn-outline-danger" @click="deleteTravel(travel.id)"><i class="sm-icons fa-solid fa-trash-can"></i> <span class="lg-text">Delete</span></button>
-	                  </li>
-	                </ul>
-		    					
-		    				</td>
-		    			</tr>
-		    		</template>
+			    						<template v-for="(emp,k) in travel.travelemployees" :key="emp.id">		
+											<template v-if="emp.employee">					
+						    					{{ emp.employee.name }}				    	
+											</template>
+											<template v-if="k < travel.travelemployees.length - 1">, <br/></template>
+			    						</template>		    		
+			    					</template>
+			    				</td>
+			    				<td>
+			    					{{travel.travelordernumber}}
+			    				</td>
+			    				<td>
+			    					<template v-if="travel.travelstart">
+			    						{{moment(new Date(travel.travelstart)).format('MMMM D, Y')}}
+			    					</template>	    					
+			    				</td>
+			    				<td>
+			    					<template v-if="travel.travelend">
+			    						{{moment(new Date(travel.travelend)).format('MMMM D, Y')}}
+			    					</template>	  
+			    				</td>
+			    				<td>
+			    					{{travel.location}}
+			    				</td>
+			    				<td>
+			    					{{travel.purpose}}
+			    				</td>
+			    				<td>
+			    					<template v-if="travel.createdby">
+			    						{{travel.createdby.name}}
+			    					</template>
+			    				</td>
+			    				<td class="tblcolwid--2btn">
+			    					<ul class="ls-frmbutton text-end" v-if="travel.can.update">
+			    						<li class="mb-1">
+			    							<router-link title="Edit" :to="{name: 'travel.edit', params : {id: travel.id}}" class="btn btn-violet"><i class="sm-icons fa-solid fa-pen-to-square"></i> <span  class="lg-text">Edit</span></router-link>
+			    						</li>
+		                  <li>
+		                  	<button title="delete" class="btn btn-outline-danger" @click="deleteTravel(travel.id)"><i class="sm-icons fa-solid fa-trash-can"></i> <span class="lg-text">Delete</span></button>
+		                  </li>
+		                </ul>
+			    					
+			    				</td>
+			    			</tr>
+			    		</template>
 		    		</template>
 		    		<template v-else>
-                <template v-if="!noData">
-                    <tr class="pr nodata">
-                        <td colspan="8">
-                            <LoadingComponent/>
-                        </td>
-                    </tr>
-                </template>
-            </template>
-            <template v-if="noData">
-                <tr class="pr nodata">
-                    <td colspan="8" class="text-center"> No Entry</td>
-
-                </tr>
-            </template>
-
-
+                            <template v-if="!noData">
+                                <tr class="pr nodata">
+                                	<td colspan="9">
+	                                	<template v-if="searchQuery && !filteredTravels.length">               
+					                    	No Result Found		                
+					                    </template>
+	                                    <template v-else>                                    	
+		                                    <LoadingComponent/>
+	                                    </template>
+                                	</td>
+                                </tr>
+                            </template>
+                        </template>
+                        <template v-if="noData">                                
+                            <tr class="nodata pr">
+                                <td colspan="9"><span class="nodata">Travel is Empty </span>
+                                </td>
+                            </tr>
+                        </template>
 
 		    	</tbody>
 		    </table>
@@ -157,25 +160,26 @@
 	import { useAuthStore } from '@/stores/store.js'
 	import { useHead } from '@unhead/vue'
 	import LoadingComponent from '@/components/loader/LoadingComponent.vue';
+
 	export default{
 		components: {
 			LoadingComponent
 		},
 		setup(){
 			useHead({
-          title: 'Employees Travels | BFAR - CAR HRMIS'
-      })
+		        title: 'Employees Travels | BFAR - CAR HRMIS'
+		    })
+
 			const {travels, getTravels, destroyTravel, getfilteredTravels} = useTravels();
-			
 			const store = useAuthStore();
-      const userrole = ref(store.getdetails[1]);
-      const authid = ref(store.getdetails[0]);
+			const userrole = ref(store.getdetails[1]);
+			const authid = ref(store.getdetails[0]);
 			const searchQuery = ref("");
 			const swal = inject('$swal')
 			let sort = ref(false);
 			const router = useRouter()			
 			const sortColumn = ref("id");
-      const sortDirection = ref(1);
+			const sortDirection = ref(1);
 			const arrowIconName = ref("arrow_drop_up");		
 
 			const form = reactive({
@@ -191,10 +195,10 @@
 			onMounted(() => {
 				getTravels().then(() =>{
 					if(travels.value.length > 0){
-              noData.value = false;
-          }else{
-              noData.value = true;
-          } 
+						noData.value = false;
+					}else{
+						noData.value = true;
+					} 
 				})
 			})	
 			const callback = (travelemployees,searchQuery) => {	
@@ -217,7 +221,6 @@
 								moment(travel.travelend).format('MMMM D, Y').toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1  ||
 								callback(travel.travelemployees, searchQuery.value)
 				);
-
 			});
 
 			const sortTable = (columnName) => {
@@ -232,68 +235,61 @@
 		        }
     		}
 
-      const deleteTravel = async (id) =>{
-      	let x = 0; //trigger
+		      const deleteTravel = async (id) =>{
+		      	let x = 0; //trigger
 
-				await swal.fire({
-				  title: 'Are you sure?',
-				  text: "You won't be able to revert this!",
-				  icon: 'warning',
-				  showCancelButton: true,
-				  confirmButtonColor: '#3085d6',
-				  cancelButtonColor: '#d33',
-				  confirmButtonText: 'Yes, delete it!'
-				}).then((result) => {
-				  if (result.isConfirmed) {		    
-				    x = 1;
-				  }
-				})
-				if (x > 0) {
-					await destroyTravel(id);
-					await getTravels().then(() => {
-						swal.fire({
-				            toast: true,
-				            position: 'top-end',
-				            title: 'Successfully Deleted',
-				            showConfirmButton: false,            
-				            icon: 'success',
-				            width: '300',
-				            padding: '.5em 1em',
-				            timerProgressBar: true,
-				            timer:1500,
-				            customClass: {
-				                container: 'swaltopright-del'
-				            }
-				        })
-					})
-				}
-      }
-			
-      const format = (date) => {
-        return moment(date).format('MMMM Y');
-      }
-      const getTravelbyMonth = async () =>{
-      		noData.value = false;
-          await getfilteredTravels({...form}).then(() =>{
-						if(travels.value.length > 0){
-		            noData.value = false;
-		        }else{
-		            noData.value = true;
-		        } 
-					});
-      }
+						await swal.fire({
+						  title: 'Are you sure?',
+						  text: "You won't be able to revert this!",
+						  icon: 'warning',
+						  showCancelButton: true,
+						  confirmButtonColor: '#3085d6',
+						  cancelButtonColor: '#d33',
+						  confirmButtonText: 'Yes, delete it!'
+						}).then((result) => {
+						  if (result.isConfirmed) {		    
+						    x = 1;
+						  }
+						})
+						if (x > 0) {
+							await destroyTravel(id);
+							await getTravels().then(() => {
+								swal.fire({
+						            toast: true,
+						            position: 'top-end',
+						            title: 'Successfully Deleted',
+						            showConfirmButton: false,            
+						            icon: 'success',
+						            width: '300',
+						            padding: '.5em 1em',
+						            timerProgressBar: true,
+						            timer:1500,
+						            customClass: {
+						                container: 'swaltopright-del'
+						            }
+						        })
+							})
+						}
+		      }
+					
+			const format = (date) => {
+				return moment(date).format('MMMM Y');
+			}
+			const getTravelbyMonth = async () =>{	
+				await getfilteredTravels({...form});
+			}
 
 			const goshow = (id) => {
 				router.push({name: 'roles.edit', params: { id: id }});
 			}
 			const checkText = (text) => {
-        let newText = text.toLowerCase().replace(/ /g, '');
-        let x = false;
-        if(newText !== 'n/a' && newText !== 'na'){
-            x = true;
-        }
-        return x;
-      }
+		        let newText = text.toLowerCase().replace(/ /g, '');
+		        let x = false;
+		        if(newText !== 'n/a' && newText !== 'na'){
+		            x = true;
+		        }
+		        return x;
+		    }
 
 			return{
 				filteredTravels,

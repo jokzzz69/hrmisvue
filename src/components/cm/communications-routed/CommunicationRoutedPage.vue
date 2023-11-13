@@ -20,6 +20,7 @@
                         <tr>
                             <th></th>
                             <th></th>
+                            <th>Document #</th>
                             <th>Date / Time in</th>                
                             <th>Agency, Sender</th>
                             <th>Subject - Venue</th>      
@@ -66,6 +67,7 @@
                                             ({{routedcommunication.totalactionstaken}})
                                         </span>                                    
                                     </td>
+                                    <td><span class="sp_documentnumber">{{routedcommunication.documentnumber}}</span></td>
                                     <td>{{moment(routedcommunication.datetimein).format('MMMM D, Y hh:mm A')}}</td>
                                     <td><span class="sp_agency">{{routedcommunication.agency}}, {{routedcommunication.sender}}</span></td>
                                     <td>

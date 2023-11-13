@@ -15,35 +15,48 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <template v-if="officerecord.pdspersonalinformation">
+                    <template v-if="officerecord">
+                        <template v-if="officerecord.pdspersonalinformation">
         
-                        <tr>          
-                            <td> 
-                                <span v-if="officerecord.pdspersonalinformation.updated_at">
-                                    Updated as of {{moment(officerecord.pdspersonalinformation.updated_at).format('MMMM D, YYYY [at] h:mm A')}}
-                                </span>
-                            </td>
-                            <td>
-                                <ul class="ls-frmbutton text-end">
-                                    <li>
-                                        <router-link :to="{ name: 'viewmydata.show',params: { id: id }}" class="btn btn-outline-success"><i class="fa-regular fa-file-lines"></i> View</router-link>
-                                    </li>
-                                    <li>
-                                        <router-link :to="{ name: 'pdspersonal.show'}" class="btn btn-violet" title="Edit Data"><i class="fa-solid fa-file-pen"></i> Edit</router-link>
-                                    </li>
-                                    <li>
-                                        <button @click="downloadpds(id)" class="btn btn-outline-danger btn-exportEmps" title="Export Data to PDF" ><i class="fa-solid fa-download"></i> Download</button>
-                                    </li>         
-                                    <li>
-                                        <button title="Reset Data" class="btn btn-teal" @click="resetPDS(officerecord.employee_id)">
-                                            <i class="fa-solid fa-eraser"></i> Reset
-                                        </button>
-                                    </li>
-                                </ul>
-                            </td>
+                            <tr>          
+                                <td> 
+                                    <span v-if="officerecord.pdspersonalinformation.updated_at">
+                                        Updated as of {{moment(officerecord.pdspersonalinformation.updated_at).format('MMMM D, YYYY [at] h:mm A')}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <ul class="ls-frmbutton text-end">
+                                        <li>
+                                            <router-link :to="{ name: 'viewmydata.show',params: { id: id }}" class="btn btn-outline-success"><i class="fa-regular fa-file-lines"></i> View</router-link>
+                                        </li>
+                                        <li>
+                                            <router-link :to="{ name: 'pdspersonal.show'}" class="btn btn-violet" title="Edit Data"><i class="fa-solid fa-file-pen"></i> Edit</router-link>
+                                        </li>
+                                        <li>
+                                            <button @click="downloadpds(id)" class="btn btn-outline-danger btn-exportEmps" title="Export Data to PDF" ><i class="fa-solid fa-download"></i> Download</button>
+                                        </li>         
+                                        <li>
+                                            <button title="Reset Data" class="btn btn-teal" @click="resetPDS(officerecord.employee_id)">
+                                                <i class="fa-solid fa-eraser"></i> Reset
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </td>
 
 
-                        </tr>
+                            </tr>
+                        </template>
+                    </template>
+                      <template v-else>
+                        <template v-if="!noData">
+                            <tr class="pr nodata">
+                                <td colspan="9">
+                                                              
+                                        <LoadingComponent/>
+                 
+                                </td>
+                            </tr>
+                        </template>
                     </template>
                 </tbody>
             </table>
@@ -65,8 +78,12 @@ import { useAuthStore } from '@/stores/store.js'
 import { useNavigationStore } from '@/stores/navigationstore.js'
 
 import { useHead } from '@unhead/vue'
+import LoadingComponent from '@/components/loader/LoadingComponent.vue';
 
 export default{
+    components: {
+        LoadingComponent
+    },
     setup (){
         useHead({
             title: 'My PDS | BFAR - CAR HRMIS'
@@ -84,9 +101,15 @@ export default{
         const resMun = ref([]);
 
         const { errors,resetMyPds, officerecord, getPersonalRecord } = useOfficerecord()
-
+        const noData = ref(false)
         onMounted(() => {   
-            getPersonalRecord(id.value)
+            getPersonalRecord(id.value).then(() => {
+                if(officerecord.value.length > 0){
+                    noData.value = false;
+                }else{
+                    noData.value = true;
+                }
+            })
 
         })
         const resetPDS = async(id) => {
@@ -134,7 +157,8 @@ export default{
             moment,
             resetPDS,
             id,
-            downloadpds
+            downloadpds,
+            noData
         }
     }
 }

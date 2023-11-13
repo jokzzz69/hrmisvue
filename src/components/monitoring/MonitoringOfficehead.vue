@@ -13,62 +13,87 @@
 		    		</div>
 		    	</div>
 		    </div>
-		    <table class="mtable mt-2 mb-2 table tbllink">
-		    	<thead>
-		    		<tr>
-		    			<th @click="sortTable('employee_id')">Bio ID
-		                    <span v-if="sortColumn == 'employee_id'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		    			<th @click="sortTable('employee_fname')">First Name
-		                    <span v-if="sortColumn == 'employee_fname'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th @click="sortTable('employee_mname')">Middle Name
-		                    <span v-if="sortColumn == 'employee_mname'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th @click="sortTable('employee_lname')"> Last Name
-		                    <span v-if="sortColumn == 'employee_lname'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th @click="sortTable('position')"> Position
-		                    <span v-if="sortColumn == 'position'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		         
-		    		</tr>
-		    	</thead>
-		    	<tbody>
-		    		<template v-for="officerecord in filteredOfficeRecords" :key="officerecord.employee_id">
+		    <div class="mtmb tblWrap mt-2 mb-2">
+		    	<table class="mtable table tbllink">
+			    	<thead>
+			    		<tr>
+			    			<th @click="sortTable('employee_id')">Bio ID
+			                    <span v-if="sortColumn == 'employee_id'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			    			<th @click="sortTable('employee_fname')">First Name
+			                    <span v-if="sortColumn == 'employee_fname'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th @click="sortTable('employee_mname')">Middle Name
+			                    <span v-if="sortColumn == 'employee_mname'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th @click="sortTable('employee_lname')"> Last Name
+			                    <span v-if="sortColumn == 'employee_lname'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th @click="sortTable('position')"> Position
+			                    <span v-if="sortColumn == 'position'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			         
+			    		</tr>
+			    	</thead>
+			    	<tbody>
+			    		<template v-if="filteredOfficeRecords.length > 0">
+			    			<template v-for="officerecord in filteredOfficeRecords" :key="officerecord.employee_id">
 
-		    			<tr @click="goshow(officerecord.employee_id)">
-		    				<td>
-		    					<template v-if="officerecord.type">
-		    						<template v-if="officerecord.type.id> 0">
-		    							<span class="text-danger">{{officerecord.employee_id}}</span>
-		    						</template>
-		    						<template v-else>
-		    							<span class="text-primary">{{officerecord.employee_id}}</span>
-		    						</template>
-		    					</template>
-		    					<template v-else>
-		    						<span>{{officerecord.employee_id}}</span>
-		    					</template>
-		    				</td>
-		    				<td>{{officerecord.employee.employee_fname}}</td>
-		    				<td>{{officerecord.employee.employee_mname}}</td>
-		    				<td>{{officerecord.employee.employee_lname}}</td>
-		    				<td>
-		    					<span v-if="officerecord.employments.length > 0">
-		    						{{officerecord.employments[0].position.name}}
-		    					</span>
-		    				</td>
-		
-		    			</tr>
-		    		</template>
-		    	</tbody>
-		    </table>
+				    			<tr @click="goshow(officerecord.employee_id)">
+				    				<td>
+				    					<template v-if="officerecord.type">
+				    						<template v-if="officerecord.type.id> 0">
+				    							<span class="text-danger">{{officerecord.employee_id}}</span>
+				    						</template>
+				    						<template v-else>
+				    							<span class="text-primary">{{officerecord.employee_id}}</span>
+				    						</template>
+				    					</template>
+				    					<template v-else>
+				    						<span>{{officerecord.employee_id}}</span>
+				    					</template>
+				    				</td>
+				    				<td>{{officerecord.employee.employee_fname}}</td>
+				    				<td>{{officerecord.employee.employee_mname}}</td>
+				    				<td>{{officerecord.employee.employee_lname}}</td>
+				    				<td>
+				    					<span v-if="officerecord.employments.length > 0">
+				    						{{officerecord.employments[0].position.name}}
+				    					</span>
+				    				</td>
+				
+				    			</tr>
+				    		</template>
+			    		</template>
+			    		<template v-else>
+                            <template v-if="!noData">
+                                <tr class="pr nodata">
+                                	<td colspan="5">
+                                	<template v-if="searchQuery && !filteredOfficeRecords.length">               
+				                    	No Result Found		                
+				                    </template>
+                                    <template v-else>                                    	
+	                                        <LoadingComponent/>
+                                    </template>
+                                	</td>
+                                </tr>
+                            </template>
+                        </template>
+                        <template v-if="noData">                                
+                            <tr class="nodata pr">
+                                <td colspan="5"><span class="nodata">Record is Empty </span>
+                                </td>
+                            </tr>
+                        </template>
+                        
+			    	</tbody>
+			    </table>
+		    </div>
 		</div>
 	</div>
 </template>
@@ -83,8 +108,12 @@
 	import {useRouter} from 'vue-router'
 
 	import { useHead } from '@unhead/vue'
+	import LoadingComponent from '@/components/loader/LoadingComponent.vue';
 
 	export default{
+		components: {
+            LoadingComponent
+        },
 		setup(){
 			useHead({
                 title: 'Employees DTR | BFAR - CAR HRMIS'
@@ -103,9 +132,16 @@
         	const sortDirection = ref(1);
 			const arrowIconName = ref("arrow_drop_up");			
 		
+			const noData = ref(false)
 
 			onMounted(() => {
-				getOfficeemployeesMonitoring(), 
+				getOfficeemployeesMonitoring().then(() =>{
+					if(officerecords.value.length > 0){
+                        noData.value = false;
+                    }else{
+                        noData.value = true;
+                    }
+				}), 
 				getOffices()
 			})		
 
@@ -160,7 +196,8 @@
 				goshow,
 				arrowIconName,
 				offices,
-				officeVal
+				officeVal,
+				noData
 				
 			}
 		}

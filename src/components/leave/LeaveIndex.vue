@@ -41,46 +41,69 @@
             </thead>
 
             <tbody>
-                <template v-for="leaverecord in filteredLeaveRecords" :key="leaverecord.id">
-                    <tr>
-                        <td>
-                            <template v-if="leaverecord.owner">
-                                {{leaverecord.owner.name}}
-                            </template>
-                        </td>
-                        <td>
-
-                            <template v-if="leaverecord.leavetypes">
-                                <template v-for="(leavetype,key) in leaverecord.leavetypes">
-                                    {{leavetype.name}}<template v-if="leaverecord.leavetypes.length - 1 != key">, </template>
+                <template v-if="filteredLeaveRecords.length > 0">
+                    <template v-for="leaverecord in filteredLeaveRecords" :key="leaverecord.id">
+                        <tr>
+                            <td>
+                                <template v-if="leaverecord.owner">
+                                    {{leaverecord.owner.name}}
                                 </template>
-                            </template>
+                            </td>
+                            <td>
 
-                        </td>
-
-                        <td>
-                            <template v-if="leaverecord.leaveduration">
-
-                                <template v-for="(leaveduration, x) in leaverecord.leaveduration">
-                                    {{dualdateformat(leaveduration.leavestart, leaveduration.leaveend)}}
-                                    <template v-if="x != leaverecord.leaveduration.length -1"> | </template>                                                                       
+                                <template v-if="leaverecord.leavetypes">
+                                    <template v-for="(leavetype,key) in leaverecord.leavetypes">
+                                        {{leavetype.name}}<template v-if="leaverecord.leavetypes.length - 1 != key">, </template>
+                                    </template>
                                 </template>
-                            </template>
-                        </td>
-                        <td>
-                            <template v-if="leaverecord.owner">
-                                {{leaverecord.creator.name}}
-                            </template>
-                        </td>
-                        <td @click.stop>
 
-                                <ul class="ls-frmbutton text-end" v-if="userslug.includes('super-admin') || userslug.includes('admin') || leaverecord.createdby == userid || leaverecord.employee_id == userid" >
-                                    <li class="mb-1">
-                                        <router-link title="Edit" :to="{name: 'leaverecords.edit', params : {id: leaverecord.id}}" class="btn btn-violet"><i class="sm-icons fa-solid fa-pen-to-square"></i> <span  class="lg-text">Edit</span></router-link>
-                                    </li>
-                                    <li><button title="delete" class="btn btn-outline-danger" @click="deleteLeaveRecord(leaverecord.id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
-                                </ul>
-                    
+                            </td>
+
+                            <td>
+                                <template v-if="leaverecord.leaveduration">
+
+                                    <template v-for="(leaveduration, x) in leaverecord.leaveduration">
+                                        {{dualdateformat(leaveduration.leavestart, leaveduration.leaveend)}}
+                                        <template v-if="x != leaverecord.leaveduration.length -1"> | </template>                                                                       
+                                    </template>
+                                </template>
+                            </td>
+                            <td>
+                                <template v-if="leaverecord.owner">
+                                    {{leaverecord.creator.name}}
+                                </template>
+                            </td>
+                            <td @click.stop>
+
+                                    <ul class="ls-frmbutton text-end" v-if="userslug.includes('super-admin') || userslug.includes('admin') || leaverecord.createdby == userid || leaverecord.employee_id == userid" >
+                                        <li class="mb-1">
+                                            <router-link title="Edit" :to="{name: 'leaverecords.edit', params : {id: leaverecord.id}}" class="btn btn-violet"><i class="sm-icons fa-solid fa-pen-to-square"></i> <span  class="lg-text">Edit</span></router-link>
+                                        </li>
+                                        <li><button title="delete" class="btn btn-outline-danger" @click="deleteLeaveRecord(leaverecord.id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
+                                    </ul>
+                        
+                            </td>
+                        </tr>
+                    </template>
+
+                </template>
+                <template v-else>
+                    <template v-if="!noData">
+                        <tr class="pr nodata">
+                            <td colspan="9">
+                                <template v-if="searchQuery && !filteredOfficeRecords.length">               
+                                    No Result Found                     
+                                </template>
+                                <template v-else>                                       
+                                    <LoadingComponent/>
+                                </template>
+                            </td>
+                        </tr>
+                    </template>
+                </template>
+                <template v-if="noData">                                
+                    <tr class="nodata pr">
+                        <td colspan="9"><span class="nodata">Leave Record is Empty </span>
                         </td>
                     </tr>
                 </template>
@@ -100,7 +123,12 @@
     import {useAuthStore} from '@/stores/store.js'
     import moment from 'moment'
     import {dualdateformat} from '@/helper/dualdateformat.js'
+    import LoadingComponent from '@/components/loader/LoadingComponent.vue';
+
     export default{
+        components: {
+            LoadingComponent
+        },
         setup(){
             useHead({
                 title: 'Employee Leave Records | BFAR - CAR HRMIS'
@@ -167,10 +195,16 @@
                     filteredLeaveRecords.value.sort((a, b) => (a[columnName] < b[columnName] ? 1 : -1));
                 }
             }
-
+            const noData = ref(false)
             onMounted(() =>{
 
-                getLeaveRecords()
+                getLeaveRecords().then(() =>{
+                    if(leaverecords.value.length > 0){
+                        noData.value = false;
+                    }else{
+                        noData.value = true;
+                    }
+                }) 
                 
             })
 
@@ -232,7 +266,8 @@
                 userid,
                 usertype,
                 moment,
-                dualdateformat
+                dualdateformat,
+                noData
             }
         }
     }

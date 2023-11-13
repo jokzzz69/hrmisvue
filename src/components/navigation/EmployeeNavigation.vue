@@ -4,7 +4,10 @@
     <a href="#" class="nav-link btn-toggle align-items-center collapsed emplinks"  data-bs-toggle="collapse" data-bs-target="#empmon-collapse" aria-expanded="true">
       <i class="fa-solid fa-computer pe-1"></i><span>DTR Monitoring</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
-    <div  class="collapse navdrpdwn" id="empmon-collapse" >
+    <div class="empNavTitle">
+      <span class="lblM lbl-left-nav">DTR Monitoring</span>
+    </div>
+    <div  class="collapse navdrpdwn show" id="empmon-collapse" >
       <ul class="btn-toggle-nav list-unstyled small wid--ic">  
         
         <li class="nav-link"><router-link :to="{ name: 'monitoringofficehead.index' }"><i class="fa-solid fa-users-rectangle"></i> Employees DTR</router-link></li>       
@@ -52,13 +55,16 @@
 </li>
 <li>
     <div class="empNavTitle">
-      <span class="lblM lbl-left-nav">Others</span>
+      <span class="lblM lbl-left-nav">About</span>
     </div>
     <div  class="navdrpdwn" id="emprec-collapse" >
       <ul class="btn-toggle-nav list-unstyled small wid--ic">           
                       
         <li class="nav-link">
-            <router-link :to="{ name: 'about.index' }"><i class="fa-solid fa-circle-info"></i> <span>About</span></router-link>
+            <router-link :to="{ name: 'about.index' }"><i class="fa-solid fa-circle-info"></i> <span>HRMIS</span></router-link>
+        </li>
+        <li class="nav-link">
+            <router-link :to="{ name: 'aboutcms.index' }"><i class="fa-solid fa-circle-info"></i> <span>CMDTS</span></router-link>
         </li>
       </ul>
     </div>

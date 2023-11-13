@@ -1625,6 +1625,7 @@ ul.cwrap--content--child{
 }
 .tblEmail--Wrap tbody tr.NoContent td{
 	min-height: 50px !important;
+
 }
 
 .unread .sp_agency,
@@ -1645,7 +1646,8 @@ tr.nodata{
 tr.nodata td{
 	padding: .5rem !important;
 	text-align: center;
-
+	background-color: rgba(80,111,217,.1) !important;
+	color: #858585;
 }
 tbody tr.read {
 	background: #f2f6fc;
@@ -1717,7 +1719,7 @@ tbody tr.read {
     font-size: .9rem;
     font-weight: 700;
     color: #0f1b91;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Metropolis Bold';
 }
 /*endNavemployee*/
 .new__commBTNV,

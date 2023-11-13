@@ -21,7 +21,7 @@
             </div>
         </template>
         
-        <template v-if="userslug.includes('employee')">
+        <template v-if="userslug.includes('super-admin') || userslug.includes('admin') || userslug.includes('hr') || userslug.includes('office-head')">
             <div class="row">
                 <div class="col mt-2 mb-2">
                     <div class="req">

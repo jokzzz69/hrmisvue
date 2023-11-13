@@ -39,9 +39,14 @@ const routes = [
   },
   
   {
-    path: '/about',
+    path: '/abouthrmis',
     name: 'about.index',
     component: () => import ('@/components/staticpages/AboutIndex.vue')
+  },
+  {
+    path: '/aboutcmdts',
+    name: 'aboutcms.index',
+    component: () => import ('@/components/staticpages/Aboutcms.vue')
   },
   {
     path: '/logs',

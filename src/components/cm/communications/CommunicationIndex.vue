@@ -91,7 +91,7 @@
                         </template>
                         <template v-if="noData">
                             <tr class="nodata">
-                                <td colspan="7 text-center"> Travel Empty</td>
+                                <td colspan="7" class="text-center"> Communications Empty</td>
                             </tr>
                         </template>
                     </tbody>

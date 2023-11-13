@@ -92,7 +92,7 @@
                         <template v-else>
                             <template v-if="!noData">
                                 <tr class="pr nodata">
-                                    <td colspan="6">
+                                    <td colspan="8">
                                         <LoadingComponent/>
                                     </td>
                                 </tr>
@@ -100,7 +100,7 @@
                         </template>
                         <template v-if="noData">                                
                             <tr class="nodata">
-                                <td colspan="6"><span class="nodata">No Search Found</span></td>
+                                <td colspan="8"><span class="nodata">No Search Found</span></td>
                             </tr>
                         </template>
                     </tbody>

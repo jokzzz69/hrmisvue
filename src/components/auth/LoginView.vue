@@ -18,7 +18,7 @@
             <div class="row justify-content-center">        
                 <div class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5 col-xxl-4 loginwrap align-items-center d-flex">     
                     <div class="formwrap mt-4 bb bg-w">                
-                        <h1>Human Resources Management Information System</h1>
+                        <h1>Regional Integrated<br/>Online System</h1>
                         <form id="loginForm" @submit.prevent="AuthLogin">                                                               
                                 <div class="form-floating mb-3">
                                     <input id="username" type="username" class="form-control" name="username" :class="errors.username ? 'is-invalid' : ''" v-model="auth.username" placeholder="Username" autocomplete="username" autofocus>                        

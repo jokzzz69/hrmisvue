@@ -24,9 +24,9 @@ export default function useActionsTaken(){
 			actiontaken.value = response.data.data;
 		});		
 	}
-	const getActionTaken = async (id) =>{
+	const getActionTaken = async (id,config) =>{
 		axios.defaults.withCredentials = true;
-		await axios.get(`/v1/api/actionstaken/${id}`).then((response) => {
+		await axios.get(`/v1/api/actionstaken/${id}`,config).then((response) => {
 			actionstaken.value = response.data.data;
 		});		
 	}

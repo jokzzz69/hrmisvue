@@ -5,7 +5,7 @@
       <i class="fa-solid fa-bars"></i>
     </button>
 
-    <a :href="$router.resolve({name: 'recordpersonal.show'}).href" class="navbar-brand"><span class="nb-mob">HRMIS</span><span class="nb-de">Human Resource Management Information System</span></a>
+    <a :href="$router.resolve({name: 'recordpersonal.show'}).href" class="navbar-brand"><span class="nb-mob">HRMIS</span><span class="nb-de">Regional Integrated Online System</span></a>
 
         <ul class="navbar-nav ms-auto navbarRight">
             <!-- Authentication Links -->
