@@ -1,5 +1,8 @@
 <template>	 
-   
+    <template v-if="hld">
+        <LoadingComponentDiv/>
+    </template>
+
     <div class="row">
         <div class="col-sm-10">
             <div class="row">
@@ -60,8 +63,9 @@ import usePDS from '@/composables/composables-pds';
 import { useNavigationStore } from '@/stores/navigationstore.js'
 import { useHead } from '@unhead/vue'
 
-export default{
+import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
 
+export default{
     props: {
         id: {
             required: true,
@@ -72,7 +76,8 @@ export default{
         PDSPreviewPage1,
         PDSPreviewPage2,
         PDSPreviewPage3,
-        PDSPreviewPage4
+        PDSPreviewPage4,
+        LoadingComponentDiv
     },
     setup (props){
         useHead({
@@ -86,13 +91,15 @@ export default{
         const {authuser, getAuthuser} = useUsers()
         const {errors, officerecord, getPersonalRecord } = useOfficerecord()
         const showDownload = ref(false);
-
+        const hld = ref(true);
         onMounted(() => {   
             getPersonalRecord(props.id).then(() =>{
+                hld.value = false;
                 if(officerecord.value.employee){
                     selectedname.value = officerecord.value.employee.employee_lname+""+officerecord.value.employee.employee_fname;
                     showDownload.value = true;
                 }
+                
             }),
             getAuthuser()
         })
@@ -104,7 +111,8 @@ export default{
             props,
             authuser,
             downloadselectedpds,
-            showDownload
+            showDownload,
+            hld
         }
     }
 }

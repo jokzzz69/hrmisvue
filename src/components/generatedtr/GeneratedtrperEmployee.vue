@@ -1,4 +1,7 @@
 <template>
+    <template v-if="hld">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row">
         <div class="col-md-12 p-title">
             <h2>Generate DTR Per Employee</h2>
@@ -126,8 +129,12 @@
     import {formatTime} from '@/helper/formattime'
     import moment from 'moment';
     import { useHead } from '@unhead/vue'
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue'
 
     export default{
+        components: {
+            LoadingComponentDiv
+        },
         props: {
             id: {
                 required: true,
@@ -156,7 +163,10 @@
             
 
             const generatenewDTR = async () =>{
-                await generateDTRfromData({ ...form });
+                hld.value = true;
+                await generateDTRfromData({ ...form }).then(() =>{
+                    hld.value = false;
+                });
             }
             
 
@@ -168,18 +178,23 @@
             const sortDirection = ref(1);
             const arrowIconName = ref("arrow_drop_up");         
             
+            const hld = ref(true);
 
             onMounted(() => {
                 // getEmployeebiometric(props.id),
                 getEmployee(props.id).then(() =>{
                     form.name = employee.value.cname;
+                    hld.value = false;
                 })
 
             })       
             
 
             const downloadselectedDTR = async() => {
-                await downloadperEmployeeDTR({...form}, form.name);
+                hld.value = true;
+                await downloadperEmployeeDTR({...form}, form.name).then(() =>{
+                    hld.value = false;
+                });
             }
 
 
@@ -197,8 +212,8 @@
                 datagenerated,
                 formClass,
                 check,
-                downloadselectedDTR
-                
+                downloadselectedDTR,
+                hld
             }
         }
     }

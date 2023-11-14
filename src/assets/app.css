@@ -147,7 +147,9 @@ body{
 	margin-bottom: 15px;
 	width: 20%;
 }
-
+.mtable{
+	margin-bottom: 0px;
+}
 .mtable thead,
 .actionstaken thead{
 	--bs-table-bg: transparent !important;
@@ -1469,7 +1471,9 @@ tr.disabled{
 .content-wrap{
 	width: 100%;
 }
+
 .sidebarleft{
+
 	width: 15%;
 	max-width: calc(15% - 2%);
 }
@@ -2739,6 +2743,7 @@ div.bt{
 		margin-right: .5rem;
 	}
 	.sidebarleft.nd{
+
 		width: 0 !important;
     	overflow: hidden;
 	}
@@ -2771,6 +2776,7 @@ div.bt{
 	}
 
 	.sidebarleft{
+
 		width: 55%;
 		position: fixed;
 	    z-index: 9;
@@ -2910,21 +2916,25 @@ div.bt{
 		font-size: .85rem;
 	}
 	#sidenav > ul > li > a{
-		padding-top:.7rem;
-		padding-bottom: .7rem;
-		background: #fff;
+		/*padding-top:.7rem;
+		padding-bottom: .7rem;*/
+		/*background: #fff;
 		box-shadow: 0 0 1px #00000026;
 	    -moz-box-shadow: 0 0 3px 0 rgba(0,0,0,.15);
 	    -webkit-box-shadow: 0 0 3px 0 rgba(0,0,0,.15);
 	    -o-box-shadow: 0 0 3px 0 rgba(0,0,0,.15);
-	    -ms-box-shadow: 0 0 3px 0 rgba(0,0,0,.15);
+	    -ms-box-shadow: 0 0 3px 0 rgba(0,0,0,.15);*/
 	    
 	}
 	#sidenav ul li a[aria-expanded="true"],
-	#sidenav ul  li a.nav-link.router-link-exact-active{
-		background: #0f1b91;
+	#sidenav > ul > li > a:hover,
+	#sidenav > ul > li > a:focus,
+	#sidenav ul li a.nav-link.router-link-exact-active{
+		background: #313154;
 		color: #fff;
 	}
+
+	
 	#sidenav > ul > li{
 		margin-bottom: .2rem;
 	}
@@ -3092,18 +3102,21 @@ div.bt{
 		width: 100%;
 	}
 	.sidebarleft {
+
 	    width: 30%;
 	    max-width: calc(25% - 2%);
 	}
 }
 @media(min-width: 1025px) and (max-width:1199px){
 	.sidebarleft {
+
 	    width: 27%;
 	    max-width: calc(24% - 2%);
 	}
 }
 @media(min-width: 1200px) and (max-width:1320px){
 	.sidebarleft {
+
 	    width: 25%;
 	    max-width: calc(22% - 2%);
 	}

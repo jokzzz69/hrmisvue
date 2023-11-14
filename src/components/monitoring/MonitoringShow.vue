@@ -1,4 +1,7 @@
 <template>
+    <template v-if="hld">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row">
         <div class="col-md-12 p-title">
             <ul class="ulwidback">
@@ -29,7 +32,7 @@
         </div>            
     </div>
     <div class="row">
-        <div class="col-md-12">    
+        <div class="col-md-12 pr">    
             
             <table class="table border tblborderedgray table-bordered text-center mt-3 tbl-mydtr" v-if="biometricsData.biometricsData">
                 <thead>
@@ -46,55 +49,27 @@
                     </tr>
                 </thead>
                 <tbody>                    
-                    <template v-for="(dtr, k) in biometricsData.biometricsData" :key="dtr.dtr_empid">
-             
-                        <tr>
+                        
+                        <template v-for="(dtr, k) in biometricsData.biometricsData" :key="dtr.dtr_empid">
+                 
+                            <tr>
 
-                                <template v-if="dtr.dtr_date == moment(currentDate).format('Y-MM-DD').toString()">
-                                    <td :class="dtr.status" class="bg-currentDate" title="Current Date">  
-                                      {{dtr.d}}
-                                    </td>
-                                </template>
-                                <template v-else>
-                                    <td :class="dtr.status">  
-                                        {{dtr.d}}
-                                    </td>
-                                </template>
-
-                                        
-                            <template v-if="dtr.travelid">                               
-                                <template v-if="dtr.d == 1">                                        
-                                        <td class="bg-lightgray noboxshadow ps-3" :rowspan="dtr.totaldays" valign="middle">
-                                            T.O. <strong>{{dtr.travelorder}}</strong>
+                                    <template v-if="dtr.dtr_date == moment(currentDate).format('Y-MM-DD').toString()">
+                                        <td :class="dtr.status" class="bg-currentDate" title="Current Date">  
+                                          {{dtr.d}}
                                         </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>  
-                                </template>
-                                <template v-else>
-                                    <template v-if="biometricsData.biometricsData[k-1]">        
-                                        <template v-if="biometricsData.biometricsData[k-1].travelorder != dtr.travelorder">
+                                    </template>
+                                    <template v-else>
+                                        <td :class="dtr.status">  
+                                            {{dtr.d}}
+                                        </td>
+                                    </template>
+
+                                            
+                                <template v-if="dtr.travelid">                               
+                                    <template v-if="dtr.d == 1">                                        
                                             <td class="bg-lightgray noboxshadow ps-3" :rowspan="dtr.totaldays" valign="middle">
                                                 T.O. <strong>{{dtr.travelorder}}</strong>
-                                            </td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-
-                                        </template>
-                                        <template v-else>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </template>
-                                    </template>  
-                                </template>                                  
-                            </template>
-                            <template v-else>
-                                <template v-if="dtr.leaveid">
-                                    <template v-if="dtr.d == 1">                                        
-                                            <td class="bg-lightgray noboxshadow ps-3" :rowspan="dtr.leavetotaldays" valign="middle">
-                                                <strong>{{dtr.leavetype}}</strong>
                                             </td>
                                             <td></td>
                                             <td></td>
@@ -102,9 +77,9 @@
                                     </template>
                                     <template v-else>
                                         <template v-if="biometricsData.biometricsData[k-1]">        
-                                            <template v-if="biometricsData.biometricsData[k-1].leaveid != dtr.leaveid">
-                                                <td class="bg-lightgray noboxshadow ps-3" :rowspan="dtr.leavetotaldays" valign="middle">
-                                                   <strong>{{dtr.leavetype}}</strong>
+                                            <template v-if="biometricsData.biometricsData[k-1].travelorder != dtr.travelorder">
+                                                <td class="bg-lightgray noboxshadow ps-3" :rowspan="dtr.totaldays" valign="middle">
+                                                    T.O. <strong>{{dtr.travelorder}}</strong>
                                                 </td>
                                                 <td></td>
                                                 <td></td>
@@ -117,49 +92,81 @@
                                                 <td></td>
                                             </template>
                                         </template>  
-                                    </template> 
+                                    </template>                                  
                                 </template>
                                 <template v-else>
-                                    <template v-if="dtr.dtr_timeinam == null && dtr.dtr_timeinpm == null && dtr.dtr_timeoutam == null && dtr.dtr_timeoutpm == null && dtr.status != null">  
-                                        <td class="text-danger">{{dtr.status}}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </template>
-                                    
-                                    <template v-else-if="dtr.dtr_timeinam == null && dtr.dtr_timeinpm == null && dtr.dtr_timeoutam == null && dtr.dtr_timeoutpm == null && dtr.holiday != null">  
-                                        <td class="text-danger text-start ps-5" colspan="4">{{dtr.holiday}}</td>                
-                                    </template>
+                                    <template v-if="dtr.leaveid">
+                                        <template v-if="dtr.d == 1">                                        
+                                                <td class="bg-lightgray noboxshadow ps-3" :rowspan="dtr.leavetotaldays" valign="middle">
+                                                    <strong>{{dtr.leavetype}}</strong>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>  
+                                        </template>
+                                        <template v-else>
+                                            <template v-if="biometricsData.biometricsData[k-1]">        
+                                                <template v-if="biometricsData.biometricsData[k-1].leaveid != dtr.leaveid">
+                                                    <td class="bg-lightgray noboxshadow ps-3" :rowspan="dtr.leavetotaldays" valign="middle">
+                                                       <strong>{{dtr.leavetype}}</strong>
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
 
+                                                </template>
+                                                <template v-else>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </template>
+                                            </template>  
+                                        </template> 
+                                    </template>
                                     <template v-else>
-                                        <td>
-                                            <template v-if="dtr.dtr_timeinam">
-                                                {{moment(dtr.dtr_timeinam,'HH:mm').format('hh:mm')}}
-                                            </template>                                
-                                        </td>
-                                        <td>
-                                            <template v-if="dtr.dtr_timeoutam">
-                                                {{moment(dtr.dtr_timeoutam,'HH:mm').format('hh:mm')}}
-                                            </template>
-                                        </td>
-                                        <td>
-                                            <template v-if="dtr.dtr_timeinpm">
-                                                {{moment(dtr.dtr_timeinpm,'HH:mm').format('hh:mm')}}
-                                            </template>
-                                        </td>
-                                        <td>
-                                            <template v-if="dtr.dtr_timeoutpm">
-                                                {{moment(dtr.dtr_timeoutpm,'HH:mm').format('hh:mm')}}
-                                            </template>
-                                        </td>
+                                        <template v-if="dtr.dtr_timeinam == null && dtr.dtr_timeinpm == null && dtr.dtr_timeoutam == null && dtr.dtr_timeoutpm == null && dtr.status != null">  
+                                            <td class="text-danger">{{dtr.status}}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </template>
+                                        
+                                        <template v-else-if="dtr.dtr_timeinam == null && dtr.dtr_timeinpm == null && dtr.dtr_timeoutam == null && dtr.dtr_timeoutpm == null && dtr.holiday != null">  
+                                            <td class="text-danger text-start ps-5" colspan="4">{{dtr.holiday}}</td>                
+                                        </template>
+
+                                        <template v-else>
+                                            <td>
+                                                <template v-if="dtr.dtr_timeinam">
+                                                    {{moment(dtr.dtr_timeinam,'HH:mm').format('hh:mm')}}
+                                                </template>                                
+                                            </td>
+                                            <td>
+                                                <template v-if="dtr.dtr_timeoutam">
+                                                    {{moment(dtr.dtr_timeoutam,'HH:mm').format('hh:mm')}}
+                                                </template>
+                                            </td>
+                                            <td>
+                                                <template v-if="dtr.dtr_timeinpm">
+                                                    {{moment(dtr.dtr_timeinpm,'HH:mm').format('hh:mm')}}
+                                                </template>
+                                            </td>
+                                            <td>
+                                                <template v-if="dtr.dtr_timeoutpm">
+                                                    {{moment(dtr.dtr_timeoutpm,'HH:mm').format('hh:mm')}}
+                                                </template>
+                                            </td>
+                                        </template>
                                     </template>
                                 </template>
-                            </template>
-                            
-                        </tr>
-                    </template>
+                                
+                            </tr>
+                        </template>
+                    
                 </tbody>
             </table>
+            
+   
         </div>
     </div>
 </template>
@@ -173,8 +180,11 @@
     import {formatTime} from '@/helper/formattime'
     import moment from 'moment';
     import { useHead } from '@unhead/vue'
-
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
     export default{
+        components:{
+            LoadingComponentDiv
+        },
         props: {
             id: {
                 required: true,
@@ -207,19 +217,30 @@
                 month: new Date().getMonth(),
                 year: new Date().getFullYear()
             });
-
+            const hld = ref(true);
 
             onMounted(() => {
 
 
-                getEmployeemonthBio(props.id,monthpicked.value.month+'-'+monthpicked.value.year),
+                getEmployeemonthBio(props.id,monthpicked.value.month+'-'+monthpicked.value.year).then(() =>{
+                    hld.value = false;
+                }),
                 getEmployee(props.id)
 
             })
 
 
             const getEmployeeBio = async (monthpicked) =>{
-                await getEmployeemonthBio(props.id,monthpicked.month+'-'+monthpicked.year)
+                const cf = {
+                    headers: {
+                        'xlr': 1
+                    }
+                }
+                hld.value = true;
+
+                await getEmployeemonthBio(props.id,monthpicked.month+'-'+monthpicked.year,cf).then(() =>{
+                    hld.value = false;
+                })
             }
 
 
@@ -242,8 +263,8 @@
                 monthpicked,
                 format,
                 employee,
-                currentDate
-                
+                currentDate,
+                hld
             }
         }
     }

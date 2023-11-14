@@ -1,4 +1,7 @@
 <template>
+    <template v-if="hld">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row">
         <div class="col-12 p-title mb-2">
             <h2>Personal Info</h2>
@@ -237,11 +240,12 @@ import { useHead } from '@unhead/vue'
 import useEventsBus from '@/components/helper/Eventbus';
 
 import { usePrivacyStore } from '@/stores/pristore.js'
-
+import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
 
 export default{
     components: {
-        PrivacyModal
+        PrivacyModal,
+        LoadingComponentDiv
      },
     setup (){
         useHead({
@@ -255,11 +259,13 @@ export default{
         const address = ref();
         const {bus,emit}=useEventsBus()
         const mbclass = ref(false);
+        const hld = ref(true);
         onMounted(() => {   
             getPersonalRecord(id.value).then(() => {             
                 if(officerecord.value.pdsaddress){
                     getAddress(officerecord.value.pdsaddress);
-                }                
+                }
+                hld.value = false;
             })
 
             mbclass.value = pristore.dil;
@@ -332,7 +338,8 @@ export default{
             id,
             checkText,
             address,
-            mbclass
+            mbclass,
+            hld
             
         }
     }

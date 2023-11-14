@@ -1,4 +1,7 @@
 <template>
+    <template v-if="hld">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row">
         <div class="col-md-12 p-title">
             <ul class="ulwidback">
@@ -145,8 +148,12 @@
     import {formatTime} from '@/helper/formattime'
     import moment from 'moment';
     import { useHead } from '@unhead/vue'
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
 
     export default{
+        components: {
+            LoadingComponentDiv
+        },
         props: {
             id: {
                 required: true,
@@ -180,18 +187,28 @@
                 year: new Date().getFullYear()
             });
 
-
+            const hld = ref(true);
             onMounted(() => {
 
 
                 getEmployeemonthBio(props.id,monthpicked.value.month+'-'+monthpicked.value.year),
-                getEmployee(props.id)
+                getEmployee(props.id).then(() => {
+                    hld.value = false;
+                })
 
             })
 
 
             const getEmployeeBio = async (monthpicked) =>{
-                await getEmployeemonthBio(props.id,monthpicked.month+'-'+monthpicked.year)
+                const cf = {
+                    headers: {
+                        'xlr': 1
+                    }
+                }
+                hld.value = true;
+                await getEmployeemonthBio(props.id,monthpicked.month+'-'+monthpicked.year,cf).then(() => {
+                    hld.value = false;
+                });
             }
 
 
@@ -214,7 +231,8 @@
                 monthpicked,
                 format,
                 employee,
-                currentDate
+                currentDate,
+                hld
                 
             }
         }

@@ -1,6 +1,7 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import {useRouter} from 'vue-router'
+import nProgress from "nprogress";
 
 export default function useDebug(){
 
@@ -9,6 +10,7 @@ export default function useDebug(){
 
 	
 	const clearAttachment = async (data) => {
+        nProgress.start();
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {
@@ -23,6 +25,7 @@ export default function useDebug(){
         }
     }
     const clearCommunications = async (data) => {
+        nProgress.start();
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {
@@ -37,6 +40,7 @@ export default function useDebug(){
         }
     }
     const clearNotifications = async (data) => {
+        nProgress.start();
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {
@@ -51,6 +55,7 @@ export default function useDebug(){
         }
     }
     const clearDrafts = async (data) => {
+        nProgress.start();
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {
@@ -65,6 +70,7 @@ export default function useDebug(){
         }
     }
 	const clearActionsTaken = async (data) => {
+        nProgress.start();
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {

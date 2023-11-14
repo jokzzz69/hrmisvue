@@ -1,4 +1,7 @@
 <template> 
+    <template v-if="hld">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row">
         <div class="col-md-12 p-title">
             <h2>Edit Actions Taken</h2>
@@ -63,8 +66,11 @@
     import { reactive, onMounted, ref, inject} from "vue";
 
     import useActionsTaken from "@/composables/composables-actionstaken";
-
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue'
     export default {
+        components: {
+            LoadingComponentDiv
+        },
         props: {
             id: {
                 required: true,
@@ -78,10 +84,12 @@
             const actioncontent = reactive({
                 'message':''
             });
+            const hld = ref(true);
             onMounted(
                 () => {
                     editActionTaken(props.id).then(() => {
                         actioncontent.message = actiontaken.value.message;
+                        hld.value = false;
                     })
                 }
             )
@@ -113,7 +121,8 @@
                 actioncontent,
                 actiontaken,
                 saveAction,
-                getContent
+                getContent,
+                hld
             }
         }
     }

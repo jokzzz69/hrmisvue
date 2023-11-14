@@ -28,10 +28,10 @@ export default function useMonitoring(){
         })
         monitoringbiometric.value = response.data.data
 	}
-	const getEmployeemonthBio = async (id,data) => {	
+	const getEmployeemonthBio = async (id,data,cf) => {	
 		axios.defaults.withCredentials = true;		
 		try {
-            let response = await axios.get(`/v1/api/biodtrperemp/${id}/${data}`)
+            let response = await axios.get(`/v1/api/biodtrperemp/${id}/${data}`,cf)
 			biometricsData.value = response.data.data
         } catch (e) {
             if (e.response.status === 403) {

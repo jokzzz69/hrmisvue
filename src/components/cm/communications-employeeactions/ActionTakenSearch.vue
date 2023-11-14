@@ -107,11 +107,11 @@
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
     import moment from 'moment'
-    import Pagination from '@/components/reusables/Pagination.vue';
+    import Pagination from '@/components/cm/reusables/Pagination.vue';
     import LoadingComponent from '@/components/loader/LoadingComponent.vue';
     import {formatmaildate} from '@/helper/formatmaildate';
-    import Tooltip from "@/components/reusables/Tooltip.vue";
-    import useEventsBus from '@/helper/Eventbus';
+    import Tooltip from "@/components/cm/reusables/Tooltip.vue";
+    import useEventsBus from '@/components/helper/Eventbus';
     import {useActionTakenStore} from "@/stores/actiontakenstore.js"
     import {useNotificationStore} from '@/stores/notificationstore.js'
 

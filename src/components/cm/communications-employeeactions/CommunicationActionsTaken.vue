@@ -67,13 +67,14 @@
 		<template v-else>
 			<template v-if="!noData">
 				<div class="col pr">
-					<LoadingComponentDiv/>
+					<LoadingComponentAC/>
 				</div>               
             </template>
 		</template>
 		<template v-if="noData">
-			<div class="col">
+			<div class="col pr mh-75">
 				No Employee Actions
+
 			</div>
 		</template>
 	</div>
@@ -81,7 +82,7 @@
 <script>	
 	import {ref, onMounted, inject, watch, reactive} from 'vue'
 	import useActionsTaken from '@/composables/composables-actionstaken'
-	import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
+	import LoadingComponentAC from '@/components/loader/LoadingComponentAC.vue';
 	import {useAuthStore} from '@/stores/store'
 	import useEventsBus from '@/components/helper/Eventbus';
 	import Pusher from 'pusher-js'
@@ -92,7 +93,7 @@
 
 	export default{
 		components: {
-			LoadingComponentDiv,
+			LoadingComponentAC,
 			AttachmentPreview
 		},
 		props: {
@@ -126,6 +127,11 @@
                 }else{
                     noData.value = true;
                 }
+			}
+			const config = {
+				headers: {
+					xlr: 1
+				}
 			}
 			const removemyactiontaken = async (id) =>{
                 

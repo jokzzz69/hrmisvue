@@ -67,7 +67,7 @@
 		    		</tr>
 		    	</thead>
 		    	<tbody>
-		    		<template v-if="filteredTravels.length > 0">
+		    		<template v-if="!tblloader">
 		    			<template v-for="travel in filteredTravels" :key="travel.id">
 			    			<tr>
 			    				<td v-if="userrole == 'super-admin'">
@@ -121,28 +121,33 @@
 			    				</td>
 			    			</tr>
 			    		</template>
+			    		<template v-if="searchQuery">
+			    			<template v-if="!filteredTravels.length">
+			    				<tr class="nodata">
+				    				<td colspan="9">
+		                        		No Results Found
+		                        	</td>
+				    			</tr>
+			    			</template>			    			
+			    		</template>
+			    		<template v-else>
+			    			<template v-if="!filteredTravels.length">
+			    				<tr class="nodata">
+				    				<td colspan="9">
+		                        		No Travel!
+		                        	</td>
+				    			</tr>
+			    			</template>	
+			    		</template>
 		    		</template>
-		    		<template v-else>
-                            <template v-if="!noData">
-                                <tr class="pr nodata">
-                                	<td colspan="9">
-	                                	<template v-if="searchQuery && !filteredTravels.length">               
-					                    	No Result Found		                
-					                    </template>
-	                                    <template v-else>                                    	
-		                                    <LoadingComponent/>
-	                                    </template>
-                                	</td>
-                                </tr>
-                            </template>
-                        </template>
-                        <template v-if="noData">                                
-                            <tr class="nodata pr">
-                                <td colspan="9"><span class="nodata">Travel is Empty </span>
-                                </td>
-                            </tr>
-                        </template>
 
+		    		<template v-else>
+                        <tr class="nodata pr">
+                        	<td colspan="9">
+                        		<LoadingComponent/>
+                        	</td>
+                        </tr>
+                    </template>                    
 		    	</tbody>
 		    </table>
 		    </div>
@@ -191,14 +196,11 @@
 			});
 
 			const noData = ref(false);
+			const tblloader = ref(true);
 
 			onMounted(() => {
 				getTravels().then(() =>{
-					if(travels.value.length > 0){
-						noData.value = false;
-					}else{
-						noData.value = true;
-					} 
+					tblloader.value = false;
 				})
 			})	
 			const callback = (travelemployees,searchQuery) => {	
@@ -275,8 +277,11 @@
 			const format = (date) => {
 				return moment(date).format('MMMM Y');
 			}
-			const getTravelbyMonth = async () =>{	
-				await getfilteredTravels({...form});
+			const getTravelbyMonth = async () =>{
+				tblloader.value = true;
+				await getfilteredTravels({...form}).then(() =>{
+					tblloader.value = false;
+				});
 			}
 
 			const goshow = (id) => {
@@ -306,7 +311,8 @@
 				form,
 				userrole,
 				authid,
-				noData
+				noData,
+				tblloader
 			}
 		}
 	}

@@ -17,7 +17,7 @@
                 <tbody>
                     <template v-if="officerecord">
                         <template v-if="officerecord.pdspersonalinformation">
-        
+            
                             <tr>          
                                 <td> 
                                     <span v-if="officerecord.pdspersonalinformation.updated_at">
@@ -46,18 +46,15 @@
 
                             </tr>
                         </template>
+                    </template>          
+                    <template v-if="noData">
+                        <tr class="pr nodata">
+                            <td colspan="2">                                                          
+                                <LoadingComponent/>             
+                            </td>
+                        </tr>
                     </template>
-                      <template v-else>
-                        <template v-if="!noData">
-                            <tr class="pr nodata">
-                                <td colspan="9">
-                                                              
-                                        <LoadingComponent/>
-                 
-                                </td>
-                            </tr>
-                        </template>
-                    </template>
+              
                 </tbody>
             </table>
             </div>
@@ -101,14 +98,10 @@ export default{
         const resMun = ref([]);
 
         const { errors,resetMyPds, officerecord, getPersonalRecord } = useOfficerecord()
-        const noData = ref(false)
+        const noData = ref(true)
         onMounted(() => {   
             getPersonalRecord(id.value).then(() => {
-                if(officerecord.value.length > 0){
-                    noData.value = false;
-                }else{
-                    noData.value = true;
-                }
+                noData.value = false;
             })
 
         })

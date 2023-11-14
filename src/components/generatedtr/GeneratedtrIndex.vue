@@ -1,10 +1,12 @@
 <template>
+	<template v-if="hld">
+		<LoadingComponentDiv/>
+	</template>
 	<div class="row">
 		<div class="col-md-12 p-title">
 			<h2>Generate Daily Time Record</h2>
 		</div>
 	</div>
-
 		<form  @submit.prevent="generatenewEmployeesDTR" class="mb-2 pb-2">
 			<div class="row">
 				<div class="col xs-100 sm-50 xxs-100 col-sm-6 col-md-3">
@@ -62,46 +64,48 @@
 	    </div>
 		<div class="row">
 			<div class="col-md-12">
-		    <table class="mtable hasActions mt-2 mb-2 table tbllink">
-		    	<thead>
-		    		<tr>
-		    			<th @click="sortTable('employee_fname')">First Name
-		                    <span v-if="sortColumn == 'employee_fname'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th @click="sortTable('employee_mname')">Middle Name
-		                    <span v-if="sortColumn == 'employee_mname'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th @click="sortTable('employee_lname')">Last Name
-		                    <span v-if="sortColumn == 'employee_lname'" class="material-icons">{{arrowIconName}}</span>		                    
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th @click="sortTable('employee_type')">Type
-		                    <span v-if="sortColumn == 'employee_type'" class="material-icons">{{arrowIconName}}</span>		                    
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		    		</tr>
-		    	</thead>
-		    	<tbody>
-		    		<template v-for="employee in filteredEmployees" :key="employee.employee_id">
-		    			<tr @click="goshow(employee.employee_id)">
-		    				<td>{{employee.employee_fname}}</td>
-			    			<td>{{employee.employee_mname}}</td>
-			    			<td>{{employee.employee_lname}}</td>
-			    			<td>
-			    				<template v-if="employee.employee_type != 0">
-			    					Job Order
-			    				</template>
-			    				<template v-else>
-			    					Permanent
-			    				</template>
-			    			</td>
-	
-		    			</tr>
-		    		</template>
-		    	</tbody>
-		    </table>
+			<div class="mtmb tblWrap mt-2 mb-2">
+			    <table class="mtable hasActions table tbllink">
+			    	<thead>
+			    		<tr>
+			    			<th @click="sortTable('employee_fname')">First Name
+			                    <span v-if="sortColumn == 'employee_fname'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th @click="sortTable('employee_mname')">Middle Name
+			                    <span v-if="sortColumn == 'employee_mname'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th @click="sortTable('employee_lname')">Last Name
+			                    <span v-if="sortColumn == 'employee_lname'" class="material-icons">{{arrowIconName}}</span>		                    
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th @click="sortTable('employee_type')">Type
+			                    <span v-if="sortColumn == 'employee_type'" class="material-icons">{{arrowIconName}}</span>		                    
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			    		</tr>
+			    	</thead>
+			    	<tbody>
+			    		<template v-for="employee in filteredEmployees" :key="employee.employee_id">
+			    			<tr @click="goshow(employee.employee_id)">
+			    				<td>{{employee.employee_fname}}</td>
+				    			<td>{{employee.employee_mname}}</td>
+				    			<td>{{employee.employee_lname}}</td>
+				    			<td>
+				    				<template v-if="employee.employee_type != 0">
+				    					Job Order
+				    				</template>
+				    				<template v-else>
+				    					Permanent
+				    				</template>
+				    			</td>
+		
+			    			</tr>
+			    		</template>
+			    	</tbody>
+			    </table>
+			</div>
 		</div>
 	</div>
 </template>
@@ -116,9 +120,12 @@
 	import {useRouter} from 'vue-router'
 	import axios from 'axios';
 	import { useHead } from '@unhead/vue'
-
-
+	import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue'
+	import nProgress from "nprogress";
 	export default{
+		components: {
+			LoadingComponentDiv
+		},
 		setup(){
 			useHead({
                 title: 'DTR Report | BFAR - CAR HRMIS'
@@ -139,7 +146,7 @@
         	const sortDirection = ref(1);
 			const arrowIconName = ref("arrow_drop_up");			
 
-
+			const hld = ref(true);
 			const downloadpdf = (url) =>{
 
 				axios({
@@ -177,6 +184,7 @@
 				getcustomLocations().then(() => {
 					allSelected.value = true;
 					updateCheck()
+					hld.value = false;
 				})
 			})		
 
@@ -219,14 +227,18 @@
 	        }
 	    	const downloadselectedDTR = async() => {
 	    		form.selected = selected.value;
-	    		await downloadAllEmployeesDTR({...form},form.dtremployeetype);
+	    		hld.value = true;
+	    		await downloadAllEmployeesDTR({...form},form.dtremployeetype).then(() => {
+	    			hld.value = false;
+	    		});
 	    	}
 	        const checkStatus = () =>{
 
 
 	        }
 
-			const goshow = (id) => {				
+			const goshow = (id) => {
+				nProgress.start();		
 				router.push({ name: 'generatedtrperemployee.show', params: { id: id } });
 			}
 
@@ -247,7 +259,8 @@
 				selectCheck,
 				downloadpdf,
 				checkStatus,
-				downloadselectedDTR
+				downloadselectedDTR,
+				hld
 			}
 		}
 	}

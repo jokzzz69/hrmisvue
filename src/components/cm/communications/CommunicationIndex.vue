@@ -111,15 +111,15 @@
     import LoadingComponent from '@/components/loader/LoadingComponent.vue';
     import {formatmaildate} from '@/helper/formatmaildate';
     import Tooltip from "@/components/cm/reusables/Tooltip.vue";
-
+    
     import {useCommunicationStore} from "@/stores/communicationstore.js"
     import {useNotificationStore} from '@/stores/notificationstore.js';
-
+    
     export default{
         components: {
             Pagination,
             Tooltip,
-            LoadingComponent
+            LoadingComponent            
         },
         setup(){
             const {communications, getCommunications,getCommunication, communicationLinks,  communicationMeta, pincommunication, bulkactions} = useCommunications()

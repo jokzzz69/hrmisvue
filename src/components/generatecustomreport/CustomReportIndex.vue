@@ -1,4 +1,7 @@
 <template>
+    <template v-if="hld">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row">
         <div class="col-md-12 p-title">
             <h2>Custom Report</h2>
@@ -433,8 +436,12 @@
 
     import moment from 'moment'
     import { useHead } from '@unhead/vue'
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
 
 	export default{
+        components: {
+            LoadingComponentDiv
+        },
 		setup(){
             useHead({
                 title: 'Custom Report | BFAR - CAR HRMIS'
@@ -465,6 +472,7 @@
                 'traveldate': ''
 
             })
+            const hld = ref(true);
 
             onMounted(() => {
                 getLocations().then(() => {
@@ -472,6 +480,7 @@
                     allFields.value = true;
                     updateCheck()
                     checkAllFields()
+                    hld.value = false;
                 })
                 form.employee_type = 2;
                 form.report_type = 1;
@@ -594,7 +603,8 @@
                 checkText,
                 downloadgeneratedcustomExcel,
                 downloadgeneratedcustomPDF,
-                authslug
+                authslug,
+                hld
 			}
 		}
 	}

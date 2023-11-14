@@ -5,6 +5,10 @@
 		  <div class="bounce bounce2">F</div>
 		  <div class="bounce bounce3">A</div>
 		  <div class="bounce bounce4">R</div>
+      <div class="bounce bounce5">-</div>
+      <div class="bounce bounce6">C</div>
+      <div class="bounce bounce7">A</div>
+      <div class="bounce bounce8">R</div>
 		</div>
 
 	</div>
@@ -21,7 +25,7 @@
 </script>
 <style scoped>
 #preview-area {
-    width: 60px;
+    width: 180px;
     height: 60px;
     position: absolute;
     top: 3rem;
@@ -36,7 +40,7 @@
 }
 .spinner {
   margin: 0 auto 0;
-  width: 80px;
+  width: 180px;
   text-align: center;
 }
 
@@ -51,29 +55,62 @@
   animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 }
 .bounce1,
-.bounce3{
+.bounce3,
+.bounce5,
+.bounce7{
 	background-color: #506fd9;
 }
 .bounce2,
-.bounce4{
+.bounce4,
+.bounce6,
+.bounce8{
 	background-color: #4B91DB;
 }
 .bounce{
 	color:#fff;
 }
-.spinner .bounce1 {
+.spinner .bounce1
+{
   -webkit-animation-delay: -0.32s;
   animation-delay: -0.32s;
 }
 
-.spinner .bounce2 {
-  -webkit-animation-delay: -0.16s;
+.spinner .bounce2
+{
+  -webkit-animation-delay: -0.24s;
   animation-delay: -0.24s;
 }
-.spinner .bounce3 {
+.spinner .bounce3
+{
   -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
 }
+.spinner .bounce4
+{
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+.spinner .bounce5
+{
+  -webkit-animation-delay: 0.16s;
+  animation-delay: 0.16s;
+}
+.spinner .bounce6
+{
+  -webkit-animation-delay: 0.24s;
+  animation-delay: 0.24s;
+}
+.spinner .bounce7
+{
+  -webkit-animation-delay: 0.32s;
+  animation-delay: 0.32s;
+}
+.spinner .bounce8
+{
+  -webkit-animation-delay: 0.48s;
+  animation-delay: 0.48s;
+}
+
 @-webkit-keyframes sk-bouncedelay {
   0%, 80%, 100% { -webkit-transform: scale(0) }
   40% { -webkit-transform: scale(1.0) }

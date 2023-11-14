@@ -35,7 +35,7 @@
             </thead>
 
             <tbody>
-                <template v-if="filteredLeaveRecords.length">
+                <template v-if="!tblloader">
                     <template v-for="leaverecord in filteredLeaveRecords" :key="leaverecord.id">
                         <tr>
                             <td>
@@ -75,23 +75,32 @@
                             </td>
                         </tr>
                     </template>
+                    <template v-if="searchQuery">
+                            <template v-if="!filteredLeaveRecords.length">
+                                <tr class="nodata">
+                                    <td colspan="9">
+                                        No Results Found
+                                    </td>
+                                </tr>
+                            </template>                         
+                        </template>
+                        <template v-else>
+                            <template v-if="!filteredLeaveRecords.length">
+                                <tr class="nodata">
+                                    <td colspan="9">
+                                        No Data!
+                                    </td>
+                                </tr>
+                            </template> 
+                        </template>
                 </template>
                 <template v-else>
-                    <template v-if="!noData">
-                        <tr class="pr nodata">
-                            <td colspan="3">
-                                <LoadingComponent/>
-                            </td>
-                        </tr>
-                    </template>
-                </template>
-                <template v-if="noData">
-                    <tr class="nodata">
-                        <td colspan="3" class="text-center"> 
-                            No Data
+                    <tr class="nodata pr">
+                        <td colspan="9">
+                            <LoadingComponent/>
                         </td>
                     </tr>
-                </template>
+                </template> 
             </tbody>
         </table>   
     </div>
@@ -179,15 +188,11 @@
             }
 
             const noData = ref(false)
-
+            const tblloader = ref(true);
             onMounted(() =>{
 
                 getEmployeeLeaveRecords().then((response) => {
-                    if(leaverecords.value.length > 0){
-                        noData.value = false;
-                    }else{
-                        noData.value = true;
-                    }  
+                    tblloader.value = false;
                 })
                 
             })
@@ -251,7 +256,8 @@
                 usertype,
                 moment,
                 dualdateformat,
-                noData
+                noData,
+                tblloader
 			}
 		}
 	}

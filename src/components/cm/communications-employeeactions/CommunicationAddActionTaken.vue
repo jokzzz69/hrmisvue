@@ -24,13 +24,9 @@
                     <div class="at--BoxWrap--actionsButtons">
                         <button class="btn btn-removeAT" title="Delete" @click.prevent="removeactiontaken"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
-                </div>
-
-                
-
+                </div>               
             </div>
-        </div>
-        
+        </div>       
 
     </div>
 

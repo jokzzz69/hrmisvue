@@ -77,6 +77,7 @@ export default function useAuthenticate(){
 		await axios.get(hrmis+'/sanctum/csrf-cookie').then(response => {
 			axios.post(hrmis+'/login', data).then(res => {
 			 	currentUser();
+			 	nProgress.start();
 			}).catch(e => {
 				nProgress.done();
 			 	if (e.response.status === 422) {
@@ -87,13 +88,15 @@ export default function useAuthenticate(){
     }
     const logout = async () => {
     	axios.defaults.withCredentials = true;
-
+    		nProgress.start();
 		 	await axios.post('/v1/api/logoutuser').then((res) => {
+		 		nProgress.done();
 		 		store.setdetails(null);
 		 		navigationstore.setname(null);
 		 		changepasswordstore.setstate(false);
 		 		pristore.setdil(false); 		
 		 	}).catch((e) => {
+		 		nProgress.done();
 		 		if (e.response.status === 422) {
 	                errors.value = e.response.data.errors
 	            }

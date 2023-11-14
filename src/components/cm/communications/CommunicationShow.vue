@@ -1,4 +1,7 @@
-<template>   
+<template> 
+    <template v-if="hld">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row">
         <div class="col-auto pAgeEmail--title">       
             <div class="btn--backWrap mb-1 mt-2">
@@ -285,13 +288,14 @@
     import useEventsBus from '@/components/helper/Eventbus';
     import {useCommunicationStore} from "@/stores/communicationstore.js"
     import {useNotificationStore} from '@/stores/notificationstore.js';
-
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue'
 
     export default {
         components: {
             AttachmentPreview,
             CommunicationAddActionTaken,
-            CommunicationActionsTaken
+            CommunicationActionsTaken,
+            LoadingComponentDiv
         },
         props: {
             id: {
@@ -331,7 +335,7 @@
             });
 
 
-
+            const hld = ref(true);
             onMounted(() => {
                 
 
@@ -358,7 +362,9 @@
                     notificationstore.fetchNotification();
 
                 }),
-                getCommunicationGroups()
+                getCommunicationGroups().then(() => {
+                    hld.value = false;
+                })
 
 
                 
@@ -440,7 +446,8 @@
                 toindex,
                 isClick,
                 btnActionsTaken,
-                showActionsBox
+                showActionsBox,
+                hld
             }
         }
     }

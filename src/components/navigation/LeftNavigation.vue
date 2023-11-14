@@ -20,7 +20,7 @@
            <CommunicationEncoder/>
          </template>
          <template v-else-if="userslug.includes('communicationviewer')">
-           
+           <CommunicationViewer/>
          </template>
        </template>
        <template v-if="userslug.includes('super-admin') || userslug.includes('admin')">
@@ -63,7 +63,7 @@
   import AdminCommunicationEncoder from '@/components/navigation/AdminCommunicationEncoder.vue';
   import AdminCommunicationViewer from '@/components/navigation/AdminCommunicationViewer.vue';
   import CommunicationEncoder from '@/components/navigation/CommunicationEncoder.vue';
-
+  import CommunicationViewer from '@/components/navigation/CommunicationViewer.vue';
 
   export default{
     components: {
@@ -73,6 +73,7 @@
       AdminCommunicationEncoder,
       AdminCommunicationViewer,
       CommunicationEncoder,
+      CommunicationViewer
     },
     setup(){
       const store = useAuthStore();

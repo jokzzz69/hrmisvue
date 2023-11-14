@@ -1,4 +1,7 @@
 <template> 
+    <template v-if="hld">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row">
         <div class="col-md-12 p-title">
             <h2 v-if="usertype != 1">Edit Absent / Leave Record</h2>
@@ -145,8 +148,12 @@
     import {useAuthStore} from '@/stores/store.js'
     import {useRouter} from 'vue-router'
     import moment from 'moment'
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue'
     import 'vue-select/dist/vue-select.css';
     export default {
+        components: {
+            LoadingComponentDiv
+        },
         props: {
             id: {
                 required: true,
@@ -187,7 +194,7 @@
 
             const divs = reactive([]); 
             const add = ref(0); 
-
+            const hld = ref(true);
             onMounted(() => {
                 getLeaveTypes();
                 getEmployeeOptions();
@@ -230,7 +237,7 @@
                     }else{
                         displayLeave.value = true;
                     }
-
+                    hld.value = false;
                 });
 
                 form.employee_id = userid;
@@ -350,7 +357,8 @@
                 handleFiling,
                 format,
                 getmaxdate,
-                getmindate
+                getmindate,
+                hld
             }
         }
     }

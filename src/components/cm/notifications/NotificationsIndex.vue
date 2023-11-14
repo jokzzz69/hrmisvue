@@ -4,6 +4,11 @@
 			<h2>Notifications</h2>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col mt-3">
+			<p>Content Soon.</p>
+		</div>
+	</div>
 	
 </template>
 <script>

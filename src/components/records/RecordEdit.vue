@@ -1,4 +1,7 @@
 <template>
+    <template v-if="hld">
+        <LoadingComponentDiv/>
+    </template>
 	<div class="row">
 		<div class="col-md-12 p-title">
 			<h2>Edit Employee Record</h2>
@@ -217,10 +220,12 @@ import useEmployeePosition from '@/composables/composables-position';
 import useOfficerecord from '@/composables/composables-record';
 import useSalaryGradeGroup from '@/composables/composables-salarygradegroup';
 import { useHead } from '@unhead/vue'
-
+import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
 
 export default{
-
+    components: {
+        LoadingComponentDiv
+    },
     props: {
         id: {
             required: true,
@@ -287,14 +292,17 @@ export default{
                 }
             })
         }
-
+        const hld = ref(true);
         onMounted(() => {   
             loadrecords(), 
             getOffices(),
             getEmployeeTypes(),
             getEmployeeStatuses(),
             getEmployeePositions(),
-            getSalaryGradeGroups()
+            getSalaryGradeGroups().then(() => {
+                hld.value = false;
+            })
+
             
         })
 
@@ -396,7 +404,8 @@ export default{
             salarygradestepsArr,
             removeEmployment,
             selectChange,
-            availablewcids
+            availablewcids,
+            hld
         
         }
     }

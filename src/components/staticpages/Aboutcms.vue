@@ -52,11 +52,15 @@
 
 <script>
     import { useHead } from '@unhead/vue'
-
+    import nProgress from "nprogress";
+    import {onMounted ,ref, computed, inject} from 'vue';
 	export default{
 		setup(){
             useHead({
                 title: 'About | CMDTS'
+            })
+            onMounted(() =>{
+                
             })
 		}
 	}
