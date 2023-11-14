@@ -67,7 +67,7 @@ window.Echo = new Echo({
       return {
         authorize: (socketId, callback) => {
           axios.defaults.withCredentials = true;
-          axios.post(liveBr+'/v1/broadcasting/auth',{
+          axios.post(liveBr+'/api/broadcasting/auth',{
               socket_id: socketId,
               channel_name: channel.name,
             }).then((response) => {

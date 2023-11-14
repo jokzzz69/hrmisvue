@@ -23,7 +23,7 @@ export default function useAuthenticate(){
 	const pristore = usePrivacyStore();
 	const info = ref();
 
-	const hrmis = ''; //add v1 on live
+	const hrmis = 'v1'; //add v1 on live
 
 
 	const currentUser = async() => {
