@@ -108,10 +108,10 @@
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
     import moment from 'moment'
-    import Pagination from '@/components/reusables/Pagination.vue';
+    import Pagination from '@/components/cm/reusables/Pagination.vue';
     import {formatmaildate} from '@/helper/formatmaildate';
 
-    import Tooltip from "@/components/reusables/Tooltip.vue";
+    import Tooltip from "@/components/cm/reusables/Tooltip.vue";
     import LoadingComponent from '@/components/loader/LoadingComponent.vue';
 
     export default{
