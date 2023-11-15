@@ -18,40 +18,77 @@
 				    		</div>
 				    	</div>
 				    </div>
-				    <table class="mtable hasActions mt-2 mb-2 table tbllink">
-				    	<thead>
-				    		<tr>
-				    			<th @click="sortTable('name')">Name
-				                    <span v-if="sortColumn == 'name'" class="material-icons">{{arrowIconName}}</span>
-				                    <span v-else class="material-icons">sort</span>
-				                </th>
-				                <th @click="sortTable('date')">Date
-				                    <span v-if="sortColumn == 'date'" class="material-icons">{{arrowIconName}}</span>
-				                    <span v-else class="material-icons">sort</span>
-				                </th>
-				                <th>
-				                	
-				                </th>
-				    		</tr>
-				    	</thead>
-				    	<tbody>
-				    		<template v-for="holiday in filteredHoliday" :key="holiday.id">
-				    			<tr @click="goshow(holiday.id)">
-				    				<td>
-				    					{{holiday.name}}
-				    				</td>
-				    				<td>
-				    					{{moment(holiday.date).format('MMMM DD, Y')}}
-				    				</td>
-					    			<td @click.stop>
-					    				<ul class="ls-frmbutton text-end">
-			                                <li><button title="delete" class="btn btn-outline-danger" @click="deleteHoliday(holiday.id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
-			                            </ul>
-					    			</td>
-				    			</tr>
-				    		</template>
-				    	</tbody>
-				    </table>
+				    <div class="tblWrap mt-2">
+				    	<table class="mtable table nottbllink">
+					    	<thead>
+					    		<tr>
+					    			<th @click="sortTable('name')">Name
+					                    <span v-if="sortColumn == 'name'" class="material-icons">{{arrowIconName}}</span>
+					                    <span v-else class="material-icons">sort</span>
+					                </th>
+					                <th @click="sortTable('date')">Date
+					                    <span v-if="sortColumn == 'date'" class="material-icons">{{arrowIconName}}</span>
+					                    <span v-else class="material-icons">sort</span>
+					                </th>
+					                <th>
+					                	
+					                </th>
+					    		</tr>
+					    	</thead>
+					    	<tbody>
+					    		<template v-if="!tblloader">
+					    			<template v-for="holiday in filteredHoliday" :key="holiday.id">
+						    			<tr>
+						    				<td>
+						    					{{holiday.name}}
+						    				</td>
+						    				<td>
+						    					{{moment(holiday.date).format('MMMM DD, Y')}}
+						    				</td>
+							    			<td @click.stop>
+							    				<ul class="ls-frmbutton text-end list-inline">
+							    					<li class="list-inline-item">
+													    <button class="btn btn-outline-violet" title="Edit" @click="goshow(holiday.id)"> 
+													        <i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
+													    </button>
+													</li>
+					                                <li class="list-inline-item">
+					                                	<button title="delete" class="btn btn-outline-danger" @click="deleteHoliday(holiday.id)"><i class="fa-solid fa-trash-can"></i> Delete</button>
+					                                </li>
+					                            </ul>
+							    			</td>
+						    			</tr>
+						    		</template>
+									<template v-if="searchQuery">
+									    <template v-if="!filteredHoliday.length">
+									        <tr class="nodata">
+									            <td colspan="3">
+									                No Results Found
+									            </td>
+									        </tr>
+									    </template>                         
+									</template>
+									<template v-else>
+									    <template v-if="!filteredHoliday.length">
+									        <tr class="nodata">
+									            <td colspan="3">
+									                No Entry!
+									            </td>
+									        </tr>
+									    </template> 
+									</template>  
+								</template>
+								<template v-else>
+								    <tr class="nodata pr">
+								        <td colspan="3">
+								            <LoadingComponent/>
+								        </td>
+								    </tr>
+								</template>
+					    		
+					    	</tbody>
+					    </table>
+				    </div>
 				</div>
 			</div>
 		</div>
@@ -67,10 +104,13 @@
 	import moment from 'moment'
 	import { useHead } from '@unhead/vue'
 	import RightNavHrmis from '@/components/navigation/RightNavHrmis.vue';
+	import LoadingComponent from '@/components/loader/LoadingComponent.vue'
+
 
 	export default{
 		components: {
-            RightNavHrmis
+            RightNavHrmis,
+            LoadingComponent
         },
 		setup(){
 			useHead({
@@ -89,8 +129,12 @@
 			const sortColumn = ref("id");
         	const sortDirection = ref(1);
 			const arrowIconName = ref("arrow_drop_up");			
+			const tblloader = ref(true);
+
 			onMounted(() => {
-				getHolidays()
+				getHolidays().then(() =>{
+					tblloader.value = false;
+				})
 			})		
 			
 			const filteredHoliday = computed(function(){
@@ -165,7 +209,8 @@
 				sortColumn,
 				goshow,
 				arrowIconName,
-				moment
+				moment,
+				tblloader
 			}
 		}
 	}

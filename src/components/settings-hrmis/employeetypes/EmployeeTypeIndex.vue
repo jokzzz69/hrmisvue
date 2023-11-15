@@ -17,7 +17,8 @@
                 </div>
 
             </div>
-            <table class="mtable hasActions mt-2 mb-2 table tbllink">
+            <div class="tblWrap mt-2">
+                <table class="mtable table nottbllink">
                     <thead>
                         <tr>
                             <th @click="sortTable('name')">Name
@@ -29,21 +30,57 @@
                     </thead>
 
                     <tbody>
-                        <template v-for="item in filteredEmployeeTypes" :key="item.id">
-                            <tr @click="goshow(item.id)">
-                                <td>
-                                    {{ item.name }}
-                                </td>
-                                <td @click.stop>
-                                    <ul class="ls-frmbutton text-end">
-                                        <li><button title="delete" class="btn btn-outline-danger" @click="deleteEmployeeType(item.id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
-                                    </ul>
-                                    
+                        <template v-if="!tblloader">
+                            <template v-for="item in filteredEmployeeTypes" :key="item.id">
+                                <tr>
+                                    <td>
+                                        {{ item.name }}
+                                    </td>
+                                    <td @click.stop>
+                                        <ul class="ls-frmbutton text-end list-inline">
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-outline-violet" title="Edit" @click="goshow(item.id)"> 
+                                                    <i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
+                                                </button>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <button title="delete" class="btn btn-outline-danger" @click="deleteEmployeeType(item.id)"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                                            </li>
+                                        </ul>
+                                        
+                                    </td>
+                                </tr>
+                            </template>
+                            <template v-if="searchQuery">
+                                <template v-if="!filteredEmployeeTypes.length">
+                                    <tr class="nodata">
+                                        <td colspan="2">
+                                            No Results Found
+                                        </td>
+                                    </tr>
+                                </template>                         
+                            </template>
+                            <template v-else>
+                                <template v-if="!filteredEmployeeTypes.length">
+                                    <tr class="nodata">
+                                        <td colspan="2">
+                                            No Entry!
+                                        </td>
+                                    </tr>
+                                </template> 
+                            </template>  
+                        </template>
+                        <template v-else>
+                            <tr class="nodata pr">
+                                <td colspan="2">
+                                    <LoadingComponent/>
                                 </td>
                             </tr>
                         </template>
+                        
                     </tbody>
                 </table>
+            </div>
         </div>
         <RightNavHrmis/>
     </div>
@@ -57,10 +94,12 @@
     import {useRouter} from 'vue-router'
     import { useHead } from '@unhead/vue'
     import RightNavHrmis from '@/components/navigation/RightNavHrmis.vue';
+    import LoadingComponent from '@/components/loader/LoadingComponent.vue'
 
 	export default{
         components: {
-            RightNavHrmis
+            RightNavHrmis,
+            LoadingComponent
         },
 		setup(){
             useHead({
@@ -97,8 +136,13 @@
                     filteredEmployeeTypes.value.sort((a, b) => (a[columnName] < b[columnName] ? 1 : -1));
                 }
             }
+            const tblloader = ref(true);
 
-            onMounted(getEmployeeTypes)
+            onMounted(() => {
+                getEmployeeTypes().then(() =>{
+                    tblloader.value = false;
+                })
+            })
 
             const deleteEmployeeType = async (id) =>{
                 
@@ -156,7 +200,8 @@
                 searchQuery,
                 getEmployeeTypes,
                 deleteEmployeeType,
-                goshow
+                goshow,
+                tblloader
 			}
 		}
 	}

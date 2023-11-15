@@ -18,7 +18,7 @@
 
     </div>
     <div class="tblWrap mt-2 mb-2">
-        <table class="mtable hasActions table tbl-leave">
+        <table class="mtable hasActions table tbl-leave nottbllink">
             <thead>
                 <tr>
                     <th>

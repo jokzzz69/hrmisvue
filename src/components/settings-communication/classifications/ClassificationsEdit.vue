@@ -1,4 +1,7 @@
 <template> 
+    <template v-if="pageLoader">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row">
         <div class="col-md-12 p-title">
             <h2>Edit Classification</h2>
@@ -25,8 +28,12 @@
 
     import useClassifications from "@/composables/composables-classifications";
     import { useHead } from '@unhead/vue'
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
 
     export default {
+        components: {
+            LoadingComponentDiv
+        },
         props: {
             id: {
                 required: true,
@@ -40,7 +47,13 @@
             const swal = inject('$swal')
 
             const { errors, getClassification, updateClassification, classification } = useClassifications()
-            onMounted(() => {getClassification(props.id)})
+            const pageLoader = ref(true);
+            onMounted(() => {
+                    getClassification(props.id).then(() =>{
+                        pageLoader.value = false;
+                    })
+                }
+            )
             const saveClassification = async (id) => {
                 await updateClassification(props.id).then(() => {
                     if(!errors.value){
@@ -65,7 +78,8 @@
             return{
                 errors,
                 classification,
-                saveClassification
+                saveClassification,
+                pageLoader
             }
         }
     }

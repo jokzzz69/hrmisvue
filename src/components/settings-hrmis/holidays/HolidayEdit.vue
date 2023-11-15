@@ -1,4 +1,7 @@
 <template>
+    <template v-if="pageLoader">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row">
         <div class="col-md-12 p-title">
             <h2>Edit Holiday</h2>
@@ -30,12 +33,19 @@
     </form>
 </template>
 <script>
-    import { reactive ,inject, onMounted} from "vue";
+    import { reactive ,inject, onMounted,ref} from "vue";
     import useHolidays from '@/composables/composables-holidays';
     import moment from 'moment'
     import { useHead } from '@unhead/vue'
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
+
+
+
 
     export default {
+        components: {
+            LoadingComponentDiv
+        },
         props : {
             id: {
                 required: true,
@@ -55,9 +65,11 @@
 
             const { errors, getHoliday, holiday, updateHoliday} = useHolidays()
 
-
+            const pageLoader = ref(true);
             onMounted(() => {
-                getHoliday(props.id)
+                getHoliday(props.id).then(() => {
+                    pageLoader.value = false;
+                })
             })
 
 
@@ -91,7 +103,8 @@
                 holiday,
                 errors,
                 saveHoliday,
-                format
+                format,
+                pageLoader
             }
         }
     }

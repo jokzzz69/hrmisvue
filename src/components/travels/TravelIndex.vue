@@ -134,7 +134,7 @@
 			    			<template v-if="!filteredTravels.length">
 			    				<tr class="nodata">
 				    				<td colspan="9">
-		                        		No Travel!
+		                        		No Entry!
 		                        	</td>
 				    			</tr>
 			    			</template>	

@@ -13,107 +13,137 @@
 		    		</div>
 		    	</div>
 		    </div>
-		    <table class="mtable hasActions mt-2 mb-2 table" id="userstbl">
-		    	<thead>
-		    		<tr>
-		
-		    			<th @click="sortTable('employee_fname')">First Name
-		                    <span v-if="sortColumn == 'employee_fname'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th @click="sortTable('employee_mname')">Middle Name
-		                    <span v-if="sortColumn == 'employee_mname'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th @click="sortTable('employee_lname')">Last Name
-		                    <span v-if="sortColumn == 'employee_lname'" class="material-icons">{{arrowIconName}}</span>		                    
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th>Username</th>
-		                <th @click="sortTable('last_login')">Last Login
-		                	<span v-if="sortColumn == 'last_login'" class="material-icons">{{arrowIconName}}</span>		                    
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th class="nc">
-		                	Access Level
-		                </th>
-		          
-		                <th class="nc"></th>
-		    		</tr>
-		    	</thead>
-		    	<tbody>
-		    		<template v-for="employee in filteredEmployees" :key="employee.employee_id">
-		    			<tr v-if="authuser.employee_id != employee.employee_id">
-		    		
-		    				<td class="ttc">{{employee.employee_fname}}</td>
-			    			<td class="ttc">{{employee.employee_mname}}</td>
-			    			<td class="ttc">{{employee.employee_lname}} <span class="ttu">{{employee.employee_extname}}</span></td>
-			    			<td>
-			    				<template v-if="employee.useraccount">
-			    					{{employee.useraccount.username}}			    					
-			    				</template>
-			    			</td>
-			    			<td>
-			    				<template v-if="employee.useraccount">
-			    					<template v-if="employee.useraccount.last_login">
-			    						{{moment(employee.useraccount.last_login).format('MMMM DD, yyyy hh:mm A')}}
-			    					</template>
-			    					
-			    				</template>
-			    			</td>
-			    			<td>
+		    <div class="tblWrap mt-2">
+		    	<table class="mtable hasActions table nottbllink" id="userstbl">
+			    	<thead>
+			    		<tr>
+			
+			    			<th @click="sortTable('employee_fname')">First Name
+			                    <span v-if="sortColumn == 'employee_fname'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th @click="sortTable('employee_mname')">Middle Name
+			                    <span v-if="sortColumn == 'employee_mname'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th @click="sortTable('employee_lname')">Last Name
+			                    <span v-if="sortColumn == 'employee_lname'" class="material-icons">{{arrowIconName}}</span>		                    
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th>Username</th>
+			                <th @click="sortTable('last_login')">Last Login
+			                	<span v-if="sortColumn == 'last_login'" class="material-icons">{{arrowIconName}}</span>		                    
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th class="nc">
+			                	Access Level
+			                </th>
+			          
+			                <th class="nc"></th>
+			    		</tr>
+			    	</thead>
+			    	<tbody>
+			    		<template v-if="!tblloader">
+			    			<template v-for="employee in filteredEmployees" :key="employee.employee_id">
+				    			<tr v-if="authuser.employee_id != employee.employee_id">
+				    		
+				    				<td class="ttc">{{employee.employee_fname}}</td>
+					    			<td class="ttc">{{employee.employee_mname}}</td>
+					    			<td class="ttc">{{employee.employee_lname}} <span class="ttu">{{employee.employee_extname}}</span></td>
+					    			<td>
+					    				<template v-if="employee.useraccount">
+					    					{{employee.useraccount.username}}			    					
+					    				</template>
+					    			</td>
+					    			<td>
+					    				<template v-if="employee.useraccount">
+					    					<template v-if="employee.useraccount.last_login">
+					    						{{moment(employee.useraccount.last_login).format('MMMM DD, yyyy hh:mm A')}}
+					    					</template>
+					    					
+					    				</template>
+					    			</td>
+					    			<td>
 
-			    				<template v-for="user in users" :key="user.employee_id">
-			    					<template v-if="user.employee_id == employee.employee_id">
-			    						<template v-if="user.roles.length">
-			    							<template v-for="userrole in user.roles" :key="userrole.id">
-			    								<span :class="userrole.slug" class="badge text-bg-primary me-1">
-					    							{{userrole.name}}
-					    						</span> 
-			    							</template>			    							
-			    						</template>
-			    					</template>
-			    				</template>
-			    			</td>
+					    				<template v-for="user in users" :key="user.employee_id">
+					    					<template v-if="user.employee_id == employee.employee_id">
+					    						<template v-if="user.roles.length">
+					    							<template v-for="userrole in user.roles" :key="userrole.id">
+					    								<span :class="userrole.slug" class="badge text-bg-primary me-1">
+							    							{{userrole.name}}
+							    						</span> 
+					    							</template>			    							
+					    						</template>
+					    					</template>
+					    				</template>
+					    			</td>
 
-			    			<td class="text-end">
-			    				<ul class="ls-frmbutton">		    					
-			    				
-				    				<template v-if="employee.useraccount != null">
-				    					<li>
-				    						<router-link :to="{ name: 'logs.show', params: { id: employee.employee_id } }" class="btn btn-lightblue" title="View Logs"> 
-												<i class="fa-solid fa-clipboard-list"></i> <span class="actionText">Logs</span>
-											</router-link>
-										</li>
-				    					<li>
-				    						<router-link :to="{ name: 'users.edit', params: { id: employee.employee_id } }" class="btn btn-violet" title="Edit"> 
-												<i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
-											</router-link>
-										</li>
-										<li>
-											<button class="btn btn-outline-warning" @click="rebootPassword(employee.employee_id)" title="Reset Password"><i class="fa-solid fa-arrows-rotate"></i> <span class="actionText">Reset Password</span></button>
-										</li>
-		                                <li>
-		                                	<button class="btn btn-outline-danger" @click="deactivateAccount(employee.employee_id)"  title="Deactivate Accout">
-		                                		<i class="fa-solid fa-user-lock"></i> <span class="actionText">Deactivate</span>
-		                                	</button>
-		                                </li>			    					
-				    				</template>
+					    			<td class="text-end">
+					    				<ul class="ls-frmbutton">		    					
+					    				
+						    				<template v-if="employee.useraccount != null">
+						    					<li>
+						    						<router-link :to="{ name: 'logs.show', params: { id: employee.employee_id } }" class="btn btn-lightblue" title="View Logs"> 
+														<i class="fa-solid fa-clipboard-list"></i> <span class="actionText">Logs</span>
+													</router-link>
+												</li>
+						    					<li>
+						    						<router-link :to="{ name: 'users.edit', params: { id: employee.employee_id } }" class="btn btn-violet" title="Edit"> 
+														<i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
+													</router-link>
+												</li>
+												<li>
+													<button class="btn btn-outline-warning" @click="rebootPassword(employee.employee_id)" title="Reset Password"><i class="fa-solid fa-arrows-rotate"></i> <span class="actionText">Reset Password</span></button>
+												</li>
+				                                <li>
+				                                	<button class="btn btn-outline-danger" @click="deactivateAccount(employee.employee_id)"  title="Deactivate Accout">
+				                                		<i class="fa-solid fa-user-lock"></i> <span class="actionText">Deactivate</span>
+				                                	</button>
+				                                </li>			    					
+						    				</template>
 
-				    				<template v-else>
-				    					<li>				    						
-				    						<button title="Activate Account" class="btn btn-outline-success"  @click.once="activateAccount(employee.employee_id)">
-					    						<i class="fa-solid fa-user-check"></i> <span class="actionText">Activate Account</span>
-					    					</button>
-				    					</li>
-				    				</template>                              
+						    				<template v-else>
+						    					<li>				    						
+						    						<button title="Activate Account" class="btn btn-outline-success"  @click.once="activateAccount(employee.employee_id)">
+							    						<i class="fa-solid fa-user-check"></i> <span class="actionText">Activate Account</span>
+							    					</button>
+						    					</li>
+						    				</template>                              
 
-	                            </ul>
-			    			</td>
-		    			</tr>
-		    		</template>
-		    	</tbody>
-		    </table>
+			                            </ul>
+					    			</td>
+				    			</tr>
+				    		</template>
+							<template v-if="searchQuery">
+							    <template v-if="!filteredEmployees.length">
+							        <tr class="nodata">
+							            <td colspan="7">
+							                No Results Found
+							            </td>
+							        </tr>
+							    </template>                         
+							</template>
+							<template v-else>
+							    <template v-if="!filteredEmployees.length">
+							        <tr class="nodata">
+							            <td colspan="7">
+							                No Entry!
+							            </td>
+							        </tr>
+							    </template> 
+							</template>  
+						</template>
+						<template v-else>
+						    <tr class="nodata pr">
+						        <td colspan="7">
+						            <LoadingComponent/>
+						        </td>
+						    </tr>
+						</template>  
+			    		
+			    	</tbody>
+			    </table>
+		    </div>
 		</div>
 	</div>
 </template>
@@ -127,11 +157,13 @@
 	import { sortBy} from 'lodash';
 	import {useRouter} from 'vue-router'
 	import moment from 'moment';
-
+	import LoadingComponent from '@/components/loader/LoadingComponent.vue'
 	import { useHead } from '@unhead/vue'
-
-	export default{		
 	
+	export default{		
+		components: {
+            LoadingComponent
+        },
 		setup(){		
 			useHead({
                 title: 'Accounts | BFAR - CAR HRMIS'
@@ -162,11 +194,13 @@
 							  (biouser.useraccount && biouser.useraccount.last_login && moment(biouser.useraccount.last_login).format('MMMM DD, yyyy hh:mm A').toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1)
 				);
 			});
-
+			const tblloader = ref(true);
 			onMounted(() => {
 				getUsers(),
 				getBioUsers(),
-				getAuthuser()
+				getAuthuser().then(() => {
+					tblloader.value = false;
+				})
 			})
 
 			const activateAccount = async (id) =>{		
@@ -282,7 +316,8 @@
 				checkActivated,
 				rebootPassword,
 				moment,
-				authuser
+				authuser,
+				tblloader
 			}
 		}
 	}

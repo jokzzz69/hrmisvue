@@ -20,7 +20,8 @@
         </div>
 
     </div>
-	<table class="mtable hasActions mt-2 mb-2 table">
+	<div class="tblWrap mt-2">
+        <table class="mtable nottbllink table">
             <thead>
                 <tr>
                     <th @click="sortTable('name')">Name
@@ -38,8 +39,7 @@
                 </tr>
             </thead>                
             <tbody>
-
-                <template v-if="salarygradegroup.salarygrades">
+                <template v-if="!tblloader">
                     <tr v-for="salarygrade in filteredSalarygradeGroups" :key="salarygrade.id">
                         <td>{{salarygrade.name}}</td>
                         <template v-if="salarygrade.salarygradesteps">
@@ -48,9 +48,35 @@
                             </td>
                         </template>     
                     </tr>
+                    <template v-if="searchQuery">                            
+                           <template v-if="!filteredSalarygradeGroups.length">
+                            <tr class="nodata">
+                                <td colspan="9">
+                                    No Results Found
+                                </td>
+                            </tr>
+                        </template>                         
+                    </template>
+                    <template v-else>
+                        <template v-if="!filteredSalarygradeGroups.length">
+                            <tr class="nodata">
+                                <td colspan="9">
+                                    No Entry!
+                                </td>
+                            </tr>
+                        </template> 
+                    </template>  
                 </template>
+                <template v-else>
+                    <tr class="nodata pr">
+                        <td colspan="9">
+                            <LoadingComponent/>
+                        </td>
+                    </tr>
+                </template>                  
             </tbody>
-        </table>
+        </table>   
+    </div>
 
 </template>
 
@@ -62,8 +88,12 @@
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
     import { useHead } from '@unhead/vue'
+    import LoadingComponent from '@/components/loader/LoadingComponent.vue'
 
 	export default{
+        components: {
+            LoadingComponent
+        },
         props: {
             id: {
                 required: true,
@@ -108,10 +138,12 @@
                     filteredSalarygradeGroups.value.sort((a, b) => (a[columnName] < b[columnName] ? 1 : -1));
                 }
             }
-
+            const tblloader = ref(true);
             onMounted(() => {
                 getSalaryGradeGroup(props.id),
-                getAuthuser()
+                getAuthuser().then(() => {
+                    tblloader.value = false;
+                })
             })
     
     
@@ -126,7 +158,8 @@
                 sortDirection,
                 searchQuery,
                 formatPrice,
-                authuser
+                authuser,
+                tblloader
 
 			}
 		}

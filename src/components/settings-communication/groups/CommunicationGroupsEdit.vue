@@ -1,4 +1,7 @@
 <template> 
+    <template v-if="pageLoader">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row">
         <div class="col-md-12 p-title">
             <h2>Edit Communication Group</h2>
@@ -37,8 +40,12 @@
 
     import useCommunicationGroups from "@/composables/composables-communicationgroups";
     import { useHead } from '@unhead/vue'
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
 
     export default {
+        components: {
+            LoadingComponentDiv
+        },
         props: {
             id: {
                 required: true,
@@ -52,7 +59,12 @@
             const swal = inject('$swal')
 
             const { errors, getCommunicationGroup, updateCommunicationGroup, communicationgroup } = useCommunicationGroups()
-            onMounted(() => {getCommunicationGroup(props.id)})
+            const pageLoader = ref(true);
+            onMounted(() => {
+                getCommunicationGroup(props.id).then(() => {
+                    pageLoader.value = false;
+                })
+            })
             const saveCommunicationGroup = async (id) => {
                 await updateCommunicationGroup(props.id).then(() => {
                     if(!errors.value){
@@ -77,7 +89,8 @@
             return{
                 errors,
                 communicationgroup,
-                saveCommunicationGroup
+                saveCommunicationGroup,
+                pageLoader
             }
         }
     }

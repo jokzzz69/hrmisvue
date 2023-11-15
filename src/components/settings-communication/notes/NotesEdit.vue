@@ -1,4 +1,7 @@
 <template> 
+    <template v-if="pageLoader">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row">
         <div class="col-md-12 p-title">
             <h2>Edit Note</h2>
@@ -25,8 +28,13 @@
 
     import useNotes from "@/composables/composables-notes";
     import { useHead } from '@unhead/vue'
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
+
 
     export default {
+        components: {
+            LoadingComponentDiv
+        },
         props: {
             id: {
                 required: true,
@@ -40,7 +48,13 @@
             const swal = inject('$swal')
 
             const { errors, getNote, updateNote, note } = useNotes()
-            onMounted(() => {getNote(props.id)})
+            const pageLoader = ref(true);
+            onMounted(() => {
+                    getNote(props.id).then(() =>{
+                        pageLoader.value = false;
+                    })
+                }
+            )
             const saveNote = async (id) => {
                 await updateNote(props.id).then(() => {
                     if(!errors.value){
@@ -65,7 +79,8 @@
             return{
                 errors,
                 note,
-                saveNote
+                saveNote,
+                pageLoader
             }
         }
     }

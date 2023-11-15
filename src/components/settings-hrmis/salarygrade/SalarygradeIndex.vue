@@ -13,7 +13,8 @@
         </div>
 
     </div>
-	<table class="mtable hasActions mt-2 mb-2 table tbllink">
+	<div class="tblWrap mt-2">
+     <table class="mtable hasActions mt-2 mb-2 table tbllink">
             <thead>
                 <tr>
                     <th @click="sortTable('name')">Name
@@ -48,7 +49,8 @@
                       </tr>
                 </template>
             </tbody>
-        </table>
+        </table>   
+    </div>
 </template>
 
 <script>

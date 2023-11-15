@@ -1,4 +1,7 @@
 <template> 
+    <template v-if="pageLoader">
+        <LoadingComponentDiv/>
+    </template>
 	<div class="row">
         <div class="col-md-12 p-title">
             <h2>Edit Employee Position</h2>
@@ -26,7 +29,14 @@
 	import { reactive, onMounted, ref, inject} from "vue";
 	import useEmployeePosition from "@/composables/composables-position";
     import { useHead } from '@unhead/vue'
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
+
+
+
 	export default {
+        components: {
+            LoadingComponentDiv
+        },
 		props: {
             id: {
                 required: true,
@@ -42,7 +52,13 @@
 
 			const { errors, updateEmployeePosition, employeeposition, getEmployeePosition} = useEmployeePosition()
 
-			onMounted(() => {getEmployeePosition(props.id)})
+            const pageLoader = ref(true);
+
+			onMounted(() => {
+                getEmployeePosition(props.id).then(() =>{
+                    pageLoader.value = false;
+                })
+            })
 
 
 
@@ -70,7 +86,8 @@
 			return{
 				errors,
 				employeeposition,
-				saveEmployeePosition
+				saveEmployeePosition,
+                pageLoader
 			}
 		}
 	}

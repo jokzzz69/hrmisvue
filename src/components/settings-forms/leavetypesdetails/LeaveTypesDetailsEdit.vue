@@ -1,4 +1,7 @@
 <template> 
+    <template v-if="pageLoader">
+        <LoadingComponentDiv/>
+    </template>
 	<div class="row">
         <div class="col-md-12 p-title">
             <h2>New Leave Type Details</h2>
@@ -32,13 +35,20 @@
 </template>
 
 <script>
-	import { reactive,inject,defineAsyncComponent, onMounted} from "vue";
+	import { reactive,inject,defineAsyncComponent, onMounted, ref} from "vue";
 	import useLeaveTypes from "@/composables/composables-leavetypes";
     import useLeaveTypesDetails from "@/composables/composables-leavetypesdetails";
     import { useHead } from '@unhead/vue'
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
+
+
+
 
 
 	export default {
+        components: {
+            LoadingComponentDiv
+        },
         props: {
             id:{
                 required:true,
@@ -57,7 +67,6 @@
 			
 			const { leavetypes, getLeaveTypes } = useLeaveTypes()
             const { errors, updateLeaveTypesDetail, getLeaveTypesDetail, leavetypesdetail } = useLeaveTypesDetails()
-
 
 			const saveLeaveTypeDetails = async () => {
 			    await updateLeaveTypesDetail(props.id,{ ...form }).then(() => {
@@ -79,6 +88,7 @@
                     }
                 });
 			}
+            const pageLoader = ref(true);
             onMounted(() =>{
                 getLeaveTypes(),
                 getLeaveTypesDetail(props.id).then(() =>{
@@ -90,6 +100,8 @@
                             form.leavetype_ids.push(x.id);
                         }
                     }
+
+                    pageLoader.value = false;
                 });
             })
 			
@@ -97,7 +109,8 @@
 				form,
 				errors,
 				saveLeaveTypeDetails,
-                leavetypes
+                leavetypes,
+                pageLoader
 			}
 		}
 	}

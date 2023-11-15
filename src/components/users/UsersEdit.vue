@@ -1,4 +1,7 @@
 <template>
+    <template v-if="pageLoader">
+        <LoadingComponentDiv/>
+    </template>
 	<div class="row">
 		<div class="col-md-12 p-title">
 			<h2>Edit Account</h2>
@@ -133,9 +136,14 @@ import useRoles from '@/composables/composables-role';
 import usePermissions from '@/composables/composables-permissions';
 import { useAuthStore } from '@/stores/store.js'
 import { useHead } from '@unhead/vue'
+import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
+
+
 
 export default{
-
+    components: {
+        LoadingComponentDiv
+    },
     props: {
         id: {
             required: true,
@@ -165,7 +173,7 @@ export default{
             'userpermissions': []
         })
         
-
+        const pageLoader = ref(true);
         onMounted(() => {
             getUser(props.id).then(res => {
                 
@@ -181,7 +189,9 @@ export default{
             getOffices(),
             getRoles(),
             getPermissions(),
-            getAuthuser()
+            getAuthuser().then(() => {
+                pageLoader.value = false;
+            })
             
             
         })
@@ -335,7 +345,8 @@ export default{
             userrole,
             getPermissions,
             permissions,
-            checkid
+            checkid,
+            pageLoader
         
         }
     }

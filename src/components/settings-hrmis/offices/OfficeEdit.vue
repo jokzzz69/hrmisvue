@@ -1,4 +1,7 @@
 <template>
+    <template v-if="pageLoader">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row">
         <div class="col-md-12 p-title">
             <h2>Edit Office</h2>
@@ -33,12 +36,17 @@
 </template>
 
 <script>
-        import useOffices from '@/composables/composables-office';
-        import { onMounted , inject} from 'vue';
-        import useLocations from "@/composables/composables-location";
-        import { useHead } from '@unhead/vue'
+    
 
+    import useOffices from '@/composables/composables-office';
+    import { onMounted , inject, ref} from 'vue';
+    import useLocations from "@/composables/composables-location";
+    import { useHead } from '@unhead/vue'
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
     export default{
+        components: {
+            LoadingComponentDiv
+        },
         props: {
             id: {
                 required: true,
@@ -52,8 +60,11 @@
             const swal = inject('$swal')
             const { errors, office, updateOffice, getOffice } = useOffices()
             const { locations, getLocations} = useLocations()
+            const pageLoader = ref(true);
 
-            onMounted(() => {getOffice(props.id),getLocations()})
+            onMounted(() => {getOffice(props.id),getLocations().then(() => {
+                pageLoader.value = false;
+            })})
 
             const saveOffice = async () => {
 
@@ -82,7 +93,8 @@
                 office,
                 locations,
                 getLocations,
-                saveOffice
+                saveOffice,
+                pageLoader
             }
         }    
     }

@@ -1,4 +1,7 @@
 <template>
+    <template v-if="pageLoader">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row">
         <div class="col-md-12 p-title">
             <h2>Edit Role</h2>
@@ -32,12 +35,14 @@
 
 import useRoles from '@/composables/composables-role';
 
-import { onMounted, inject } from 'vue';
+import { onMounted, inject,ref} from 'vue';
 import { useHead } from '@unhead/vue'
+import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
 
 useHead({
     title: 'Edit Role | BFAR - CAR HRMIS'
 })
+const pageLoader = ref(true);
 const swal = inject('$swal')
 
 const {errors, role, getRole, updateRole} = useRoles()
@@ -48,7 +53,9 @@ const props = defineProps({
         type: String
     }
 })
-onMounted(() => getRole(props.id))
+onMounted(() => getRole(props.id).then(() =>{
+    pageLoader.value = false;
+}))
 const saverole = async () => {    
     await updateRole(props.id).then(() => {
         if(!errors.value){

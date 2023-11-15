@@ -20,7 +20,8 @@
                 </div>
 
             </div>
-            <table class="mtable hasActions mt-2 mb-2 table tbllink">
+            <div class="tblWrap mt-2">
+                <table class="mtable hasActions table tbllink">
                     <thead>
                         <tr>
                             <th @click="sortTable('name')">Name
@@ -31,20 +32,49 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <template v-for="salarygradegroup in filteredSalaryGradeGroups" :key="salarygradegroup.id">
-                            <tr @click="goshow(salarygradegroup.id,salarygradegroup.name)">
-                                <td>
-                                    {{ salarygradegroup.name }}
-                                </td>
-                                <td @click.stop>
-                                    <ul v-if="userrole == 'super-admin'" class="ls-frmbutton text-end">
-                                        <li><button title="delete" class="btn btn-outline-danger" @click="deleteSalaryGradeGroup(salarygradegroup.id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
-                                    </ul>                           
+                        <template v-if="!tblloader">
+                            <template v-for="salarygradegroup in filteredSalaryGradeGroups" :key="salarygradegroup.id">
+                                <tr @click="goshow(salarygradegroup.id,salarygradegroup.name)">
+                                    <td>
+                                        {{ salarygradegroup.name }}
+                                    </td>
+                                    <td @click.stop>
+                                        <ul v-if="userrole == 'super-admin'" class="ls-frmbutton text-end">
+                                            <li><button title="delete" class="btn btn-outline-danger" @click="deleteSalaryGradeGroup(salarygradegroup.id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
+                                        </ul>                           
+                                    </td>
+                                </tr>
+                            </template>
+                            <template v-if="searchQuery">
+                                <template v-if="!filteredSalaryGradeGroups.length">
+                                    <tr class="nodata">
+                                        <td colspan="2">
+                                            No Results Found
+                                        </td>
+                                    </tr>
+                                </template>                         
+                            </template>
+                            <template v-else>
+                                <template v-if="!filteredSalaryGradeGroups.length">
+                                    <tr class="nodata">
+                                        <td colspan="2">
+                                            No Entry!
+                                        </td>
+                                    </tr>
+                                </template> 
+                            </template>  
+                        </template>
+                        <template v-else>
+                            <tr class="nodata pr">
+                                <td colspan="2">
+                                    <LoadingComponent/>
                                 </td>
                             </tr>
                         </template>
+                        
                     </tbody>
                 </table>
+            </div>
         </div>
         <RightNavHrmis/>
     </div>
@@ -60,10 +90,12 @@
     import { useAuthStore } from '@/stores/store.js'
     import { useHead } from '@unhead/vue'
     import RightNavHrmis from '@/components/navigation/RightNavHrmis.vue';
+    import LoadingComponent from '@/components/loader/LoadingComponent.vue'
 
 	export default{
         components: {
-            RightNavHrmis
+            RightNavHrmis,
+            LoadingComponent
         },
 		setup(){
             useHead({
@@ -103,9 +135,11 @@
                     filteredSalaryGradeGroups.value.sort((a, b) => (a[columnName] < b[columnName] ? 1 : -1));
                 }
             }
-
+            const tblloader = ref(true);
             onMounted(() => {
-                getSalaryGradeGroups(),
+                getSalaryGradeGroups().then(() =>{
+                    tblloader.value = false;
+                }),
                 getAuthuser()
             })
 
@@ -164,7 +198,8 @@
                 goshow,
                 authuser,
                 authid,
-                userrole
+                userrole,
+                tblloader
 			}
 		}
 	}

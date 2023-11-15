@@ -23,8 +23,6 @@ export default function useAuthenticate(){
 	const pristore = usePrivacyStore();
 	const info = ref();
 
-	const hrmis = 'v1'; //add v1 on live
-
 
 	const currentUser = async() => {
 		axios.defaults.withCredentials = true;	
@@ -74,8 +72,8 @@ export default function useAuthenticate(){
 	const login = async (data) => {
         errors.value = ''
         axios.defaults.withCredentials = true;		
-		await axios.get(hrmis+'/sanctum/csrf-cookie').then(response => {
-			axios.post(hrmis+'/login', data).then(res => {
+		await axios.get(import.meta.env.VITE_BFAR_SUBLINK+'/sanctum/csrf-cookie').then(response => {
+			axios.post(import.meta.env.VITE_BFAR_SUBLINK+'/login', data).then(res => {
 			 	currentUser();
 			 	nProgress.start();
 			}).catch(e => {

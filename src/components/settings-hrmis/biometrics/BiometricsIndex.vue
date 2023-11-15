@@ -1,4 +1,7 @@
 <template>
+    <template v-if="pageLoader">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row w-right-nav">
         <div class="col col-w-settings">
             <div class="row">
@@ -159,10 +162,15 @@
     import moment from 'moment';
     import { useHead } from '@unhead/vue'
     import RightNavHrmis from '@/components/navigation/RightNavHrmis.vue';
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
+
+
+
 
 	export default{
         components: {
-            RightNavHrmis
+            RightNavHrmis,
+            LoadingComponentDiv
         },
 		setup(){
             useHead({
@@ -190,12 +198,14 @@
 
             } = useBioDevice();
             const swal = inject('$swal')
-
+            const pageLoader = ref(true);
             onMounted(() => {
                 getBioTimeMain(),
                 currRFMIC(),
                 currFMRED(),
-                currBENGUET()
+                currBENGUET().then(() => {
+                    pageLoader.value = false;
+                })
             })
             const getTimeMAIN = async () => {
                await getBioTimeMain();
@@ -314,7 +324,8 @@
             getTimeBENGUET,
             rfimcbio,
             fmredbio,
-            benguetbio
+            benguetbio,
+            pageLoader
            }
 		}
 	}

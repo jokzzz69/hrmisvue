@@ -1,4 +1,7 @@
 <template> 
+    <template v-if="pageLoader">
+        <LoadingComponentDiv/>
+    </template>
 	<div class="row">
         <div class="col-md-12 p-title">
             <h2>Edit Employee Type</h2>
@@ -24,8 +27,15 @@
 	import { reactive, onMounted, ref, inject} from "vue";
 	import useEmployeeTypes from "@/composables/composables-type";
     import { useHead } from '@unhead/vue'
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
+
+
+
 
 	export default {
+        components: {
+            LoadingComponentDiv
+        },
 		props: {
             id: {
                 required: true,
@@ -41,8 +51,12 @@
 			const { errors, updateEmployeeType, employeetype, getEmployeeType} = useEmployeeTypes()
 
 
-
-			onMounted(() => {getEmployeeType(props.id)})
+            const pageLoader = ref(true);
+			onMounted(() => {
+                getEmployeeType(props.id).then(() => {
+                    pageLoader.value = false;
+                })
+            })
 
 
 		
@@ -74,7 +88,8 @@
 				errors,
 				employeetype,
 				getEmployeeType,
-				saveEmployeeType
+				saveEmployeeType,
+                pageLoader
 			}
 		}
 	}

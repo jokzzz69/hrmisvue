@@ -19,7 +19,7 @@
 
             </div>
             <div class="tblWrap mt-3 mb-3">
-                <table class="mtable table">
+                <table class="mtable table nottbllink">
                     <thead>
                         <tr>
                             <th @click="sortTable('name')">Name
@@ -31,8 +31,7 @@
                     </thead>
 
                     <tbody>
-
-                        <template v-if="filteredDocumenttypes.length > 0">
+                        <template v-if="!tblloader">
                             <template v-for="filteredDocumenttype in filteredDocumenttypes" :key="filteredDocumenttype.id">
                                 <tr @click="goshow(filteredDocumenttype.id)">
                                     <td>
@@ -54,12 +53,33 @@
                                         
                                     </td>
                                 </tr>
-
                             </template>
+                            <template v-if="searchQuery">
+                                <template v-if="!filteredDocumenttypes.length">
+                                    <tr class="nodata">
+                                        <td colspan="2">
+                                            No Results Found
+                                        </td>
+                                    </tr>
+                                </template>                         
+                            </template>
+                            <template v-else>
+                                <template v-if="!filteredDocumenttypes.length">
+                                    <tr class="nodata">
+                                        <td colspan="2">
+                                            No Entry!
+                                        </td>
+                                    </tr>
+                                </template> 
+                            </template>                            
                         </template>
-                        <tr v-if="noData">
-                            <td colspan="2" class="text-center">No Results found!</td>
-                        </tr>
+                        <template v-else>
+                            <tr class="nodata pr">
+                                <td colspan="2">
+                                    <LoadingComponent/>
+                                </td>
+                            </tr>
+                        </template>  
                     </tbody>
                 </table>   
             </div>
@@ -75,10 +95,12 @@
     import RightNavCommunications from '@/components/navigation/RightNavCommunications.vue';
     import { useAuthStore } from '@/stores/store.js'
     import { useHead } from '@unhead/vue'
+    import LoadingComponent from '@/components/loader/LoadingComponent.vue';
 
 	export default{
         components: {
-            RightNavCommunications
+            RightNavCommunications,
+            LoadingComponent
         },
 		setup(){
             useHead({
@@ -88,7 +110,7 @@
             const userrole = ref(store.getdetails[1]);
 
             const swal = inject('$swal')
-            const noData = ref(false);
+            const tblloader = ref(true);
             const {documenttypes, getDocumentTypes, destroyDocumentType} = useDocumentTypes()
 
             const searchQuery = ref("");
@@ -120,11 +142,7 @@
 
             onMounted(() =>{
                 getDocumentTypes().then(res => {
-                    if(documenttypes.value.length > 0){
-                        noData.value = false;
-                    }else{
-                        noData.value = true;
-                    }
+                    tblloader.value = false;
                 })
             })
 
@@ -183,7 +201,7 @@
                 searchQuery,
                 deleteDocumentType,
                 goshow,
-                noData,
+                tblloader,
                 userrole
             }
         }

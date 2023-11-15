@@ -17,7 +17,8 @@
                 </div>
 
             </div>
-            <table class="mtable hasActions mt-2 mb-2 table tbllink">
+            <div class="tblWrap mt-2">
+                <table class="mtable table nottbllink">
                     <thead>
                         <tr>
                             <th @click="sortTable('name')">Name
@@ -32,36 +33,73 @@
                     </thead>
 
                     <tbody>
-                        <template v-for="leavetypesdetail in filteredleavetypesdetails" :key="leavetypesdetail.id">
-                            <tr @click="goshow(leavetypesdetail.id)">
+                        <template v-if="!tblloader">
+                            <template v-for="leavetypesdetail in filteredleavetypesdetails" :key="leavetypesdetail.id">
+                                <tr>
 
-                                <td>
-                                    {{ leavetypesdetail.name }}
-                                </td>
-                                <td>
-                                    <template v-if="leavetypesdetail.leavetype">
-                                        <template v-for="leavetype in leavetypesdetail.leavetype">
-                                            <span class="badge bg-primary me-1">{{leavetype.name}}</span>
+                                    <td>
+                                        {{ leavetypesdetail.name }}
+                                    </td>
+                                    <td>
+                                        <template v-if="leavetypesdetail.leavetype">
+                                            <template v-for="leavetype in leavetypesdetail.leavetype">
+                                                <span class="badge bg-primary me-1">{{leavetype.name}}</span>
+                                            </template>
                                         </template>
-                                    </template>
-                                </td>
+                                    </td>
 
-                                <td @click.stop>
-                                    <ul class="ls-frmbutton text-end">
-                                        <li><button title="delete" class="btn btn-outline-danger" @click="deleteLeaveType(leavetypesdetail.id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
-                                    </ul>
-                                    
+                                    <td @click.stop>
+                                        <ul class="ls-frmbutton text-end list-inline">
+                                            <li class="list-inline-item">
+                                                <button class="btn btn-outline-violet" title="Edit" @click="goshow(leavetypesdetail.id)"> 
+                                                    <i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
+                                                </button>
+                                            </li>
+                                            <li class="list-inline-item"><button title="delete" class="btn btn-outline-danger" @click="deleteLeaveType(leavetypesdetail.id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
+                                        </ul>
+                                        
+                                    </td>
+                                </tr>
+                            </template>
+                            <template v-if="searchQuery">
+                                <template v-if="!filteredleavetypesdetails.length">
+                                    <tr class="nodata">
+                                        <td colspan="3">
+                                            No Results Found
+                                        </td>
+                                    </tr>
+                                </template>                         
+                            </template>
+                            <template v-else>
+                                <template v-if="!filteredleavetypesdetails.length">
+                                    <tr class="nodata">
+                                        <td colspan="3">
+                                            No Entry!
+                                        </td>
+                                    </tr>
+                                </template> 
+                            </template>  
+                        </template>
+                        <template v-else>
+                            <tr class="nodata pr">
+                                <td colspan="3">
+                                    <LoadingComponent/>
                                 </td>
                             </tr>
-                        </template>
+                        </template>                        
                     </tbody>
                 </table>
+            </div>
         </div>
         <RightNavForms/>
     </div>
 </template>
 
 <script>
+    import LoadingComponent from '@/components/loader/LoadingComponent.vue'
+
+
+
 	import useLeaveTypesDetails from '@/composables/composables-leavetypesdetails';
     import {onMounted ,ref, computed, inject} from 'vue';
     import { sortBy} from 'lodash';
@@ -70,14 +108,15 @@
     import RightNavForms from '@/components/navigation/RightNavForms.vue';
 	export default{
         components: {
-            RightNavForms
+            RightNavForms,
+            LoadingComponent
         },
 		setup(){
             useHead({
                 title: 'Settings - Employee Leave Types Details | BFAR - CAR HRMIS'
             })
             const swal = inject('$swal')
-            
+            const tblloader = ref(true);
 			const {leavetypesdetails, getLeaveTypesDetails, destroyLeaveTypesDetail} = useLeaveTypesDetails()
 
             const searchQuery = ref("");
@@ -110,7 +149,9 @@
             }
 
             onMounted(() =>{
-                getLeaveTypesDetails()
+                getLeaveTypesDetails().then(() => {
+                    tblloader.value = false;
+                })
             })
 
             const deleteLeaveType = async (id) =>{
@@ -167,7 +208,8 @@
                 sortDirection,
                 searchQuery,
                 deleteLeaveType,
-                goshow
+                goshow,
+                tblloader
 			}
 		}
 	}

@@ -19,7 +19,7 @@
 
             </div>
             <div class="tblWrap mt-3 mb-3">
-                <table class="mtable table">
+                <table class="mtable table nottbllink">
                     <thead>
                         <tr>
                             <th @click="sortTable('name')">Name
@@ -31,32 +31,56 @@
                     </thead>
 
                     <tbody>                   
-
-                        <template v-for="filteredClassification in filteredClassifications" :key="filteredClassification.id">
-                            <tr>
-                                <td>
-                                    {{ filteredClassification.name }}
-                                </td>
-                                <td @click.stop>
-                                    <ul class="list-inline text-end mb-0">
-                                        <li class="list-inline-item">
-                                            <router-link :to="{ name: 'classifications.edit', params: { id: filteredClassification.id } }" class="btn btn-outline-violet" title="Edit"> 
-                                                <i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
-                                            </router-link>
-                                        </li>
-                                        <template v-if="userrole.includes('super-admin') || userrole.includes('admin')"> 
+                        <template v-if="!tblloader">
+                            <template v-for="filteredClassification in filteredClassifications" :key="filteredClassification.id">
+                                <tr>
+                                    <td>
+                                        {{ filteredClassification.name }}
+                                    </td>
+                                    <td @click.stop>
+                                        <ul class="list-inline text-end mb-0">
                                             <li class="list-inline-item">
-                                                <button title="delete" class="btn btn-outline-danger" @click="deleteClassification(filteredClassification.id)"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                                                <router-link :to="{ name: 'classifications.edit', params: { id: filteredClassification.id } }" class="btn btn-outline-violet" title="Edit"> 
+                                                    <i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
+                                                </router-link>
                                             </li>
-                                        </template>
-                                    </ul>
-                                    
+                                            <template v-if="userrole.includes('super-admin') || userrole.includes('admin')"> 
+                                                <li class="list-inline-item">
+                                                    <button title="delete" class="btn btn-outline-danger" @click="deleteClassification(filteredClassification.id)"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                        
+                                    </td>
+                                </tr>
+                            </template>
+                            <template v-if="searchQuery">
+                                <template v-if="!filteredClassifications.length">
+                                    <tr class="nodata">
+                                        <td colspan="2">
+                                            No Results Found
+                                        </td>
+                                    </tr>
+                                </template>                         
+                            </template>
+                            <template v-else>
+                                <template v-if="!filteredClassifications.length">
+                                    <tr class="nodata">
+                                        <td colspan="2">
+                                            No Entry!
+                                        </td>
+                                    </tr>
+                                </template> 
+                            </template>  
+                        </template>
+                        <template v-else>
+                            <tr class="nodata pr">
+                                <td colspan="2">
+                                    <LoadingComponent/>
                                 </td>
                             </tr>
-                        </template>
-                        <tr v-if="noData">
-                            <td colspan="2" class="text-center">No Results found!</td>
-                        </tr>
+                        </template>  
+                        
 
                     </tbody>
                 </table>   
@@ -73,10 +97,12 @@
     import { useAuthStore } from '@/stores/store.js'
     import RightNavCommunications from '@/components/navigation/RightNavCommunications.vue';
     import { useHead } from '@unhead/vue'
+    import LoadingComponent from '@/components/loader/LoadingComponent.vue';
 
 	export default{
         components: {
-            RightNavCommunications
+            RightNavCommunications,
+            LoadingComponent
         },
 		setup(){
             useHead({
@@ -85,7 +111,7 @@
             const store = useAuthStore();
             const userrole = ref(store.getdetails[1]);
             const swal = inject('$swal')
-            const noData = ref(false);
+            const tblloader = ref(true);
             const {classifications, getClassifications, destroyClassification} = useClassifications()
 
             const searchQuery = ref("");
@@ -117,11 +143,7 @@
             }
 
             onMounted(() => getClassifications().then(res => {
-                if(classifications.value.length > 0){
-                    noData.value = false;
-                }else{
-                    noData.value = true;
-                }
+                tblloader.value = false;
             }))
 
             const deleteClassification = async (id) =>{
@@ -178,7 +200,7 @@
                 searchQuery,
                 deleteClassification,
                 goshow,
-                noData,
+                tblloader,
                 userrole
             }
         }

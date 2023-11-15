@@ -1,4 +1,9 @@
 <template> 
+
+    <template v-if="pageLoader">
+        <LoadingComponentDiv/>
+    </template>
+
 	<div class="row">
         <div class="col-md-12 p-title">
             <h2>Edit Leave Type</h2>
@@ -29,8 +34,13 @@
 	import { reactive, onMounted, ref, inject} from "vue";
 	import useLeaveTypes from "@/composables/composables-leavetypes";
     import { useHead } from '@unhead/vue'
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
+
 
 	export default {
+        components: {
+            LoadingComponentDiv
+        },
 		props: {
             id: {
                 required: true,
@@ -45,9 +55,13 @@
 
 			const { errors, updateLeaveType, leavetype, getLeaveType} = useLeaveTypes()
 
+            const pageLoader = ref(true);
 
-
-			onMounted(() => {getLeaveType(props.id)})
+			onMounted(() => {
+                getLeaveType(props.id).then(() => {
+                    pageLoader.value = false
+                })
+            })
 
 
 		
@@ -78,7 +92,8 @@
 			return{
 				errors,
 				leavetype,
-				saveLeaveType
+				saveLeaveType,
+                pageLoader
 			}
 		}
 	}

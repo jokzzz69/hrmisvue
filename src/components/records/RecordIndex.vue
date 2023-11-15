@@ -18,7 +18,7 @@
 		    	</div>
 		    </div>
 		    <div class="mtmb tblWrap mt-2 mb-2">
-		    	<table class="mtable hasActions  table tbllink">
+		    	<table class="mtable  table nottbllink">
 			    	<thead>
 			    		<tr>
 			    			<th @click="sortTable('employee_id')">ID
@@ -29,7 +29,7 @@
 			                    <span v-if="sortColumn == 'employee_fname'" class="material-icons">{{arrowIconName}}</span>
 			                    <span v-else class="material-icons">sort</span>
 			                </th>
-			                <th @click="sortTable('emergency_contactperson')">Emergency Contact
+			                <th class="th-15" @click="sortTable('emergency_contactperson')">Emergency Contact
 			                    <span v-if="sortColumn == 'emergency_contactperson'" class="material-icons">{{arrowIconName}}</span>
 			                    <span v-else class="material-icons">sort</span>
 			                </th>
@@ -41,7 +41,7 @@
 			                    <span v-if="sortColumn == 'status'" class="material-icons">{{arrowIconName}}</span>
 			                    <span v-else class="material-icons">sort</span>
 			                </th>
-			                <th @click="sortTable('position')">Position
+			                <th class="th-15" @click="sortTable('position')">Position
 			                    <span v-if="sortColumn == 'position'" class="material-icons">{{arrowIconName}}</span>
 			                    <span v-else class="material-icons">sort</span>
 			                </th>
@@ -53,14 +53,14 @@
 			                    <span v-if="sortColumn == 'startdate'" class="material-icons">{{arrowIconName}}</span>		                    
 			                    <span v-else class="material-icons">sort</span>
 			                </th>
-			                <th></th>
+			                <th class="th-20"></th>
 			    		</tr>
 			    	</thead>
 			    	<tbody>
 			    		<template v-if="filteredOfficeRecords.length > 0">
 			    			<template v-for="officerecord in filteredOfficeRecords" :key="officerecord.employee_id">
 
-				    			<tr @click="goshow(officerecord.employee_id)">
+				    			<tr>
 				    				<td>
 				    					<template v-if="officerecord.employee">
 				    						{{officerecord.employee.employee_id}}
@@ -125,6 +125,11 @@
 					    			</td>
 					    			<td @click.stop class="tblcolwid--2btn">
 					    				<ul class="ls-frmbutton text-end">
+					    					<li class="list-inline-item">
+											    <button class="btn btn-outline-violet" title="Edit" @click="goshow(officerecord.employee_id)"> 
+											        <i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
+											    </button>
+											</li>
 					    					<li class="me-1 mb-1" v-if="authid != officerecord.employee_id">
 					    						<button class="btn btn-dyellow" @click="archiveEmployee(officerecord.employee_id,officerecord.employments[0].status.id)"><i class="fa-solid fa-box-archive"></i> Archive</button>
 					    					</li>

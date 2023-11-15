@@ -18,54 +18,84 @@
                 </div>
                 
             </div>
-            <table class="mtable darkTable mt-2 mb-2 table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Page</th>
-                        <th>Name</th>
-                        <th>Action</th> 
-                        <th>Time</th>                    
-                    </tr>
-                </thead>
-                <tbody>
-                    <template v-for="activitylog in filteredLogs" :key="activitylog.id">
+            <div class="tblWrap mt-2">
+                <table class="mtable darkTable table">
+                    <thead>
                         <tr>
-                            <td>
-                                {{ activitylog.employee_id }}
-                            </td>
-                            <td>
-                                {{ activitylog.page }}
-                            </td>
-                            <td class="ttc">
-                                <template v-if="activitylog.employee">
-                                    {{activitylog.employee.employee_fname}} 
-                                    <template v-if="activitylog.employee.employee_mname">
-                                        {{activitylog.employee.employee_mname.charAt(0).toUpperCase()}}.
-                                    </template>
-                                    {{activitylog.employee.employee_lname}} {{activitylog.employee.employee_extname}}</template>
-                            </td>
-                            
-                            <td>
-                                {{ activitylog.actionname }}
-                                <template v-if="activitylog.employeeaffected">
-                                    of <strong>{{activitylog.employeeaffected.employee_fname}}
-                                    <template v-if="activitylog.employee.employee_mname">
-                                        {{activitylog.employeeaffected.employee_mname.charAt(0).toUpperCase()}}.
-                                    </template>
-                                    {{activitylog.employeeaffected.employee_lname}} {{activitylog.employeeaffected.employee_extname}} 
-                                    </strong> 
-                                </template>
-                            </td>
-                            <td>
-                                <template v-if="activitylog.actiondate">
-                                    {{ moment(activitylog.actiondate).format('hh:mm A') }}
-                                </template>                                
-                            </td>
+                            <th>ID</th>
+                            <th>Page</th>
+                            <th>Name</th>
+                            <th>Action</th> 
+                            <th>Time</th>                    
                         </tr>
-                    </template>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <template v-if="!tblloader">
+                            <template v-for="activitylog in filteredLogs" :key="activitylog.id">
+                                <tr>
+                                    <td>
+                                        {{ activitylog.employee_id }}
+                                    </td>
+                                    <td>
+                                        {{ activitylog.page }}
+                                    </td>
+                                    <td class="ttc">
+                                        <template v-if="activitylog.employee">
+                                            {{activitylog.employee.employee_fname}} 
+                                            <template v-if="activitylog.employee.employee_mname">
+                                                {{activitylog.employee.employee_mname.charAt(0).toUpperCase()}}.
+                                            </template>
+                                            {{activitylog.employee.employee_lname}} {{activitylog.employee.employee_extname}}</template>
+                                    </td>
+                                    
+                                    <td>
+                                        {{ activitylog.actionname }}
+                                        <template v-if="activitylog.employeeaffected">
+                                            of <strong>{{activitylog.employeeaffected.employee_fname}}
+                                            <template v-if="activitylog.employee.employee_mname">
+                                                {{activitylog.employeeaffected.employee_mname.charAt(0).toUpperCase()}}.
+                                            </template>
+                                            {{activitylog.employeeaffected.employee_lname}} {{activitylog.employeeaffected.employee_extname}} 
+                                            </strong> 
+                                        </template>
+                                    </td>
+                                    <td>
+                                        <template v-if="activitylog.actiondate">
+                                            {{ moment(activitylog.actiondate).format('hh:mm A') }}
+                                        </template>                                
+                                    </td>
+                                </tr>
+                            </template>
+                            <template v-if="searchQuery">
+                                <template v-if="!filteredLogs.length">
+                                    <tr class="nodata">
+                                        <td colspan="5">
+                                            No Results Found
+                                        </td>
+                                    </tr>
+                                </template>                         
+                            </template>
+                            <template v-else>
+                                <template v-if="!filteredLogs.length">
+                                    <tr class="nodata">
+                                        <td colspan="5">
+                                            No Entry!
+                                        </td>
+                                    </tr>
+                                </template> 
+                            </template>  
+                        </template>
+                        <template v-else>
+                            <tr class="nodata pr">
+                                <td colspan="5">
+                                    <LoadingComponent/>
+                                </td>
+                            </tr>
+                        </template> 
+                        
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </template>
@@ -76,8 +106,14 @@
 	import {onMounted ,ref, computed, inject} from 'vue';
     import moment from 'moment'
     import { useHead } from '@unhead/vue'
+    import LoadingComponent from '@/components/loader/LoadingComponent.vue'
+
 
 	export default{
+        components: {
+            
+            LoadingComponent
+        },
 		setup(){
             useHead({
                 title: 'System Logs | BFAR - CAR HRMIS'
@@ -85,9 +121,12 @@
             const searchQuery = ref("");
 			const {activitylogs,getLogs} = useActivityLogs()
             const {getAuthuser, authuser} = useUsers()
+            const tblloader = ref(true);
 			onMounted(() => {
                 getLogs(),
-                getAuthuser()
+                getAuthuser().then(() =>{
+                    tblloader.value = false;
+                })
             })
 
             const daypicked = ref(new Date());
@@ -95,7 +134,7 @@
             const dateformat = (daypicked) => {
               return moment(daypicked).format('MMMM DD, Y');
             }
-       
+         
             const filteredLogs = computed(function(){
                 return activitylogs.value.filter(
                     (activitylog) =>    moment(String(activitylog.actiondate)).month() == daypicked.value.getMonth() &&
@@ -127,7 +166,8 @@
                 moment,
                 daypicked,
                 dateformat,
-                authuser
+                authuser,
+                tblloader
                 
 			}
 		}

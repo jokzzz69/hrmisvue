@@ -1,4 +1,7 @@
 <template> 
+    <template v-if="pageLoader">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row">
         <div class="col-md-12 p-title">
             <h2>Edit Document Type</h2>
@@ -25,8 +28,11 @@
 
     import useDocumentTypes from "@/composables/composables-documenttypes";
     import { useHead } from '@unhead/vue'
-
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue'
     export default {
+        components: {
+            LoadingComponentDiv
+        },
         props: {
             id: {
                 required: true,
@@ -40,7 +46,14 @@
             const swal = inject('$swal')
 
             const { errors, getDocumentType, updateDocumentType, documenttype } = useDocumentTypes()
-            onMounted(() => {getDocumentType(props.id)})
+            const pageLoader = ref(true);
+            onMounted(() => {
+                    getDocumentType(props.id).then(() => {
+                        pageLoader.value = false;
+                    })
+                }
+            )
+
             const saveDocumentType = async (id) => {
                 await updateDocumentType(props.id).then(() => {
                     if(!errors.value){
@@ -65,7 +78,8 @@
             return{
                 errors,
                 documenttype,
-                saveDocumentType
+                saveDocumentType,
+                pageLoader
             }
         }
     }

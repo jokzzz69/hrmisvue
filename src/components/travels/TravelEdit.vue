@@ -1,4 +1,8 @@
 <template>
+    <template v-if="pageLoader">
+        <LoadingComponentDiv/>
+    </template>
+
     <div class="row">
         <div class="col-md-12 p-title">
             <h2>Edit Travel</h2>
@@ -77,9 +81,13 @@
     import useTravels from '@/composables/composables-travel';
     import { useHead } from '@unhead/vue'
     import moment from 'moment'
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
+
 
     export default {
-
+        components: {
+            LoadingComponentDiv
+        },
         props: {
             id: {
                 required: true,
@@ -107,6 +115,8 @@
             const {employees, getEmployeeOptions} = useEmployees()
 
             //date.value = [startDate, endDate];
+            const pageLoader = ref(true);
+
             onMounted(() => {
                 getEmployeeOptions(),
                 getTravel(props.id).then(res =>{
@@ -116,6 +126,8 @@
                     form.travelstart = travel.value.travelstart;
                     form.travelend = travel.value.travelend;
                     form.employees = travel.value.travelids;
+
+                    pageLoader.value = false;
                 })
                 
 
@@ -190,7 +202,8 @@
                 isnumber,
                 isnumberPaste,
                 getmaxdate,
-                getmindate
+                getmindate,
+                pageLoader
 
             }
         }

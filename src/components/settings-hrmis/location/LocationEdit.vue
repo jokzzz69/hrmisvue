@@ -1,4 +1,7 @@
 <template>
+    <template v-if="pageLoader">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row">
         <div class="col-md-12 p-title">
             <h2>Edit Location</h2>
@@ -25,8 +28,12 @@
 
 <script setup>
 import useLocations from '@/composables/composables-location';
-import { onMounted, inject } from 'vue';
+import { onMounted, inject, ref } from 'vue';
 import { useHead } from '@unhead/vue'
+import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
+
+
+const pageLoader = ref(true);
 
 useHead({
     title: 'Settings - Edit Office Location | BFAR - CAR HRMIS'
@@ -41,7 +48,8 @@ const props = defineProps({
     }
 })
 
-onMounted(() => getLocation(props.id))
+onMounted(() => getLocation(props.id).then(
+        () => {pageLoader.value =false}))
 
 const saveLocation = async () => {    
     await updateLocation(props.id).then(() => {

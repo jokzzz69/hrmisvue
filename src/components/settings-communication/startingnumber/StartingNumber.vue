@@ -1,4 +1,8 @@
 <template>
+
+    <template v-if="pageLoader">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row">
         <div class="col-md-12 p-title">
             <h2>Starting Number</h2>
@@ -47,8 +51,13 @@
     import moment from 'moment'
     import useStartingNumber from "@/composables/composables-startingnumber";
     import { useHead } from '@unhead/vue'
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
+
 
     export default {
+        components: {
+            LoadingComponentDiv
+        },
         setup(){
             useHead({
                 title: 'Settings - Communication Starting Number | BFAR - CAR HRMIS'
@@ -56,9 +65,11 @@
             const swal = inject('$swal')
 
             const {  getStartingNumber,startingnumber, updateStartingNumber, errors} = useStartingNumber()
-
+            const pageLoader = ref(true);
             onMounted(() => {
-            	getStartingNumber()
+            	getStartingNumber().then(() =>{
+                    pageLoader.value = false;
+                })
             })
 
             const saveDocumentNumber = async (id) => {
@@ -96,7 +107,8 @@
                 startingnumber,
                 saveDocumentNumber,
                 moment,
-                numberonly
+                numberonly,
+                pageLoader
             }
         }
     }

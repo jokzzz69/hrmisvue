@@ -655,7 +655,7 @@ const routes = [
     props: true,
     component: () => import('@/components/permissions/PermissionsEdit.vue'),
     meta: {
-      middleware: ['super-admin','admin']
+      middleware: ['super-admin']
     }
   },
   {

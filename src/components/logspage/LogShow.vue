@@ -17,44 +17,74 @@
                     </div>
                 </div>
             </div>
-            <table class="mtable darkTable mt-2 mb-2 table">
-                <thead>
-                    <tr>
-
-                        <th>Page</th>
-                        <th>Action</th> 
-                        <th>Time</th>                    
-                    </tr>
-                </thead>
-                <tbody>
-                    <template v-for="activitylog in filteredLogs" :key="activitylog.id">
+            <div class="tblWrap mt-2">
+                <table class="mtable darkTable table">
+                    <thead>
                         <tr>
-        
-                            <td>
-                                {{ activitylog.page }}
-                            </td>
-    
-                            
-                            <td>
-                                {{ activitylog.actionname }}
-                                <template v-if="activitylog.employeeaffected">
-                                    of <strong>{{activitylog.employeeaffected.employee_fname}}
-                                    <template v-if="activitylog.employee.employee_mname">
-                                        {{activitylog.employeeaffected.employee_mname.charAt(0).toUpperCase()}}.
-                                    </template>
-                                    {{activitylog.employeeaffected.employee_lname}} {{activitylog.employeeaffected.employee_extname}} 
-                                    </strong> 
-                                </template>
-                            </td>
-                            <td>
-                                <template v-if="activitylog.actiondate">
-                                    {{ moment(activitylog.actiondate).format('hh:mm A') }}
-                                </template>                                
-                            </td>
+
+                            <th>Page</th>
+                            <th>Action</th> 
+                            <th>Time</th>                    
                         </tr>
-                    </template>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <template v-if="!tblloader">
+                            <template v-for="activitylog in filteredLogs" :key="activitylog.id">
+                                <tr>
+                
+                                    <td>
+                                        {{ activitylog.page }}
+                                    </td>
+            
+                                    
+                                    <td>
+                                        {{ activitylog.actionname }}
+                                        <template v-if="activitylog.employeeaffected">
+                                            of <strong>{{activitylog.employeeaffected.employee_fname}}
+                                            <template v-if="activitylog.employee.employee_mname">
+                                                {{activitylog.employeeaffected.employee_mname.charAt(0).toUpperCase()}}.
+                                            </template>
+                                            {{activitylog.employeeaffected.employee_lname}} {{activitylog.employeeaffected.employee_extname}} 
+                                            </strong> 
+                                        </template>
+                                    </td>
+                                    <td>
+                                        <template v-if="activitylog.actiondate">
+                                            {{ moment(activitylog.actiondate).format('hh:mm A') }}
+                                        </template>                                
+                                    </td>
+                                </tr>
+                            </template>
+                            <template v-if="searchQuery">
+                                <template v-if="!filteredLogs.length">
+                                    <tr class="nodata">
+                                        <td colspan="3">
+                                            No Results Found
+                                        </td>
+                                    </tr>
+                                </template>                         
+                            </template>
+                            <template v-else>
+                                <template v-if="!filteredLogs.length">
+                                    <tr class="nodata">
+                                        <td colspan="3">
+                                            No Entry!
+                                        </td>
+                                    </tr>
+                                </template> 
+                            </template>  
+                        </template>
+                        <template v-else>
+                            <tr class="nodata pr">
+                                <td colspan="3">
+                                    <LoadingComponent/>
+                                </td>
+                            </tr>
+                        </template>
+                     
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </template>
@@ -65,8 +95,12 @@
     import moment from 'moment'
     import useUser from '@/composables/userscomposables';
     import { useHead } from '@unhead/vue'
+    import LoadingComponent from '@/components/loader/LoadingComponent.vue'
 
 	export default{
+        components: {
+            LoadingComponent
+        },
         props: {
             id: {
                 required: true,
@@ -80,16 +114,19 @@
             const searchQuery = ref("");
 			const {activitylog,getLog} = useActivityLogs()
             const {getAuthuser} = useUser();
-
+            const tblloader = ref(true);
 
             onMounted(() => {
-                getLog(props.id)
+                getLog(props.id).then(() => {
+                    tblloader.value = false;
+                })
             })      
 
             const daypicked = ref(new Date());
 
-            const dateformat = (daypicked) => {
-              return moment(daypicked).format('MMMM DD, Y');
+            const dateformat = (daypicked) => {               
+
+                return moment(daypicked).format('MMMM DD, Y');
             }
 
             
@@ -118,7 +155,8 @@
                 searchQuery,
                 moment,
                 daypicked,
-                dateformat
+                dateformat,
+                tblloader
 			}
 		}
 	}

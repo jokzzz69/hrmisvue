@@ -19,7 +19,7 @@
 
             </div>
             <div class="tblWrap mt-3 mb-3">
-                <table class="mtable table">
+                <table class="mtable table tblGroupsIndex nottbllink">
                     <thead>
                         <tr>
                             <th @click="sortTable('name')">Name
@@ -30,60 +30,85 @@
                                 <span v-if="sortColumn == 'cg_code'" class="material-icons">{{arrowIconName}}</span>
                                 <span v-else class="material-icons">sort</span>
                             </th>
-                            <th>Employees
-                            </th>
+                            <th>Employees</th>
                             <th>Display Status</th>
+                            <th>Label</th>
                             <th></th>
                         </tr>
                     </thead>
 
                     <tbody>
-
-                        <template v-for="filteredCommunicationGroup in filteredCommunicationGroups" :key="filteredCommunicationGroup.id">
-                            <tr @click="goshow(filteredCommunicationGroup.id)">
-                                <td>
-                                    {{ filteredCommunicationGroup.name }}
-                                </td>
-                                <td>
-                                    {{filteredCommunicationGroup.cg_code}}
-                                </td>
-                                <td>
-                                    <template v-if="filteredCommunicationGroup.employees">
-                                        <template v-for="x in filteredCommunicationGroup.employees">
-                                            <span class="me-1 badge badge-violet text-white">{{x.name}}</span>
+                        <template v-if="!tblloader">
+                            <template v-for="filteredCommunicationGroup in filteredCommunicationGroups" :key="filteredCommunicationGroup.id">
+                                <tr @click="goshow(filteredCommunicationGroup.id)">
+                                    <td>
+                                        {{ filteredCommunicationGroup.name }}
+                                    </td>
+                                    <td>
+                                        {{filteredCommunicationGroup.cg_code}}
+                                    </td>
+                                    <td>
+                                        <template v-if="filteredCommunicationGroup.employees">
+                                            <template v-for="x in filteredCommunicationGroup.employees">
+                                                <span class="me-1 badge badge-violet text-white">{{x.name}}</span>
+                                            </template>
                                         </template>
-                                    </template>
-                                </td>
-                                <td>
-                                    <div class="form-check form-switch form-switch-cg">
-                                      <input class="form-check-input" @click="updatecgdisplay(filteredCommunicationGroup.id,filteredCommunicationGroup.display)" true-value="1" false-value="0" v-model="filteredCommunicationGroup.display" type="checkbox" :id="'cgswitch-'+filteredCommunicationGroup.id">
-                                    </div>
-                                </td>
-                                <td @click.stop>
-                                    <ul class="list-inline text-end mb-0">
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-switch form-switch-cg">
+                                          <input class="form-check-input" @click="updatecgdisplay(filteredCommunicationGroup.id,filteredCommunicationGroup.display)" true-value="1" false-value="0" v-model="filteredCommunicationGroup.display" type="checkbox" :id="'cgswitch-'+filteredCommunicationGroup.id">
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                    <td @click.stop>
+                                        <ul class="list-inline text-end mb-0">
 
-                                        <li class="list-inline-item">
-                                            <router-link :to="{ name: 'communicationgroups.groups', params: { id: filteredCommunicationGroup.id } }" class="btn btn-outline-success" title="Add Employees"> 
-                                                <i class="fa-solid fa-people-group"></i> <span class="actionText">Edit Employees</span>
-                                            </router-link>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <router-link :to="{ name: 'communicationgroups.edit', params: { id: filteredCommunicationGroup.id } }" class="btn btn-outline-violet" title="Edit"> 
-                                                <i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
-                                            </router-link>
-                                        </li>
-                                        <template v-if="userrole.includes('super-admin') || userrole.includes('admin')"> 
-                                           <li class="list-inline-item">
-                                                <button title="delete" class="btn btn-outline-danger" @click="deleteCommunicationGroup(filteredCommunicationGroup.id)"><i class="fa-solid fa-trash-can"></i> Delete</button>
-                                            </li> 
-                                        </template>                                        
-                                    </ul>                                    
+                                            <li class="list-inline-item">
+                                                <router-link :to="{ name: 'communicationgroups.groups', params: { id: filteredCommunicationGroup.id } }" class="btn btn-outline-success" title="Add Employees"> 
+                                                    <i class="fa-solid fa-people-group"></i> <span class="actionText">Edit Employees</span>
+                                                </router-link>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <router-link :to="{ name: 'communicationgroups.edit', params: { id: filteredCommunicationGroup.id } }" class="btn btn-outline-violet" title="Edit"> 
+                                                    <i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
+                                                </router-link>
+                                            </li>
+                                            <template v-if="userrole.includes('super-admin') || userrole.includes('admin')"> 
+                                               <li class="list-inline-item">
+                                                    <button title="delete" class="btn btn-outline-danger" @click="deleteCommunicationGroup(filteredCommunicationGroup.id)"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                                                </li> 
+                                            </template>                                        
+                                        </ul>                                    
+                                    </td>
+                                </tr>
+                            </template>
+                            <template v-if="searchQuery">
+                                <template v-if="!filteredCommunicationGroups.length">
+                                    <tr class="nodata">
+                                        <td colspan="6">
+                                            No Results Found
+                                        </td>
+                                    </tr>
+                                </template>                         
+                            </template>
+                            <template v-else>
+                                <template v-if="!filteredCommunicationGroups.length">
+                                    <tr class="nodata">
+                                        <td colspan="6">
+                                            No Entry!
+                                        </td>
+                                    </tr>
+                                </template> 
+                            </template>  
+                        </template>
+                        <template v-else>
+                            <tr class="nodata pr">
+                                <td colspan="6">
+                                    <LoadingComponent/>
                                 </td>
                             </tr>
-                        </template>
-                        <tr v-if="noData">
-                            <td colspan="2" class="text-center">No Results found!</td>
-                        </tr>
+                        </template> 
+
                     </tbody>
                 </table>   
             </div>
@@ -100,17 +125,20 @@
     import { useAuthStore } from '@/stores/store.js'
     import RightNavCommunications from '@/components/navigation/RightNavCommunications.vue';
     import { useHead } from '@unhead/vue'
+    import LoadingComponent from '@/components/loader/LoadingComponent.vue'
+
 
 	export default{
         components: {
-            RightNavCommunications
+            RightNavCommunications,
+            LoadingComponent
         },
 		setup(){
             useHead({
                 title: 'Settings - Communication Groups | BFAR - CAR HRMIS'
             })
             const swal = inject('$swal')
-            const noData = ref(false);
+            const tblloader = ref(true);
             const {communicationgroups, getCommunicationGroups, destroyCommunicationGroup ,updateCommunicationGroupDisplay} = useCommunicationGroups()
 
             const searchQuery = ref("");
@@ -160,11 +188,7 @@
 
             onMounted(() => {
                 getCommunicationGroups().then(res =>{
-                    if(communicationgroups.value.length > 0){
-                        noData.value = false;
-                    }else{
-                        noData.value = true;
-                    }
+                    tblloader.value = false;
                 })
             })
 
@@ -230,9 +254,10 @@
                 searchQuery,
                 deleteCommunicationGroup,
                 goshow,
-                noData,
+                tblloader,
                 userrole,
                 updatecgdisplay
+
             }
         }
 	}

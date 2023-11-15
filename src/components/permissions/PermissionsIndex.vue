@@ -16,48 +16,83 @@
 		    		</div>
 		    	</div>
 		    </div>
-		    <table class="mtable mt-2 mb-2 table tbllink">
-		    	<thead>
-		    		<tr>
-		    			<th @click="sortTable('name')">Name
-		                    <span v-if="sortColumn == 'name'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>
-		                <th @click="sortTable('slug')">Slug
-		                    <span v-if="sortColumn == 'slug'" class="material-icons">{{arrowIconName}}</span>
-		                    <span v-else class="material-icons">sort</span>
-		                </th>	
-		                <th>
-		                	Role Assigned
-		                </th>
-		                <th></th>
-		    		</tr>
-		    	</thead>
-		    	<tbody>
-		    		<template v-for="permission in filteredPermissions" :key="permission.id">
-		    			<tr @click="goshow(permission.id)" v-if="permission.id !== 1">
-		    				<td>
-		    					{{permission.name}}
-		    				</td>
-		    				<td>
-		    					{{permission.slug}}
-		    				</td>
-		    				<td>
-		    					<template v-if="permission.roles[0]">
-		    						{{permission.roles[0].name}}
-		    					</template>
-		    				</td>
-		    				<td @click.stop>
-		    					<ul class="list-inline mb-0 text-end">
-		    						<li class="list-inline-item">
-		    							<button @click.prevent="deleteitem(permission.id)" class="btn btn-outline-danger">Delete</button>
-		    						</li>
-		    					</ul>
-		    				</td>
-		    			</tr>
-		    		</template>
-		    	</tbody>
-		    </table>
+		    <div class="tblWrap mt-2">
+		    	<table class="mtable table nottbllink">
+			    	<thead>
+			    		<tr>
+			    			<th @click="sortTable('name')">Name
+			                    <span v-if="sortColumn == 'name'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
+			                <th @click="sortTable('slug')">Slug
+			                    <span v-if="sortColumn == 'slug'" class="material-icons">{{arrowIconName}}</span>
+			                    <span v-else class="material-icons">sort</span>
+			                </th>	
+			                <th>
+			                	Role Assigned
+			                </th>
+			                <th></th>
+			    		</tr>
+			    	</thead>
+			    	<tbody>
+			    		<template v-if="!tblloader">
+			    			<template v-for="permission in filteredPermissions" :key="permission.id">
+				    			<tr v-if="permission.id !== 1">
+				    				<td>
+				    					{{permission.name}}
+				    				</td>
+				    				<td>
+				    					{{permission.slug}}
+				    				</td>
+				    				<td>
+				    					<template v-if="permission.roles[0]">
+				    						{{permission.roles[0].name}}
+				    					</template>
+				    				</td>
+				    				<td @click.stop>
+				    					<ul class="list-inline mb-0 text-end"  v-if="userslug.includes('super-admin')">
+				    						<li class="list-inline-item">
+											    <button class="btn btn-outline-violet" title="Edit" @click="goshow(permission.id)"> 
+											        <i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
+											    </button>
+											</li>
+				    						<li class="list-inline-item">
+				    							<button @click.prevent="deleteitem(permission.id)" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i>Delete</button>
+				    						</li>
+				    					</ul>
+				    				</td>
+				    			</tr>
+				    		</template>
+							<template v-if="searchQuery">
+							    <template v-if="!filteredPermissions.length">
+							        <tr class="nodata">
+							            <td colspan="4">
+							                No Results Found
+							            </td>
+							        </tr>
+							    </template>                         
+							</template>
+							<template v-else>
+							    <template v-if="!filteredPermissions.length">
+							        <tr class="nodata">
+							            <td colspan="4">
+							                No Entry!
+							            </td>
+							        </tr>
+							    </template> 
+							</template>  
+						</template>
+						<template v-else>
+						    <tr class="nodata pr">
+						        <td colspan="4">
+						            <LoadingComponent/>
+						        </td>
+						    </tr>
+						</template>
+			    		
+			    	</tbody>
+			    </table>
+		    </div>
 		</div>
 	</div>
 </template>
@@ -67,14 +102,23 @@
 	import {onMounted ,ref, computed, inject} from 'vue';
 	import { sortBy} from 'lodash';
 	import {useRouter} from 'vue-router'
-
+	import LoadingComponent from '@/components/loader/LoadingComponent.vue'
 	import { useHead } from '@unhead/vue'
+	import {useAuthStore} from '@/stores/store.js'
 
 	export default{
+		components: {
+			LoadingComponent
+		},
 		setup(){
 			useHead({
 		        title: 'Permissions | BFAR - CAR HRMIS'
 		    })
+
+
+			const store = useAuthStore()
+			const userslug = store.getdetails[1];
+
 			const {permissions, getPermissions, destroyPermission} = usePermissions()
 			const searchQuery = ref("");
 			const swal = inject('$swal')
@@ -88,9 +132,11 @@
 			const sortColumn = ref("id");
         	const sortDirection = ref(1);
 			const arrowIconName = ref("arrow_drop_up");		
-
+			const tblloader = ref(true);
 			onMounted(() => {
-				getPermissions()
+				getPermissions().then(() =>{
+					tblloader.value = false;
+				})
 			})	
 
 			const filteredPermissions = computed(function(){
@@ -164,7 +210,9 @@
 				sortColumn,
 				goshow,
 				arrowIconName,
-				deleteitem
+				deleteitem,
+				tblloader,
+				userslug
 			}
 		}
 	}

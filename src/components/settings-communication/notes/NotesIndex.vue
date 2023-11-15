@@ -19,7 +19,7 @@
 
             </div>
             <div class="tblWrap mt-3 mb-3">
-                <table class="mtable table">
+                <table class="mtable table nottbllink">
                     <thead>
                         <tr>
                             <th @click="sortTable('name')">Name
@@ -31,32 +31,57 @@
                     </thead>
 
                     <tbody>
-
-                        <template v-for="filteredNote in filteredNotes" :key="filteredNote.id">
-                            <tr @click="goshow(filteredNote.id)">
-                                <td>
-                                    {{ filteredNote.name }}
-                                </td>
-                                <td @click.stop>
-                                    <ul class="list-inline text-end mb-0">
-                                        <li class="list-inline-item">
-                                            <router-link :to="{ name: 'notes.edit', params: { id: filteredNote.id } }" class="btn btn-outline-violet" title="Edit"> 
-                                                <i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
-                                            </router-link>
-                                        </li>
-                                        <template v-if="userrole.includes('super-admin') || userrole.includes('admin')"> 
+                        <template v-if="!tblloader">
+                            <template v-for="filteredNote in filteredNotes" :key="filteredNote.id">
+                                <tr @click="goshow(filteredNote.id)">
+                                    <td>
+                                        {{ filteredNote.name }}
+                                    </td>
+                                    <td @click.stop>
+                                        <ul class="list-inline text-end mb-0">
                                             <li class="list-inline-item">
-                                                <button title="delete" class="btn btn-outline-danger" @click="deleteNote(filteredNote.id)"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                                                <router-link :to="{ name: 'notes.edit', params: { id: filteredNote.id } }" class="btn btn-outline-violet" title="Edit"> 
+                                                    <i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
+                                                </router-link>
                                             </li>
-                                        </template>
-                                    </ul>
-                                    
+                                            <template v-if="userrole.includes('super-admin') || userrole.includes('admin')"> 
+                                                <li class="list-inline-item">
+                                                    <button title="delete" class="btn btn-outline-danger" @click="deleteNote(filteredNote.id)"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                        
+                                    </td>
+                                </tr>
+                            </template>
+                            <template v-if="searchQuery">
+                                <template v-if="!filteredNotes.length">
+                                    <tr class="nodata">
+                                        <td colspan="2">
+                                            No Results Found
+                                        </td>
+                                    </tr>
+                                </template>                         
+                            </template>
+                            <template v-else>
+                                <template v-if="!filteredNotes.length">
+                                    <tr class="nodata">
+                                        <td colspan="2">
+                                            No Entry!
+                                        </td>
+                                    </tr>
+                                </template> 
+                            </template>  
+                        </template>
+                        <template v-else>
+                            <tr class="nodata pr">
+                                <td colspan="2">
+                                    <LoadingComponent/>
                                 </td>
                             </tr>
                         </template>
-                        <tr v-if="filteredNotes.length < 1">
-                            <td colspan="2" class="text-center">No Results found!</td>
-                        </tr>
+                        
+            
                     </tbody>
                 </table>   
             </div>
@@ -72,10 +97,11 @@
     import { useAuthStore } from '@/stores/store.js'
     import RightNavCommunications from '@/components/navigation/RightNavCommunications.vue';
     import { useHead } from '@unhead/vue'
-
+    import LoadingComponent from '@/components/loader/LoadingComponent.vue'
 	export default{
         components: {
-            RightNavCommunications
+            RightNavCommunications,
+            LoadingComponent
         },
 		setup(){
             useHead({
@@ -115,8 +141,12 @@
                     filteredNotes.value.sort((a, b) => (a[columnName] < b[columnName] ? 1 : -1));
                 }
             }
-
-            onMounted(getNotes)
+            const tblloader = ref(true);
+            onMounted(() => {
+                getNotes().then(() =>{
+                    tblloader.value = false;
+                })
+            })
 
             const deleteNote = async (id) =>{
                 
@@ -172,7 +202,8 @@
                 searchQuery,
                 deleteNote,
                 goshow,
-                userrole
+                userrole,
+                tblloader
             }
         }
 	}

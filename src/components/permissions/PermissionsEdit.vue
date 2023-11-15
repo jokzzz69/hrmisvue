@@ -1,4 +1,7 @@
 <template>
+    <template v-if="pageLoader">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row">
         <div class="col-md-12 p-title">
             <h2>Edit Permission</h2>
@@ -18,26 +21,30 @@
             <span v-if="errors.slug" class="text-danger m-error">{{errors.slug[0]}}</span> 
         </div>
         <div class="row">
-            <div class="col-12">
-                Assign to Role
-            </div>
-            <div class="col-12">
-                <template v-if="roles">
-                    <template v-for="role in roles" :key="role.id">
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" :value="role.id" v-model="form.roleid" :name="role.slug" :id="role.slug">
-                          <label class="form-check-label" :for="role.slug">
-                            {{role.name}}
-                          </label>
-                        </div>
-                    </template>
-                </template>
-                
+            <div class="col-4">
+                <div class="card p-3">
+                    <div class="title">
+                        <strong> Assign to Role</strong>
+                    </div>
+                    <div class="col-12">
+                        <template v-if="roles">
+                            <template v-for="role in roles" :key="role.id">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" :value="role.id" v-model="form.roleid" :name="role.slug" :id="role.slug">
+                                  <label class="form-check-label" :for="role.slug">
+                                    {{role.name}}
+                                  </label>
+                                </div>
+                            </template>
+                        </template>
+                        
+                    </div>
+                </div>
             </div>
         </div>
         <div class="form-row">
             <div class="col text-end">
-                <router-link :to="{name: 'roles.index'}" class="btn btn-secondary me-1">Cancel</router-link>
+                <router-link :to="{name: 'permissions.index'}" class="btn btn-secondary me-1">Cancel</router-link>
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </div>
@@ -46,12 +53,15 @@
 </template>
 
 <script>
-    import { reactive ,inject, onMounted} from "vue";
+    import { reactive ,inject, onMounted, ref} from "vue";
     import usePermissions from '@/composables/composables-permissions';
     import useRole from '@/composables/composables-role';
     import { useHead } from '@unhead/vue'
-
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
     export default {
+        components: {
+            LoadingComponentDiv
+        },
         props: {
             id:{
                 required: true,
@@ -96,6 +106,7 @@
                     }
                 })
             }
+            const pageLoader = ref(true);
             onMounted(() => {
                 getPermission(props.id).then(() =>{
                     form.slug = permission.value.slug;
@@ -107,7 +118,9 @@
                         
                     }
                 }),
-                getRoles()
+                getRoles().then(() => {
+                    pageLoader.value = false;
+                })
             })
             return{
                 form,
@@ -115,7 +128,8 @@
                 savePermission,
                 createslug,
                 roles,
-                permission
+                permission,
+                pageLoader
             }
         }
     }

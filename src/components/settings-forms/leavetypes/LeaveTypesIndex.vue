@@ -17,7 +17,8 @@
                 </div>
 
             </div>
-            <table class="mtable hasActions mt-2 mb-2 table tbllink">
+            <div class="tblWrap mt-2">
+                <table class="mtable table nottbllink">
                     <thead>
                         <tr>
                             <th @click="sortTable('name')">Name
@@ -32,25 +33,62 @@
                     </thead>
 
                     <tbody>
-                        <template v-for="leavetype in filteredLeaveTypes" :key="leavetype.id">
-                            <tr @click="goshow(leavetype.id)">
-                                <td>
-                                    {{ leavetype.name }}
-                                </td>
-                                <td>
-                                    {{leavetype.description}}
-                                </td>
-                                <td @click.stop>
-                                    <template v-if="leavetype.createdby == userid ||userslug.includes('admin') || userslug.includes('super-admin')">
-                                        <ul class="ls-frmbutton text-end">
-                                            <li><button title="delete" class="btn btn-outline-danger" @click="deleteLeaveType(leavetype.id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
-                                        </ul>
-                                    </template>                           
+                        <template v-if="!tblloader">
+                            <template v-for="leavetype in filteredLeaveTypes" :key="leavetype.id">
+                                <tr>
+                                    <td>
+                                        {{ leavetype.name }}
+                                    </td>
+                                    <td>
+                                        {{leavetype.description}}
+                                    </td>
+                                    <td @click.stop>
+                                        <template v-if="leavetype.createdby == userid ||userslug.includes('admin') || userslug.includes('super-admin')">
+                                            <ul class="ls-frmbutton text-end list-inline">
+
+                                                <li class="list-inline-item">
+                                                    <button class="btn btn-outline-violet" title="Edit" @click="goshow(leavetype.id)"> 
+                                                        <i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
+                                                    </button>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <button title="delete" class="btn btn-outline-danger" @click="deleteLeaveType(leavetype.id)"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                                                </li>
+                                            </ul>
+                                        </template>                           
+                                    </td>
+                                </tr>
+                            </template>
+                            <template v-if="searchQuery">
+                                <template v-if="!filteredLeaveTypes.length">
+                                    <tr class="nodata">
+                                        <td colspan="3">
+                                            No Results Found
+                                        </td>
+                                    </tr>
+                                </template>                         
+                            </template>
+                            <template v-else>
+                                <template v-if="!filteredLeaveTypes.length">
+                                    <tr class="nodata">
+                                        <td colspan="3">
+                                            No Entry!
+                                        </td>
+                                    </tr>
+                                </template> 
+                            </template>  
+                        </template>
+                        <template v-else>
+                            <tr class="nodata pr">
+                                <td colspan="3">
+                                    <LoadingComponent/>
                                 </td>
                             </tr>
                         </template>
+                        
                     </tbody>
                 </table>
+            </div>
         </div>
         <RightNavForms/>
     </div>
@@ -64,10 +102,13 @@
     import { useHead } from '@unhead/vue'
     import {useAuthStore} from '@/stores/store.js'
     import RightNavForms from '@/components/navigation/RightNavForms.vue';
+    import LoadingComponent from '@/components/loader/LoadingComponent.vue'
+
 
 	export default{
         components: {
-            RightNavForms
+            RightNavForms,
+            LoadingComponent
         },
 		setup(){
             useHead({
@@ -86,7 +127,7 @@
             const sortColumn = ref("id");
             const sortDirection = ref(1);
 
-
+            const tblloader = ref(true);
 			
 
             const filteredLeaveTypes = computed(function(){
@@ -111,7 +152,9 @@
             }
 
             onMounted(() =>{
-                getLeaveTypes()
+                getLeaveTypes().then(() => {
+                    tblloader.value = false
+                }) 
                 
             })
 
@@ -171,7 +214,8 @@
                 deleteLeaveType,
                 goshow,
                 userslug,
-                userid
+                userid,
+                tblloader
 			}
 		}
 	}

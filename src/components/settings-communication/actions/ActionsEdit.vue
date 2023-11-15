@@ -1,4 +1,7 @@
 <template> 
+    <template v-if="pageLoader">
+        <LoadingComponentDiv/>
+    </template>
     <div class="row">
         <div class="col-md-12 p-title">
             <h2>Edit Action</h2>
@@ -25,8 +28,13 @@
 
     import useActions from "@/composables/composables-actions";
     import { useHead } from '@unhead/vue'
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
+
 
     export default {
+        components: {
+            LoadingComponentDiv
+        },
         props: {
             id: {
                 required: true,
@@ -38,9 +46,14 @@
                 title: 'Settings - Edit Action | BFAR - CAR HRMIS'
             })
             const swal = inject('$swal')
+            const pageLoader = ref(true);
 
             const { errors, getAction, updateAction, action } = useActions()
-            onMounted(() => {getAction(props.id)})
+            onMounted(() => {
+                getAction(props.id).then(() => {
+                    pageLoader.value = false;
+                })
+            })
             const saveAction = async (id) => {
                 await updateAction(props.id).then(() => {
                     if(!errors.value){
@@ -65,7 +78,8 @@
             return{
                 errors,
                 action,
-                saveAction
+                saveAction,
+                pageLoader
             }
         }
     }

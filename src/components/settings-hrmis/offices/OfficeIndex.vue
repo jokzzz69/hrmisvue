@@ -18,46 +18,83 @@
 				    		</div>
 				    	</div>
 				    </div>
-				    <table class="mtable hasActions mt-2 mb-2 table tbllink">
-				    	<thead>
-				    		<tr>
-				    			<th @click="sortTable('offices_name')">Offices
-				                    <span v-if="sortColumn == 'offices_name'" class="material-icons">{{arrowIconName}}</span>
-				                    <span v-else class="material-icons">sort</span>
-				                </th>
-				                <th @click="sortTable('employee_fname')">Head
-				                    <span v-if="sortColumn == 'employee_fname'" class="material-icons">{{arrowIconName}}</span>
-				                    <span v-else class="material-icons">sort</span>
-				                </th>
-				                <th @click="sortTable('location_name')">Location
-				                    <span v-if="sortColumn == 'location_name'" class="material-icons">{{arrowIconName}}</span>
-				                    <span v-else class="material-icons">sort</span>
-				                </th>
-				                <th></th>
-				    		</tr>
-				    	</thead>
-				    	<tbody>
-				    		<template v-for="office in filteredOffices" :key="office.offices_id">
-				    			<tr @click="goshow(office.offices_id)">
-				    				<td>{{office.offices_name}}</td>
-				    				<td>
-				    					<template v-if="office.officehead">
-				    						{{office.officehead.employee_fname}} {{office.officehead.employee_mname}} {{office.officehead.employee_lname}}
-				    					</template>
-				    				</td>
-					    			<td>
-					    				<template v-if="office.officelocation != null">{{office.officelocation.location_name}}</template>
-					    				<template v-else><span class="text-danger">No location assigned.</span></template>
-					    			</td>
-					    			<td @click.stop>
-					    				<ul class="ls-frmbutton text-end">
-			                                <li><button title="delete" class="btn btn-outline-danger" @click="deleteOffice(office.offices_id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
-			                            </ul>
-					    			</td>
-				    			</tr>
-				    		</template>
-				    	</tbody>
-				    </table>
+				    <div class="tblWrap mt-2">
+				    	<table class="mtable table nottbllink">
+					    	<thead>
+					    		<tr>
+					    			<th @click="sortTable('offices_name')">Offices
+					                    <span v-if="sortColumn == 'offices_name'" class="material-icons">{{arrowIconName}}</span>
+					                    <span v-else class="material-icons">sort</span>
+					                </th>
+					                <th @click="sortTable('employee_fname')">Head
+					                    <span v-if="sortColumn == 'employee_fname'" class="material-icons">{{arrowIconName}}</span>
+					                    <span v-else class="material-icons">sort</span>
+					                </th>
+					                <th @click="sortTable('location_name')">Location
+					                    <span v-if="sortColumn == 'location_name'" class="material-icons">{{arrowIconName}}</span>
+					                    <span v-else class="material-icons">sort</span>
+					                </th>
+					                <th></th>
+					    		</tr>
+					    	</thead>
+					    	<tbody>
+					    		<template v-if="!tblloader">
+					    			<template v-for="office in filteredOffices" :key="office.offices_id">
+						    			<tr>
+						    				<td>{{office.offices_name}}</td>
+						    				<td>
+						    					<template v-if="office.officehead">
+						    						{{office.officehead.employee_fname}} {{office.officehead.employee_mname}} {{office.officehead.employee_lname}}
+						    					</template>
+						    				</td>
+							    			<td>
+							    				<template v-if="office.officelocation != null">{{office.officelocation.location_name}}</template>
+							    				<template v-else><span class="text-danger">No location assigned.</span></template>
+							    			</td>
+							    			<td @click.stop>
+							    				<ul class="ls-frmbutton text-end list-inline">
+							    					<li class="list-inline-item">
+													    <button class="btn btn-outline-violet" title="Edit" @click="goshow(office.offices_id)"> 
+													        <i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
+													    </button>
+													</li>
+					                                <li class="list-inline-item">
+					                                	<button title="delete" class="btn btn-outline-danger" @click="deleteOffice(office.offices_id)"><i class="fa-solid fa-trash-can"></i> Delete</button>
+					                                </li>
+					                            </ul>
+							    			</td>
+						    			</tr>
+						    		</template>
+									<template v-if="searchQuery">
+									    <template v-if="!filteredOffices.length">
+									        <tr class="nodata">
+									            <td colspan="4">
+									                No Results Found
+									            </td>
+									        </tr>
+									    </template>                         
+									</template>
+									<template v-else>
+									    <template v-if="!filteredOffices.length">
+									        <tr class="nodata">
+									            <td colspan="4">
+									                No Entry!
+									            </td>
+									        </tr>
+									    </template> 
+									</template>  
+								</template>
+								<template v-else>
+								    <tr class="nodata pr">
+								        <td colspan="4">
+								            <LoadingComponent/>
+								        </td>
+								    </tr>
+								</template> 
+					    		
+					    	</tbody>
+					    </table>
+				    </div>
 				</div>
 			</div>
 		</div>
@@ -79,9 +116,14 @@
 
 	import { useHead } from '@unhead/vue'
 	import RightNavHrmis from '@/components/navigation/RightNavHrmis.vue';
+
+	import LoadingComponent from '@/components/loader/LoadingComponent.vue'
+
+
 	export default{
 		components: {
-			RightNavHrmis
+			RightNavHrmis,
+			LoadingComponent
 		},
 		setup(){
 			useHead({
@@ -99,8 +141,12 @@
         	const sortDirection = ref(1);
 			const arrowIconName = ref("arrow_drop_up");			
 			
-
-			onMounted(getOffices)		
+			const tblloader = ref(true);
+			onMounted(() => {
+				getOffices().then(() => {
+					tblloader.value = false
+				})
+			})		
 
 			const filteredOffices = computed(function(){
 				return offices.value.filter(
@@ -192,7 +238,8 @@
 				sortTable,
 				sortColumn,
 				goshow,
-				arrowIconName
+				arrowIconName,
+				tblloader
 			}
 		}
 	}
