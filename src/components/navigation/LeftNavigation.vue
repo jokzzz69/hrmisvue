@@ -1,7 +1,7 @@
 <template>
   
   <aside class="sidebarleft" v-if="changed" :class="leftdisplay ? '' : 'nd'" >
-    <template v-if="userslug.includes('super-admin')">
+
     
   
     <div class="bdrop" v-if="leftdisplay" @click="bdropclick"></div>
@@ -53,7 +53,7 @@
 
       </ul>
   </nav>
-  </template>
+
   </aside>
 </template>
 <script>

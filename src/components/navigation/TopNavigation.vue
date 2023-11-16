@@ -19,7 +19,7 @@
             <li class="nav-item dropdown" v-if="userslug.includes('communicationencoder') || userslug.includes('communicationviewer') || userslug.includes('super-admin') || userslug.includes('admin')">
                 <Notifications/>
             </li>
-            <li class="nav-item dropdown" v-if="userslug.includes('super-admin')">
+            <li class="nav-item dropdown">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{loggedinName}}</a>
 
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
