@@ -20,7 +20,7 @@
 
         <div class="form-row">
             <div class="col mb-2 date-form-floating">
-                <Datepicker v-model="holiday.date" auto-apply :format="format" :clearable="false" :enable-time-picker="false" name="startdate" placeholder="Holiday Date (mm/dd/yyyy)"></Datepicker> 
+                <Datepicker v-model="holiday.eventdate" auto-apply :format="format" :clearable="false" :enable-time-picker="false" name="startdate" placeholder="Holiday Date (mm/dd/yyyy)"></Datepicker> 
             </div>
             <span v-if="errors.date" class="text-danger m-error">{{errors.date[0]}}</span> 
         </div>
@@ -70,6 +70,7 @@
                 getHoliday(props.id).then(() => {
                     pageLoader.value = false;
                 })
+
             })
 
 

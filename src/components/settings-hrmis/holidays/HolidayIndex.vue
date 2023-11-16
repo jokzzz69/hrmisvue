@@ -43,7 +43,7 @@
 						    					{{holiday.name}}
 						    				</td>
 						    				<td>
-						    					{{moment(holiday.date).format('MMMM DD, Y')}}
+						    					{{moment(holiday.eventdate).format('MMMM DD, Y')}}
 						    				</td>
 							    			<td @click.stop>
 							    				<ul class="ls-frmbutton text-end list-inline">

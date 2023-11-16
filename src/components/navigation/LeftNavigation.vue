@@ -1,8 +1,6 @@
 <template>
   
   <aside class="sidebarleft" v-if="changed" :class="leftdisplay ? '' : 'nd'" >
-
-    
   
     <div class="bdrop" v-if="leftdisplay" @click="bdropclick"></div>
     <nav id="sidenav" class="flex-column flex-shrink-0 text-white">
