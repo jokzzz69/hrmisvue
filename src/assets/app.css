@@ -6,7 +6,13 @@
 body{
 	font-size: .9rem;
 }
-
+.maintenance .modal-container{
+	background: #f1c40f !important;
+}
+.maintenance .modal-container h1{
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 700;
+}
 .btn{
 	font-size: .9rem;
 }

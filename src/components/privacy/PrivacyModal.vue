@@ -1,43 +1,28 @@
 <template>
-	<div v-if="showModal" class="modal-mask pvcmodal">
+	<div v-if="showModal" class="modal-mask maintenance">
       <div class="modal-wrapper">
         <div class="modal-container">
 
           <div class="modal-header">
-            <div class="col">
-            	<h3>DATA PRIVACY CONSENT</h3>
+            <div class="col text-center">
+            	<h1>UNDER<br/>MAINTENANCE</h1>
             </div>
           </div>  
 
           <div class="modal-body">
-              <p>In compliance with the Data Privacy Act of 2012, (DPA) and its Implementing Rules and Regulations (IRR) effective on October 25 to 26, 2016,</p>
-              <p>I agree and authorize the Department of Agriculture - Bureau of Fisheries and Aquatic Resources – Cordillera Administrative Region Human Resource Management Information System (HRMIS) to collect, process and store sensitive personal information of permanent, contract of service and job order personnel of the Department of Agriculture - Bureau of Fisheries and Aquatic Resources – Cordillera Administrative Region. </p>
-              <p>Rest assured that all sensitive personal data are safe and secured in the Regional Office ICT servers. These data will not be shared to anyone except designated personnel who are authorized to access the employees consolidated record. Only the account holder can modify the Personal Data Sheet and other personal records. The Human Resource Section can only update, view, monitor and consolidate records for permanent, contract of service and job orders personnel.</p>
-              <p>For inquiries, concerns, and complaints, you may contact our Regional Fisheries Information Management Center staff below:</p>
-              <div class="row">
-              	<div class="col">              		
-              		<p><strong>Arnold L. Paleng</strong><br/>OIC / Aquaculturist I<br/></p>
-              	</div>
-              	<div class="col">              		
-              		<p><strong>Albert M. Palma</strong><br/>Network Administrator <br/></p>
-              	</div>
-              	<div class="col">
-              		<p><strong>Joel P. Sangway</strong><br/>System Administrator</p>
-              	</div>
-              </div>
-              <p class="text-muted"><i>Note: It is highly recommended to use a desktop, laptop or similar devices with large screen size considering the display size of data and forms.</i></p>
+              <h1 class="text-center">
+                <i class="fa-solid fa-person-digging"></i>
+              </h1>
           </div>
           <div class="modal-footer justify-center">              
           	<ul class="list-unstyled ul-inlineblock">
-          		<li class="me-2">
+          		<li class="me-2" v-if="userslug.includes('super-admin')">
                 <form v-on:submit.prevent="acceptFunc">
                   <button class="btn btn-outline-success">I Agree</button>
                 </form>                
               </li>
-          		<li>
-  
-          				<button class="btn btn-outline-danger" @click="logoutFunc">I do not agree</button>
-     			
+          		<li>      
+          				<button class="btn btn-dark" @click="logoutFunc">Close</button>     			
           		</li>
           	</ul>
           </div>
@@ -49,6 +34,7 @@
 <script>
 	import useUsers from '@/composables/userscomposables';
   import {ref, onMounted} from 'vue';
+  import { useAuthStore } from '@/stores/store.js'
 
   import useAuthenticate from '@/composables/composables-authenticate';
   import useEventsBus from '@/components/helper/Eventbus';
@@ -60,7 +46,8 @@
 		setup(){
       const {bus,emit}=useEventsBus()
       const {logout} = useAuthenticate();
-
+      const store = useAuthStore();
+      const userslug = ref(store.details[1]);
 			const {logoutuser,acceptPrivacy, privacy, getPrivacy} = useUsers()
       const showModal = ref(false)
       const pristore = usePrivacyStore();
@@ -98,7 +85,8 @@
       return {
       	logoutFunc,
         acceptFunc,
-        showModal
+        showModal,
+        userslug
       }
 		}
 
