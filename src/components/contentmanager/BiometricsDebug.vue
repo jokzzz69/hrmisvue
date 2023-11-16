@@ -62,6 +62,11 @@
 							</form>
 			    		</div>
 			    	</div>
+			    	<div class="col-md-12">
+			    		<p>{{info.title}}</p>
+			    		<p>{{info.agency}}</p>
+			    		<p>{{info.date}}</p>
+			    	</div>
     			</div>
     		</div>
     	</div>
@@ -157,6 +162,7 @@
 	import {formatTime} from '@/helper/formattime'
 	import { useAuthStore } from '@/stores/store.js'
 
+	import useAuthenticate from '@/composables/composables-authenticate';
 
 	export default{
 
@@ -166,6 +172,8 @@
             const userrole = ref(store.getdetails[1]);
             const authid = ref(store.getdetails[0]);
 			const {biousers, getBioIDS }= useEmployees();
+			const {getinfo,info} = useAuthenticate();
+
 			const {storeBio,errors,getthisBio,selectedBio,setArchivedID, setEmployeeID,updateID,newResponse} = useCM();
 
 			const swal = inject('$swal')
@@ -180,7 +188,8 @@
 			});
 			
 			onMounted(() => {
-				getBioIDS()
+				getBioIDS(),
+				getinfo()
 			})
 
 		
@@ -233,7 +242,8 @@
 				generatenewID,
 				newResponse,
 				userrole,
-				authid
+				authid,
+				info
 			}
 		}
 	}
