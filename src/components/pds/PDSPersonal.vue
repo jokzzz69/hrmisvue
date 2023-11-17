@@ -465,7 +465,6 @@ export default{
             }
         }
         const savepds = async () => {
-            console.log(officerecord.value.pdspersonalinformation);
             await updateMypds(id.value).then(() => {
                 if(!errors.value){
                     swal.fire({

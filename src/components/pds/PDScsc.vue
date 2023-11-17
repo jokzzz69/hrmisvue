@@ -60,7 +60,7 @@
                                         </div>
                                     </div>
                                     <div class="col-2 c_p">
-                                        <Datepicker :teleport="true" week-start="0" auto-apply :enable-time-picker="false" v-model="officerecord.pdscsc[key].csc_dateofexamination" name="csc_dateofexamination" class="date-form-floating" placeholder="Date of Examination"></Datepicker>  
+                                        <Datepicker :teleport="true" week-start="0" auto-apply :enable-time-picker="false" v-model="officerecord.pdscsc[key].csc_dateofexamination" @update:model-value="dateexam(key)" name="csc_dateofexamination" class="date-form-floating" placeholder="Date of Examination"></Datepicker>  
                                     </div>
                                     <div class="col-2 c_p">
                                         <div class="form-floating">                                    
@@ -75,7 +75,7 @@
                                         </div>
                                     </div>
                                     <div class="col-2 c_p">
-                                        <Datepicker :teleport="true" week-start="0" auto-apply :enable-time-picker="false" v-model="officerecord.pdscsc[key].csc_dateofvalidity" name="csc_dateofvalidity" class="date-form-floating" placeholder="Validity"></Datepicker>  
+                                        <Datepicker :teleport="true" week-start="0" auto-apply :enable-time-picker="false" v-model="officerecord.pdscsc[key].csc_dateofvalidity" @update:model-value="datevalidity(key)" name="csc_dateofvalidity" class="date-form-floating" placeholder="Validity"></Datepicker>  
                                     </div>
                                     <div class="col-auto pt-2">
                                         <button class="btn btn-danger" title="Remove row" @click.prevent="removerow(key)"><i class="fa-solid fa-minus"></i></button>
@@ -201,7 +201,13 @@ export default{
             officerecord.value.pdscsc.splice(index,1);
             divs.splice(index,1);
         }
+        const dateexam = (key) => {
+            officerecord.value.pdscsc[key].csc_dateofexamination = moment(officerecord.value.pdscsc[key].csc_dateofexamination).format('MM/DD/YYYY');
 
+        }
+        const datevalidity = (key) => {
+            officerecord.value.pdscsc[key].csc_dateofvalidity = moment(officerecord.value.pdscsc[key].csc_dateofvalidity).format('MM/DD/YYYY');
+        }
         return{
             errors,
             savepds,
@@ -210,7 +216,9 @@ export default{
             addeligibility,
             removerow,
             divs,
-            id      
+            id,
+            dateexam,
+            datevalidity
         
         }
     }

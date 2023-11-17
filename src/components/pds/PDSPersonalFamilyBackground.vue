@@ -101,7 +101,7 @@
                                     </div>
                                     <div class="col col-sm-2" :cte="key">
                                         <div class="form-floating">                                    
-                                            <Datepicker :teleport="true" auto-apply week-start="0" :enable-time-picker="false" v-model="officerecord.pdsfamilybackgroundchildren[key].dateofbirth" name="dateofbirth" class="date-form-floating" placeholder="Date of Birth"></Datepicker>   
+                                            <Datepicker :teleport="true" auto-apply week-start="0" :enable-time-picker="false" v-model="officerecord.pdsfamilybackgroundchildren[key].dateofbirth" @update:model-value="bday(key)" name="dateofbirth" class="date-form-floating" placeholder="Date of Birth"></Datepicker>   
                                         </div>
                                     </div>
                                     <div class="col-auto pt-2">
@@ -290,7 +290,9 @@ export default{
             officerecord.value.pdsfamilybackgroundchildren.splice(index,1);
             divs.splice(index,1);
         }
-
+        const bday = (key) => {
+            officerecord.value.pdsfamilybackgroundchildren[key].dateofbirth = moment(officerecord.value.pdsfamilybackgroundchildren[key].dateofbirth).format('MM/DD/YYYY');
+        }
         return{
             errors,
             savepds,
@@ -299,7 +301,8 @@ export default{
             addmorechildren,
             removechildren,
             divs,
-            id
+            id,
+            bday
         }
     }
 }
