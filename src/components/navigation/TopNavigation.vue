@@ -5,7 +5,7 @@
       <i class="fa-solid fa-bars"></i>
     </button>
 
-    <a :href="$router.resolve({name: 'recordpersonal.show'}).href" class="navbar-brand"><span class="nb-mob">HRMIS</span><span class="nb-de">Regional Integrated Online System</span></a>
+    <a :href="$router.resolve({name: 'recordpersonal.show'}).href" class="navbar-brand"><span class="nb-mob">HRMIS</span><span class="nb-de">Regional Fisheries Information Management System</span></a>
 
         <ul class="navbar-nav ms-auto navbarRight">
             <!-- Authentication Links -->
@@ -13,8 +13,7 @@
                 <div class="text-light pstTime pe-3 ps-3">                   
                     <span id="datestring">{{newDate}}</span>
                     <span id="timestring">{{newTime}}</span>
-                </div>
-                
+                </div>                
             </li>
             <li class="nav-item dropdown" v-if="userslug.includes('communicationencoder') || userslug.includes('communicationviewer') || userslug.includes('super-admin') || userslug.includes('admin')">
                 <Notifications/>
