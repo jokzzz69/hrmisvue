@@ -63,7 +63,9 @@
                             </div> 
                             <div class="col col-sm-7 c_p col-xxl-8 mb-2">
                                 <div class="form-floating">                        
-                                    <input type="text" name="placeofbirth" id="placeofbirth" class="form-control" placeholder="enter place of birth"  v-model="officerecord.pdspersonalinformation.placeofbirth">    
+                                    <input type="text" name="placeofbirth" id="placeofbirth" class="form-control" placeholder="enter place of birth"  v-model="officerecord.pdspersonalinformation.placeofbirth"
+                                    @update:model-value="moment(officerecord.pdspersonalinformation.placeofbirth).format('YYYY-MM-DD')"
+                                    >    
                                     <label for="placeofbirth" class="form-label">Place of Birth</label>                    
                                 </div>
                                 
