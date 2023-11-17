@@ -1294,28 +1294,8 @@ td.Sunday{
 	width: 100%;
 	box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05), inset 0 1px 0 rgba(0,0,0,0.15);
 }
-.modal-mask.archive-modal{
-	position: absolute;
-}
-.modal-header.archive-modal{
-	position: sticky;
-    top: 0;
-    z-index: 9999;
-    background: #fff;
-    width: 100%;
-    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05), inset 0 -1px 0 rgba(0,0,0,0.15);
-    padding: 5px 0px 5px 30px;
-}
-.modal-body.archive-modal{
-	overflow-y: scroll;
-    padding:10px 30px;
-    display: block;
-    float: left;
-    margin: 0px;
-    width: 100%;
-    overflow-y: auto;
-    height: calc(100vh - 155px);
-}
+
+
 .modal-header h3{
   margin-top: 0;
   text-align: center;
@@ -2417,12 +2397,7 @@ span.remove button:focus{
 	max-height: calc(100vh - 100px);
 	overflow: hidden;
 }
-.modal-footer.archive-modal{
-	display: block;
-	float: left;
-	width: 100%;
-	box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05), inset 0 1px 0 rgba(0,0,0,0.15);
-}
+
 .modal-mask.archive-modal{
 	position: absolute;
 }
@@ -2430,7 +2405,7 @@ span.remove button:focus{
 	position: sticky;
     top: 0;
     z-index: 9999;
-    background: #fff;
+    background: #fe9526;
     width: 100%;
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05), inset 0 -1px 0 rgba(0,0,0,0.15);
     padding: 5px 0px 5px 30px;

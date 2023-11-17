@@ -93,7 +93,7 @@
                         <template v-if="y == 0">
                           <template v-if="archive.pds_archivecsc.hasOwnProperty(y)">                   
                               <template v-if="archive.pds_archivecsc[y].csc_dateofexamination">
-                                {{moment(archive.pds_archivecsc[y].csc_dateofexamination).format('MM/DD/YYYY')}}
+                                {{moment(new Date(archive.pds_archivecsc[y].csc_dateofexamination)).format('MM/DD/YYYY')}}
                               </template>
                               <template v-else>
                                 N/A
@@ -106,7 +106,7 @@
                         <template v-else>
                           <template v-if="archive.pds_archivecsc.hasOwnProperty(y)">
                               <template v-if="archive.pds_archivecsc[y].csc_dateofexamination">
-                                {{moment(archive.pds_archivecsc[y].csc_dateofexamination).format('MM/DD/YYYY')}}
+                                {{moment(new Date(archive.pds_archivecsc[y].csc_dateofexamination)).format('MM/DD/YYYY')}}
                               </template>      
                               <template v-else>
                                 N/A
@@ -175,7 +175,7 @@
                         <template v-if="y == 0">
                           <template v-if="archive.pds_archivecsc.hasOwnProperty(y)">
                               <template v-if="archive.pds_archivecsc[y].csc_dateofvalidity">
-                                {{moment(archive.pds_archivecsc[y].csc_dateofvalidity).format('MM/DD/YYYY')}}                             
+                                {{moment(new Date(archive.pds_archivecsc[y].csc_dateofvalidity)).format('MM/DD/YYYY')}}                             
                               </template>  
                               <template v-else>
                                 N/A
@@ -188,7 +188,7 @@
                         <template v-else>
                           <template v-if="archive.pds_archivecsc.hasOwnProperty(y)">
                             <template v-if="archive.pds_archivecsc[y].csc_dateofvalidity">
-                              {{moment(archive.pds_archivecsc[y].csc_dateofvalidity).format('MM/DD/YYYY')}}
+                              {{moment(new Date(archive.pds_archivecsc[y].csc_dateofvalidity)).format('MM/DD/YYYY')}}
                             </template>     
                             <template v-else>
                                 N/A
@@ -249,7 +249,7 @@
                   <template v-if="y == 0">
                     <template v-if="archive.pds_archiveworkexperience.hasOwnProperty(y)">
                       <template v-if="archive.pds_archiveworkexperience[y].workexp_from">
-                        {{moment(archive.pds_archiveworkexperience[y].workexp_from,'MM/DD/YYYY').format('MM/DD/YYYY')}}
+                        {{moment(new Date(archive.pds_archiveworkexperience[y].workexp_from),'MM/DD/YYYY').format('MM/DD/YYYY')}}
                       </template>
                       <template v-else>
                         N/A
@@ -262,7 +262,7 @@
                   <template v-else>
                     <template v-if="archive.pds_archiveworkexperience.hasOwnProperty(y)">
                       <template v-if="archive.pds_archiveworkexperience[y].workexp_from">
-                        {{moment(archive.pds_archiveworkexperience[y].workexp_from,'MM/DD/YYYY').format('MM/DD/YYYY')}}
+                        {{moment(new Date(archive.pds_archiveworkexperience[y].workexp_from),'MM/DD/YYYY').format('MM/DD/YYYY')}}
                       </template>
                       <template v-else>
                         N/A
@@ -280,7 +280,7 @@
                             {{archive.pds_archiveworkexperience[y].workexp_to}}
                         </template>
                         <template v-else>
-                          {{moment(archive.pds_archiveworkexperience[y].workexp_to,'MM/DD/YYYY').format('MM/DD/Y')}}
+                          {{moment(new Date(archive.pds_archiveworkexperience[y].workexp_to),'MM/DD/YYYY').format('MM/DD/Y')}}
                         </template>
 
                       </template>
@@ -299,7 +299,7 @@
                             {{archive.pds_archiveworkexperience[y].workexp_to}}
                         </template>
                         <template v-else>
-                          {{moment(archive.pds_archiveworkexperience[y].workexp_to,'MM/DD/YYYY').format('MM/DD/Y')}}
+                          {{moment(new Date(archive.pds_archiveworkexperience[y].workexp_to),'MM/DD/YYYY').format('MM/DD/Y')}}
                         </template>
                       </template>
                       <template v-else>

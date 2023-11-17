@@ -75,7 +75,7 @@
                                     </td>                                
                                     <td v-tooltip.tooltip="'Date In'">
                                         <template v-if="draft.datetimein">
-                                            {{moment(draft.datetimein).format('MMMM D, Y hh:mm A')}}
+                                            {{moment(new Date(draft.datetimein)).format('MMMM D, Y hh:mm A')}}
                                         </template>
                                     </td>
                                 </tr>

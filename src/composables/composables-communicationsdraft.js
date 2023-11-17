@@ -58,7 +58,6 @@ export default function useCommunicationsDraft(){
 		await axios.patch(`/v1/api/draftcommunicationsend/${id}`, data).then(() =>{
 			router.push({name: 'communications-archive.index'});
 		}).catch((e) => {
-			console.log(e);
 			if (e.response.status === 422) {
 		        for (const key in e.response.data.errors) {
 		            errors.value = e.response.data.errors

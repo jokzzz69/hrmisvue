@@ -53,7 +53,7 @@
                 </div>
                 <div class="col mb-1">
                     <div class="form-floating fflabel">
-                        <span class="form-control">{{moment(communication.datetimein).format('LLLL')}}</span>
+                        <span class="form-control">{{moment(new Date(communication.datetimein)).format('LLLL')}}</span>
                         <span class="sp-label">Date Time In:</span>
                     </div>
                 </div>
@@ -84,10 +84,10 @@
                         <div class="form-floating fflabel" v-if="communication.withinclusivedates > 0">
                             <span class="form-control">
                                 <template v-if="communication.inclusivedatestart == communication.inclusivedateend">
-                                    <strong>{{moment(communication.inclusivedatestart).format('MMMM D, YYYY')}} </strong>
+                                    <strong>{{moment(new Date(communication.inclusivedatestart)).format('MMMM D, YYYY')}} </strong>
                                 </template>
                                 <template v-else>
-                                    <strong>{{moment(communication.inclusivedatestart).format('MMMM D, YYYY')}}</strong> to <strong>{{moment(communication.inclusivedateend).format('MMMM D, YYYY')}}</strong>
+                                    <strong>{{moment(new Date(communication.inclusivedatestart)).format('MMMM D, YYYY')}}</strong> to <strong>{{moment(communication.inclusivedateend).format('MMMM D, YYYY')}}</strong>
                                 </template>                     
                             </span>
                             <span class="sp-label">Inclusive Dates</span>

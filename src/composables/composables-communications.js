@@ -49,7 +49,7 @@ export default function useCommunications(){
         await axios.post('/v1/api/communications/', data).then(() =>{            	
             router.push({name: 'communications-routed.index'})	  
         }).catch((e) => {
-        	console.log(e);
+
         	if (e.response.status === 422) {
                 errors.value = e.response.data.errors
             }

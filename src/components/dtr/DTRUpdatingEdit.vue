@@ -32,7 +32,7 @@
                 <tbody>       
                     <template v-for="(dtr, k) in formContent.biometricsData" :key="dtr.dtr_empid">
                         <tr :class="dtr.status">
-                            <template v-if="dtr.dtr_date == moment(currentDate).format('Y-MM-DD').toString()">
+                            <template v-if="dtr.dtr_date == moment(new Date(currentDate)).format('Y-MM-DD').toString()">
                                 <td :class="dtr.status" class="bg-currentDate"  title="Current Date">  
                                   {{dtr.d}}
                                 </td>

@@ -123,11 +123,12 @@
                     form.location = travel.value.location;
                     form.purpose = travel.value.purpose;
                     form.travelordernumber = travel.value.travelordernumber;
-                    form.travelstart = travel.value.travelstart;
-                    form.travelend = travel.value.travelend;
+                    form.travelstart = moment(new Date(travel.value.travelstart)).format('YYYY-MM-DD');
+                    form.travelend = moment(new Date(travel.value.travelend)).format('YYYY-MM-DD');
                     form.employees = travel.value.travelids;
 
                     pageLoader.value = false;
+
                 })
                 
 
@@ -156,10 +157,10 @@
                 })
             }
             const handleStartDate = async() =>{           
-                form.travelstart  = moment(form.travelstart).format('YYYY-MM-DD');                   
+                form.travelstart  = moment(new Date(form.travelstart)).format('YYYY-MM-DD');  
             }
             const handleEndDate = async() =>{           
-                form.travelend = moment(form.travelend).format('YYYY-MM-DD');                   
+                form.travelend = moment(new Date(form.travelend)).format('YYYY-MM-DD');                   
             }
             const format = (k) => {
                

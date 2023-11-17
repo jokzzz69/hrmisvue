@@ -52,7 +52,7 @@
                                             ({{communication.totalactionstaken}})
                                         </span>     
                                     </td>
-                                    <td><span class="sp_datein">{{moment(communication.datetimein).format('MMMM D, Y hh:mm A')}}</span></td>
+                                    <td><span class="sp_datein">{{moment(new Date(communication.datetimein)).format('MMMM D, Y hh:mm A')}}</span></td>
                                     <td><span class="sp_agency">{{communication.agency}}, {{communication.sender}}</span></td>
                                     <td>
                                         <template v-if="communication.subject">

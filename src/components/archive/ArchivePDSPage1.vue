@@ -93,7 +93,7 @@
 
                     <template v-if="archive.pds_archivepersonalinformation">
                         <template v-if="archive.pds_archivepersonalinformation.birthdate">
-                            {{moment(archive.pds_archivepersonalinformation.birthdate).format('MM/DD/YY')}}
+                            {{moment(new Date(archive.pds_archivepersonalinformation.birthdate)).format('MM/DD/YY')}}
                         </template>   
                         <template v-else>
                             N/A
@@ -693,7 +693,7 @@
                     <template v-if="archive.pds_archivefamilybackgroundchildren">
                         <template v-if="archive.pds_archivefamilybackgroundchildren.hasOwnProperty(0)">
                             <template v-if="archive.pds_archivefamilybackgroundchildren[0].dateofbirth">
-                                {{moment(archive.pds_archivefamilybackgroundchildren[0].dateofbirth).format('MM/DD/YYYY')}}
+                                {{moment(new Date(archive.pds_archivefamilybackgroundchildren[0].dateofbirth)).format('MM/DD/YYYY')}}
                             </template>   
                             <template v-else>
                                 N/A
@@ -728,7 +728,7 @@
                 <td colspan="2" class="bgw f7 tc fmp br1 bb5">
                     <template v-if="archive.pds_archivefamilybackgroundchildren">
                         <template v-if="archive.pds_archivefamilybackgroundchildren.hasOwnProperty(1)">
-                            {{moment(archive.pds_archivefamilybackgroundchildren[1].dateofbirth).format('MM/DD/YYYY')}}
+                            {{moment(new Date(archive.pds_archivefamilybackgroundchildren[1].dateofbirth)).format('MM/DD/YYYY')}}
                         </template>
                     </template>
                 </td>
@@ -755,7 +755,7 @@
                 <td colspan="2" class="bgw f7 tc fmp br1 bb5">
                     <template v-if="archive.pds_archivefamilybackgroundchildren">
                         <template v-if="archive.pds_archivefamilybackgroundchildren.hasOwnProperty(2)">
-                            {{moment(archive.pds_archivefamilybackgroundchildren[0].dateofbirth).format('MM/DD/YYYY')}}
+                            {{moment(new Date(archive.pds_archivefamilybackgroundchildren[0].dateofbirth)).format('MM/DD/YYYY')}}
                         </template>
                     </template>
                 </td>
@@ -783,7 +783,7 @@
                 <td colspan="2" class="bgw f7 tc fmp br1 bb5">
                     <template v-if="archive.pds_archivefamilybackgroundchildren">
                         <template v-if="archive.pds_archivefamilybackgroundchildren.hasOwnProperty(3)">
-                            {{moment(archive.pds_archivefamilybackgroundchildren[0].dateofbirth).format('MM/DD/YYYY')}}
+                            {{moment(new Date(archive.pds_archivefamilybackgroundchildren[0].dateofbirth)).format('MM/DD/YYYY')}}
                         </template>
                     </template>
                 </td>
@@ -811,7 +811,7 @@
                 <td colspan="2" class="bgw f7 tc fmp br1 bb5">
                     <template v-if="archive.pds_archivefamilybackgroundchildren">
                         <template v-if="archive.pds_archivefamilybackgroundchildren.hasOwnProperty(4)">
-                            {{moment(archive.pds_archivefamilybackgroundchildren[4].dateofbirth).format('MM/DD/YYYY')}}
+                            {{moment(new Date(archive.pds_archivefamilybackgroundchildren[4].dateofbirth)).format('MM/DD/YYYY')}}
                         </template>
                     </template>
                 </td>
@@ -839,7 +839,7 @@
                 <td colspan="2" class="bgw f7 tc fmp br1 bb5">
                     <template v-if="archive.pds_archivefamilybackgroundchildren">
                         <template v-if="archive.pds_archivefamilybackgroundchildren.hasOwnProperty(5)">
-                            {{moment(archive.pds_archivefamilybackgroundchildren[5].dateofbirth).format('MM/DD/YYYY')}}
+                            {{moment(new Date(archive.pds_archivefamilybackgroundchildren[5].dateofbirth)).format('MM/DD/YYYY')}}
                         </template>
                     </template>
                 </td>
@@ -867,7 +867,7 @@
                 <td colspan="2" class="bgw f7 tc fmp br1 bb5">
                     <template v-if="archive.pds_archivefamilybackgroundchildren">
                         <template v-if="archive.pds_archivefamilybackgroundchildren.hasOwnProperty(6)">
-                            {{moment(archive.pds_archivefamilybackgroundchildren[6].dateofbirth).format('MM/DD/YYYY')}}
+                            {{moment(new Date(archive.pds_archivefamilybackgroundchildren[6].dateofbirth)).format('MM/DD/YYYY')}}
                         </template>
                     </template>
                 </td>
@@ -907,7 +907,7 @@
                 <td colspan="2" class="bgw f7 tc fmp br1 bb5">
                     <template v-if="archive.pds_archivefamilybackgroundchildren">
                         <template v-if="archive.pds_archivefamilybackgroundchildren.hasOwnProperty(7)">
-                            {{moment(archive.pds_archivefamilybackgroundchildren[7].dateofbirth).format('MM/DD/YYYY')}}
+                            {{moment(new Date(archive.pds_archivefamilybackgroundchildren[7].dateofbirth)).format('MM/DD/YYYY')}}
                         </template>
                     </template>
                 </td>
@@ -935,7 +935,7 @@
                 <td colspan="2" class="bgw f7 tc fmp br1 bb5">
                     <template v-if="archive.pds_archivefamilybackgroundchildren">
                         <template v-if="archive.pds_archivefamilybackgroundchildren.hasOwnProperty(8)">
-                            {{moment(archive.pds_archivefamilybackgroundchildren[8].dateofbirth).format('MM/DD/YYYY')}}
+                            {{moment(new Date(archive.pds_archivefamilybackgroundchildren[8].dateofbirth)).format('MM/DD/YYYY')}}
                         </template>
                     </template>
                 </td>
@@ -958,7 +958,7 @@
                 <td colspan="2" class="bgw f7 tc fmp br1 bb5">
                     <template v-if="archive.pds_archivefamilybackgroundchildren">
                         <template v-if="archive.pds_archivefamilybackgroundchildren.hasOwnProperty(9)">
-                            {{moment(archive.pds_archivefamilybackgroundchildren[9].dateofbirth).format('MM/DD/YYYY')}}
+                            {{moment(new Date(archive.pds_archivefamilybackgroundchildren[9].dateofbirth)).format('MM/DD/YYYY')}}
                         </template>
                     </template>
                 </td>
@@ -987,7 +987,7 @@
                 <td colspan="2" class="bgw f7 tc fmp br1 bb5">
                     <template v-if="archive.pds_archivefamilybackgroundchildren">
                         <template v-if="archive.pds_archivefamilybackgroundchildren.hasOwnProperty(10)">
-                            {{moment(archive.pds_archivefamilybackgroundchildren[10].dateofbirth).format('MM/DD/YYYY')}}
+                            {{moment(new Date(archive.pds_archivefamilybackgroundchildren[10].dateofbirth)).format('MM/DD/YYYY')}}
                         </template>
                     </template>
                 </td>
@@ -1015,7 +1015,7 @@
                 <td colspan="2" class="bgw f7 tc fmp br1 bb5">
                     <template v-if="archive.pds_archivefamilybackgroundchildren">
                         <template v-if="archive.pds_archivefamilybackgroundchildren.hasOwnProperty(11)">
-                            {{moment(archive.pds_archivefamilybackgroundchildren[11].dateofbirth).format('MM/DD/YYYY')}}
+                            {{moment(new Date(archive.pds_archivefamilybackgroundchildren[11].dateofbirth)).format('MM/DD/YYYY')}}
                         </template>
                     </template>
                 </td>

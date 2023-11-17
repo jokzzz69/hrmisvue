@@ -53,7 +53,8 @@
                     <tbody>                    
                         <template v-for="(dtr, k) in biometricsData.biometricsData" :key="dtr.dtr_empid">
                             <tr>
-                                <template v-if="dtr.dtr_date == moment(currentDate).format('Y-MM-DD').toString()">
+                               
+                                <template v-if="moment(dtr.dtr_date).format('Y-MM-DD') == moment(currentDate).format('Y-MM-DD').toString()">
                                     <td :class="dtr.status" class="bg-currentDate"  title="Current Date">  
                                       {{dtr.d}}
                                     </td>

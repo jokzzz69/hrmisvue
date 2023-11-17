@@ -88,7 +88,7 @@
 
 					<tbody>
 						<tr v-if="selectedBio.dtr_empid">
-							<td>{{moment(selectedBio.dtr_date).format('MMMM D, Y')}}</td>
+							<td>{{moment(new Date(selectedBio.dtr_date)).format('MMMM D, Y')}}</td>
 							<td>{{formatTime(selectedBio.dtr_timeinam, "HH:mm")}}</td>
 							<td>{{formatTime(selectedBio.dtr_timeoutam, "HH:mm")}}</td>
 							<td>{{formatTime(selectedBio.dtr_timeinpm, "HH:mm")}}</td>

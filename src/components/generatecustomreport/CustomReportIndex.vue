@@ -326,7 +326,7 @@
                         <td v-if="form.fields.indexOf(6) !== -1 || form.fields.indexOf('6') !== -1">
                             <template v-if="officerecord.pdspersonalinformation">
                                 <template v-if="officerecord.pdspersonalinformation.birthdate">
-                                    {{moment(officerecord.pdspersonalinformation.birthdate).format('MMMM D, Y') }} 
+                                    {{moment(new Date(officerecord.pdspersonalinformation.birthdate)).format('MMMM D, Y') }} 
                                 </template>                            
                             </template>
                         </td>
@@ -407,7 +407,7 @@
                         </td>
                         <td v-if="form.fields.indexOf(13) !== -1 || form.fields.indexOf('13') !== -1">
                             <template v-if="officerecord.employments[0].startdate">
-                                {{moment(officerecord.employments[0].startdate).format('MMMM DD, YYYY')}} 
+                                {{moment(new Date(officerecord.employments[0].startdate)).format('MMMM DD, YYYY')}} 
                             </template>
                         </td>
                         <td v-if="form.report_type == 2">

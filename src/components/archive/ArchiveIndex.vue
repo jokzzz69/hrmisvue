@@ -45,7 +45,7 @@
                             </td>
                             <td>
                                 <template v-if="archive.created_at">
-                                    {{moment(archive.created_at).format('LLLL')}}
+                                    {{moment(new Date(archive.created_at)).format('LLLL')}}
                                 </template>                         
                             </td>
                             <td class="text-end">
@@ -182,7 +182,7 @@
             const filteredArchives = computed(function(){
                 return archives.value.filter(
                     (archive) => archive.name.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 || 
-                              (archive.created_at && moment(archive.created_at).format('LLLL').toLowerCase().indexOf(searchQuery.value.toLowerCase())) > -1
+                              (archive.created_at && moment(new Date(archive.created_at)).format('LLLL').toLowerCase().indexOf(searchQuery.value.toLowerCase())) > -1
                 )
                 
             });

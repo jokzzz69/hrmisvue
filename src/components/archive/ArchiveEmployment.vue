@@ -152,7 +152,7 @@
                             <div class="form-floating">
                                 <label class="form-control frm-lbl">
                                     <template v-if="archive.archiveemployments[key].startdate">
-                                        {{moment(archive.archiveemployments[key].startdate).format('MMMM D, Y')}}
+                                        {{moment(new Date(archive.archiveemployments[key].startdate)).format('MMMM D, Y')}}
                                     </template>
                                 </label>
                                 <label>Startdate (mm/dd/yyyy)</label>
@@ -162,7 +162,7 @@
                             <div class="form-floating">
                                 <label class="form-control frm-lbl">
                                     <template v-if="archive.archiveemployments[key].enddate">
-                                        {{moment(archive.archiveemployments[key].enddate).format('MMMM D, Y')}}
+                                        {{moment(new Date(archive.archiveemployments[key].enddate)).format('MMMM D, Y')}}
                                     </template>
                                 </label>
                                 <label>Enddate (mm/dd/yyyy)</label>

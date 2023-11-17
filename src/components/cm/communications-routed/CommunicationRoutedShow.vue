@@ -41,7 +41,7 @@
             </div>
             <div class="col mb-2 col-sm-3">
                 <div class="form-floating fflabel">
-                    <span class="form-control">{{moment(communication.datetimein).format('LLLL')}}</span>
+                    <span class="form-control">{{moment(new Date(communication.datetimein)).format('LLLL')}}</span>
                     <span class="sp-label">Date Time In:</span>
                 </div>
             </div>

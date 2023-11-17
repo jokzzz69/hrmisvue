@@ -70,7 +70,7 @@
                     {{archive.pds_archivevoluntarywork[y].voluntary_from}}
                 </template>
                 <template v-else>
-                  {{moment(archive.pds_archivevoluntarywork[y].voluntary_from,'MM/DD/YYYY').format('MM/DD/YYYY')}}
+                  {{moment(new Date(archive.pds_archivevoluntarywork[y].voluntary_from),'MM/DD/YYYY').format('MM/DD/YYYY')}}
                 </template>
               </template>    
               <template v-else>
@@ -90,7 +90,7 @@
                     {{archive.pds_archivevoluntarywork[y].voluntary_from}}
                 </template>
                 <template v-else>
-                  {{moment(archive.pds_archivevoluntarywork[y].voluntary_from,'MM/DD/YYYY').format('MM/DD/YYYY')}}
+                  {{moment(new Date(archive.pds_archivevoluntarywork[y].voluntary_from),'MM/DD/YYYY').format('MM/DD/YYYY')}}
                 </template>
 
                 
@@ -110,7 +110,7 @@
                 {{archive.pds_archivevoluntarywork[y].voluntary_to}}
               </template>
               <template v-else>
-                {{moment(archive.pds_archivevoluntarywork[y].voluntary_to,'MM/DD/YYYY').format('MM/DD/YYYY')}}
+                {{moment(new Date(archive.pds_archivevoluntarywork[y].voluntary_to),'MM/DD/YYYY').format('MM/DD/YYYY')}}
               </template>
 
             </template>      
@@ -129,7 +129,7 @@
                   {{archive.pds_archivevoluntarywork[y].voluntary_to}}
                 </template>
                 <template v-else>
-                  {{moment(archive.pds_archivevoluntarywork[y].voluntary_to,'MM/DD/YYYY').format('MM/DD/YYYY')}}
+                  {{moment(new Date(archive.pds_archivevoluntarywork[y].voluntary_to),'MM/DD/YYYY').format('MM/DD/YYYY')}}
                 </template>
               </template> 
               <template v-else>
@@ -251,7 +251,7 @@
                     {{archive.pds_archivelearninganddevelopment[y].lnd_from}}
                   </template>
                   <template v-else>
-                    {{moment(archive.pds_archivelearninganddevelopment[y].lnd_from,'MM/DD/YYYY').format('MM/DD/YYYY')}}
+                    {{moment(new Date(archive.pds_archivelearninganddevelopment[y].lnd_from),'MM/DD/YYYY').format('MM/DD/YYYY')}}
                   </template>
                 </template>
                 <template v-else>
@@ -271,7 +271,7 @@
                     {{archive.pds_archivelearninganddevelopment[y].lnd_to}}
                   </template>
                   <template v-else>
-                    {{moment(archive.pds_archivelearninganddevelopment[y].lnd_to,'MM/DD/YYYY').format('MM/DD/YYYY')}}
+                    {{moment(new Date(archive.pds_archivelearninganddevelopment[y].lnd_to),'MM/DD/YYYY').format('MM/DD/YYYY')}}
                   </template>
                 </template>
 
@@ -342,7 +342,7 @@
                   {{archive.pds_archivelearninganddevelopment[y].lnd_from}}
                 </template>
                 <template v-else>
-                  {{moment(archive.pds_archivelearninganddevelopment[y].lnd_from,'MM/DD/YYYY').format('MM/DD/YYYY')}}
+                  {{moment(new Date(archive.pds_archivelearninganddevelopment[y].lnd_from),'MM/DD/YYYY').format('MM/DD/YYYY')}}
                 </template>
               </template>
 
@@ -359,7 +359,7 @@
                   {{archive.pds_archivelearninganddevelopment[y].lnd_to}}
                 </template>
                 <template v-else>
-                  {{moment(archive.pds_archivelearninganddevelopment[y].lnd_to,'MM/DD/YYYY').format('MM/DD/YYYY')}}
+                  {{moment(new Date(archive.pds_archivelearninganddevelopment[y].lnd_to),'MM/DD/YYYY').format('MM/DD/YYYY')}}
                 </template>
               </template>                     
               <template v-else>

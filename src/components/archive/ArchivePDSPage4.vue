@@ -163,7 +163,7 @@
     <td colspan="3" class="bgw bb5 fmp pl5 f9">
       <template v-if="archive.pds_archivelastinformation"> 
         <template v-if="archive.pds_archivelastinformation.li_courtcharged_date">
-          {{moment(archive.pds_archivelastinformation.li_courtcharged_date).format('MMMM D, Y')}}
+          {{moment(new Date(archive.pds_archivelastinformation.li_courtcharged_date)).format('MMMM D, Y')}}
         </template>
       </template>
     </td>

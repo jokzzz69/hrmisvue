@@ -60,7 +60,7 @@
                                         </span>                                      
                                     </td>
                                     <td>{{routedcommunication.documentnumber}}</td>
-                                    <td>{{moment(routedcommunication.datetimein).format('MMMM D, Y hh:mm A')}}</td>
+                                    <td>{{moment(new Date(routedcommunication.datetimein)).format('MMMM D, Y hh:mm A')}}</td>
                                     <td><span class="sp_agency">{{routedcommunication.agency}}, {{routedcommunication.sender}}</span></td>
                                     <td>
                                         <template v-if="routedcommunication.subject">
