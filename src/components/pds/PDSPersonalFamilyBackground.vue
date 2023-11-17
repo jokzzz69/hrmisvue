@@ -247,7 +247,7 @@ export default{
         })
 
         const savepds = async () => {
-            console.log(officerecord.value.pdsfamilybackgroundchildren);
+            
             await updateMypdsFamilyBackground(id.value).then(() => {
                 if(!errors.value){
                     swal.fire({

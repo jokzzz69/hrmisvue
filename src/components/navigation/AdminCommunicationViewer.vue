@@ -5,7 +5,7 @@
     <div class="collapse navdrpdwn show" id="communications" style="">
       <ul class="btn-toggle-nav list-unstyled small">
           <li class="nav-link"><router-link :to="{ name: 'communications.index' }"><i class="fa-solid fa-envelope-open-text"></i> <span>Inbox</span></router-link></li>        
-          <li class="nav-link"><router-link :to="{ name: 'pds.index'}"><i class="fa-solid fa-person-digging"></i> <span>Actions Taken</span></router-link></li>
+          <li class="nav-link"><router-link :to="{ name: 'actionstaken.index'}"><i class="fa-solid fa-person-digging"></i> <span>Actions Taken</span></router-link></li>
       </ul>
     </div>          
   </li>
