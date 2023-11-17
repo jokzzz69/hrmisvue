@@ -127,6 +127,8 @@
     import {formatmaildate} from '@/helper/formatmaildate'
     import TooltipArr from "@/components/cm/reusables/TooltipArr.vue";
     import LoadingComponent from '@/components/loader/LoadingComponent.vue';
+    import { useHead } from '@unhead/vue'
+
     export default{
         props: {
             id: {
@@ -140,6 +142,9 @@
             LoadingComponent
         },
         setup(props){
+            useHead({
+                title: 'Communications Routed Page | '+import.meta.env.VITE_BFAR_AGENCY
+            })
             const {communications, getCommunicationsRouted, communicationLinks, setPageRouted, communicationMeta, pinrouted} = useCommunicationsRouted()
             const swal = inject('$swal')
             const routeddetails = ref();

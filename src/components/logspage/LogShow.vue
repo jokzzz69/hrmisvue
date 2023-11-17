@@ -109,7 +109,7 @@
         },
 		setup(props){
             useHead({
-                title: 'Employee Logs | BFAR - CAR HRMIS'
+                title: 'Employee Logs | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const searchQuery = ref("");
 			const {activitylog,getLog} = useActivityLogs()

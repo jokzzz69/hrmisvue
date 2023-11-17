@@ -229,6 +229,7 @@
     import moment from 'moment';
     import useManageFile from '@/composables/composables-managefile';
     import useEmployees from '@/composables/composables-employees';
+    import { useHead } from '@unhead/vue'
 
     export default {
         components: {
@@ -241,6 +242,9 @@
             }
         },
         setup(props){
+            useHead({
+                title: 'Edit Routed Communication | '+import.meta.env.VITE_BFAR_AGENCY
+            })
             const swal = inject('$swal')
             const fileattacherr = ref('');
 

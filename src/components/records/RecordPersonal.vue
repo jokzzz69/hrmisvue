@@ -249,7 +249,7 @@ export default{
      },
     setup (){
         useHead({
-            title: 'My Personal Information | BFAR - CAR HRMIS'
+            title: 'My Personal Information | '+import.meta.env.VITE_BFAR_AGENCY
         })
         const swal = inject('$swal')
         const {officerecord,getPersonalRecord}= useOfficerecord()

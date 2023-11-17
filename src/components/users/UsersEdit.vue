@@ -153,7 +153,7 @@ export default{
 
     setup (props){
         useHead({
-            title: 'Edit Account | BFAR - CAR HRMIS'
+            title: 'Edit Account | '+import.meta.env.VITE_BFAR_AGENCY
         })
         const swal = inject('$swal')
         const {errors, user, updateUser, getUser, authuser, getAuthuser} = useUsers()

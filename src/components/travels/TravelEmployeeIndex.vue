@@ -117,7 +117,7 @@
     export default{
         setup(){
             useHead({
-                title: 'My Travels | BFAR - CAR HRMIS'
+                title: 'My Travels | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const store = useAuthStore();
             const id = ref(store.details[0]);

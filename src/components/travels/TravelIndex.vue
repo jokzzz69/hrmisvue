@@ -172,7 +172,7 @@
 		},
 		setup(){
 			useHead({
-		        title: 'Employees Travels | BFAR - CAR HRMIS'
+		        title: 'Employees Travels | '+import.meta.env.VITE_BFAR_AGENCY
 		    })
 
 			const {travels, getTravels, destroyTravel, getfilteredTravels} = useTravels();

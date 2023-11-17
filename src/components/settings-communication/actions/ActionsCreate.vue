@@ -36,7 +36,7 @@
         setup(){
 
             useHead({
-                title: 'Settings - Create Action | BFAR - CAR HRMIS'
+                title: 'Settings - Create Action | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const form = reactive({
                 'name': '',

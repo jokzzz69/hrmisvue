@@ -40,7 +40,7 @@
 	export default{
 		setup(){
             useHead({
-                title: 'About | HRMIS'
+                title: 'About | HRMIS | '+import.meta.env.VITE_BFAR_AGENCY
             })
 		}
 	}

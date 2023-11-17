@@ -115,6 +115,7 @@
     import {useActionTakenStore} from "@/stores/actiontakenstore.js"
     import {useNotificationStore} from '@/stores/notificationstore.js'
     import useActionsTaken from '@/composables/composables-actionstaken';
+    import { useHead } from '@unhead/vue'
 
     export default{
         components: {
@@ -124,7 +125,9 @@
         },
         setup(){
       
-
+            useHead({
+                title: 'Actions Taken | '+import.meta.env.VITE_BFAR_AGENCY
+            })
             const {getUserActionsTaken, actionstaken, actiontakenLinks, actiontakenMeta, bulkactionsAC} = useActionsTaken()
 
 

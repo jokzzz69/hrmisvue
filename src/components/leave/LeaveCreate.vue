@@ -149,7 +149,7 @@
 	export default {
 		setup(){
             useHead({
-                title: 'Create Leave / Absent Record | BFAR - CAR HRMIS'
+                title: 'Create Leave / Absent Record | '+import.meta.env.VITE_BFAR_AGENCY
             })
 
 			const form = reactive({

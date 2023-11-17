@@ -166,7 +166,7 @@
         },
 		setup(){		
 			useHead({
-                title: 'Accounts | BFAR - CAR HRMIS'
+                title: 'Accounts | '+import.meta.env.VITE_BFAR_AGENCY
             })
 			const swal = inject('$swal')
 			const {users, getUsers, activateUser, deactivate, rebootPass, authuser, getAuthuser} = useUser()		

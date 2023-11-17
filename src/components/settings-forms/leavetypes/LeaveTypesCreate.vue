@@ -34,7 +34,7 @@
 	export default {
 		setup(){
             useHead({
-                title: 'Settings - Create Leave Type | BFAR - CAR HRMIS'
+                title: 'Settings - Create Leave Type | '+import.meta.env.VITE_BFAR_AGENCY
             })
 			const form = reactive({
 			    'name': '',

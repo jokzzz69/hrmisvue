@@ -107,6 +107,7 @@
     import {formatmaildate} from '@/helper/formatmaildate'
     import TooltipArr from "@/components/cm/reusables/TooltipArr.vue";
     import LoadingComponent from '@/components/loader/LoadingComponent.vue';
+    import { useHead } from '@unhead/vue'
 
     export default{
         props: {
@@ -120,6 +121,9 @@
             LoadingComponent
         },
         setup(props){
+            useHead({
+                title: 'Communications Inbox Search | '+import.meta.env.VITE_BFAR_AGENCY
+            })
             const {communications, getCommunications, communicationLinks,  communicationMeta,search, bulkactions, pincommunication} = useCommunications()
             const swal = inject('$swal')
             const noData = ref(false)

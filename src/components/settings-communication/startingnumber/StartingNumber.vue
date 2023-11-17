@@ -60,7 +60,7 @@
         },
         setup(){
             useHead({
-                title: 'Settings - Communication Starting Number | BFAR - CAR HRMIS'
+                title: 'Settings - Communication Starting Number | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const swal = inject('$swal')
 

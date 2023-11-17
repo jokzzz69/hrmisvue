@@ -123,7 +123,7 @@
         },
 		setup(){
             useHead({
-                title: 'Employee Leave Records | BFAR - CAR HRMIS'
+                title: 'Employee Leave Records | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const swal = inject('$swal')
             const store = useAuthStore()

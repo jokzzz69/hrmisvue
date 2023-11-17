@@ -24,7 +24,7 @@
 		},
 		setup(){
 			useHead({
-                title: 'Debugger | BFAR - CAR HRMIS'
+                title: 'Debugger | '+import.meta.env.VITE_BFAR_AGENCY
             })
 			return{
 				

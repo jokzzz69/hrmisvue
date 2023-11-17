@@ -28,7 +28,7 @@
 	export default {
 		setup(){
 			useHead({
-                title: 'Settings - Create Employee Status | BFAR - CAR HRMIS'
+                title: 'Settings - Create Employee Status | '+import.meta.env.VITE_BFAR_AGENCY
             })
 			const form = reactive({
 			    'name': '',

@@ -116,7 +116,7 @@
         },
 		setup(){
             useHead({
-                title: 'System Logs | BFAR - CAR HRMIS'
+                title: 'System Logs | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const searchQuery = ref("");
 			const {activitylogs,getLogs} = useActivityLogs()

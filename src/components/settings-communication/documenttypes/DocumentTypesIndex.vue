@@ -104,7 +104,7 @@
         },
 		setup(){
             useHead({
-                title: 'Settings - Document Types | BFAR - CAR HRMIS'
+                title: 'Settings - Document Types | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const store = useAuthStore();
             const userrole = ref(store.getdetails[1]);

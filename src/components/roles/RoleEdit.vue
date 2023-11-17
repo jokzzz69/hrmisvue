@@ -40,7 +40,7 @@ import { useHead } from '@unhead/vue'
 import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
 
 useHead({
-    title: 'Edit Role | BFAR - CAR HRMIS'
+    title: 'Edit Role | '+import.meta.env.VITE_BFAR_AGENCY
 })
 const pageLoader = ref(true);
 const swal = inject('$swal')

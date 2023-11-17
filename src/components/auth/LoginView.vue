@@ -53,11 +53,17 @@
         </div>
     </div>
 
-    <!-- <SiteSeal/> -->
+    <template v-if="siteseal">
+        <SiteSeal/>
+    </template>
+    
+        
+
+
 </template>
 <script>
 
-    import {reactive} from 'vue'
+    import {reactive,ref, onMounted} from 'vue'
     import SiteSeal from '@/components/content/SiteSeal.vue';
     import useEventsBus from '@/components/helper/Eventbus';
     import useAuthenticate from '@/composables/composables-authenticate';
@@ -68,9 +74,10 @@
         },
         setup(){
             useHead({
-                title: 'BFAR - CAR HRMIS | Login'
+                title: 'BFAR - CAR RFIMS | Login'
             })
 
+            const siteseal = ref(false);
 
             const {login,errors} = useAuthenticate();
             const {emit} = useEventsBus();
@@ -83,6 +90,7 @@
                 await login({...auth});
 
             }
+
             const password_show_hide = async() =>{
                 var x = document.getElementById("password");
                   var show_eye = document.getElementById("show_eye");
@@ -98,11 +106,20 @@
                     hide_eye.style.display = "none";
                   }
             }
+            onMounted(() => {
+                if(import.meta.env.VITE_BFAR_SITESEAL != ''){
+                    siteseal.value = true;
+                }else{
+                    siteseal.value = false;
+                }
+
+            })
             return{
                 auth,
                 AuthLogin,
                 password_show_hide,
-                errors
+                errors,
+                siteseal
             }
         }
     }

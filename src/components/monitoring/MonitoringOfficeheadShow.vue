@@ -166,7 +166,7 @@
         },
         setup(props){
             useHead({
-                title: 'Employee DTR | BFAR - CAR HRMIS'
+                title: 'Employee DTR | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const {employee, getEmployee} = useEmployees()
             const {biometricsData, getEmployeemonthBio} = useMonitoring()

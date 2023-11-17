@@ -116,7 +116,7 @@
         },
 		setup(){
 			useHead({
-                title: 'Employees DTR | BFAR - CAR HRMIS'
+                title: 'Employees DTR | '+import.meta.env.VITE_BFAR_AGENCY
             })
 			const {officerecords,getOfficeemployeesMonitoring} = useOfficerecord()
 			const {offices, getOffices} = useOffices()

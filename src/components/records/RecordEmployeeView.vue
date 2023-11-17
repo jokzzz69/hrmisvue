@@ -14,8 +14,8 @@
 		    		</div>
 		    	</div>
 		    </div>
-		    <div class="mtmb">
-		    	<table class="mtable hasActions mt-2 mb-2 table tblempinfo">
+		    <div class="mtmb tblWrap mt-2">
+		    	<table class="mtable hasActions table tblempinfo">
 			    	<thead>
 			    		<tr>
 			    			<th @click="sortTable('employee_id')">ID
@@ -71,102 +71,129 @@
 			    		</tr>
 			    	</thead>
 			    	<tbody>
-			    		<template v-for="officerecord in filteredOfficeRecords" :key="officerecord.employee_id">
+			    		<template v-if="!tblloader">
+				    		<template v-for="officerecord in filteredOfficeRecords" :key="officerecord.employee_id">
 
-			    			<tr>
-			    				<td>
-			    					<template v-if="officerecord.employee">
-			    						{{officerecord.employee.employee_id}}
-			    					</template>
-			    				</td>
-			    				<td class="ttc"> 	
-			    					<template v-if="officerecord.employee">
-			    						<template v-if="officerecord.employee.employee_fname">
-				    						<template v-if="checkText(officerecord.employee.employee_fname)">{{ officerecord.employee.employee_fname}}&nbsp;</template>
-				    					</template>		
-				    					<template v-if="officerecord.employee.employee_mname">
-				    						<template v-if="officerecord.employee.employee_mname.replace(/ /g, '').length > 1">
-					    						<template v-if="checkText(officerecord.employee.employee_mname)">{{ officerecord.employee.employee_mname.charAt(0).toUpperCase() }}. </template>
+				    			<tr>
+				    				<td>
+				    					<template v-if="officerecord.employee">
+				    						{{officerecord.employee.employee_id}}
+				    					</template>
+				    				</td>
+				    				<td class="ttc"> 	
+				    					<template v-if="officerecord.employee">
+				    						<template v-if="officerecord.employee.employee_fname">
+					    						<template v-if="checkText(officerecord.employee.employee_fname)">{{ officerecord.employee.employee_fname}}&nbsp;</template>
+					    					</template>		
+					    					<template v-if="officerecord.employee.employee_mname">
+					    						<template v-if="officerecord.employee.employee_mname.replace(/ /g, '').length > 1">
+						    						<template v-if="checkText(officerecord.employee.employee_mname)">{{ officerecord.employee.employee_mname.charAt(0).toUpperCase() }}. </template>
+						    					</template>
 					    					</template>
-				    					</template>
-				    					<template v-if="officerecord.employee.employee_lname">
-				    						<template v-if="checkText(officerecord.employee.employee_lname)">{{officerecord.employee.employee_lname}}&nbsp;</template>
-				    					</template>
-				    					<template v-if="officerecord.employee.employee_extname">
-				    						<template v-if="checkText(officerecord.employee.employee_extname)">{{officerecord.employee.employee_extname}}</template>
-				    					</template>	
-			    					</template>			
-			    				</td>
-			    				<td class="ttc">
-			    					{{officerecord.emergency_contactperson}}<template v-if="officerecord.emergency_contactnumber"><br/>0{{officerecord.emergency_contactnumber}}</template>
-			    				</td>
-			    				 <td>
-			    				 	<template v-if="officerecord.employments.length > 0">
-			    				 		<template v-if="officerecord.employments[0].type">
-			    				 			{{officerecord.employments[0].type.name}}
-			    				 		</template>		    				 		
-			    				 	</template>
-			    				 </td>
+					    					<template v-if="officerecord.employee.employee_lname">
+					    						<template v-if="checkText(officerecord.employee.employee_lname)">{{officerecord.employee.employee_lname}}&nbsp;</template>
+					    					</template>
+					    					<template v-if="officerecord.employee.employee_extname">
+					    						<template v-if="checkText(officerecord.employee.employee_extname)">{{officerecord.employee.employee_extname}}</template>
+					    					</template>	
+				    					</template>			
+				    				</td>
+				    				<td class="ttc">
+				    					{{officerecord.emergency_contactperson}}<template v-if="officerecord.emergency_contactnumber"><br/>0{{officerecord.emergency_contactnumber}}</template>
+				    				</td>
+				    				 <td>
+				    				 	<template v-if="officerecord.employments.length > 0">
+				    				 		<template v-if="officerecord.employments[0].type">
+				    				 			{{officerecord.employments[0].type.name}}
+				    				 		</template>		    				 		
+				    				 	</template>
+				    				 </td>
 
-			    				 <td>
-			    				 	<template v-if="officerecord.employments.length > 0">
-			    				 		<template v-if="officerecord.employments[0].position">
-			    				 			{{officerecord.employments[0].position.name}}
-			    				 		</template>		    				 		
-			    				 	</template>
-			    				 </td>
-				    			<td>
-				    				<template v-if="officerecord.employments.length > 0">
-			    				 		<template v-if="officerecord.employments[0].office">
-			    				 			{{officerecord.employments[0].office.offices_name}}
-			    				 		</template>		    				 		
-			    				 	</template>
-				    			</td>
-				    			<td>
-				    				<template v-if="officerecord.pdspersonalinformation">
-			    				 		<template v-if="officerecord.pdspersonalinformation.birthdate">			    				 
-			    				 			{{moment(new Date(officerecord.pdspersonalinformation.birthdate)).format('MMMM D, Y')}}   		
-			    				 		</template>		    				 		
-			    				 	</template>
-				    			</td>
-				    			<td>
-				    				<template v-if="officerecord.pdspersonalinformation">
-			    				 		 {{officerecord.pdspersonalinformation.bloodtype}} 		
-			    				 	</template>
-				    			</td>
-				    			<td>
-				    				<template v-if="officerecord.pdspersonalinformation">
-			    				 		 {{officerecord.pdspersonalinformation.emailaddress}} 		
-			    				 	</template>
-				    			</td>
-				    			<td>
-				    				<template v-if="officerecord.pdspersonalinformation">
-			    				 		 {{officerecord.pdspersonalinformation.gsis_id}} 		
-			    				 	</template>
-				    			</td>
-				    			<td>
-				    				<template v-if="officerecord.pdspersonalinformation">
-			    				 		 {{officerecord.pdspersonalinformation.sss_no}} 		
-			    				 	</template>
-				    			</td>
-				    			<td>
-				    				<template v-if="officerecord.pdspersonalinformation">
-			    				 		 {{officerecord.pdspersonalinformation.tin_no}} 		
-			    				 	</template>
-				    			</td>
-				    			<td>
-				    				<template v-if="officerecord.pdspersonalinformation">
-			    				 		 {{officerecord.pdspersonalinformation.pagibig_id}} 		
-			    				 	</template>
-				    			</td>
-				    			<td>
-				    				<template v-if="officerecord.pdspersonalinformation">
-			    				 		 {{officerecord.pdspersonalinformation.philhealth_no}} 		
-			    				 	</template>
-				    			</td>
+				    				 <td>
+				    				 	<template v-if="officerecord.employments.length > 0">
+				    				 		<template v-if="officerecord.employments[0].position">
+				    				 			{{officerecord.employments[0].position.name}}
+				    				 		</template>		    				 		
+				    				 	</template>
+				    				 </td>
+					    			<td>
+					    				<template v-if="officerecord.employments.length > 0">
+				    				 		<template v-if="officerecord.employments[0].office">
+				    				 			{{officerecord.employments[0].office.offices_name}}
+				    				 		</template>		    				 		
+				    				 	</template>
+					    			</td>
+					    			<td>
+					    				<template v-if="officerecord.pdspersonalinformation">
+				    				 		<template v-if="officerecord.pdspersonalinformation.birthdate">			    				 
+				    				 			{{moment(new Date(officerecord.pdspersonalinformation.birthdate)).format('MMMM D, Y')}}   		
+				    				 		</template>		    				 		
+				    				 	</template>
+					    			</td>
+					    			<td>
+					    				<template v-if="officerecord.pdspersonalinformation">
+				    				 		 {{officerecord.pdspersonalinformation.bloodtype}} 		
+				    				 	</template>
+					    			</td>
+					    			<td>
+					    				<template v-if="officerecord.pdspersonalinformation">
+				    				 		 {{officerecord.pdspersonalinformation.emailaddress}} 		
+				    				 	</template>
+					    			</td>
+					    			<td>
+					    				<template v-if="officerecord.pdspersonalinformation">
+				    				 		 {{officerecord.pdspersonalinformation.gsis_id}} 		
+				    				 	</template>
+					    			</td>
+					    			<td>
+					    				<template v-if="officerecord.pdspersonalinformation">
+				    				 		 {{officerecord.pdspersonalinformation.sss_no}} 		
+				    				 	</template>
+					    			</td>
+					    			<td>
+					    				<template v-if="officerecord.pdspersonalinformation">
+				    				 		 {{officerecord.pdspersonalinformation.tin_no}} 		
+				    				 	</template>
+					    			</td>
+					    			<td>
+					    				<template v-if="officerecord.pdspersonalinformation">
+				    				 		 {{officerecord.pdspersonalinformation.pagibig_id}} 		
+				    				 	</template>
+					    			</td>
+					    			<td>
+					    				<template v-if="officerecord.pdspersonalinformation">
+				    				 		 {{officerecord.pdspersonalinformation.philhealth_no}} 		
+				    				 	</template>
+					    			</td>
 
-			    			</tr>
-			    		</template>
+				    			</tr>
+				    		</template>
+				    		<template v-if="searchQuery">
+				    			<template v-if="!filteredOfficeRecords.length">
+				    				<tr class="nodata">
+					    				<td colspan="14">
+			                        		No Results Found
+			                        	</td>
+					    			</tr>
+				    			</template>			    			
+				    		</template>
+				    		<template v-else>
+				    			<template v-if="!filteredOfficeRecords.length">
+				    				<tr class="nodata">
+					    				<td colspan="14">
+			                        		No Entry!
+			                        	</td>
+					    			</tr>
+				    			</template>	
+				    		</template>
+				    	</template>
+				    	<template v-else>
+	                        <tr class="nodata pr">
+	                        	<td colspan="14">
+	                        		<LoadingComponent/>
+	                        	</td>
+	                        </tr>
+	                    </template>
 			    	</tbody>
 			    </table>
 		    </div>
@@ -183,11 +210,14 @@
 	import moment from 'moment';
 
 	import { useHead } from '@unhead/vue'
-
+	import LoadingComponent from '@/components/loader/LoadingComponent.vue';
 	export default{
+		components: {
+			LoadingComponent
+		},
 		setup(){
 			useHead({
-	            title: 'Employees Information | BFAR - CAR HRMIS'
+	            title: 'Employees Information | '+import.meta.env.VITE_BFAR_AGENCY
 	        })
 
 
@@ -200,11 +230,14 @@
 			const sortColumn = ref("id");
         	const sortDirection = ref(1);
 			const arrowIconName = ref("arrow_drop_up");			
+			const tblloader = ref(true);
 
 	
 
 			onMounted(() => {
-				getOfficerecordsEmployee()
+				getOfficerecordsEmployee().then(() => {
+					tblloader.value = false;
+				})
 			})		
 
 
@@ -319,7 +352,7 @@
 				sortColumn,
 				arrowIconName,
 				checkText,
-
+				tblloader,
 				moment,
 			}
 		}

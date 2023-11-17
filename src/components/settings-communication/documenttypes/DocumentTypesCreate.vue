@@ -35,7 +35,7 @@
     export default {
         setup(){
             useHead({
-                title: 'Settings - Create Document Types | BFAR - CAR HRMIS'
+                title: 'Settings - Create Document Types | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const form = reactive({
                 'name': '',

@@ -62,7 +62,7 @@
     import {formatDate} from '@/helper/formatdate'
     import {formatTime} from '@/helper/formattime'
     import moment from 'moment';
-
+    import { useHead } from '@unhead/vue'
     export default{
         props: {
             id: {
@@ -71,6 +71,9 @@
             }
         },
         setup(props){
+            useHead({
+                title: 'Employee DTR Report | '+import.meta.env.VITE_BFAR_AGENCY
+            })
             const {employee, getEmployee} = useEmployees()
             const {downloadperEmployeeDTR} = useGeneratedtr()
             const {monitoringbiometric, getEmployeebiometric} = useMonitoring()

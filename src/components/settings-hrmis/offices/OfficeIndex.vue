@@ -127,7 +127,7 @@
 		},
 		setup(){
 			useHead({
-                title: 'Settings - Offices | BFAR - CAR HRMIS'
+                title: 'Settings - Offices | '+import.meta.env.VITE_BFAR_AGENCY
             })
 			const swal = inject('$swal')
 

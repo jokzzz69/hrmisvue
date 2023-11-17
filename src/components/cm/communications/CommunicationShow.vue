@@ -289,6 +289,7 @@
     import {useCommunicationStore} from "@/stores/communicationstore.js"
     import {useNotificationStore} from '@/stores/notificationstore.js';
     import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue'
+    import { useHead } from '@unhead/vue'
 
     export default {
         components: {
@@ -304,6 +305,9 @@
             }
         },
         setup(props){
+            useHead({
+                title: 'Communication | '+import.meta.env.VITE_BFAR_AGENCY
+            })
             const swal = inject('$swal')
             const showActionsBox = ref(false);
 

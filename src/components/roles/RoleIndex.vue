@@ -108,7 +108,7 @@
 		},
 		setup(){
 			useHead({
-		        title: 'Roles | BFAR - CAR HRMIS'
+		        title: 'Roles | '+import.meta.env.VITE_BFAR_AGENCY
 		    })
 			const {roles, getRoles} = useRoles()
 			const searchQuery = ref("");

@@ -48,7 +48,7 @@ export default{
 
     setup (){
         useHead({
-            title: 'Edit Emergency Contact Information | BFAR - CAR HRMIS'
+            title: 'Edit Emergency Contact Information | '+import.meta.env.VITE_BFAR_AGENCY
         })
         const swal = inject('$swal')
         const {officerecord, getPersonalRecord, updateEmergencyContact, errors}= useOfficerecord()

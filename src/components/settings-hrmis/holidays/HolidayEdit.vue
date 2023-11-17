@@ -54,7 +54,7 @@
         },
         setup(props){
             useHead({
-                title: 'Settings - Edit Holiday | BFAR - CAR HRMIS'
+                title: 'Settings - Edit Holiday | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const form = reactive({
                 'name': '',

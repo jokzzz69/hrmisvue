@@ -112,7 +112,7 @@
         },
 		setup(){
             useHead({
-                title: 'Settings - Employee Leave Types | BFAR - CAR HRMIS'
+                title: 'Settings - Employee Leave Types | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const swal = inject('$swal')
             const store = useAuthStore()

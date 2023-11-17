@@ -16,7 +16,7 @@
 	export default{
 		setup(){
 			useHead({
-                title: 'Forbidden Page | BFAR - CAR HRMIS'
+                title: 'Forbidden Page | '+import.meta.env.VITE_BFAR_AGENCY
             })
 			const router = useRouter()
 		

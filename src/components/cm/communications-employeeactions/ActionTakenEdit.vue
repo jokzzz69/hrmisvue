@@ -67,6 +67,8 @@
 
     import useActionsTaken from "@/composables/composables-actionstaken";
     import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue'
+    import { useHead } from '@unhead/vue'
+
     export default {
         components: {
             LoadingComponentDiv
@@ -78,6 +80,10 @@
             }
         },
         setup(props){
+
+            useHead({
+                title: 'Edit Actions Taken | '+import.meta.env.VITE_BFAR_AGENCY
+            })
             const swal = inject('$swal')
 
             const { errors, editActionTaken, updateActionTaken, actiontaken } = useActionsTaken()

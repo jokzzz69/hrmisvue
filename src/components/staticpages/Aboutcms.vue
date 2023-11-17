@@ -57,7 +57,7 @@
 	export default{
 		setup(){
             useHead({
-                title: 'About | CMDTS'
+                title: 'About | CMDTS | '+import.meta.env.VITE_BFAR_AGENCY
             })
             onMounted(() =>{
                 

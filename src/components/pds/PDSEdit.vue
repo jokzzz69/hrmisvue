@@ -368,7 +368,7 @@ export default{
     setup (props){
 
         useHead({
-            title: 'Edit PDS | BFAR - CAR HRMIS'
+            title: 'Edit PDS | '+import.meta.env.VITE_BFAR_AGENCY
         })
 
 

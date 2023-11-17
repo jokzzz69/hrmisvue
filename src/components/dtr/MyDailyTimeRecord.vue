@@ -184,7 +184,7 @@
         },
         setup(){
             useHead({
-                title: 'My DTR | BFAR - CAR HRMIS'
+                title: 'My DTR | '+import.meta.env.VITE_BFAR_AGENCY
             })
 
             const store = useAuthStore();

@@ -222,13 +222,16 @@
     import {useAuthStore} from '@/stores/store.js'
     import AttachFile from '@/components/cm/reusables/AttachFile.vue';
     import useEventsBus from '@/components/helper/Eventbus';
-
+    import { useHead } from '@unhead/vue'
 
     export default {
         components: {
             AttachFile
         },
         setup(){
+            useHead({
+                title: 'New Communication | '+import.meta.env.VITE_BFAR_AGENCY
+            })
             const {emit}=useEventsBus()
 
             const asdraftpage = ref(true);

@@ -106,7 +106,7 @@
 		},
 		setup(){
 			useHead({
-                title: 'Settings - Office Locations | BFAR - CAR HRMIS'
+                title: 'Settings - Office Locations | '+import.meta.env.VITE_BFAR_AGENCY
             })
 			const {locations, getLocations, destroyLocation} = useLocations()
 			const searchQuery = ref("");

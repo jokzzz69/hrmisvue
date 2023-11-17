@@ -105,7 +105,7 @@
         },
 		setup(){
             useHead({
-                title: 'Settings - Notes | BFAR - CAR HRMIS'
+                title: 'Settings - Notes | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const store = useAuthStore();
             const userrole = ref(store.getdetails[1]);

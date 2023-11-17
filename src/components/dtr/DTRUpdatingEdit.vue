@@ -100,7 +100,7 @@
     	},
         setup(props){
             useHead({
-                title: 'Edit DTR | BFAR - CAR HRMIS'
+                title: 'Edit DTR | '+import.meta.env.VITE_BFAR_AGENCY
             })
         	const swal = inject('$swal')
         	const formContent = ref([]);

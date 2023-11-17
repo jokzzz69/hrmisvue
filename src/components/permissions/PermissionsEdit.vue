@@ -70,7 +70,7 @@
         },
         setup(props){
             useHead({
-                title: 'Edit Permission | BFAR - CAR HRMIS'
+                title: 'Edit Permission | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const form = reactive({
                 'name': '',

@@ -156,7 +156,7 @@ export default{
     },
     setup (){
         useHead({
-            title: 'PDS Learning and Development | BFAR - CAR HRMIS'
+            title: 'PDS Learning and Development | '+import.meta.env.VITE_BFAR_AGENCY
         })
 
         const store = useAuthStore();

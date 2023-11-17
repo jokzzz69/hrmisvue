@@ -113,7 +113,7 @@
         },
 		setup(){
             useHead({
-                title: 'Settings - Employee Leave Types Details | BFAR - CAR HRMIS'
+                title: 'Settings - Employee Leave Types Details | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const swal = inject('$swal')
             const tblloader = ref(true);

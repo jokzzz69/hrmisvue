@@ -83,7 +83,7 @@ export default{
     },
     setup (){
         useHead({
-            title: 'My PDS | BFAR - CAR HRMIS'
+            title: 'My PDS | '+import.meta.env.VITE_BFAR_AGENCY
         })
         const {downloadPDS} = usePDS();
 

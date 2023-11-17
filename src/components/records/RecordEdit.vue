@@ -235,7 +235,7 @@ export default{
 
     setup (props){
         useHead({
-            title: 'Edit Employee | BFAR - CAR HRMIS'
+            title: 'Edit Employee | '+import.meta.env.VITE_BFAR_AGENCY
         })
         const swal = inject('$swal')
         const {officerecord, getOfficerecord, updateOfficerecord, errors, updateActiveemployment}= useOfficerecord()

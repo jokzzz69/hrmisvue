@@ -145,7 +145,7 @@ export default{
     },
     setup (){
         useHead({
-            title: 'PDS Voluntary Work | BFAR - CAR HRMIS'
+            title: 'PDS Voluntary Work | '+import.meta.env.VITE_BFAR_AGENCY
         })
         const store = useAuthStore();
         const id = ref(store.details[0]);

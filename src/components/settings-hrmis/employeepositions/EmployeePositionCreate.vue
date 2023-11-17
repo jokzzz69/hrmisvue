@@ -31,7 +31,7 @@
 		setup(){
 			
 			useHead({
-                title: 'Settings - Create Employee Positions | BFAR - CAR HRMIS'
+                title: 'Settings - Create Employee Positions | '+import.meta.env.VITE_BFAR_AGENCY
             })
 			const form = reactive({
 			    'name': '',

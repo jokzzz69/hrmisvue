@@ -10,7 +10,7 @@
 
           <li class="nav-link w__c">
             <router-link :to="{ name: 'communications.index' }">
-              <i class="fa-solid fa-envelope-open-text"></i> <span>Incoming</span><CommunicationCount/>
+              <i class="fa-solid fa-envelope-open-text"></i> <span>Inbox</span><CommunicationCount/>
             </router-link>
           </li>        
           <li class="nav-link">

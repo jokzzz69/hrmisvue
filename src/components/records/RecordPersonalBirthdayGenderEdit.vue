@@ -111,7 +111,7 @@ import { useHead } from '@unhead/vue'
 export default{
     setup (){
         useHead({
-            title: 'Edit Birthday and Gender | BFAR - CAR HRMIS'
+            title: 'Edit Birthday and Gender | '+import.meta.env.VITE_BFAR_AGENCY
         })
         const store = useAuthStore();
         const id = ref(store.details[0]);

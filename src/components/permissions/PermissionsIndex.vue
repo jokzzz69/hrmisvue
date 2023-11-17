@@ -112,7 +112,7 @@
 		},
 		setup(){
 			useHead({
-		        title: 'Permissions | BFAR - CAR HRMIS'
+		        title: 'Permissions | '+import.meta.env.VITE_BFAR_AGENCY
 		    })
 
 

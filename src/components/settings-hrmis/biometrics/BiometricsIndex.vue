@@ -174,7 +174,7 @@
         },
 		setup(){
             useHead({
-                title: 'Settings - Biometrics | BFAR - CAR HRMIS'
+                title: 'Settings - Biometrics | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const {getPage, 
                 batch, 

@@ -42,7 +42,7 @@
         },
 		setup(props){
             useHead({
-                title: 'Settings - Edit Employee Status | BFAR - CAR HRMIS'
+                title: 'Settings - Edit Employee Status | '+import.meta.env.VITE_BFAR_AGENCY
             })
 			const swal = inject('$swal')
 			const { errors, updateEmployeeStatus, employeestatus, getEmployeeStatus} = useEmployeeStatus()

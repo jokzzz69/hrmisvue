@@ -28,7 +28,7 @@
     export default {
         setup(){
             useHead({
-                title: 'Settings - Create Office Location | BFAR - CAR HRMIS'
+                title: 'Settings - Create Office Location | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const form = reactive({
                 'location_name': '',

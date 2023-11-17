@@ -19,7 +19,7 @@ import { useHead } from '@unhead/vue'
 export default {
 	setup(){
         useHead({
-            title: 'Content Soon on BFAR CAR | BFAR - CAR HRMIS'
+            title: 'Content Soon on BFAR CAR | '+import.meta.env.VITE_BFAR_AGENCY
         })
 	}
 

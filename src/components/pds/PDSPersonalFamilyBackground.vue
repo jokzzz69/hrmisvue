@@ -222,7 +222,7 @@ export default{
     },
     setup (){
         useHead({
-            title: 'PDS Family Background | BFAR - CAR HRMIS'
+            title: 'PDS Family Background | '+import.meta.env.VITE_BFAR_AGENCY
         })
         const store = useAuthStore();
         const id = ref(store.details[0]);

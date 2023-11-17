@@ -110,6 +110,7 @@
     import {useRouter} from 'vue-router'
     import moment from 'moment'
     import Pagination from '@/components/cm/reusables/Pagination.vue';
+    import { useHead } from '@unhead/vue'
 
 
 	export default{
@@ -123,6 +124,9 @@
             LoadingComponent
         },
 		setup(props){
+            useHead({
+                title: 'Communications Draft Search | '+import.meta.env.VITE_BFAR_AGENCY
+            })
 	        const {drafts, getCommunicationsDraft, searchDraft, bulkactionsDraft} = useCommunicationsDraft()
             const swal = inject('$swal')
             const noData = ref(false)

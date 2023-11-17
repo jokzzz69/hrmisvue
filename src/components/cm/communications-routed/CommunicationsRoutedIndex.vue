@@ -135,7 +135,8 @@
     import {useRoutedStore} from "@/stores/routedstore.js"
     import useEventsBus from '@/components/helper/Eventbus';
     import {useNotificationStore} from '@/stores/notificationstore.js'
- 
+    import { useHead } from '@unhead/vue'
+
 
     export default{
         components: {
@@ -144,6 +145,9 @@
             LoadingComponent
         },
         setup(){
+            useHead({
+                title: 'Communications Routed | '+import.meta.env.VITE_BFAR_AGENCY
+            })
             const {communications, getCommunicationsRouted, communicationLinks,  communicationMeta, pinrouted} = useCommunicationsRouted()
 
             const routedstore = useRoutedStore();

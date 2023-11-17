@@ -35,7 +35,7 @@
     export default {
         setup(){
             useHead({
-                title: 'Settings - Create Note | BFAR - CAR HRMIS'
+                title: 'Settings - Create Note | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const form = reactive({
                 'name': '',

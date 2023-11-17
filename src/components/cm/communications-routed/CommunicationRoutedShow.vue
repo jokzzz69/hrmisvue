@@ -250,6 +250,7 @@
     import useNotifications from '@/composables/composables-notifications';
     import useEventsBus from '@/components/helper/Eventbus';
     import {useNotificationStore} from '@/stores/notificationstore.js'
+    import { useHead } from '@unhead/vue'
 
     export default {
         components: {
@@ -266,6 +267,9 @@
 
         },
         setup(props){
+            useHead({
+                title: 'Communication Routed | '+import.meta.env.VITE_BFAR_AGENCY
+            })
             const swal = inject('$swal')
             const showActionsBox = ref(false);
             const {emit,bus}=useEventsBus()

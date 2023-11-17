@@ -97,7 +97,7 @@
         
         setup(props){
             useHead({
-                title: 'Edit Travel | BFAR - CAR HRMIS'
+                title: 'Edit Travel | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const form = reactive({
                 'location': '',

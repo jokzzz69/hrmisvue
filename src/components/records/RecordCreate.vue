@@ -222,7 +222,7 @@ import { useHead } from '@unhead/vue'
 export default{
     setup (){
         useHead({
-            title: 'Add Employee | BFAR - CAR HRMIS'
+            title: 'Add Employee | '+import.meta.env.VITE_BFAR_AGENCY
         })
         const swal = inject('$swal');
         const { errors,  storeOfficerecord } = useOfficerecord();

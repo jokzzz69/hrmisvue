@@ -234,6 +234,7 @@
     import useManageFile from '@/composables/composables-managefile';
     import useEventsBus from '@/components/helper/Eventbus';
 
+    import { useHead } from '@unhead/vue'
 
     export default {
         components: {
@@ -246,6 +247,9 @@
             }
         },
         setup(props){
+            useHead({
+                title: 'Communication Draft Edit | '+import.meta.env.VITE_BFAR_AGENCY
+            })
             const swal = inject('$swal')
             const fileattacherr = ref('');
             const {emit}=useEventsBus()

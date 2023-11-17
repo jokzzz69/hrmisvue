@@ -130,7 +130,7 @@
     import moment from 'moment';
     import { useHead } from '@unhead/vue'
     import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue'
-
+    
     export default{
         components: {
             LoadingComponentDiv
@@ -143,7 +143,7 @@
         },
         setup(props){
             useHead({
-                title: 'Employee DTR Report | BFAR - CAR HRMIS'
+                title: 'Employee DTR Report | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const check = ref(false);
             const formClass = ref('');

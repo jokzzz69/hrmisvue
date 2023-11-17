@@ -77,7 +77,7 @@
         },
 		setup(){
             useHead({
-                title: 'Settings - Biometrics Registered | BFAR - CAR HRMIS'
+                title: 'Settings - Biometrics Registered | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const swal = inject('$swal')
             

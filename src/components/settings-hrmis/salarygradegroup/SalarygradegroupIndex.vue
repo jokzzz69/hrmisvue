@@ -99,7 +99,7 @@
         },
 		setup(){
             useHead({
-                title: 'Settings - Salary Grades | BFAR - CAR HRMIS'
+                title: 'Settings - Salary Grades | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const store = useAuthStore();
             const userrole = ref(store.getdetails[1]);

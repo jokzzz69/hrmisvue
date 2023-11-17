@@ -110,6 +110,7 @@
     import moment from 'moment'
     import Pagination from '@/components/cm/reusables/Pagination.vue';
     import LoadingComponent from '@/components/loader/LoadingComponent.vue';
+    import { useHead } from '@unhead/vue'
 
 	export default{
         props: {
@@ -123,6 +124,9 @@
             LoadingComponent
         },
 		setup(props){
+            useHead({
+                title: 'Communications Draft Page | '+import.meta.env.VITE_BFAR_AGENCY
+            })
 	        const {getCommunicationsDraft,setPageDraft,bulkactionsDraft,
             drafts,
             draftLinks,

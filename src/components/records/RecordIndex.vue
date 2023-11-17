@@ -183,7 +183,7 @@
 		},
 		setup(){
 			useHead({
-	            title: 'Employees Information | BFAR - CAR HRMIS'
+	            title: 'Employees Information | '+import.meta.env.VITE_BFAR_AGENCY
 	        })
 			const store = useAuthStore();
             const userrole = ref(store.getdetails[1]);

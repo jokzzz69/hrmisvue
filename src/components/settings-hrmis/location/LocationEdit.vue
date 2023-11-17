@@ -36,7 +36,7 @@ import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
 const pageLoader = ref(true);
 
 useHead({
-    title: 'Settings - Edit Office Location | BFAR - CAR HRMIS'
+    title: 'Settings - Edit Office Location | '+import.meta.env.VITE_BFAR_AGENCY
 })
 const swal = inject('$swal')
 const { errors, location, updateLocation, getLocation } = useLocations()

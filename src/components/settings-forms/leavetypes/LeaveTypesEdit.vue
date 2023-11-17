@@ -49,7 +49,7 @@
         },
 		setup(props){
             useHead({
-                title: 'Settings - Edit Employee Leave Type | BFAR - CAR HRMIS'
+                title: 'Settings - Edit Employee Leave Type | '+import.meta.env.VITE_BFAR_AGENCY
             })
 			const swal = inject('$swal')
 

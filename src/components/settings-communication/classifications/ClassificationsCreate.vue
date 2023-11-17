@@ -35,7 +35,7 @@
     export default {
         setup(){
             useHead({
-                title: 'Settings - Create Classification | BFAR - CAR HRMIS'
+                title: 'Settings - Create Classification | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const form = reactive({
                 'name': '',

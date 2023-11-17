@@ -25,7 +25,7 @@
 		 },
 		 setup(){
 		 	useHead({
-                title: 'Dashboard | BFAR - CAR HRMIS'
+                title: 'Dashboard | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const {info, getinfo} = useAuthenticate()
 		 	const {officerecord, getOfficerecord } = useOfficerecord()

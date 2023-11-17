@@ -47,7 +47,7 @@
     export default {
         setup(){
             useHead({
-                title: 'Settings - New Communication Group | BFAR - CAR HRMIS'
+                title: 'Settings - New Communication Group | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const form = reactive({
                 'name': '',

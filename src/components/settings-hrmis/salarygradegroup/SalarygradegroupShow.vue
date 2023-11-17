@@ -103,7 +103,7 @@
         },
 		setup(props){
             useHead({
-                title: 'Settings - Salary Grade | BFAR - CAR HRMIS'
+                title: 'Settings - Salary Grade | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const swal = inject('$swal')            
 			const {salarygradegroup, getSalaryGradeGroup, destroySalaryGradeGroup} = useSalaryGradeGroup()

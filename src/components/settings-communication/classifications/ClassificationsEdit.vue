@@ -42,7 +42,7 @@
         },
         setup(props){
             useHead({
-                title: 'Settings - Edit Classification | BFAR - CAR HRMIS'
+                title: 'Settings - Edit Classification | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const swal = inject('$swal')
 

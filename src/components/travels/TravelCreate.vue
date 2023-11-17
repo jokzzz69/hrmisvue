@@ -85,7 +85,7 @@
 
         setup(){  
             useHead({
-                title: 'Create Travel | BFAR - CAR HRMIS'
+                title: 'Create Travel | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const employeedetails = useAuthStore();
 

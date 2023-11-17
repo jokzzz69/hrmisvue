@@ -114,7 +114,7 @@
         },
 		setup(){
 			useHead({
-                title: 'Settings - Holidays | BFAR - CAR HRMIS'
+                title: 'Settings - Holidays | '+import.meta.env.VITE_BFAR_AGENCY
             })
 			const {holidays, getHolidays, destroyHoliday} = useHolidays()
 

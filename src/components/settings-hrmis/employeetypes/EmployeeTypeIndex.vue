@@ -103,7 +103,7 @@
         },
 		setup(){
             useHead({
-                title: 'Settings - Employee Types | BFAR - CAR HRMIS'
+                title: 'Settings - Employee Types | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const swal = inject('$swal')
             

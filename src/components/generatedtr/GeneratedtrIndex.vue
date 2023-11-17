@@ -128,7 +128,7 @@
 		},
 		setup(){
 			useHead({
-                title: 'DTR Report | BFAR - CAR HRMIS'
+                title: 'DTR Report | '+import.meta.env.VITE_BFAR_AGENCY
             })
 			const selected = ref([]);
 			const allSelected = ref(false);

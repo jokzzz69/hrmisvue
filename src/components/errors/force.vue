@@ -15,7 +15,7 @@
 	export default{
 		setup(){
 			useHead({
-                title: '404 Page | BFAR - CAR HRMIS'
+                title: '404 Page | '+import.meta.env.VITE_BFAR_AGENCY
             })
 			onMounted(() => {
 			  const sbar = document.querySelector(".sidebarleft");

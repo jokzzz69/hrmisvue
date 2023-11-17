@@ -162,7 +162,7 @@
         },
         setup(props){
             useHead({
-                title: 'Edit Leave / Absent Record | BFAR - CAR HRMIS'
+                title: 'Edit Leave / Absent Record | '+import.meta.env.VITE_BFAR_AGENCY
             })
 
             const form = reactive({

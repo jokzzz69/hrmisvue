@@ -115,6 +115,7 @@
     import LoadingComponent from '@/components/loader/LoadingComponent.vue';
 
     import useEventsBus from '@/components/helper/Eventbus';
+    import { useHead } from '@unhead/vue'
 
 	export default{
         components: {
@@ -122,6 +123,9 @@
             LoadingComponent
         },
 		setup(){
+            useHead({
+                title: 'Communications Draft | '+import.meta.env.VITE_BFAR_AGENCY
+            })
 	        const {drafts, getCommunicationsDraft, draftLinks,  draftMeta, bulkactionsDraft} = useCommunicationsDraft()
 
             const {emit}=useEventsBus()

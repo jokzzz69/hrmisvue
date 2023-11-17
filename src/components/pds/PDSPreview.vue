@@ -81,7 +81,7 @@ export default{
     },
     setup (props){
         useHead({
-            title: 'PDS Preview | BFAR - CAR HRMIS'
+            title: 'PDS Preview | '+import.meta.env.VITE_BFAR_AGENCY
         })
         const swal = inject('$swal')
         const {downloadPDS} = usePDS();

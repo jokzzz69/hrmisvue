@@ -55,7 +55,7 @@
         },
         setup(props){ 
             useHead({
-                title: 'Settings - Edit Office | BFAR - CAR HRMIS'
+                title: 'Settings - Edit Office | '+import.meta.env.VITE_BFAR_AGENCY
             })           
             const swal = inject('$swal')
             const { errors, office, updateOffice, getOffice } = useOffices()

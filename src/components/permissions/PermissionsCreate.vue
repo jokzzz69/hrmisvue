@@ -54,7 +54,7 @@
     export default {
         setup(){
             useHead({
-                title: 'Create Permission | BFAR - CAR HRMIS'
+                title: 'Create Permission | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const form = reactive({
                 'name': '',

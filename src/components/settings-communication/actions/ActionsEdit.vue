@@ -43,7 +43,7 @@
         },
         setup(props){
             useHead({
-                title: 'Settings - Edit Action | BFAR - CAR HRMIS'
+                title: 'Settings - Edit Action | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const swal = inject('$swal')
             const pageLoader = ref(true);

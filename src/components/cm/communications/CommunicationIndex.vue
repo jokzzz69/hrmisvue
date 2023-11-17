@@ -114,7 +114,8 @@
     
     import {useCommunicationStore} from "@/stores/communicationstore.js"
     import {useNotificationStore} from '@/stores/notificationstore.js';
-    
+    import { useHead } from '@unhead/vue'
+
     export default{
         components: {
             Pagination,
@@ -122,6 +123,9 @@
             LoadingComponent            
         },
         setup(){
+            useHead({
+                title: 'Communications Inbox | '+import.meta.env.VITE_BFAR_AGENCY
+            })
             const {communications, getCommunications,getCommunication, communicationLinks,  communicationMeta, pincommunication, bulkactions} = useCommunications()
 
             const swal = inject('$swal')

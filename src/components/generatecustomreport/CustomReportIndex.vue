@@ -444,7 +444,7 @@
         },
 		setup(){
             useHead({
-                title: 'Custom Report | BFAR - CAR HRMIS'
+                title: 'Custom Report | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const store = useAuthStore();
             const authslug = store.getdetails[1];

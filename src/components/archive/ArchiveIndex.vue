@@ -146,7 +146,7 @@
         },
 		setup(){
             useHead({
-                title: 'Archives | BFAR - CAR HRMIS'
+                title: 'Archives | BFAR - CAR RFIMS'
             })
             const store = useAuthStore();
             const userrole = ref(store.getdetails[1]);

@@ -411,7 +411,7 @@ export default{
     },
     setup (){
         useHead({
-            title: 'PDS Personal Information | BFAR - CAR HRMIS'
+            title: 'PDS Personal Information | '+import.meta.env.VITE_BFAR_AGENCY
         })
         const swal = inject('$swal')
         const resMun = ref([]);

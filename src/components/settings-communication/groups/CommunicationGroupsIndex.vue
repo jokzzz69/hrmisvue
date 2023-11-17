@@ -135,7 +135,7 @@
         },
 		setup(){
             useHead({
-                title: 'Settings - Communication Groups | BFAR - CAR HRMIS'
+                title: 'Settings - Communication Groups | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const swal = inject('$swal')
             const tblloader = ref(true);

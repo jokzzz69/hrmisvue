@@ -66,7 +66,7 @@
         },
         setup(props){
             useHead({
-                title: 'Settings - Update Communication Group Employees | BFAR - CAR HRMIS'
+                title: 'Settings - Update Communication Group Employees | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const swal = inject('$swal')
 

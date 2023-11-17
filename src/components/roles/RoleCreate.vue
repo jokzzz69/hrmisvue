@@ -35,7 +35,7 @@
     export default {
         setup(){
             useHead({
-                title: 'Add Role | BFAR - CAR HRMIS'
+                title: 'Add Role | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const form = reactive({
                 'name': '',

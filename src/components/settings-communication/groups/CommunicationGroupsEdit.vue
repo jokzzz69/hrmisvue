@@ -54,7 +54,7 @@
         },
         setup(props){
             useHead({
-                title: 'Settings - Edit Communication Group | BFAR - CAR HRMIS'
+                title: 'Settings - Edit Communication Group | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const swal = inject('$swal')
 

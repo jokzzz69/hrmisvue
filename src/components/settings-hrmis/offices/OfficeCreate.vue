@@ -42,7 +42,7 @@
     export default {
         setup(){
             useHead({
-                title: 'Settings - Add Office | BFAR - CAR HRMIS'
+                title: 'Settings - Add Office | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const swal = inject('$swal')
 

@@ -59,7 +59,7 @@ import { useHead } from '@unhead/vue'
 export default{
     setup(){
         useHead({
-            title: 'Update Password | BFAR - CAR HRMIS'
+            title: 'Update Password | '+import.meta.env.VITE_BFAR_AGENCY
         })
         const store = useAuthStore();
         const id = ref(store.details[0]);

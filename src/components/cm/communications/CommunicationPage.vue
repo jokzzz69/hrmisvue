@@ -113,6 +113,7 @@
 
     import Tooltip from "@/components/cm/reusables/Tooltip.vue";
     import LoadingComponent from '@/components/loader/LoadingComponent.vue';
+    import { useHead } from '@unhead/vue'
 
     export default{
         props: {
@@ -127,6 +128,9 @@
             LoadingComponent
         },
         setup(props){
+            useHead({
+                title: 'Communications Inbox Page | '+import.meta.env.VITE_BFAR_AGENCY
+            })
             const {communications, getCommunications, communicationLinks,  communicationMeta, bulkactions, setPage,pincommunication } = useCommunications()
 
             
