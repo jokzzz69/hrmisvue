@@ -59,12 +59,11 @@
                     <template v-if="officerecord.pdspersonalinformation">
                          <div class="row mb-2">
                             <div class="col c_p rpl mb-2">                                            
-                                <Datepicker auto-apply week-start="0" :clearable="false" :enable-time-picker="false" v-model="officerecord.pdspersonalinformation.birthdate" name="birthdate" class="date-form-floating" placeholder="Date of Birth"></Datepicker>                           
+                                <Datepicker auto-apply week-start="0" :clearable="false" :enable-time-picker="false" v-model="officerecord.pdspersonalinformation.birthdate" @update:model-value="handleDate" name="birthdate" class="date-form-floating" placeholder="Date of Birth"></Datepicker>                           
                             </div> 
                             <div class="col col-sm-7 c_p col-xxl-8 mb-2">
                                 <div class="form-floating">                        
                                     <input type="text" name="placeofbirth" id="placeofbirth" class="form-control" placeholder="enter place of birth"  v-model="officerecord.pdspersonalinformation.placeofbirth"
-                                    @update:model-value="moment(officerecord.pdspersonalinformation.placeofbirth).format('YYYY-MM-DD')"
                                     >    
                                     <label for="placeofbirth" class="form-label">Place of Birth</label>                    
                                 </div>
@@ -445,6 +444,10 @@ export default{
 
         })
 
+        const handleDate = (x) =>{  
+            officerecord.value.pdspersonalinformation.birthdate = moment(new Date(x)).format('YYYY-MM-DD');     
+        }
+
         const resProv = async () =>{
             getProvMun(officerecord.value.pdsaddress.residential_province);
             officerecord.value.pdsaddress.residential_municipality = null;
@@ -462,6 +465,7 @@ export default{
             }
         }
         const savepds = async () => {
+            console.log(officerecord.value.pdspersonalinformation);
             await updateMypds(id.value).then(() => {
                 if(!errors.value){
                     swal.fire({
@@ -499,7 +503,8 @@ export default{
             moment,
             countries,
             twoDec,
-            id
+            id,
+            handleDate
 
         
         }
