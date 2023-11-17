@@ -292,7 +292,7 @@ export default{
             divs.splice(index,1);
         }
         const bday = (key) => {
-            officerecord.value.pdsfamilybackgroundchildren[key].dateofbirth = moment(officerecord.value.pdsfamilybackgroundchildren[key].dateofbirth).format('MM/DD/YYYY');
+            officerecord.value.pdsfamilybackgroundchildren[key].dateofbirth = moment(officerecord.value.pdsfamilybackgroundchildren[key].dateofbirth).format('YYYY-MM-DD');
         }
         return{
             errors,
