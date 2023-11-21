@@ -10,7 +10,7 @@
                 <li class="nav-link"><router-link :to="{ name: 'notes.index' }">Notes</router-link></li>
                 <li class="nav-link"><router-link :to="{ name: 'actions.index' }">Actions</router-link></li>
                 <li class="nav-link"><router-link :to="{ name: 'communicationgroups.index' }">Groups</router-link></li>
-                <li class="nav-link"><router-link :to="{ name: 'startingnumber.edit' }">Starting Number</router-link></li>                
+                <li class="nav-link"><router-link :to="{ name: 'startingnumber.edit' }">Starting Number</router-link></li>   
             </ul>
         </div>
     </div>

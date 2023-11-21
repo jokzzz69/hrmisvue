@@ -7,6 +7,7 @@
             <ul class="rsidebar">
                 <li class="nav-link"><router-link :to="{ name: 'offices.index' }">Office Name</router-link></li>
                 <li class="nav-link"><router-link :to="{ name: 'locations.index' }">Office Locations</router-link></li>
+                <li class="nav-link"><router-link :to="{ name: 'units.index' }">Units</router-link></li>
                 <li class="nav-link"><router-link :to="{ name: 'employeetype.index' }">Employee Types</router-link></li>
                 <li class="nav-link"><router-link :to="{ name: 'employeestatus.index' }">Employee Status</router-link></li>
                 <li class="nav-link"><router-link :to="{ name: 'employeeposition.index' }">Employee Positions</router-link></li>

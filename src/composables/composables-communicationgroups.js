@@ -59,6 +59,18 @@ export default function useCommunicationGroups(){
             }
         })
     }
+    const updateCommunicationGroupLabel = async(id,data) =>{
+        axios.defaults.withCredentials = true;
+        errors.value = ''
+
+        await axios.patch(`/v1/api/csgroupslabel/${id}`, data).catch((e) =>{
+            if (e.response.status === 422) {
+                for (const key in e.response.data.errors) {
+                    errors.value = e.response.data.errors
+                }
+            }
+        })
+    }
     const updateCommunicationGroupEmployees = async (id,data) => {
         axios.defaults.withCredentials = true;
     	errors.value = ''
@@ -74,7 +86,18 @@ export default function useCommunicationGroups(){
         })
 
     }
+    const updateCommunicationGroupUnit = async(id,data) =>{
+        axios.defaults.withCredentials = true;
+        errors.value = ''
 
+        await axios.patch(`/v1/api/csgroupsunit/${id}`, data).catch((e) =>{
+            if (e.response.status === 422) {
+                for (const key in e.response.data.errors) {
+                    errors.value = e.response.data.errors
+                }
+            }
+        })
+    }
 	const destroyCommunicationGroup = async (id) => {
         axios.defaults.withCredentials = true;
 		await axios.delete('/v1/api/csgroups/' + id)
@@ -92,8 +115,9 @@ export default function useCommunicationGroups(){
 		updateCommunicationGroup,
 		destroyCommunicationGroup,
 		updateCommunicationGroupEmployees,
-        updateCommunicationGroupDisplay
-		
+        updateCommunicationGroupDisplay,
+        updateCommunicationGroupLabel,
+		updateCommunicationGroupUnit
 		
 	}
 }

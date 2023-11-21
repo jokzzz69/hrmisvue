@@ -32,7 +32,8 @@
                             </th>
                             <th>Employees</th>
                             <th>Display Status</th>
-                            <th>Label</th>
+                            <th>Show Office</th>
+                            <th>Show Units</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -59,23 +60,31 @@
                                           <input class="form-check-input" @click="updatecgdisplay(filteredCommunicationGroup.id,filteredCommunicationGroup.display)" true-value="1" false-value="0" v-model="filteredCommunicationGroup.display" type="checkbox" :id="'cgswitch-'+filteredCommunicationGroup.id">
                                         </div>
                                     </td>
-                                    <td></td>
+                                    <td>
+                                        <div class="form-check form-switch form-switch-cg">
+                                          <input class="form-check-input" @click="updatelabel(filteredCommunicationGroup.id,filteredCommunicationGroup.groupsemployeeoffice)" true-value="1" false-value="0" v-model="filteredCommunicationGroup.groupsemployeeoffice" type="checkbox" :id="'cglabel-'+filteredCommunicationGroup.id">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-switch form-switch-cg">
+                                          <input class="form-check-input" @click="updateunit(filteredCommunicationGroup.id,filteredCommunicationGroup.groupsemployeeunits)" true-value="1" false-value="0" v-model="filteredCommunicationGroup.groupsemployeeunits" type="checkbox" :id="'cgunits-'+filteredCommunicationGroup.id">
+                                        </div>
+                                    </td>
+                  
                                     <td @click.stop>
                                         <ul class="list-inline text-end mb-0">
 
                                             <li class="list-inline-item">
                                                 <router-link :to="{ name: 'communicationgroups.groups', params: { id: filteredCommunicationGroup.id } }" class="btn btn-outline-success" title="Add Employees"> 
-                                                    <i class="fa-solid fa-people-group"></i> <span class="actionText">Edit Employees</span>
-                                                </router-link>
+                                                    <i class="fa-solid fa-people-group"></i> </router-link>
                                             </li>
                                             <li class="list-inline-item">
                                                 <router-link :to="{ name: 'communicationgroups.edit', params: { id: filteredCommunicationGroup.id } }" class="btn btn-outline-violet" title="Edit"> 
-                                                    <i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
-                                                </router-link>
+                                                    <i class="fa-solid fa-user-pen"></i>  </router-link>
                                             </li>
                                             <template v-if="userrole.includes('super-admin') || userrole.includes('admin')"> 
                                                <li class="list-inline-item">
-                                                    <button title="delete" class="btn btn-outline-danger" @click="deleteCommunicationGroup(filteredCommunicationGroup.id)"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                                                    <button title="delete" class="btn btn-outline-danger" @click="deleteCommunicationGroup(filteredCommunicationGroup.id)"><i class="fa-solid fa-trash-can"></i></button>
                                                 </li> 
                                             </template>                                        
                                         </ul>                                    
@@ -139,7 +148,7 @@
             })
             const swal = inject('$swal')
             const tblloader = ref(true);
-            const {communicationgroups, getCommunicationGroups, destroyCommunicationGroup ,updateCommunicationGroupDisplay} = useCommunicationGroups()
+            const {communicationgroups, getCommunicationGroups, destroyCommunicationGroup ,updateCommunicationGroupDisplay,updateCommunicationGroupLabel,updateCommunicationGroupUnit} = useCommunicationGroups()
 
             const searchQuery = ref("");
             const arrowIconName = ref("arrow_drop_up");     
@@ -149,6 +158,12 @@
             const store = useAuthStore();
             const userrole = ref(store.getdetails[1]);
             const displayform = reactive({
+                'check': ''
+            });
+            const labelform = reactive({
+                'check': ''
+            });
+            const unitform = reactive({
                 'check': ''
             });
 
@@ -244,7 +259,23 @@
             const goshow = (id) => {
                 //router.push({name: 'employeetype.edit', params: { id: id }});
             }
-
+            const updatelabel = async(id,data) => {
+                
+                if(data == 1){
+                    labelform.check = 0;
+                }else{
+                    labelform.check = 1;
+                }
+                await updateCommunicationGroupLabel(id,{...labelform});
+            }
+            const updateunit = async(id,data) => {
+                if(data == 1){
+                    unitform.check = 0;
+                }else{
+                    unitform.check = 1;
+                }
+                await updateCommunicationGroupUnit(id,{...unitform});
+            }
             return {                
                 filteredCommunicationGroups,                
                 sortTable,
@@ -256,8 +287,9 @@
                 goshow,
                 tblloader,
                 userrole,
-                updatecgdisplay
-
+                updatecgdisplay,
+                updatelabel,
+                updateunit
             }
         }
 	}

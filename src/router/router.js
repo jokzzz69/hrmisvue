@@ -120,6 +120,41 @@ const routes = [
     }
   },
   {
+    path: '/settings-hrmis/units',
+    name: 'units.index',
+    component: () => import('@/components/settings-hrmis/units/UnitsIndex.vue'),
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    }
+  },
+  {
+    path: '/settings-hrmis/units/create',
+    name: 'units.create',
+    component: () => import('@/components/settings-hrmis/units/UnitsCreate.vue'),
+    meta: {
+      middleware: ['super-admin','admin','hr']
+    }
+  },
+  {
+    path: '/settings-hrmis/units/:id/edit',
+    name: 'units.edit',
+    component: () => import('@/components/settings-hrmis/units/UnitsEdit.vue'),
+    props: true,
+    meta: {
+      middleware: ['super-admin','admin','hr']
+    }
+  },
+  {
+    path: '/settings-hrmis/units/:id/emplyoees',
+    name: 'units.employees',
+    component: () => import('@/components/settings-hrmis/units/UnitsAddEmployee.vue'),
+    props: true,
+    meta: {
+      middleware: ['super-admin','admin','hr']
+    }
+  },
+
+  {
     path: '/settings-hrmis/locations',
     name: 'locations.index',
     component: () => import ('@/components/settings-hrmis/location/LocationIndex.vue'),
@@ -897,6 +932,7 @@ const routes = [
       middleware: ['communicationencoder','super-admin','admin']
     }
   },
+  
   {
     path: '/settings-communication/editdocumentnumbering',
     name: 'startingnumber.edit',
