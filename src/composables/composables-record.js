@@ -63,7 +63,8 @@ export default function useOfficerecord(){
             }
         }
     }
-	const updateOfficerecord = async (id,formdata) => {
+	const updateOfficerecord = async (id) => {
+
         axios.defaults.withCredentials = true;
         errors.value = ''
         try {

@@ -8,14 +8,15 @@
         <div class="row mb-2">            
             <div class="col-12 mb-2">                
                 <div class="form-floating">
-                    <input type="text" name="telephone_no" placeholder="enter first name" id="telephone_no" class="form-control" v-model="officerecord.pdspersonalinformation.telephone_no">
+                    <input type="number" name="telephone_no" placeholder="enter first name" id="telephone_no" class="form-control" v-model="officerecord.pdspersonalinformation.telephone_no">
                     <label for="telephone_no" class="form-label">Telephone Number</label>
                 </div>         
             </div>  
             <div class="col-12 mb-2">                
-                <div class="form-floating">
-                    <input type="text" name="contactnumber" placeholder="enter middle name" id="contactnumber" class="form-control" v-model="officerecord.pdspersonalinformation.mobile_no">
+                <div class="form-floating w-countrycode">
+                    <input type="text" name="contactnumber" placeholder="enter middle name" id="contactnumber" class="form-control" v-model="officerecord.pdspersonalinformation.mobile_no"  maxlength="10" @keypress="ismobile($event)">
                     <label for="contactnumber" class="form-label">Mobile Number</label>
+                    <div class="spmobilecountrycode">(+63)</div>
                 </div>
             </div> 
             <div class="col-12 mb-2">                
@@ -62,7 +63,12 @@ export default{
             getPersonalRecord(id.value)
 
         })
-
+        const ismobile = (event) => {
+            
+            if(!/^[0-9]+$/.test(event.key)){
+                return event.preventDefault();
+            }
+        }
         const saveOfficeRecord = async () => {
             await updateContact(id.value).then(() => {
                 if(!errors.value){
@@ -88,8 +94,8 @@ export default{
             errors,
             officerecord,
             saveOfficeRecord,
-            moment
-        
+            moment,
+            ismobile
         }
     }
 }

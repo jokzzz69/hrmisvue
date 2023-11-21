@@ -226,15 +226,18 @@
                 modaltitle.value = "Personal Data Sheet - "+name;
                 empname.value = name;
                 typecontent.value = 2;
+                document.body.classList.add('hbar')
             }
             const closeModal = () => {
                 showModal.value = false;
+                document.body.classList.remove('hbar')
             }
             const showEmployment = (id,name) => {
                 showModal.value = true;
                 empid.value = id;
                 modaltitle.value = "Employment - "+name;
                 typecontent.value = 1;
+                document.body.classList.add('hbar')
             }
             const dlArchivePDS = async(id) => {
                 await downloadArchivePDS(id, empname.value);

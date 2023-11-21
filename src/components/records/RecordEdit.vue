@@ -8,8 +8,7 @@
 		</div>
 	</div>
 
-    <form v-on:submit.prevent="saveOfficeRecord">
-        
+    <form v-on:submit.prevent="saveOfficeRecord">        
         <div class="pProfilewrap p-2 mb-4">
             <div class="row">
                 <div class="pProfilewrap-title mt-2 mb-2">
@@ -57,19 +56,99 @@
                     </div>
                 </div>  
             </div> 
+            <template v-if="officerecord.pdspersonalinformation">
+                <div class="row">
+                    <div class="col mb-2">
+                        <div class="form-floating">
+                            <input type="text" name="emailaddress" placeholder="enter first name" id="emailaddress" class="form-control" v-model="officerecord.pdspersonalinformation.emailaddress">
+                            <label for="emailaddress" class="form-label">Email Address</label>
+                        </div> 
+                    </div>
+                    <div class="col mb-2">
+                        <div class="form-floating w-countrycode">
+                            <input type="text" name="mobile_no" placeholder="enter mobile number" id="mobile_no" class="form-control" v-model="officerecord.pdspersonalinformation.mobile_no" maxlength="10" @keypress="ismobile($event)">
+                            <label for="mobile_no" class="form-label">Mobile No.</label>
+                            <div class="spmobilecountrycode">(+63)</div>
+                        </div> 
+                    </div>
+                    <div class="col mb-2 date-form-floating">                             
+                        <Datepicker v-model="officerecord.pdspersonalinformation.birthdate" week-start="0" auto-apply :enable-time-picker="false" name="birthdate" placeholder="Birth Date"></Datepicker>  
+                        <small id="passwordHelpBlock" class="form-text text-muted">
+                            Birth Date (mm/dd/yyyy)
+                        </small>
+                    </div>
+                    <div class="col mb-2">
+                        <div class="form-floating">
+                            <select class="form-select" name="sex" id="sex"  v-model="officerecord.pdspersonalinformation.sex">
+                                <option v-if="officerecord.pdspersonalinformation.sex != null" disabled value="">Sex</option>
+                                <option :value="1">Male</option>
+                                <option :value="2">Female</option>      
+                            </select>
+                            <label for="sex" class="form-label">Sex</label>                
+                        </div>
+                    </div>
+                    <div class="col mb-2">
+                        <div class="form-floating">
+                            <select class="form-select" name="civilstatus" id="civilstatus"  v-model="officerecord.pdspersonalinformation.civilstatus">
+                                <option v-if="officerecord.pdspersonalinformation.civilstatus != null" disabled value="">Select Civil Status</option>
+                                <option :value="1">Single</option>
+                                <option :value="2">Widowed</option>
+                                <option :value="3">Married</option>
+                                <option :value="4">Separated</option>             
+                            </select>
+                            <label for="civilstatus" class="form-label">Civil Status</label>                
+                        </div>
+                    </div>                    
+                </div>
 
-            <div class="row mb-2">
+                <div class="row">
+                    <div class="col mb-2">
+                        <div class="form-floating">
+                            <input type="text" name="tin_no" placeholder="enter tin_no" id="tin_no" class="form-control" v-model="officerecord.pdspersonalinformation.tin_no">
+                            <label for="tin_no" class="form-label">TIN No.</label>
+                        </div> 
+                    </div>
+                    <div class="col mb-2">
+                        <div class="form-floating">
+                            <input type="text" name="gsis_id" placeholder="enter gsis_id" id="gsis_id" class="form-control" v-model="officerecord.pdspersonalinformation.gsis_id">
+                            <label for="gsis_id" class="form-label">GSID ID No.</label>
+                        </div> 
+                    </div>
+                    <div class="col mb-2">
+                        <div class="form-floating">
+                            <input type="text" name="pagibig_id" placeholder="enter pagibig_id" id="pagibig_id" class="form-control" v-model="officerecord.pdspersonalinformation.pagibig_id">
+                            <label for="pagibig_id" class="form-label">PAG-IBIG ID No.</label>
+                        </div> 
+                    </div>
+                    <div class="col mb-2">
+                        <div class="form-floating">
+                            <input type="text" name="pagibig_id" placeholder="enter philhealth_no" id="philhealth_no" class="form-control" v-model="officerecord.pdspersonalinformation.philhealth_no">
+                            <label for="philhealth_no" class="form-label">PHILHEALTH No.</label>
+                        </div> 
+                    </div>
+                    <div class="col mb-2">
+                        <div class="form-floating">
+                            <input type="text" name="sss_no" placeholder="enter sss_no" id="sss_no" class="form-control" v-model="officerecord.pdspersonalinformation.sss_no">
+                            <label for="sss_no" class="form-label">SSS No.</label>
+                        </div> 
+                    </div>
+                </div>
+            </template>
+            <div class="row mb-2 mt-3">
                 <div class="col mb-2">
                     <div class="form-floating">
                         <input type="text" name="emergency_contactperson" placeholder="enter first name" id="emergency_contactperson" class="form-control" v-model="officerecord.emergency_contactperson" :class="errors['employee.emergency_contactperson'] ? 'error-input' : ''">
-                        <label for="emergency_contactperson" class="form-label">Contact Person</label>
+                        <label for="emergency_contactperson" class="form-label">Emergency Contact Person</label>
                     </div> 
                     <span v-if="errors['emergency_contactperson']" class="text-danger m-error">{{errors['emergency_contactperson'][0]}}</span>
                 </div>
                 <div class="col mb-2">
                     <div class="form-floating">
-                        <input type="number" name="emergency_contactnumber" placeholder="enter middle name" id="emergency_contactnumber" class="form-control" v-model="officerecord.emergency_contactnumber">
-                        <label for="emergency_contactnumber" class="form-label">Contact Number</label>
+                        <div class="form-floating w-countrycode">                            
+                            <input type="text" name="emergency_contactnumber" placeholder="enter mobile number" id="emergency_contactnumber" class="form-control" maxlength="10" @keypress="ismobile($event)" v-model="officerecord.emergency_contactnumber">
+                            <label for="emergency_contactnumber" class="form-label">Emergency Contact Number</label>
+                            <div class="spmobilecountrycode">(+63)</div>
+                        </div> 
                     </div>
                     <span v-if="errors['emergency_contactnumber']" class="text-danger m-error">{{errors['emergency_contactnumber'][0]}}</span>
                 </div>
@@ -257,9 +336,6 @@ export default{
         } = useSalaryGradeGroup()
 
 
-        const form = reactive({
-            'newposition' : ''
-        })
 
         const divs = reactive([]); 
         const add = ref(0);
@@ -350,7 +426,7 @@ export default{
 
         }
         const saveOfficeRecord = async () => {
-            await updateOfficerecord(props.id, form).then(() => {
+            await updateOfficerecord(props.id).then(() => {
                 if(!errors.value){
                     swal.fire({
                         toast: true,
@@ -382,7 +458,12 @@ export default{
                 let result1 = officerecord.value.employments.find(x => x.id == employmentID).status_id = 1;
             }            
         }
-
+        const ismobile = (event) => {
+            
+            if(!/^[0-9]+$/.test(event.key)){
+                return event.preventDefault();
+            }
+        }
         return{
             errors,
             saveOfficeRecord,
@@ -405,7 +486,8 @@ export default{
             removeEmployment,
             selectChange,
             availablewcids,
-            hld
+            hld,
+            ismobile
         
         }
     }

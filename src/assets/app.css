@@ -6,6 +6,9 @@
 body{
 	font-size: .9rem;
 }
+.hbar{
+	overflow: hidden !important;
+}
 .maintenance .modal-container{
 	background: #f1c40f !important;
 }
@@ -1789,7 +1792,24 @@ tbody tr.read {
 .fileATUploadedWrap section .fileuprow{
 	margin: 0 0 0.4rem 0;
 }
+.input-group.form-floating label{
+	z-index: 999;
+	left: 3rem;
+}
 
+.w-countrycode.form-floating>.form-control:not(:placeholder-shown)~div.spmobilecountrycode,
+.w-countrycode.form-floating>.form-control:focus~div.spmobilecountrycode{
+	display: block;
+}
+.w-countrycode input{
+	padding-left: 2.8rem !important;
+}
+.spmobilecountrycode{
+	position: absolute;
+	bottom: .62rem;
+	margin-left: 6px;
+	display: none;
+}
 /*coms*/
 a#drpnotifs{
 	position: relative;

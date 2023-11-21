@@ -53,6 +53,9 @@
 			                    <span v-if="sortColumn == 'startdate'" class="material-icons">{{arrowIconName}}</span>		                    
 			                    <span v-else class="material-icons">sort</span>
 			                </th>
+			                <th>
+			                	Mobile
+			                </th>
 			                <th class="th-20"></th>
 			    		</tr>
 			    	</thead>
@@ -122,6 +125,12 @@
 				    				 			{{moment(new Date(officerecord.employments[0].startdate)).format('MMMM D, Y')}}
 				    				 		</template>		    				 		
 				    				 	</template>
+					    			</td>
+					    			<td>
+					    				<template v-if="officerecord.pdspersonalinformation">
+					    					{{officerecord.pdspersonalinformation.mobile_no}}
+					    				</template>
+					    				
 					    			</td>
 					    			<td @click.stop class="tblcolwid--2btn">
 					    				<ul class="ls-frmbutton text-end">

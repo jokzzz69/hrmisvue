@@ -15,9 +15,10 @@
             
             </div>  
             <div class="col-12 mb-2 req">                
-                <div class="form-floating">
-                    <input type="number" name="emergency_contactnumber" placeholder="enter middle name" id="emergency_contactnumber" class="form-control" v-model="officerecord.emergency_contactnumber">
+                <div class="form-floating w-countrycode">
+                    <input type="text" name="emergency_contactnumber" placeholder="enter middle name" id="emergency_contactnumber" class="form-control" v-model="officerecord.emergency_contactnumber" @keypress="ismobile($event)" maxlength="10">
                     <label for="emergency_contactnumber" class="form-label">Contact Number</label>
+                    <div class="spmobilecountrycode">(+63)</div>
                 </div>
                 <span v-if="errors['emergency_contactnumber']" class="text-danger m-error">{{errors['emergency_contactnumber'][0]}}</span>
             </div>                
@@ -80,12 +81,18 @@ export default{
                 }
             })
         }
-
+        const ismobile = (event) => {
+            
+            if(!/^[0-9]+$/.test(event.key)){
+                return event.preventDefault();
+            }
+        }
         return{
             errors,
             officerecord,
             saveOfficeRecord,
-            moment
+            moment,
+            ismobile
         
         }
     }
