@@ -62,11 +62,7 @@
 							</form>
 			    		</div>
 			    	</div>
-			    	<div class="col-md-12">
-			    		<p>{{info.title}}</p>
-			    		<p>{{info.agency}}</p>
-			    		<p>{{info.date}}</p>
-			    	</div>
+
     			</div>
     		</div>
     	</div>

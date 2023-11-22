@@ -2910,28 +2910,18 @@ div.bt{
 
 	/*delete for old navbar*/
 	#sidenav{
-		background: #eff1f4;
+		background: #fff;
 	}
 	#sidenav > ul > li > a{
 		font-size: .85rem;
 	}
-	#sidenav > ul > li > a{
-		/*padding-top:.7rem;
-		padding-bottom: .7rem;*/
-		/*background: #fff;
-		box-shadow: 0 0 1px #00000026;
-	    -moz-box-shadow: 0 0 3px 0 rgba(0,0,0,.15);
-	    -webkit-box-shadow: 0 0 3px 0 rgba(0,0,0,.15);
-	    -o-box-shadow: 0 0 3px 0 rgba(0,0,0,.15);
-	    -ms-box-shadow: 0 0 3px 0 rgba(0,0,0,.15);*/
-	    
-	}
-	#sidenav ul li a[aria-expanded="true"],
+
+	#sidenav [aria-expanded="true"],
 	#sidenav > ul > li > a:hover,
 	#sidenav > ul > li > a:focus,
 	#sidenav ul li a.nav-link.router-link-exact-active{
-		background: #313154;
-		color: #fff;
+		background: rgb(232,240,254);
+		color: #000;
 	}
 
 	
@@ -2970,10 +2960,10 @@ div.bt{
 		margin: .1rem 0rem;
 	}
 	.navdrpdwn ul li a{
-		padding: .6rem 1rem .6rem 2.3rem;
+		padding: .6rem 1rem .6rem 2.5rem;
 	}
 	.navdrpdwn ul.wid--ic li a{
-		padding-left: 1.2rem;
+		padding-left: 1.5rem;
 	}
 	.navdrpdwn ul.wid--ic .nav-link i{
 		margin-right: .1rem;
