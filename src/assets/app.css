@@ -2018,7 +2018,7 @@ a#drpnotifs{
 .checkboxCG .form-check-input:hover,
 .checkboxCG .form-check-label:hover,
 .ulnotes .form-check-input:hover,
-.ulnotes .form-check-label:hover,
+.ulnotes .form-check-label:hover
 {
 	cursor: pointer;
 }
