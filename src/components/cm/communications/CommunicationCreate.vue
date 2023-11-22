@@ -1,4 +1,7 @@
 <template>    
+    <template v-if="forNotLoaded">
+        <LoadingComponentDiv/> 
+    </template>
     <div class="row">
         <div class="col col-sm-12 p-title">
             <h2>New Communication</h2>
@@ -82,66 +85,93 @@
             </div>
         </div>
 
-
+        
         <div class="row">
             <div class="col-12 mt-4 mainLabel"><h6>FOR / TO:  <span class="text-danger">*</span></h6></div>
             <span v-if="errors.sendto" class="text-danger m-error">{{errors.sendto[0]}}</span>   
         </div>
         <div class="row">
-            <div class="col">                
-                <div class="checkboxCG p-2 border" :class="errors.sendto ? 'br-error' : ''">
-                    <ul class="list-unstyled">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="all" id="cglevel-all" @change='checkAll()' v-model="allSelected">
-                            <label class="form-check-label" for="cglevel-all">
-                                <strong>All OUs</strong>
-                            </label>
-                        </div>
-                    </ul>
-                    <ul class="list-unstyled" v-for="(communicationgroup,x) in communicationgroups" :class="`cg-${x}`">
-                        <li v-if="communicationgroup.display == 1">
+            <div class="col col-sm-12">        
+                
+                
+                    <div class="checkboxCG p-2 border" :class="errors.sendto ? 'br-error' : ''">
+                    <div class="allunits">
+                        <ul class="list-unstyled">
                             <div class="form-check">
-                              <input class="form-check-input" type="checkbox" :value="communicationgroup.id" :id="`cglevel-${communicationgroup.cg_code}`"  @change='chkparent(communicationgroup.id)' v-model="communicationform.commgroupids">
-                              <label class="form-check-label" :for="`cglevel-${communicationgroup.cg_code}`">
-                                <strong>{{communicationgroup.name}}</strong>
-                              </label>
+                                <input class="form-check-input" type="checkbox" value="all" id="cglevel-all" @change='checkAll()' v-model="allSelected">
+                                <label class="form-check-label" for="cglevel-all">
+                                    <strong>All Organization Unit</strong>
+                                </label>
                             </div>
-                            <template v-if="communicationgroup.employees">
-                                <ul class="listcgchilds list-unstyled ps-3">
-                                    <li v-for="(employee,index) in communicationgroup.employees">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" :value="employee.id" 
-                                                :id="`emp-${x}-${employee.id}-${index}`"
-                                                v-model="communicationform.sendto" 
-                                                @change='chkchild(communicationgroup.id)'>
+                        </ul>
+                    </div>
+                    <div class="unitheads">                        
+                        <ul class="list-unstyled" v-for="(communicationgroup,x) in communicationgroups" :class="`cg-${x}`">
+                            <li v-if="communicationgroup.display == 1">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" :value="communicationgroup.id" :id="`cglevel-${communicationgroup.cg_code}`"  @change='chkparent(communicationgroup.id)' v-model="communicationform.commgroupids">
+                                  <label class="form-check-label" :for="`cglevel-${communicationgroup.cg_code}`">
+                                    <strong>{{communicationgroup.name}}</strong>
+                                  </label>
+                                </div>
+                                <template v-if="communicationgroup.employees">
+                                    <ul class="listcgchilds list-unstyled ps-3">
+                                        <li v-for="(employee,index) in communicationgroup.employees">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" :value="employee.id" 
+                                                    :id="`emp-${x}-${employee.id}-${index}`"
+                                                    v-model="communicationform.sendto" 
+                                                    @change='chkchild(communicationgroup.id)'>
 
-                                            <label class="form-check-label" :for="`emp-${x}-${employee.id}-${index}`">
-                                                {{employee.name}}
+                                                <label class="form-check-label" :for="`emp-${x}-${employee.id}-${index}`">
+                                                    {{employee.name}}
 
-                                                <template v-if="communicationgroup.groupsemployeeoffice == 1 || communicationgroup.groupsemployeeunits == 1">
-                                                    (<span v-if="communicationgroup.groupsemployeeoffice == 1">
-                                                            <strong>{{employee.employments[0].office.offices_name}}</strong>
-                                                            <template v-if="communicationgroup.groupsemployeeunits == 1">, </template>
-                                                        </span>
-                                                        <span v-if="communicationgroup.groupsemployeeunits == 1">
-                                                            
-                                                            <template v-for="(unit,unitindex) in employee.units">
-                                                                
-                                                                <strong>{{unit.slug}}</strong><template v-if="unitindex+1 < employee.units.length">, </template>
-                                                            </template>  
-                                                        </span>)
-                                                </template>
-                                                
+                                                    <template v-if="communicationgroup.groupsemployeeoffice == 1 || communicationgroup.groupsemployeeunits == 1">
+                                                        (<span v-if="communicationgroup.groupsemployeeoffice == 1">
+                                                                <strong>{{employee.employments[0].office.offices_name}}</strong>
+                                                                <template v-if="communicationgroup.groupsemployeeunits == 1">, </template>
+                                                            </span>
+                                                            <span v-if="communicationgroup.groupsemployeeunits == 1">
+                                                                <template v-for="(unit,unitindex) in employee.units">           
+                                                                    <strong>{{unit.slug}}</strong><template v-if="unitindex+1 < employee.units.length">, </template>
+                                                                </template>  
+                                                            </span>)
+                                                    </template>                                                    
 
-                                            </label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </template>
-                        </li>
-                    </ul>
+                                                </label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </template>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="unitgroups">
+                        <div class="chk__aunits w-100">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="chkunits" id="chkunits">
+                                <label for="chkunits">
+                                    <strong>All Groups</strong>
+                                </label>
+                            </div>
+                        </div>
+                        <ul class="listchchilds list-unstyled ps-3">
+                            <li v-for="(unit,i) in units">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="chkunits" :id="`ou-${i}`">
+                                    <label class="form-check-label" :for="`ou-${i}`">
+                                        <strong>{{unit.slug}}</strong>
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+                
+
             </div>
+            
+
         </div>
 
         <div class="row">
@@ -210,14 +240,14 @@
         </div>
         
         <AttachFile :attachments="bid" :err="fileattacherr" @getUploadedFile="updateUploaded" />
-
+        
         <div class="form-row">
             <div class="col mt-3 text-end">
                 <router-link :to="{name: 'communications.index'}" class="btn btn-secondary me-1">Cancel</router-link>
                 <button type="submit" @click.prevent="sendCommunication" class="btn btn-blue"> Send</button>
             </div>
         </div>        
-    </form>
+    </form> 
     
 </template>
 
@@ -239,10 +269,13 @@
     import AttachFile from '@/components/cm/reusables/AttachFile.vue';
     import useEventsBus from '@/components/helper/Eventbus';
     import { useHead } from '@unhead/vue'
+    import useUnits from '@/composables/hrmis/composables-settingsunits';
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue'
 
     export default {
         components: {
-            AttachFile
+            AttachFile,
+            LoadingComponentDiv
         },
         setup(){
             useHead({
@@ -262,16 +295,12 @@
 
             const userslug = ref(userdetails.getdetails[1]);
 
-
-
+            const {units, getActiveUnits } = useUnits()
             const {classifications, getClassifications} = useClassifications()
-
-
             const {documenttypes, getDocumentTypes} = useDocumentTypes()
             const {communicationgroups, getCommunicationGroups} = useCommunicationGroups()
             const {notes, getNotes} = useNotes()
             const {actions, getActions} = useActions()
-
 
             const {employees, getEmployeeOptions} = useEmployees()
 
@@ -314,6 +343,7 @@
                 'asdraft': false
 
             });
+            const forNotLoaded = ref(true);
 
             onMounted(() => {
                 getDocumentTypes(),
@@ -326,7 +356,10 @@
                 }),
                 getNotes(),
                 getActions(),
-                getEmployeeOptions()
+                getEmployeeOptions(),
+                getActiveUnits().then(() =>{
+                    forNotLoaded.value =false;
+                })
             })
             const checkifHasData = () =>{
                 if(communicationform.datetimein != '' || communicationform.sender !='' || communicationform.agency != '' || communicationform.subject != '' ||communicationform.venue != '' || communicationform.documenttype != '' || communicationform.inclusivedates != '' ||communicationform.classification != '' || communicationform.notesphotocopy != '' || communicationform.remarks != '' ||communicationform.commgroupids.length != 0 || communicationform.sendto.length != 0 ||communicationform.notes.length != 0 ||communicationform.notesreturnforward.length != 0 || communicationform.actions.length != 0 || communicationform.uploadedfileid.length != 0){
@@ -536,7 +569,9 @@
                 userslug,
                 updateUploaded,
                 fileattacherr,
-                bid
+                bid,
+                units,
+                forNotLoaded
             }
         }
     }

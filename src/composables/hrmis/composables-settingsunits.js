@@ -8,6 +8,11 @@ export default function useUnits(){
 	const router = useRouter();
 	const errors = ref('');
 
+    const getActiveUnits = async() => {
+        axios.defaults.withCredentials = true;
+        let response = await axios.get('v1/api/hrmisunitsac')
+        units.value = response.data.data;
+    }
 	const getUnits = async () => {
         axios.defaults.withCredentials = true;
 		let response = await axios.get('/v1/api/hrmisunits')
@@ -65,8 +70,19 @@ export default function useUnits(){
         })
 
     }
+    const updateunitDisplay = async(id,data) =>{
+        axios.defaults.withCredentials = true;
+        errors.value = ''
 
-	
+        await axios.patch(`/v1/api/hrmisunitsdisponcomm/${id}`, data).catch((e) =>{
+            if (e.response.status === 422) {
+                for (const key in e.response.data.errors) {
+                    errors.value = e.response.data.errors
+                }
+            }
+        })
+    }
+
 
 	return {
 		errors,
@@ -77,8 +93,9 @@ export default function useUnits(){
         storeUnit,
         updateUnit,
         destroyUnit,
-        updateUnitEmployees
-		
+        updateUnitEmployees,
+		updateunitDisplay,
+        getActiveUnits
 		
 	}
 }

@@ -103,7 +103,7 @@
                             <template v-else>
                                 <template v-if="!filteredCommunicationGroups.length">
                                     <tr class="nodata">
-                                        <td colspan="6">
+                                        <td colspan="7">
                                             No Entry!
                                         </td>
                                     </tr>
@@ -112,7 +112,7 @@
                         </template>
                         <template v-else>
                             <tr class="nodata pr">
-                                <td colspan="6">
+                                <td colspan="7">
                                     <LoadingComponent/>
                                 </td>
                             </tr>

@@ -54,9 +54,10 @@
                                         </template>
                                     </td>
                                     <td>
-
-                                    </td>
-                                    
+                                        <div class="form-check form-switch form-switch-cg">
+                                          <input class="form-check-input" @click="updateunitsD(filteredUnit.id,filteredUnit.displayoncommstatus.displayoncomm)" true-value="1" false-value="0" v-model="filteredUnit.displayoncommstatus.displayoncomm" type="checkbox" :id="'cgswitch-'+filteredUnit.id">
+                                        </div>
+                                    </td>                                    
                                     <td @click.stop>
                                         <ul class="list-inline text-end mb-0">
 
@@ -139,7 +140,8 @@
             const {
                 units,
                 getUnits,
-                destroyUnit
+                destroyUnit,
+                updateunitDisplay
             } = useUnits()
 
             const searchQuery = ref("");
@@ -149,12 +151,10 @@
 
             const store = useAuthStore();
             const userrole = ref(store.getdetails[1]);
-            const displayform = reactive({
+            const displayonCom = reactive({
                 'check': ''
             });
-            const labelform = reactive({
-                'check': ''
-            });
+
 
             const callback = (cgemployees,searchQuery) => { 
                 const newArr = [];
@@ -235,14 +235,15 @@
                 
             }
 
-            const updatecgdisplay = async(id,data) =>{
+            const updateunitsD = async(id,data) =>{
             
                 if(data == 1){
-                    displayform.check = 0;
+                    displayonCom.check = 0;
                 }else{
-                    displayform.check = 1;
+                    displayonCom.check = 1;
                 }
-                await updateunitDisplay(id,{...displayform});
+                await updateunitDisplay(id,{...displayonCom});
+
             }
             const goshow = (id) => {
                 //router.push({name: 'employeetype.edit', params: { id: id }});
@@ -260,7 +261,7 @@
                 goshow,
                 tblloader,
                 userrole,
-                updatecgdisplay
+                updateunitsD
 
             }
         }
