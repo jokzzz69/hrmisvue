@@ -91,7 +91,7 @@
                     <template v-if="!noData">
                         <tr class="pr nodata">
                             <td colspan="9">
-                                <template v-if="searchQuery && !filteredOfficeRecords.length">               
+                                <template v-if="searchQuery && !filteredLeaveRecords.length">               
                                     No Result Found                     
                                 </template>
                                 <template v-else>                                       

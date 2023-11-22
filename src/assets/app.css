@@ -1285,33 +1285,25 @@ td.Sunday{
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
 }
-.modal-container.archive-modal{
-	width: 900px;
-	padding: 0px;
-	max-height: calc(100vh - 100px);
-	overflow: hidden;
-}
-.modal-footer.archive-modal{
-	display: block;
-	float: left;
-	width: 100%;
-	box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05), inset 0 1px 0 rgba(0,0,0,0.15);
-}
+
 
 
 .modal-header h3{
   margin-top: 0;
   text-align: center;
 }
-.modal-body.archive-modal .form-floating > label{
-	padding-left: 0px;
+.btn-closeModal{
+	background: rgba(51, 51, 51, .5);
+	margin-right: 1rem;
+	border-radius: 50%;
+	color: #e37500;
 }
 .btn-closeModal:hover,
 .btn-closeModal:focus,
 .btn-closeModal:active{
 	color: #ff0000;
-	border-color: transparent !important;
-	background: transparent !important;
+	background: rgba(51, 51, 51, 1) !important;
+
 }
 .nobr{
 	border:none;
@@ -2411,6 +2403,7 @@ span.remove button:focus{
     background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
 
 }
+
 .modal-container.archive-modal{
 	width: 900px;
 	padding: 0px;
@@ -2425,7 +2418,7 @@ span.remove button:focus{
 	position: sticky;
     top: 0;
     z-index: 9999;
-    background: #fe9526;
+    background: #e37500;
     width: 100%;
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05), inset 0 -1px 0 rgba(0,0,0,0.15);
     padding: 5px 0px 5px 30px;
@@ -2439,6 +2432,9 @@ span.remove button:focus{
     width: 100%;
     overflow-y: auto;
     height: calc(100vh - 155px);
+}
+.modal-body.archive-modal .form-floating > label{
+	padding-left: 0px;
 }
 .is-othertypes{
 	width: 15% !important;

@@ -99,8 +99,8 @@
         <div class="modal-wrapper" >
             <div class="modal-container archive-modal">
                 <div class="modal-header archive-modal">            
-                    <h5 class="modal-title">{{modaltitle}}
-                        <a href="#" v-if="typecontent == 2" @click.prevent="dlArchivePDS(empid)" class="pt-0 pb-0 mt-2 mb-2 btn btn-download btn-outline-dark ms-2" title="Download Personal Data Sheet"><i class="fa-solid fa-download"></i> Download Vue</a>
+                    <h5 class="modal-title text-light">{{modaltitle}}
+                        <a href="#" v-if="typecontent == 2" @click.prevent="dlArchivePDS(empid)" class="pt-1 pb-1 mt-2 mb-2 btn btn-download btn-danger ms-2" title="Download Personal Data Sheet"><i class="fa-solid fa-download"></i> Download</a>
                     </h5>
                     <button type="button" class="btn btn-closeModal"  @click="closeModal"><i class="fa-solid fa-xmark"></i></button>
                 </div> 
