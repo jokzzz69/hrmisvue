@@ -13,6 +13,11 @@ export default function useCommunicationGroups(){
 		let response = await axios.get('/v1/api/csgroups')
 		communicationgroups.value = response.data.data;		
 	}
+    const getActiveCommunicationGroups = async () => {
+        axios.defaults.withCredentials = true;
+        let response = await axios.get('/v1/api/csgroupsactive')
+        communicationgroups.value = response.data.data;     
+    }
 	const getCommunicationGroup = async (id) => {
         axios.defaults.withCredentials = true;
         let response = await axios.get(`/v1/api/csgroups/${id}`)
@@ -117,7 +122,8 @@ export default function useCommunicationGroups(){
 		updateCommunicationGroupEmployees,
         updateCommunicationGroupDisplay,
         updateCommunicationGroupLabel,
-		updateCommunicationGroupUnit
+		updateCommunicationGroupUnit,
+        getActiveCommunicationGroups
 		
 	}
 }

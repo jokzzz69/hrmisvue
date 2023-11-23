@@ -91,87 +91,14 @@
             <span v-if="errors.sendto" class="text-danger m-error">{{errors.sendto[0]}}</span>   
         </div>
         <div class="row">
-            <div class="col col-sm-12">        
-                
-                
-                    <div class="checkboxCG p-2 border" :class="errors.sendto ? 'br-error' : ''">
-                    <div class="allunits">
-                        <ul class="list-unstyled">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="all" id="cglevel-all" @change='checkAll()' v-model="allSelected">
-                                <label class="form-check-label" for="cglevel-all">
-                                    <strong>All Organization Unit</strong>
-                                </label>
-                            </div>
-                        </ul>
-                    </div>
-                    <div class="unitheads">                        
-                        <ul class="list-unstyled" v-for="(communicationgroup,x) in communicationgroups" :class="`cg-${x}`">
-                            <li v-if="communicationgroup.display == 1">
-                                <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" :value="communicationgroup.id" :id="`cglevel-${communicationgroup.cg_code}`"  @change='chkparent(communicationgroup.id)' v-model="communicationform.commgroupids">
-                                  <label class="form-check-label" :for="`cglevel-${communicationgroup.cg_code}`">
-                                    <strong>{{communicationgroup.name}}</strong>
-                                  </label>
-                                </div>
-                                <template v-if="communicationgroup.employees">
-                                    <ul class="listcgchilds list-unstyled ps-3">
-                                        <li v-for="(employee,index) in communicationgroup.employees">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" :value="employee.id" 
-                                                    :id="`emp-${x}-${employee.id}-${index}`"
-                                                    v-model="communicationform.sendto" 
-                                                    @change='chkchild(communicationgroup.id)'>
-
-                                                <label class="form-check-label" :for="`emp-${x}-${employee.id}-${index}`">
-                                                    {{employee.name}}
-
-                                                    <template v-if="communicationgroup.groupsemployeeoffice == 1 || communicationgroup.groupsemployeeunits == 1">
-                                                        (<span v-if="communicationgroup.groupsemployeeoffice == 1">
-                                                                <strong>{{employee.employments[0].office.offices_name}}</strong>
-                                                                <template v-if="communicationgroup.groupsemployeeunits == 1">, </template>
-                                                            </span>
-                                                            <span v-if="communicationgroup.groupsemployeeunits == 1">
-                                                                <template v-for="(unit,unitindex) in employee.units">           
-                                                                    <strong>{{unit.slug}}</strong><template v-if="unitindex+1 < employee.units.length">, </template>
-                                                                </template>  
-                                                            </span>)
-                                                    </template>                                                    
-
-                                                </label>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </template>
-                            </li>
-                        </ul>
-                    </div>
+            <div class="col col-sm-12">                   
+                <div class="checkboxCG p-2 border" :class="errors.sendto ? 'br-error' : ''">                                           
+                    <SubCheckUnitHeads/>         
                     <div class="unitgroups">
-                        <div class="chk__aunits w-100">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="chkunits" id="chkunits">
-                                <label for="chkunits">
-                                    <strong>All Groups</strong>
-                                </label>
-                            </div>
-                        </div>
-                        <ul class="listchchilds list-unstyled ps-3">
-                            <li v-for="(unit,i) in units">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="chkunits" :id="`ou-${i}`">
-                                    <label class="form-check-label" :for="`ou-${i}`">
-                                        <strong>{{unit.slug}}</strong>
-                                    </label>
-                                </div>
-                            </li>
-                        </ul>
+                        <SubCheckUnits/>
                     </div>
-                </div>
-                
-
-            </div>
-            
-
+                </div>               
+            </div>           
         </div>
 
         <div class="row">
@@ -206,9 +133,9 @@
                              <li><v-select multiple class="rforwardto" placeholder="Select Employee" v-model="communicationform.notesreturnforward" :reduce="employees => employees.id" :options="employees"/></li>
                          </ul>
                     </template>
-
                 </div>
             </div>
+
             <div class="col col-sm-6">
                 <div class="mt-4 mainLabel">
                     <h6>Actions: <span class="text-danger">*</span></h6>
@@ -252,10 +179,9 @@
 </template>
 
 <script>
-    import { reactive,inject, ref, onMounted} from "vue";
+    import { reactive,inject, ref, onMounted, watch} from "vue";
     import useCommunications from '@/composables/composables-communications';
-    import useDocumentTypes from '@/composables/composables-documenttypes';
-    import useCommunicationGroups from '@/composables/composables-communicationgroups';
+    import useDocumentTypes from '@/composables/composables-documenttypes';    
     import useClassifications from '@/composables/composables-classifications';
     import useNotes from '@/composables/composables-notes';
     import useActions from '@/composables/composables-actions';
@@ -269,13 +195,21 @@
     import AttachFile from '@/components/cm/reusables/AttachFile.vue';
     import useEventsBus from '@/components/helper/Eventbus';
     import { useHead } from '@unhead/vue'
-    import useUnits from '@/composables/hrmis/composables-settingsunits';
+    
     import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue'
+
+    import SubCheckUnits from '@/components/cm/reusables/SubCheckUnits.vue'
+    import SubCheckUnitHeads from '@/components/cm/reusables/SubCheckUnitHeads.vue'
+
+    import {useRecipients} from '@/stores/recipients.js'
+
 
     export default {
         components: {
             AttachFile,
-            LoadingComponentDiv
+            LoadingComponentDiv,
+            SubCheckUnits,
+            SubCheckUnitHeads
         },
         setup(){
             useHead({
@@ -283,23 +217,24 @@
             })
             const {emit}=useEventsBus()
 
+            const st_recipients = useRecipients();
+ 
+
             const asdraftpage = ref(true);
             const bid = ref([]);
             const fileattacherr = ref('');
 
             const swal = inject('$swal')
-            
-
-            const allSelected = ref(false);
+                        
             const userdetails = useAuthStore();
 
-            const userslug = ref(userdetails.getdetails[1]);
+            const userslug = ref(userdetails.getdetails[1]);            
 
-            const {units, getActiveUnits } = useUnits()
             const {classifications, getClassifications} = useClassifications()
             const {documenttypes, getDocumentTypes} = useDocumentTypes()
-            const {communicationgroups, getCommunicationGroups} = useCommunicationGroups()
+            
             const {notes, getNotes} = useNotes()
+
             const {actions, getActions} = useActions()
 
             const {employees, getEmployeeOptions} = useEmployees()
@@ -308,20 +243,15 @@
 
             const {errors,  storeCommunication} = useCommunications()
             const {storeAsDraft} = useCommunicationsDraft()
-
-
-            const totalEmpinGroups = reactive({
-                'total': 0
-            });
-            
+                
             onBeforeRouteLeave((to, from) => {
               if(asdraftpage.value){
                 checkifHasData()
               }
             });
 
-            const fileSize = ref(0);
-
+            const fileSize = ref(0);            
+            
             const communicationform = reactive({
                 'datetimein': '',
                 'sender': '',
@@ -340,6 +270,7 @@
                 'actions': [],
                 'remarks': '',                
                 'uploadedfileid': [],
+                'selectedunits': [],
                 'asdraft': false
 
             });
@@ -347,19 +278,12 @@
 
             onMounted(() => {
                 getDocumentTypes(),
-                getClassifications(),
-                getCommunicationGroups().then(res =>{
-                    for (var i in communicationgroups.value) {
-                        totalEmpinGroups.total = parseInt(totalEmpinGroups.total  + communicationgroups.value[i].employees.length);
-                    }          
-
-                }),
+                getClassifications(),                
                 getNotes(),
                 getActions(),
-                getEmployeeOptions(),
-                getActiveUnits().then(() =>{
-                    forNotLoaded.value =false;
-                })
+                getEmployeeOptions()               
+
+                forNotLoaded.value =false;
             })
             const checkifHasData = () =>{
                 if(communicationform.datetimein != '' || communicationform.sender !='' || communicationform.agency != '' || communicationform.subject != '' ||communicationform.venue != '' || communicationform.documenttype != '' || communicationform.inclusivedates != '' ||communicationform.classification != '' || communicationform.notesphotocopy != '' || communicationform.remarks != '' ||communicationform.commgroupids.length != 0 || communicationform.sendto.length != 0 ||communicationform.notes.length != 0 ||communicationform.notesreturnforward.length != 0 || communicationform.actions.length != 0 || communicationform.uploadedfileid.length != 0){
@@ -374,6 +298,10 @@
             };
             const sendCommunication = async() =>{
 
+                communicationform.selectedunits = st_recipients.getselectedunits;
+                communicationform.commgroupids = st_recipients.getselectedcommgroupsids;
+                communicationform.sendto = st_recipients.getselectedunitheads;
+         
                 communicationform.asdraft = false;
                 asdraftpage.value = false;
 
@@ -399,93 +327,9 @@
                         }
                     }
                 })
-
-
             }
-            const chkchild = async (pID) =>{
-                allSelected.value = false;
-                var index = communicationform.commgroupids.indexOf(pID);
 
-                if(index !== -1){
-                    communicationform.commgroupids.splice(index,1);
-                }
-
-                let tempLenght = 0;
-                let tmexist = 0;
-
-                for (var x in communicationgroups.value) {
-                    if(communicationgroups.value[x].id == pID){                       
-                        tempLenght = communicationgroups.value[x].employees.length;
-
-                        for (var i in communicationgroups.value[x].employees) {
-                            if(communicationform.sendto.includes(communicationgroups.value[x].employees[i].id)){
-                                tmexist++;
-                            }
-                        }          
-
-                    }
-                }
-
-                if(tempLenght == tmexist){
-                    communicationform.commgroupids.push(pID);
-                }
-
-                if(totalEmpinGroups.total ==  communicationform.sendto.length){
-                    allSelected.value = true;
-                }
-            }
-            const chkparent = async(id) => {
-                const tempP = [];
-                const tempS = communicationform.sendto;
-                for (var x in communicationgroups.value) {
-                    if(communicationgroups.value[x].id == id){
-                        if(communicationgroups.value[x].employees){
-                            for (var i in communicationgroups.value[x].employees) {
-                                tempP.push(communicationgroups.value[x].employees[i].id);
-                            }
-                        }
-                    }
-                }
-                if (communicationform.commgroupids.includes(id)) {
-                    const tempConcat =  [...tempS,...tempP];
-                    communicationform.sendto = [...new Set(tempConcat)];
-                }else{                    
-                    for (var i in tempP) {
-                        var index = communicationform.sendto.indexOf(tempP[i]);
-                        if(index !== -1){
-                            communicationform.sendto.splice(index,1);
-                        }
-                    }                          
-                }
-
-                if(totalEmpinGroups.total ==  communicationform.sendto.length){
-                    allSelected.value = true;
-                }else{
-                   allSelected.value = false; 
-                }
-            }
-            const checkAll = async() => {
-
-                if(allSelected.value){
-                    communicationform.sendto = [];
-                    let tempAllArr = [];
-
-                    for (var x in communicationgroups.value) {
-                        communicationform.commgroupids.push(communicationgroups.value[x].id);
-                        if(communicationgroups.value[x].employees){
-                            for (var i in communicationgroups.value[x].employees) {
-                                tempAllArr.push(communicationgroups.value[x].employees[i].id);
-                            }
-                        }
-                    }
-
-                    communicationform.sendto = [...new Set(tempAllArr)];
-                    
-                }else{
-                    communicationform.sendto = [];
-                    communicationform.commgroupids = [];
-                }
-            }
+            
 
             
 
@@ -535,26 +379,22 @@
             }
 
             const updateUploaded = (attachids) =>{
-
                 communicationform.uploadedfileid = [];
                 for(const attachid in attachids){
                     communicationform.uploadedfileid.push(attachids[attachid]);
-                }
-                
+                }                
             }
+
+            
             return{
                 documenttypes,
                 classifications,
-                communicationgroups,
+
                 notes,
                 saveasDraft,
                 sendCommunication,
                 communicationform,
                 errors,
-                chkparent,
-                checkAll,
-                allSelected,
-                chkchild,
                 actions,
 
                 chkBoxNote,
@@ -570,8 +410,8 @@
                 updateUploaded,
                 fileattacherr,
                 bid,
-                units,
-                forNotLoaded
+                forNotLoaded,
+                
             }
         }
     }
