@@ -1,4 +1,7 @@
-<template>   
+<template>
+    <template v-if="hld">
+        <LoadingComponentDiv/>
+    </template>   
     <div class="row">
         <div class="col-auto pAgeEmail--title n--cOmm">
             <ul class="d-flex list-unstyled align-items-center mb-1">
@@ -102,28 +105,16 @@
             <div class="col">
                 <div class="checkBoxcgDisp p-2 mt-2 border" :class="errors.sendto ? 'br-error' : ''">
                     <div class="card--title"><strong>Recipients:</strong></div>
-                    <ul class="list-unstyled mb-1" v-for="(communicationgroup,x) in communicationgroups" :class="`cg-${x}`">
-                        <li>
-                            <div class="form-check">
-                              <span class="sp-label-inline">
-                                <strong>{{communicationgroup.name}}</strong>
-                              </span>
-                            </div>
-
-                            <template v-if="communicationgroup.employees">
-                                <ul class="listcgchilds list-unstyled ps-3">
-                                    <li v-for="(employee,x) in communicationgroup.employees">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" :value="employee.id" :id="'emp-'+employee.id+'-'+x" v-model="communicationform.sendto"  disabled>
-                                            <label class="form-check-label" :for="'emp-'+employee.id+'-'+x">
-                                                {{employee.name}}
-                                            </label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </template>
-                        </li>
-                    </ul>
+                    <div class="row">
+                        <div class="col col-sm-12">                   
+                            <div class="checkboxCG p-2" :class="errors.sendto ? 'br-error' : ''">                                           
+                                <SubCheckUnitHeads :isDisplayed="true"/>         
+                                <div class="unitgroups">
+                                    <SubCheckUnits :isDisplayed="true"/>
+                                </div>
+                            </div>               
+                        </div>           
+                    </div>
                 </div>
             </div>
         </div>
@@ -236,9 +227,9 @@
 </template>
 
 <script>
-    import { reactive,inject, ref, onMounted,watch} from "vue";
+    import { reactive,inject, ref, onMounted,watch, defineAsyncComponent} from "vue";
     import useCommunicationsRouted from '@/composables/composables-communicationsrouted';
-    import useCommunicationGroups from '@/composables/composables-communicationgroups';
+
     import 'vue-select/dist/vue-select.css';
     import {useRouter} from 'vue-router'
     import moment from 'moment';
@@ -250,13 +241,25 @@
     import useNotifications from '@/composables/composables-notifications';
     import useEventsBus from '@/components/helper/Eventbus';
     import {useNotificationStore} from '@/stores/notificationstore.js'
+    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue'
     import { useHead } from '@unhead/vue'
+    import {useRecipients} from '@/stores/recipients.js'
+
+    const SubCheckUnits = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/SubCheckUnits.vue')
+    );
+    const SubCheckUnitHeads = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/SubCheckUnitHeads.vue')
+    );
 
     export default {
         components: {
             AttachmentPreview,
             CommunicationAddActionTaken,
-            CommunicationActionsTaken
+            CommunicationActionsTaken,
+            SubCheckUnits,
+            SubCheckUnitHeads,
+            LoadingComponentDiv
         },
         props: {
             id: {
@@ -273,12 +276,13 @@
             const swal = inject('$swal')
             const showActionsBox = ref(false);
             const {emit,bus}=useEventsBus()
-            const {communicationgroups, getCommunicationGroups} = useCommunicationGroups()
+
             const {communication, getCommunicationRouted ,errors} = useCommunicationsRouted()
             const router = useRouter()
             const noSubject = ref(false);
             const {getUnread,totalunread} = useNotifications()
-    
+            const st_recipients = useRecipients();
+            const hld = ref(true);
 
             const routedstore = useRoutedStore()
             const notificationstore = useNotificationStore()
@@ -294,12 +298,14 @@
 
             const communicationform = reactive({
                 'sendto': [],
+                'selectedunits': []
             });
 
             onMounted(() => {
                 getCommunicationRouted(props.id).then(() =>{
                     if(communication.value.receivers.length > 0){
                         communicationform.sendto = communication.value.receivers.map(i => parseInt(i['id']));
+                        communicationform.selectedunits = communication.value.units.map(i => parseInt(i['id']));
                     } 
                     if(communication.value.noteHasPhotocopy){
                         if(communication.value.noteCopies > 1){
@@ -314,8 +320,14 @@
                         noSubject.value = true;
                     }
                     notificationstore.fetchNotification();
-                }),
-                getCommunicationGroups();
+
+                    st_recipients.setselectedunitheads(communicationform.sendto);
+                    st_recipients.setselectedunitgroups(communicationform.selectedunits);
+
+
+                    hld.value = false;
+                })
+               
 
             })
 
@@ -369,7 +381,6 @@
 
             return{
                 communication,
-                communicationgroups,
                 saveasDraft,
                 communicationform,
                 errors,
@@ -381,7 +392,8 @@
                 editRoutedCommunication,
                 isClick,
                 showActionsBox,
-                btnActionsTaken
+                btnActionsTaken,
+                hld
             }
         }
     }

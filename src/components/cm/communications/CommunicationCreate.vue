@@ -93,9 +93,9 @@
         <div class="row">
             <div class="col col-sm-12">                   
                 <div class="checkboxCG p-2 border" :class="errors.sendto ? 'br-error' : ''">                                           
-                    <SubCheckUnitHeads/>         
+                    <SubCheckUnitHeads :isDisplayed="false"/>         
                     <div class="unitgroups">
-                        <SubCheckUnits/>
+                        <SubCheckUnits :isDisplayed="false"/>
                     </div>
                 </div>               
             </div>           
@@ -281,9 +281,11 @@
                 getClassifications(),                
                 getNotes(),
                 getActions(),
-                getEmployeeOptions()               
+                getEmployeeOptions().then(() => {
+                    forNotLoaded.value =false;
+                })           
 
-                forNotLoaded.value =false;
+                
             })
             const checkifHasData = () =>{
                 if(communicationform.datetimein != '' || communicationform.sender !='' || communicationform.agency != '' || communicationform.subject != '' ||communicationform.venue != '' || communicationform.documenttype != '' || communicationform.inclusivedates != '' ||communicationform.classification != '' || communicationform.notesphotocopy != '' || communicationform.remarks != '' ||communicationform.commgroupids.length != 0 || communicationform.sendto.length != 0 ||communicationform.notes.length != 0 ||communicationform.notesreturnforward.length != 0 || communicationform.actions.length != 0 || communicationform.uploadedfileid.length != 0){
@@ -298,10 +300,10 @@
             };
             const sendCommunication = async() =>{
 
-                communicationform.selectedunits = st_recipients.getselectedunits;
-                communicationform.commgroupids = st_recipients.getselectedcommgroupsids;
+                communicationform.selectedunits = st_recipients.getselectedunitgroups;
+                communicationform.commgroupids = st_recipients.getselectedunitheadgroups;
                 communicationform.sendto = st_recipients.getselectedunitheads;
-         
+
                 communicationform.asdraft = false;
                 asdraftpage.value = false;
 
@@ -385,7 +387,7 @@
                 }                
             }
 
-            
+                     
             return{
                 documenttypes,
                 classifications,
@@ -410,7 +412,7 @@
                 updateUploaded,
                 fileattacherr,
                 bid,
-                forNotLoaded,
+                forNotLoaded
                 
             }
         }

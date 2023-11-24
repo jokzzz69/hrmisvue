@@ -1,5 +1,5 @@
 <template>	
-    <div class="chk__aunits w-100">
+    <div class="chk__aunits w-100" v-if="!props.isDisplayed">
         <div class="form-check">
             <input class="form-check-input" type="checkbox" name="chkunits" id="chkunits" @change='checkallgroups()' v-model="allgroups">
             <label for="chkunits">
@@ -10,7 +10,7 @@
     <ul class="listchchilds list-unstyled ps-3">
         <li v-for="(unit,i) in units">
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" :name="`ou-${i}`" :value="unit.id" :id="`ou-${i}`" v-model="selectedunits" @change="checkunit()">
+                <input class="form-check-input" type="checkbox" :disabled="props.isDisplayed" :name="`ou-${i}`" :value="unit.id" :id="`ou-${i}`" v-model="selectedunits" @change="checkunit()">
                 <label class="form-check-label" :for="`ou-${i}`">
                     <strong>{{unit.slug}}</strong>
                 </label>
@@ -22,33 +22,39 @@
 <script>
 	import {onMounted ,ref, computed, reactive,watch} from 'vue';
 	import useUnits from '@/composables/hrmis/composables-settingsunits';
-	import {useRecipients} from '@/stores/recipients.js'
-	import { storeToRefs } from 'pinia'
+	import useEventsBus from '@/components/helper/Eventbus';
+	import {useRecipients} from "@/stores/recipients.js"
 
 	export default {
-		setup(){
+		props: {
+			isDisplayed: {
+				type: Boolean,
+				required: true
+			}
+		},
+		setup(props){
 			const {units, getActiveUnits } = useUnits()
-			const allgroups =  ref(false);
-			const st_recipients = useRecipients();
+			const allgroups =  ref(false);	
 			const selectedunits = ref([]);
 			const pushData = ref(false);
+			const {emit,bus}=useEventsBus()
+			const allcheckedstatus = ref(false);
+			const st_recipients = useRecipients();
 
-			st_recipients.$subscribe((mutation, state) => {
-				console.log(state);
-				if(state.allunits){
-					for (var unit of units.value) {
+			watch(()=>bus.value.get('allcheckedtriggered'), (val) => {
+				[allgroups.value] = val ?? [] //based on all org unit chk
+
+				if(allgroups.value){
+		            selectedunits.value = [];
+		            for (var unit of units.value) {
 		                 selectedunits.value.push(unit.id);
-		            }		            
-		                        
-				}else{
-					selectedunits.value = [];
-				}
-				allgroups.value = state.allgroups;
-			})
+		            }
 
-
-
-
+		        }else{
+		        	selectedunits.value = [];	        
+		        }
+		        emit('selectedgroups', selectedunits.value);
+	        })
 			const checkallgroups = () => {	
 				selectedunits.value = [];		
 		        if(allgroups.value){
@@ -60,36 +66,36 @@
 		        }else{
 		        	selectedunits.value = [];	        
 		        }
-
-
-
+		        emit('allgroupsstatus',allgroups.value);
+		        emit('selectedgroups', selectedunits.value);
 		    }
 		    const checkunit = () => {
 		    	const tempr = selectedunits.value;
 		        if(units.value.length == selectedunits.value.length){		        	
 		            allgroups.value = true;
 		        }else{		
-		            allgroups.value = false;
-		            
+		            allgroups.value = false;		            
 		        }
-
-		        
-
+		        emit('allgroupsstatus',allgroups.value);
+		        emit('selectedgroups', selectedunits.value);
 		    }
-		    const callback = () => {
-		
-		    	st_recipients.setallgroups(false);
-		    }
+
 		    onMounted(() =>{
-		    	getActiveUnits()
-		  
+		    	getActiveUnits().then(() => {
+		    		if(st_recipients.getselectedunitgroups){
+		    			selectedunits.value = st_recipients.getselectedunitgroups;
+		    		}		    		
+		    	})
+
+
 		    }) 
 		    return {
 		    	checkallgroups,
 		        checkunit,
 		        selectedunits,
 		        allgroups,
-		        units
+		        units,
+		        props
 		    }
 		}
 	}

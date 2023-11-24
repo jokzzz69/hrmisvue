@@ -1,8 +1,8 @@
 <template>
-	<div class="allunits">
+	<div class="allunits" v-if="!props.isDisplayed">
         <ul class="list-unstyled">
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="all" id="cglevel-all" @change='checkAll()' v-model="allSelected">
+                <input class="form-check-input" type="checkbox" value="all" id="cglevel-all" @change='checkAll()' v-model="allgroupsNunits">
                 <label class="form-check-label" for="cglevel-all">
                     <strong>All Organization Unit</strong>
                 </label>
@@ -13,11 +13,18 @@
 		<ul class="list-unstyled" v-for="(communicationgroup,x) in communicationgroups" :class="`cg-${x}`">
 	        <li>
 	            <div class="form-check">
-	              <input class="form-check-input" type="checkbox" :value="communicationgroup.id" :id="`cglevel-${communicationgroup.cg_code}`"  @change='chkparent(communicationgroup.id)' v-model="recipients.commgroupids">
-	              <label class="form-check-label" :for="`cglevel-${communicationgroup.cg_code}`">
-	                <strong>{{communicationgroup.name}}</strong>
-	              </label>
-	            </div>
+                    <template v-if="!props.isDisplayed">
+                        <input class="form-check-input" type="checkbox" :value="communicationgroup.id" :id="`cglevel-${communicationgroup.cg_code}`"  @change='chkparent(communicationgroup.id)' v-model="recipients.commgroupids">
+                        <label class="form-check-label" :for="`cglevel-${communicationgroup.cg_code}`">
+                            <strong>{{communicationgroup.name}}</strong>
+                        </label>
+                    </template>	              
+                    <template v-else>
+                        <span class="sp-label-inline">
+                            <strong>{{communicationgroup.name}}</strong>
+                        </span>
+                    </template>
+	            </div>                
 	            <template v-if="communicationgroup.employees">
 	                <ul class="listcgchilds list-unstyled ps-3">
 	                    <li v-for="(employee,index) in communicationgroup.employees">
@@ -25,7 +32,7 @@
 	                            <input class="form-check-input" type="checkbox" :value="employee.id" 
 	                                :id="`emp-${x}-${employee.id}-${index}`"
 	                                v-model="recipients.sendto" 
-	                                @change='chkchild(communicationgroup.id)'>
+	                                @change='chkchild(communicationgroup.id)' :disabled="props.isDisplayed">
 	                            <label class="form-check-label" :for="`emp-${x}-${employee.id}-${index}`">
 	                                {{employee.name}}
 
@@ -52,53 +59,80 @@
 </template>
 <script>
 	import useCommunicationGroups from '@/composables/composables-communicationgroups';
-	import { reactive,inject, ref, onMounted,watch} from "vue";
-
-	import {useRecipients} from '@/stores/recipients.js'
-	import { storeToRefs } from 'pinia'
-
+	import { reactive,inject, ref, onMounted, watch} from "vue";
+    import useEventsBus from '@/components/helper/Eventbus';
+    import {useRecipients} from "@/stores/recipients.js"
 	export default{
+        props: {
+            isDisplayed: {
+                type: Boolean,
+                required: true
+            }
+        },
+		setup(props){
+            const {emit,bus}=useEventsBus()
+            const st_recipients = useRecipients();
 
-		setup(){
-			const st_recipients = useRecipients();
 			const {communicationgroups, getActiveCommunicationGroups} = useCommunicationGroups()
-
 			const totalEmpinGroups = reactive({
                 'total': 0
             });
-            const allSelected = ref(false);
-            const { allunits } = storeToRefs(st_recipients)
-            const checkedallunitheads = ref(false);
+            const allgroupsNunits = ref(false);
+            const allgroups = ref(false);
+            const allunitheads = ref(false);
+            const selectedgroups = ref(false);
 
             const recipients = reactive({
             	'commgroupids': [],
             	'sendto': []
             })
+
+            watch(()=>bus.value.get('selectedgroups'), (val) => {
+                [selectedgroups.value] = val ?? []                 
+                setStoreValue();
+            })
+
+
+            watch(()=>bus.value.get('allgroupsstatus'), (val) => {
+                [allgroups.value] = val ?? [] 
+                checkStatusall()
+                setStoreValue();
+            })
+
 			onMounted(() =>{
 				getActiveCommunicationGroups().then(res =>{
                     for (var i in communicationgroups.value) {
                         totalEmpinGroups.total = parseInt(totalEmpinGroups.total  + communicationgroups.value[i].employees.length);
                     }
+                    if(st_recipients.getselectedunitheads){
+                        recipients.sendto = st_recipients.getselectedunitheads;
+                    }
+                    if(st_recipients.getselectedunitheadgroups){
+                        recipients.commgroupids = st_recipients.getselectedunitheadgroups;
+                    }
+                    
                 })
-			})
 
-			st_recipients.$subscribe((mutation, state) => {
-				//setallgroups
-			    if(state.allunitheads == true && state.allgroups){
-			    	allSelected.value = true;
-	
-			    }else{
-			    	allSelected.value = false;
-			    }
+
 
 			})
-
+            const setStoreValue = async() => {
+                st_recipients.setselectedunitheads(recipients.sendto);
+                st_recipients.setselectedunitheadgroups(recipients.commgroupids);
+                st_recipients.setselectedunitgroups(selectedgroups.value);
+            }
+            const checkStatusall = async() =>{
+                if(allgroups.value == true && allunitheads.value == true){
+                    allgroupsNunits.value = true;
+                }else{
+                    allgroupsNunits.value = false;
+                }
+            }
 
 
 			const chkchild = async (pID) =>{
 
                 var index = recipients.commgroupids.indexOf(pID);
-
                 if(index !== -1){
                     recipients.commgroupids.splice(index,1);
                 }
@@ -114,8 +148,7 @@
                             if(recipients.sendto.includes(communicationgroups.value[x].employees[i].id)){
                                 tmexist++;
                             }
-                        }          
-
+                        }
                     }
                 }
 
@@ -124,21 +157,17 @@
                 }
 
                 if(totalEmpinGroups.total ==  recipients.sendto.length+1){
-                    checkedallunitheads.value = true;
-                    st_recipients.setallunitheads(true);                    
+                    allunitheads.value = true;                   
                 }else{
-                	st_recipients.setallunitheads(false);
+                    allunitheads.value = false;
                 }
-
-                st_recipients.setselectedcommgroupsids(recipients.commgroupids);
-                st_recipients.setselectedunitheads(recipients.sendto);
-
+                checkStatusall();
+                setStoreValue();
 
             }
             const chkparent = async(id) => {
                 const tempP = [];
                 const tempS = recipients.sendto;
-
                 for (var x in communicationgroups.value) {
                     if(communicationgroups.value[x].id == id){
                         if(communicationgroups.value[x].employees){
@@ -148,7 +177,6 @@
                         }
                     }
                 }
-
                 if (recipients.commgroupids.includes(id)) {
                     const tempConcat =  [...tempS,...tempP];
                     recipients.sendto = [...new Set(tempConcat)];
@@ -164,27 +192,20 @@
 
 
                 if(totalEmpinGroups.total ==  recipients.sendto.length+1){ 
-                    checkedallunitheads.value = true;
-                    st_recipients.setallunitheads(true);
-                    
+                    allunitheads.value = true;                    
                 }else{
-                   checkedallunitheads.value = false;
-                   st_recipients.setallunitheads(false);
-                   
+                    allunitheads.value = false;              
                 }
 
-                st_recipients.setselectedcommgroupsids(recipients.commgroupids);
-                st_recipients.setselectedunitheads(recipients.sendto);
-
+                checkStatusall()
+                setStoreValue();
             }
           
             const checkAll = async() => {
-
-                if(allSelected.value){
-
+                recipients.sendto = [];
+                if(allgroupsNunits.value){
                     recipients.sendto = [];
                     let tempAllArr = [];
-
                     for (var x in communicationgroups.value) {
                         recipients.commgroupids.push(communicationgroups.value[x].id);
                         if(communicationgroups.value[x].employees){
@@ -193,22 +214,15 @@
                             }
                         }
                     }
-
-                    recipients.sendto = [...new Set(tempAllArr)];
-                    st_recipients.setallunits(true);
-                    st_recipients.setallunitheads(true);
-                    st_recipients.setallgroups(true);
+                    recipients.sendto = [...new Set(tempAllArr)];            
                 }else{
                     recipients.sendto = [];
                     recipients.commgroupids = [];
-                  
-                    st_recipients.setallunits(false);
-                    st_recipients.setallunitheads(false);
-                    st_recipients.setallgroups(false);
                 }
 
-                st_recipients.setselectedcommgroupsids(recipients.commgroupids);
-                st_recipients.setselectedunitheads(recipients.sendto);
+                emit('allcheckedtriggered', allgroupsNunits.value);
+                allgroups.value = allgroupsNunits.value;
+                allunitheads.value = allgroupsNunits.value;
 
             }
 
@@ -218,7 +232,8 @@
 				chkchild,
 				communicationgroups,
 				recipients,
-				allSelected
+				allgroupsNunits,
+                props
             }
 		}
 	}

@@ -3,56 +3,33 @@ import { defineStore } from 'pinia'
 
 export const useRecipients = defineStore('selun', {
 	state:() => ({
-		allunits: false,
-		allunitheads: false,
-		allgroups: false,
 		recipients: {			
-			selectedunits: null,
 			selectedunitheads: null,
-			selectedcommgroupsids: null
+			selectedunitheadgroups: null,
+			selectedunitgroups: null,
 		}
 	}),
 	actions: {
-		setallunits(val){
-			this.allunits = val
-		},
-		setallunitheads(val){
-			this.allunitheads = val
-		},
-		setallgroups(val){
-			this.allgroups = val
-		},
-		setallgroupfalse(){
-			this.allgroups = false
-		},
-		setselectedunits(val){
-			this.recipients.selectedunits = val
-		},
 		setselectedunitheads(val){
 			this.recipients.selectedunitheads = val
 		},
-		setselectedcommgroupsids(val){
-			this.recipients.selectedcommgroupsids = val
-		}
+		setselectedunitheadgroups(val){
+			this.recipients.selectedunitheadgroups = val
+		},
+		setselectedunitgroups(val){
+			this.recipients.selectedunitgroups = val
+		},
+
 	},
 	getters: {
-		getallunits: (state) => {
-			return state.allunits
-		},
-		getunitheads: (state) => {
-			return state.allunitheads
-		},
-		getallgroups: (state) => {
-			return state.allgroups
-		},
-		getselectedunits: (state) => {
-			return state.recipients.selectedunits
-		},
 		getselectedunitheads: (state) => {
 			return state.recipients.selectedunitheads
 		},
-		getselectedcommgroupsids: (state) => {
-			return state.recipients.selectedcommgroupsids
+		getselectedunitheadgroups: (state) => {
+			return state.recipients.selectedunitheadgroups
+		},
+		getselectedunitgroups: (state) => {
+			return state.recipients.selectedunitgroups
 		}
 	}
 })

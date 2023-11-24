@@ -126,40 +126,21 @@
                 <div id="collapseRecipients" class="accordion-collapse collapse" aria-labelledby="headingRecipients" data-bs-parent="#accRecipients">
                   <div class="accordion-body">
                     <div class="row">
-                        <div class="col">
-                            <div class="checkBoxcgDisp  mt-2" :class="errors.sendto ? 'br-error' : ''">
-                                <ul class="list-unstyled mb-1" v-for="(communicationgroup,x) in communicationgroups" :class="`cg-${x}`">
-                                    <li v-if="communicationgroup.display == 1">
-                                        <div class="form-check">
-                                          <span class="sp-label-inline">
-                                            <strong>{{communicationgroup.name}}</strong>
-                                          </span>
-                                        </div>
-
-                                        <template v-if="communicationgroup.employees">
-                                            <ul class="listcgchilds list-unstyled ps-3">
-                                                <li v-for="(employee,index) in communicationgroup.employees">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" :value="employee.id" 
-                                                        :id="`emp-${x}-${employee.id}-${index}`" v-model="communicationform.sendto"  disabled>
-                                                        <label class="form-check-label" :for="`emp-${x}-${employee.id}-${index}`" >
-                                                            {{employee.name}}
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </template>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                        <div class="col col-sm-12">                   
+                            <div class="checkboxCG p-2">                                           
+                                <SubCheckUnitHeads :isDisplayed="true"/>         
+                                <div class="unitgroups">
+                                    <SubCheckUnits :isDisplayed="true"/>
+                                </div>
+                            </div>               
+                        </div>           
+                    </div>                    
                   </div>
                 </div>
             </div>
         </div>
 
-
+        
 
         <div class="row">
             <div class="col">
@@ -273,7 +254,8 @@
 </template>
 
 <script>
-    import { reactive,inject, ref, onMounted,onUnmounted, watch} from "vue";
+
+    import { reactive,inject, ref, onMounted,onUnmounted, watch, defineAsyncComponent} from "vue";
     import useCommunications from '@/composables/composables-communications';
     import useCommunicationGroups from '@/composables/composables-communicationgroups';
     import 'vue-select/dist/vue-select.css';
@@ -291,12 +273,30 @@
     import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue'
     import { useHead } from '@unhead/vue'
 
+
+
+    //import SubCheckUnits from '@/components/cm/reusables/SubCheckUnits.vue'
+   // import SubCheckUnitHeads from '@/components/cm/reusables/SubCheckUnitHeads.vue'
+
+
+
+    import {useRecipients} from '@/stores/recipients.js'
+
+    const SubCheckUnits = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/SubCheckUnits.vue')
+    );
+    const SubCheckUnitHeads = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/SubCheckUnitHeads.vue')
+    );
+
     export default {
         components: {
             AttachmentPreview,
             CommunicationAddActionTaken,
             CommunicationActionsTaken,
-            LoadingComponentDiv
+            LoadingComponentDiv,
+            SubCheckUnits,
+            SubCheckUnitHeads
         },
         props: {
             id: {
@@ -309,6 +309,7 @@
                 title: 'Communication | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const swal = inject('$swal')
+            const st_recipients = useRecipients();
             const showActionsBox = ref(false);
 
             const {communicationgroups, getCommunicationGroups} = useCommunicationGroups()
@@ -336,10 +337,13 @@
 
             const communicationform = reactive({
                 'sendto': [],
+                'selectedunits': [],
+
             });
 
 
             const hld = ref(true);
+
             onMounted(() => {
                 
 
@@ -348,6 +352,9 @@
     
                     if(communication.value.receivers.length > 0){
                         communicationform.sendto = communication.value.receivers.map(i => parseInt(i['id']));
+                        
+                        communicationform.selectedunits = communication.value.units.map(i => parseInt(i['id']));
+
                     } 
                     if(communication.value.noteHasPhotocopy){
                         if(communication.value.noteCopies > 1){
@@ -361,9 +368,11 @@
                     }else{
                         noSubject.value = true;
                     }
-                    
 
                     notificationstore.fetchNotification();
+    
+                    st_recipients.setselectedunitheads(communicationform.sendto);
+                    st_recipients.setselectedunitgroups(communicationform.selectedunits);
 
                 }),
                 getCommunicationGroups().then(() => {
