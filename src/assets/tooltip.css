@@ -147,7 +147,7 @@
     transform: translate(0, -50%);
   }
 }
-.spNames{
+.spNames,.spNamesRight{
   background: #fff;
   padding: 5px;
   border:1px solid #6c79e0;
@@ -159,6 +159,10 @@
   z-index: 999;
   transition: .3s ease all;
 }
+.spNamesRight{
+  top:1rem;
+  left:2rem;
+}
 .spNames:before {
   content: " ";
   position: absolute;
@@ -169,7 +173,8 @@
   border-left: none;
   border-bottom: 8px solid transparent;
 }
-.spNames ul{
+.spNames ul,
+.spNamesRight ul{
   margin-bottom: 0px;
   padding-left: 5px;
   list-style: none;

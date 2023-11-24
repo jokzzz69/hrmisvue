@@ -35,7 +35,6 @@
 	                                @change='chkchild(communicationgroup.id)' :disabled="props.isDisplayed">
 	                            <label class="form-check-label" :for="`emp-${x}-${employee.id}-${index}`">
 	                                {{employee.name}}
-
 	                                <template v-if="communicationgroup.groupsemployeeoffice == 1 || communicationgroup.groupsemployeeunits == 1">
 	                                    (<span v-if="communicationgroup.groupsemployeeoffice == 1">
 	                                            <strong>{{employee.employments[0].office.offices_name}}</strong>
@@ -46,8 +45,7 @@
 	                                                <strong>{{unit.slug}}</strong><template v-if="unitindex+1 < employee.units.length">, </template>
 	                                            </template>  
 	                                        </span>)
-	                                </template>                                                    
-
+	                                </template> 
 	                            </label>
 	                        </div>
 	                    </li>
@@ -81,6 +79,7 @@
             const allgroups = ref(false);
             const allunitheads = ref(false);
             const selectedgroups = ref(false);
+
 
             const recipients = reactive({
             	'commgroupids': [],

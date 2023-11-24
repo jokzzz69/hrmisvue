@@ -11,21 +11,34 @@
         <li v-for="(unit,i) in units">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" :disabled="props.isDisplayed" :name="`ou-${i}`" :value="unit.id" :id="`ou-${i}`" v-model="selectedunits" @change="checkunit()">
-                <label class="form-check-label" :for="`ou-${i}`">
+                <label class="form-check-label pr" :for="`ou-${i}`" @mouseover="groupidhover = unit.id" @mouseleave="groupidhover = null">
                     <strong>{{unit.slug}}</strong>
+                    <template v-if="unit.id == groupidhover">
+	                    <TooltipLeft :arr="unit.employees" :msg="'TO'"/>
+	                </template>                   
                 </label>
+                
             </div>
         </li>
     </ul>
     
 </template>
 <script>
-	import {onMounted ,ref, computed, reactive,watch} from 'vue';
+	import {onMounted ,ref, computed, reactive,watch, defineAsyncComponent} from 'vue';
 	import useUnits from '@/composables/hrmis/composables-settingsunits';
 	import useEventsBus from '@/components/helper/Eventbus';
 	import {useRecipients} from "@/stores/recipients.js"
 
+	const TooltipLeft = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/TooltipLeft.vue')
+    );
+
+	//import TooltipLeft from "@/components/cm/reusables/TooltipLeft.vue";
+
 	export default {
+		components: {
+			TooltipLeft
+		},
 		props: {
 			isDisplayed: {
 				type: Boolean,
@@ -40,6 +53,7 @@
 			const {emit,bus}=useEventsBus()
 			const allcheckedstatus = ref(false);
 			const st_recipients = useRecipients();
+			const groupidhover = ref(false);
 
 			watch(()=>bus.value.get('allcheckedtriggered'), (val) => {
 				[allgroups.value] = val ?? [] //based on all org unit chk
@@ -95,7 +109,8 @@
 		        selectedunits,
 		        allgroups,
 		        units,
-		        props
+		        props,
+		        groupidhover
 		    }
 		}
 	}
