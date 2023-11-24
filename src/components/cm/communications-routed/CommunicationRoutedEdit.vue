@@ -1,4 +1,7 @@
 <template>   
+    <template v-if="hld">
+        <LoadingComponentDiv/>
+    </template>  
     <div class="row">
         <div class="col pAgeEmail--title">
             <ul class="d-flex list-unstyled align-items-center mh-45 mb-2">
@@ -94,42 +97,14 @@
             <span v-if="errors.sendto" class="text-danger m-error">{{errors.sendto[0]}}</span>   
         </div>
         <div class="row">
-            <div class="col">                
-                <div class="checkboxCG p-2 border" :class="errors.sendto ? 'br-error' : ''">
-                    <ul class="list-unstyled">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="all" id="cglevel-all" @change='checkAll()' v-model="allSelected">
-                            <label class="form-check-label" for="cglevel-all">
-                                <strong>All OUs</strong>
-                            </label>
-                        </div>
-                    </ul>
-                    <ul class="list-unstyled" v-for="(communicationgroup,x) in communicationgroups" :class="`cg-${x}`">
-                        <li>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" :value="communicationgroup.id" :id="`cglevel-${communicationgroup.cg_code}`"  @change='chkparent(communicationgroup.id)' v-model="communicationform.commgroupids">
-                              <label class="form-check-label" :for="`cglevel-${communicationgroup.cg_code}`">
-                                <strong>{{communicationgroup.name}}</strong>
-                              </label>
-                            </div>
-
-                            <template v-if="communicationgroup.employees">
-                                <ul class="listcgchilds list-unstyled ps-3">
-                                    <li v-for="(employee,index) in communicationgroup.employees">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" :value="employee.id" 
-                                            :id="`emp-${x}-${employee.id}-${index}`" v-model="communicationform.sendto" @change='chkchild(communicationgroup.id)'>
-                                            <label class="form-check-label" :for="`emp-${x}-${employee.id}-${index}`">
-                                                {{employee.name}}
-                                            </label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </template>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <div class="col col-sm-12">                   
+                <div class="checkboxCG p-2 border" :class="errors.sendto ? 'br-error' : ''">                                           
+                    <SubCheckUnitHeads :isDisplayed="false"/>         
+                    <div class="unitgroups">
+                        <SubCheckUnits :isDisplayed="false"/>
+                    </div>
+                </div>               
+            </div>           
         </div>
 
         <div class="row">
@@ -213,13 +188,13 @@
 </template>
 
 <script>
-    import { reactive,inject, ref, onMounted} from "vue";
+    import { reactive,inject, ref, onMounted, defineAsyncComponent } from "vue";
     import useCommunicationsRouted from '@/composables/composables-communicationsrouted';
 
     import AttachFile from '@/components/cm/reusables/AttachFile.vue';
 
     import useDocumentTypes from '@/composables/composables-documenttypes';
-    import useCommunicationGroups from '@/composables/composables-communicationgroups';
+
     import useClassifications from '@/composables/composables-classifications';
     import useNotes from '@/composables/composables-notes';
     import useActions from '@/composables/composables-actions';
@@ -231,9 +206,23 @@
     import useEmployees from '@/composables/composables-employees';
     import { useHead } from '@unhead/vue'
 
+    import {useRecipients} from '@/stores/recipients.js'
+
+    const SubCheckUnits = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/SubCheckUnits.vue')
+    );
+    const SubCheckUnitHeads = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/SubCheckUnitHeads.vue')
+    );
+    const LoadingComponentDiv = defineAsyncComponent(() => 
+        import('@/components/loader/LoadingComponentDiv.vue')
+    );
     export default {
         components: {
-            AttachFile
+            AttachFile,
+            SubCheckUnits,
+            SubCheckUnitHeads,
+            LoadingComponentDiv
         },
         props: {
             id: {
@@ -247,11 +236,12 @@
             })
             const swal = inject('$swal')
             const fileattacherr = ref('');
+            const st_recipients = useRecipients();
+            const hld = ref(true);
 
-            const allSelected = ref(false);
             const {classifications, getClassifications} = useClassifications()
             const {documenttypes, getDocumentTypes} = useDocumentTypes()
-            const {communicationgroups, getCommunicationGroups} = useCommunicationGroups()
+
             const {notes, getNotes} = useNotes()
             const {actions, getActions} = useActions()
    
@@ -262,12 +252,6 @@
             
 
             const {  errors, getCommunicationRouted,communication,updateRoutedCommunication} = useCommunicationsRouted()
-            
-            
-            const totalEmpinGroups = reactive({
-                'total': 0
-            });
-
 
 
             const fileSize = ref(0);
@@ -291,7 +275,8 @@
                 'remarks': '',                
                 'uploadedfiles': [],
                 'uploadedfileid': [],
-                'asdraft': false
+                'asdraft': false,
+                'selectedunits': []
 
             });
 
@@ -322,6 +307,7 @@
                     if(communication.value.receivers.length > 0){
 
                         communicationform.sendto = communication.value.receivers.map(i => parseInt(i['id']));
+                        communicationform.selectedunits = communication.value.units.map(i => parseInt(i['id']));
                     }
     
                     if(communication.value.notes.length > 0){
@@ -351,23 +337,28 @@
                         communicationform.uploadedfiles.push({id: i.id,name: i.filename, size: fileSize,fileextension: i.fileextension, filepath: i.filepath});
                     }
 
+                    st_recipients.setselectedunitheads(communicationform.sendto);
+                    st_recipients.setselectedunitgroups(communicationform.selectedunits);
+                    st_recipients.setselectedunitheadgroups(communicationform.commgroupids);
+                    
                 }),
 
                 getDocumentTypes(),
-                getClassifications(),
-                getCommunicationGroups().then(res =>{
-                    for (var i in communicationgroups.value) {
-                        totalEmpinGroups.total = parseInt(totalEmpinGroups.total  + communicationgroups.value[i].employees.length);
-                    }          
-
-                }),
+                getClassifications(),      
                 getNotes(),
                 getActions(),
-                getEmployeeOptions()
+                getEmployeeOptions().then(() => {
+                    hld.value = false;
+                })
 
             })
 
             const reSend = async(id) =>{
+
+                communicationform.selectedunits = st_recipients.getselectedunitgroups;
+                communicationform.commgroupids = st_recipients.getselectedunitheadgroups;
+                communicationform.sendto = st_recipients.getselectedunitheads;
+
 
                 communicationform.asdraft = false;
 
@@ -395,90 +386,7 @@
                 });
             }
             
-            const chkchild = async (pID) =>{
-                allSelected.value = false;
-                var index = communicationform.commgroupids.indexOf(pID);
-
-                if(index !== -1){
-                    communicationform.commgroupids.splice(index,1);
-                }
-
-                let tempLenght = 0;
-                let tmexist = 0;
-
-                for (var x in communicationgroups.value) {
-                    if(communicationgroups.value[x].id == pID){                       
-                        tempLenght = communicationgroups.value[x].employees.length;
-
-                        for (var i in communicationgroups.value[x].employees) {
-                            if(communicationform.sendto.includes(communicationgroups.value[x].employees[i].id)){
-                                tmexist++;
-                            }
-                        }          
-
-                    }
-                }
-
-                if(tempLenght == tmexist){
-                    communicationform.commgroupids.push(pID);
-                }
-
-                if(totalEmpinGroups.total ==  communicationform.sendto.length){
-                    allSelected.value = true;
-                }
-            }
-            const chkparent = async(id) => {
-                const tempP = [];
-                const tempS = communicationform.sendto;
-                for (var x in communicationgroups.value) {
-                    if(communicationgroups.value[x].id == id){
-                        if(communicationgroups.value[x].employees){
-                            for (var i in communicationgroups.value[x].employees) {
-                                tempP.push(communicationgroups.value[x].employees[i].id);
-                            }
-                        }
-                    }
-                }
-                if (communicationform.commgroupids.includes(id)) {
-                    const tempConcat =  [...tempS,...tempP];
-                    communicationform.sendto = [...new Set(tempConcat)];
-                }else{                    
-                    for (var i in tempP) {
-                        var index = communicationform.sendto.indexOf(tempP[i]);
-                        if(index !== -1){
-                            communicationform.sendto.splice(index,1);
-                        }
-                    }                          
-                }
-
-                if(totalEmpinGroups.total ==  communicationform.sendto.length){
-                    allSelected.value = true;
-                }else{
-                   allSelected.value = false; 
-                }
-            }
-            const checkAll = async() => {
-
-                if(allSelected.value){
-                    communicationform.sendto = [];
-                    let tempAllArr = [];
-
-                    for (var x in communicationgroups.value) {
-                        communicationform.commgroupids.push(communicationgroups.value[x].id);
-                        if(communicationgroups.value[x].employees){
-                            for (var i in communicationgroups.value[x].employees) {
-                                tempAllArr.push(communicationgroups.value[x].employees[i].id);
-                            }
-                        }
-                    }
-                    communicationform.sendto = [...new Set(tempAllArr)];
-
-                }else{
-                    communicationform.sendto = [];
-                    communicationform.commgroupids = [];
-                }
-            }
-
+            
             const shoWCopies = ref(false);
             const showReturnForward = ref(false);
             const showInclusives = ref(false);
@@ -533,15 +441,10 @@
             return{
                 documenttypes,
                 classifications,
-                communicationgroups,
                 notes,
                 reSend,
                 communicationform,
                 errors,
-                chkparent,
-                checkAll,
-                allSelected,
-                chkchild,
                 actions,
 
 
@@ -555,7 +458,8 @@
                 torInclusive,
                 props,
                 updateUploaded,
-                fileattacherr
+                fileattacherr,
+                hld
             }
         }
     }
