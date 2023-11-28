@@ -5,59 +5,44 @@
                 <section class="loading-area" v-if="showProgress">
                     <div class="fileuprow fileuprow-communications" v-for="(file,index) in attachfiledetails.attachedfiles">
                         <div class="content">
-                            <div class="details">
-              
-                                    <div class="atfileName">
-                                        <span class="name">{{checkName(file.name)}} 
-                                            <template v-if="attachfiledetails.files[index]">
-                                                <template v-if="attachfiledetails.files[index].loading == 100">
-                                                    <span>({{attachfiledetails.files[index].size}})</span>
-                                                </template>
-                                            </template>
-                                        </span>
-                                    </div>
-                                    <div class="atfileDetails">
+                            <div class="details">              
+                                <div class="atfileName">
+                                    <span class="name">{{checkName(file.name)}} 
                                         <template v-if="attachfiledetails.files[index]">
-                                            <template v-if="attachfiledetails.files[index].loading < 100">
-                                                <div class="loading-bar">
-                                                    <div class="loading" :style="{width: attachfiledetails.files[index].loading +'%'}"></div>
-                                                </div>
-                                            </template>                          
+                                            <template v-if="attachfiledetails.files[index].loading == 100">
+                                                <span>({{attachfiledetails.files[index].size}})</span>
+                                            </template>
+                                        </template>
+                                    </span>
+                                </div>
+                                <div class="atfileDetails">
+                                    <template v-if="attachfiledetails.files[index]">
+                                        <template v-if="attachfiledetails.files[index].loading < 100">
+                                            <div class="loading-bar">
+                                                <div class="loading" :style="{width: attachfiledetails.files[index].loading +'%'}"></div>
+                                            </div>
+                                        </template>                          
+                                    </template>
+                                    <template v-else>
+                                        <div class="loading-bar">
+                                            <div class="loading" style="width:0%"></div>
+                                        </div>
+                                    </template> 
+                                </div>
+                                <div class="atfileLoader">
+                                    <template v-if="attachfiledetails.files[index]">
+                                        <template v-if="attachfiledetails.files[index].loading < 100">
+                                            <span class="percent" >{{attachfiledetails.files[index].loading+'%'}}</span>
                                         </template>
                                         <template v-else>
-                                            <div class="loading-bar">
-                                                <div class="loading" style="width:0%"></div>
-                                            </div>
-                                        </template> 
-                                    </div>
-
-                                    <div class="atfileLoader">
-                                        <template v-if="attachfiledetails.files[index]">
-                                            <template v-if="attachfiledetails.files[index].loading < 100">
-                                                <span class="percent" >{{attachfiledetails.files[index].loading+'%'}}</span>
-                                            </template>
-                                            <template v-else>
-                                                <span class="remove"><button class="p-0" title="Remove" :disabled="disabledbutton" @click.prevent="removeAttached(index)"><i class="fa-regular fa-circle-xmark"></i></button></span>
-                                            </template>
+                                            <span class="remove"><button class="p-0" title="Remove" :disabled="disabledbutton" @click.prevent="removeAttached(index)"><i class="fa-regular fa-circle-xmark"></i></button></span>
                                         </template>
-                                        <template v-else>                     
-                                                <span class="percent" >0%</span>
-                                        </template>
-                                    </div>
-
-
-
-
-
-
-                                
-                                
-
-
-
-                            </div>
-
-                                                      
+                                    </template>
+                                    <template v-else>                     
+                                            <span class="percent" >0%</span>
+                                    </template>
+                                </div>                                
+                            </div>                                                      
                         </div>
                     </div>
                 </section>
@@ -116,6 +101,7 @@
 
 
             const upLoadFile = async(files) =>{
+                disabledbutton.value = true;
                 for (var x = 0; x < files.length; x++) {           
                     if(!attachfiledetails.files[x]){
                         const formData = new FormData();
@@ -123,14 +109,13 @@
                         loaderkey.value = x;
                         attachfiledetails.files.push({name: files[x].name, loading: 0 ,size: 0});
                         await uploadTempAttachment(formData,uploadConfig).then(res => {
-
                             attachfiledetails.uploadedfileid.push(attachedtemp.value.id);
                             emit('getUploadedFile',attachfiledetails.uploadedfileid);
                             
                         })
                     }                 
                 }
-
+                disabledbutton.value = false;
             }
 
             const removeAttached = async(index) => {
@@ -156,19 +141,21 @@
             }
 
             watch(()=>bus.value.get('rprops'), (val) => {
-                [recheckprops.value] = val ?? [] 
-                
+                [recheckprops.value] = val ?? []
 
-
-        
-
-                if(props.attachments){
+                if(props.attachments && recheckprops.value == true){
                     for (var i = 0; i < props.attachments.length; i++) {      
                         attachfiledetails.attachedfiles.push(props.attachments[i]);
                     }
-                   upLoadFile(attachfiledetails.attachedfiles)
-                
-               }
+                   upLoadFile(attachfiledetails.attachedfiles)                
+                }else{                    
+                    for (var i = 0; i < props.attachments.length; i++){
+                        attachfiledetails.uploadedfileid.push(props.attachments[i].id);
+                        attachfiledetails.attachedfiles.push({name: props.attachments[i].name});
+                        attachfiledetails.files.push({name: props.attachments[i].name, size: props.attachments[i].size, loading: 100});     
+                    }
+                               
+                }
             })
 
             return{

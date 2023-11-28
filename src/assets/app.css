@@ -2591,6 +2591,12 @@ span.remove button:focus{
 	font-weight: 500;
 	margin-bottom: .3rem;
 	font-size: .9rem;
+	position: relative;
+}
+.action--taken--employee span.sp-dateSent{
+	position: absolute;
+	right: 0;
+	font-weight: 300;
 }
 .action--taken--employeeprofile{
 	flex: 0 0 auto;
@@ -3079,6 +3085,12 @@ div.bt{
 	    max-height: 85vh;
 	    overflow: hidden;
 	    border-top-color: #333;
+	}
+	.communication--uploaded--date{
+		text-align: right;		
+	}
+	.communication--uploaded--date{
+		
 	}
 }	
 

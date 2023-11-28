@@ -18,14 +18,28 @@
 							<template v-if="actiontaken.actioncreator">
 								{{actiontaken.actioncreator.cname}}
 							</template>
+							<span class="sp-dateSent">
+								{{moment(actiontaken.updated_at).format('llll')}}
+							</span>
 						</div>
 						<div class="action--taken--message" :id="actiontaken.id" v-html="actiontaken.message" :class="{actiontakenMessage: i === activeItem}" :contenteditable="i === activeItem ? true : false">
 						</div>
+						<div class="comm--AT--attachments">
+		                    <AttachFileCommunication :attachments="bid" @getUploadedFile="updateUploaded"/>
+		                </div>
+
 						<div class="action--taken--controls">
 
 							<ul class="list-inline mb-0">
 
 								<template v-if="i === activeItem">
+									<li class="list-inline-item me mt-2">
+										<div class="comm--AT--attachments">
+											<label for="AT-toattach" class="AT-toattach-btn" title="Attach Files"><i class="fa-solid fa-paperclip"></i></label>
+                            				<input type="file" name="drpfiles" id="AT-toattach" class="AT-toattach" multiple @change="atselectedfiles"/>
+			
+					                    </div>
+									</li>
 									<li class="list-inline-item me mt-2">
 										<button class="btn btn-secondary" @click.prevent="cancelat(actiontaken.id)">Cancel</button>
 									</li>
@@ -45,20 +59,19 @@
 										</button>
 									</li>
 								</template>						
-
+								
 
 							</ul>
 
 						</div>
 						<div class="action--taken--attachments">
-						<template v-if="actiontaken.attachments">
-				            <template v-if="actiontaken.attachments.length > 0">
-				                <AttachmentPreview :files="actiontaken.attachments"/>
-				            </template>
-				        </template>
+							<template v-if="actiontaken.attachments">
+					            <template v-if="actiontaken.attachments.length > 0">
+					                <AttachmentPreview :files="actiontaken.attachments"/>
+					            </template>
+					        </template>
+						</div>
 					</div>
-					</div>
-
 					
 				</div>
 
@@ -80,21 +93,32 @@
 	</div>
 </template>
 <script>	
-	import {ref, onMounted, inject, watch, reactive} from 'vue'
+	import {ref, onMounted, inject, watch, reactive,defineAsyncComponent} from 'vue'
 	import useActionsTaken from '@/composables/composables-actionstaken'
-	import LoadingComponentAC from '@/components/loader/LoadingComponentAC.vue';
+
 	import {useAuthStore} from '@/stores/store'
 	import useEventsBus from '@/components/helper/Eventbus';
 	import Pusher from 'pusher-js'
 	import Echo from 'laravel-echo'
 	import axios from 'axios';
 	import {useNotificationStore} from '@/stores/notificationstore.js';
-	import AttachmentPreview from '@/components/cm/reusables/AttachmentPreview.vue';
+
+	import moment from 'moment';
+	import AttachFileCommunication from '@/components/cm/reusables/AttachFileCommunication.vue';
+
+
+	const AttachmentPreview = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/AttachmentPreview.vue')
+    );
+    const LoadingComponentAC = defineAsyncComponent(() => 
+        import('@/components/loader/LoadingComponentAC.vue')
+    );
 
 	export default{
 		components: {
 			LoadingComponentAC,
-			AttachmentPreview
+			AttachmentPreview,
+			AttachFileCommunication
 		},
 		props: {
 			id : {
@@ -103,12 +127,13 @@
 			}			
 		},
 		setup(props){
+			const bid = ref([]);
 			const noData = ref(false)
-			const {actionstaken,getActionTaken,destroyActionTaken, updateCommunicationActionTaken} = useActionsTaken()
+			const {actionstaken,getActionTaken,destroyActionTaken, updateCommunicationActionTaken, editActionTaken, actiontaken} = useActionsTaken()
 			const profileimageurl = ref();
 			const swal = inject('$swal')
 			const userdetails = useAuthStore();
-			const {bus}=useEventsBus()			
+			const {bus,emit}=useEventsBus()			
 			const userid = userdetails.getdetails[0];
 
 			const activeItem = ref();
@@ -116,7 +141,8 @@
 
 			const form = reactive({
 				'defaultmessage': '',
-				'newmessage': ''
+				'newmessage': '',
+				'uploadedfileids': []
 			});
 			const getimageurl = (fname,lname) =>{
 				return 'https://ui-avatars.com/api/?name='+fname+'+'+lname+'&background=random&size=40';
@@ -174,11 +200,7 @@
                 }
                 
             }
-            const editmyactiontaken = (i, id) =>{
-            	form.defaultmessage = '';
-            	form.defaultmessage = document.getElementById(id).innerHTML;            	
-            	return activeItem.value = i;
-            }
+
             const cancelat = (id) =>{
             	document.getElementById(id).innerHTML = form.defaultmessage;
             	activeItem.value = null;
@@ -191,14 +213,12 @@
                 }
             })
 
-
-
-
             watch(()=>bus.value.get('cancelallat'), (val) => {
                 if(val ?? [] > 0){
                 	activeItem.value = null;
 					form.newmessage = '';
 					form.defaultmessage = '';
+					form.uploadedfileids = [];
                 }
             })
             const reloadActionsTakenList = async() =>{
@@ -228,9 +248,36 @@
 					activeItem.value = null;
 					form.newmessage = '';
 					form.defaultmessage = '';
+					reloadActionsTakenList();
 				});
 			}
 
+
+			const updateUploaded = (attachids) =>{
+                form.uploadedfileids = [];
+                for(const attachid in attachids){
+                    form.uploadedfileids.push(attachids[attachid]);
+                }
+
+            }
+            const editmyactiontaken = (i, id) =>{
+            	bid.value = [];
+            	form.defaultmessage = '';
+            	form.defaultmessage = document.getElementById(id).innerHTML;
+
+            	editActionTaken(id).then(() => {
+            		for (var i of actiontaken.value.attachments) {
+                        const fileSize = (i.filesize < 1024) ? i.filesize +' KB' : (i.filesize / (1024*1024)).toFixed(2)+' MB';
+                        bid.value.push({id: i.id,name: i.filename, size: fileSize,fileextension: i.fileextension, filepath: i.filepath});
+                    }
+            		emit('rprops',false);
+            	})
+            	return activeItem.value = i;
+            }
+            const atselectedfiles = async() => {     
+                bid.value = document.querySelector('.AT-toattach').files;
+                emit('rprops',true);
+            }
 			return{
 				actionstaken,
 				profileimageurl,
@@ -241,7 +288,11 @@
 				editmyactiontaken,
 				activeItem,
 				cancelat,
-				saveat
+				saveat,
+				moment,
+				bid,
+				updateUploaded,
+				atselectedfiles
 			}
 		}
 	}

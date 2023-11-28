@@ -33,12 +33,12 @@
 
 </template>
 <script>    
-    import {ref,reactive, onMounted} from "vue";
+    import {ref,reactive, onMounted,defineAsyncComponent} from "vue";
 
     import useEventsBus from '@/components/helper/Eventbus';
     import useActionsTaken from '@/composables/composables-actionstaken'
-
     import AttachFileCommunication from '@/components/cm/reusables/AttachFileCommunication.vue'
+
 
     export default{
         props: {

@@ -7,12 +7,14 @@
 
                 <section class="loading-area" v-if="showProgress">
 
-                    <div class="fileuprow" v-for="(file,index) in attachfiledetails.attachedfiles">
+                    <div class="fileuprow" v-for="(file,index) in attachfiledetails.attachedfiles" :title="file.name">
 
                         <i :class="getfiletype(file.name.split('.').pop())"></i>
                         <div class="content">
                             <div class="details">
-                                <span class="name">{{file.name}}</span>
+                                <span class="name" v-if="file.name">
+                                    {{file.name.length > 35 ? file.name.substring(0, 35) + "..." : file.name  }}
+                                </span>
 
                                 <template v-if="attachfiledetails.files[index]">
                                 	<template v-if="attachfiledetails.files[index].loading < 100">
@@ -24,8 +26,7 @@
                                 </template>
                                 <template v-else>                     
 	                                	<span class="percent" >0%</span>
-                                </template>
-                                
+                                </template>                                
                             </div>
 
                             <template v-if="attachfiledetails.files[index]">
@@ -207,13 +208,23 @@
            			attachfiledetails.uploadedfileid.push(props.attachments[i].id);
        				attachfiledetails.attachedfiles.push({name: props.attachments[i].name});
        				attachfiledetails.files.push({name: props.attachments[i].name, size: props.attachments[i].size, loading: 100});
-
            		}
-      
+                console.log('wewe');
            })
 
  
-          
+            const fixFileName = async(name) =>{
+                let maxLength = 20;  
+
+                if(name.length > 20){
+                    return name;
+                }else{
+                    return 'weee';
+                }
+
+               // return name.length>maxLength ? name.substring(0, maxLength) + "..." : name;           
+
+            }
        		
 
 
@@ -228,7 +239,8 @@
             	attachfiledetails,
             	props,
             	getfiletype,
-            	disabledbutton
+            	disabledbutton,
+                fixFileName
 
             }
 		}

@@ -100,14 +100,20 @@
 </template>
 <script>
     import useCommunications from '@/composables/composables-communications';
-    import {onMounted ,ref, computed, inject, reactive} from 'vue';
+    import {onMounted ,ref, computed, inject, reactive,defineAsyncComponent} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
     import moment from 'moment'
     import {formatmaildate} from '@/helper/formatmaildate'
-    import TooltipArr from "@/components/cm/reusables/TooltipArr.vue";
-    import LoadingComponent from '@/components/loader/LoadingComponent.vue';
+
     import { useHead } from '@unhead/vue'
+
+    const TooltipArr = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/TooltipArr.vue')
+    );
+    const LoadingComponent = defineAsyncComponent(() => 
+        import('@/components/loader/LoadingComponent.vue')
+    );
 
     export default{
         props: {

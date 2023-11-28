@@ -53,17 +53,29 @@
 
 import useOfficerecord from '@/composables/composables-record';
 import useUsers from '@/composables/userscomposables';
-import PDSPreviewPage1 from '@/components/pds/PDSPreviewPage1.vue';
-import PDSPreviewPage2 from '@/components/pds/PDSPreviewPage2.vue';
-import PDSPreviewPage3 from '@/components/pds/PDSPreviewPage3.vue';
-import PDSPreviewPage4 from '@/components/pds/PDSPreviewPage4.vue';
-import { onMounted, ref, inject, onUpdated, computed} from 'vue';
+
+import { onMounted, ref, inject, onUpdated, computed,defineAsyncComponent} from 'vue';
 import moment from 'moment'
 import usePDS from '@/composables/composables-pds';
 import { useNavigationStore } from '@/stores/navigationstore.js'
 import { useHead } from '@unhead/vue'
 
-import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
+
+const PDSPreviewPage1 = defineAsyncComponent(() => 
+    import('@/components/pds/PDSPreviewPage1.vue')
+);
+const PDSPreviewPage2 = defineAsyncComponent(() => 
+    import('@/components/pds/PDSPreviewPage2.vue')
+);
+const PDSPreviewPage3 = defineAsyncComponent(() => 
+    import('@/components/pds/PDSPreviewPage3.vue')
+);
+const PDSPreviewPage4 = defineAsyncComponent(() => 
+    import('@/components/pds/PDSPreviewPage4.vue')
+);
+const LoadingComponentDiv = defineAsyncComponent(() => 
+    import('@/components/loader/LoadingComponentDiv.vue')
+);
 
 export default{
     props: {

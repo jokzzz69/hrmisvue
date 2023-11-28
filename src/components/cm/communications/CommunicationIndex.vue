@@ -103,18 +103,27 @@
 </template>
 <script>
     import useCommunications from '@/composables/composables-communications';
-    import {onMounted ,ref, computed, inject, reactive} from 'vue';
+    import {onMounted ,ref, computed, inject, reactive,defineAsyncComponent} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
     import moment from 'moment'
-    import Pagination from '@/components/cm/reusables/Pagination.vue';
-    import LoadingComponent from '@/components/loader/LoadingComponent.vue';
+ 
     import {formatmaildate} from '@/helper/formatmaildate';
-    import Tooltip from "@/components/cm/reusables/Tooltip.vue";
+
     
     import {useCommunicationStore} from "@/stores/communicationstore.js"
     import {useNotificationStore} from '@/stores/notificationstore.js';
     import { useHead } from '@unhead/vue'
+
+    const Tooltip = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/Tooltip.vue')
+    );
+    const LoadingComponent = defineAsyncComponent(() => 
+        import('@/components/loader/LoadingComponent.vue')
+    );
+    const Pagination = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/Pagination.vue')
+    );
 
     export default{
         components: {

@@ -179,7 +179,7 @@
 </template>
 
 <script>
-    import { reactive,inject, ref, onMounted, watch} from "vue";
+    import { reactive,inject, ref, onMounted, watch,defineAsyncComponent} from "vue";
     import useCommunications from '@/composables/composables-communications';
     import useDocumentTypes from '@/composables/composables-documenttypes';    
     import useClassifications from '@/composables/composables-classifications';
@@ -192,16 +192,26 @@
     import {useRouter, onBeforeRouteLeave} from 'vue-router'
     import moment from 'moment';
     import {useAuthStore} from '@/stores/store.js'
-    import AttachFile from '@/components/cm/reusables/AttachFile.vue';
+    
     import useEventsBus from '@/components/helper/Eventbus';
     import { useHead } from '@unhead/vue'
     
-    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue'
-
-    import SubCheckUnits from '@/components/cm/reusables/SubCheckUnits.vue'
-    import SubCheckUnitHeads from '@/components/cm/reusables/SubCheckUnitHeads.vue'
-
     import {useRecipients} from '@/stores/recipients.js'
+
+
+
+    const AttachFile = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/AttachFile.vue')
+    );
+    const LoadingComponentDiv = defineAsyncComponent(() => 
+        import('@/components/loader/LoadingComponentDiv.vue')
+    );
+    const SubCheckUnits = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/SubCheckUnits.vue')
+    );
+    const SubCheckUnitHeads = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/SubCheckUnitHeads.vue')
+    );
 
 
     export default {

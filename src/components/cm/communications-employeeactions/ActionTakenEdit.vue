@@ -63,11 +63,14 @@
 </template>
 
 <script>
-    import { reactive, onMounted, ref, inject} from "vue";
+    import { reactive, onMounted, ref, inject,defineAsyncComponent} from "vue";
 
     import useActionsTaken from "@/composables/composables-actionstaken";
-    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue'
+
     import { useHead } from '@unhead/vue'
+    const LoadingComponentDiv = defineAsyncComponent(() => 
+        import('@/components/loader/LoadingComponentDiv.vue')
+    );
 
     export default {
         components: {

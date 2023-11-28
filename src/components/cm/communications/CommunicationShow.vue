@@ -42,6 +42,11 @@
                     </template>
                 </span>
             </div>
+            <div class="col communication--uploaded--date">
+                <span>
+                    <span>{{dateSent}}</span>
+                </span>
+            </div>
         </div>
         <div class="content__card--contents plr pt-2 pb-1">
             <div class="row">
@@ -254,39 +259,37 @@
 </template>
 
 <script>
+    import moment from 'moment';
 
     import { reactive,inject, ref, onMounted,onUnmounted, watch, defineAsyncComponent} from "vue";
     import useCommunications from '@/composables/composables-communications';
     import useCommunicationGroups from '@/composables/composables-communicationgroups';
     import 'vue-select/dist/vue-select.css';
-    import {useRouter} from 'vue-router'
-    import moment from 'moment';
-    import AttachmentPreview from '@/components/cm/reusables/AttachmentPreview.vue';
-    import CommunicationAddActionTaken from '@/components/cm/communications-employeeactions/CommunicationAddActionTaken.vue';
-    import CommunicationActionsTaken from '@/components/cm/communications-employeeactions/CommunicationActionsTaken.vue';
-
-    import useNotifications from '@/composables/composables-notifications';
-    
+    import {useRouter} from 'vue-router'    
+    import useNotifications from '@/composables/composables-notifications';    
     import useEventsBus from '@/components/helper/Eventbus';
     import {useCommunicationStore} from "@/stores/communicationstore.js"
     import {useNotificationStore} from '@/stores/notificationstore.js';
-    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue'
     import { useHead } from '@unhead/vue'
-
-
-
-    //import SubCheckUnits from '@/components/cm/reusables/SubCheckUnits.vue'
-   // import SubCheckUnitHeads from '@/components/cm/reusables/SubCheckUnitHeads.vue'
-
-
-
     import {useRecipients} from '@/stores/recipients.js'
 
+    const AttachmentPreview = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/AttachmentPreview.vue')
+    );
+    const CommunicationActionsTaken = defineAsyncComponent(() => 
+        import('@/components/cm/communications-employeeactions/CommunicationActionsTaken.vue')
+    );
+    const CommunicationAddActionTaken = defineAsyncComponent(() => 
+        import('@/components/cm/communications-employeeactions/CommunicationAddActionTaken.vue')
+    );
     const SubCheckUnits = defineAsyncComponent(() => 
         import('@/components/cm/reusables/SubCheckUnits.vue')
     );
     const SubCheckUnitHeads = defineAsyncComponent(() => 
         import('@/components/cm/reusables/SubCheckUnitHeads.vue')
+    );
+    const LoadingComponentDiv = defineAsyncComponent(() => 
+        import('@/components/loader/LoadingComponentDiv.vue')
     );
 
     export default {
@@ -326,7 +329,7 @@
 
             const router = useRouter()
             const notificationstore = useNotificationStore()
-
+            const dateSent = ref('');
 
   
             const photocopy = reactive({
@@ -374,6 +377,8 @@
                     st_recipients.setselectedunitheads(communicationform.sendto);
                     st_recipients.setselectedunitgroups(communicationform.selectedunits);
 
+
+                    checkSentDate(communication.value.updated_at);
                 }),
                 getCommunicationGroups().then(() => {
                     hld.value = false;
@@ -431,9 +436,10 @@
             }
 
             watch(()=>bus.value.get('actionbox'), (val) => {
-                [showActionsBox.value] = val ?? [] 
+                [showActionsBox.value] = val ?? []
             })
-
+     
+            
             const btnActionsTaken = () =>{
                 showActionsBox.value = !showActionsBox.value;
                 var x = document.getElementById("ccw");
@@ -443,7 +449,15 @@
                 emit('cancelallat',1);
             }
 
-
+            const checkSentDate = async(sdate) =>{
+                var mdate = moment(sdate);
+ 
+                if(moment.duration(moment(new Date()).diff(mdate,'days')) > 5){
+                    dateSent.value =  mdate.format('llll');
+                }else{
+                    dateSent.value =  mdate.format('MMM D, h:mm A');
+                }
+            }
             return{
                 communication,
                 communicationgroups,
@@ -460,7 +474,8 @@
                 isClick,
                 btnActionsTaken,
                 showActionsBox,
-                hld
+                hld,
+                dateSent
             }
         }
     }

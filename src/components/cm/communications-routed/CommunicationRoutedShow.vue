@@ -35,6 +35,13 @@
 
     </div> 
     <div class="bg-light mb-3 pb-3 pt-3 px-3 card content__card__wrap" v-sheight="200" id="ccw">
+        <div class="row">
+            <div class="col communication--sent--date">
+                <span>
+                    <span>Date Sent: <strong>{{dateSent}}</strong></span>
+                </span>
+            </div>
+        </div>
         <div class="cardwrap pt-2 pb-1">
             <div class="col mb-2 col-sm-3">
                 <div class="form-floating fflabel">
@@ -233,24 +240,36 @@
     import 'vue-select/dist/vue-select.css';
     import {useRouter} from 'vue-router'
     import moment from 'moment';
-    import AttachmentPreview from '@/components/cm/reusables/AttachmentPreview.vue';
+    
     import {useRoutedStore} from '@/stores/routedstore'
-
-    import CommunicationAddActionTaken from '@/components/cm/communications-employeeactions/CommunicationAddActionTaken.vue';
-    import CommunicationActionsTaken from '@/components/cm/communications-employeeactions/CommunicationActionsTaken.vue';
     import useNotifications from '@/composables/composables-notifications';
     import useEventsBus from '@/components/helper/Eventbus';
+
     import {useNotificationStore} from '@/stores/notificationstore.js'
-    import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue'
+    
     import { useHead } from '@unhead/vue'
     import {useRecipients} from '@/stores/recipients.js'
 
+
+    const AttachmentPreview = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/AttachmentPreview.vue')
+    );
+    const CommunicationAddActionTaken = defineAsyncComponent(() => 
+        import('@/components/cm/communications-employeeactions/CommunicationAddActionTaken.vue')
+    );
+    const CommunicationActionsTaken = defineAsyncComponent(() => 
+        import('@/components/cm/communications-employeeactions/CommunicationActionsTaken.vue')
+    );
+    const LoadingComponentDiv = defineAsyncComponent(() => 
+        import('@/components/loader/LoadingComponentDiv.vue')
+    );
     const SubCheckUnits = defineAsyncComponent(() => 
         import('@/components/cm/reusables/SubCheckUnits.vue')
     );
     const SubCheckUnitHeads = defineAsyncComponent(() => 
         import('@/components/cm/reusables/SubCheckUnitHeads.vue')
     );
+
 
     export default {
         components: {
@@ -300,6 +319,7 @@
                 'sendto': [],
                 'selectedunits': []
             });
+            const dateSent = ref('');
 
             onMounted(() => {
                 getCommunicationRouted(props.id).then(() =>{
@@ -326,13 +346,22 @@
 
 
                     hld.value = false;
+                    checkSentDate(communication.value.updated_at);
                 })
                
 
             })
 
  
-
+            const checkSentDate = async(sdate) =>{
+                var mdate = moment(sdate);
+ 
+                if(moment.duration(moment(new Date()).diff(mdate,'days')) > 5){
+                    dateSent.value =  mdate.format('llll');
+                }else{
+                    dateSent.value =  mdate.format('MMM D, h:mm A');
+                }
+            }
 
             const saveasDraft = async() =>{
                 await updateCommunicationDraft(props.id,{ ...communicationform }).then(() => {
@@ -393,7 +422,8 @@
                 isClick,
                 showActionsBox,
                 btnActionsTaken,
-                hld
+                hld,
+                dateSent
             }
         }
     }

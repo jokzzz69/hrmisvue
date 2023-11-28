@@ -103,20 +103,30 @@
 
 <script>
     import useCommunications from '@/composables/composables-communications';
-    import {onMounted ,ref, computed, inject, reactive, watch} from 'vue';
+    import {onMounted ,ref, computed, inject, reactive, watch,defineAsyncComponent} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
     import moment from 'moment'
-    import Pagination from '@/components/cm/reusables/Pagination.vue';
-    import LoadingComponent from '@/components/loader/LoadingComponent.vue';
+
     import {formatmaildate} from '@/helper/formatmaildate';
-    import Tooltip from "@/components/cm/reusables/Tooltip.vue";
+
     import useEventsBus from '@/components/helper/Eventbus';
     import {useActionTakenStore} from "@/stores/actiontakenstore.js"
     import {useNotificationStore} from '@/stores/notificationstore.js'
 
     import useActionsTaken from '@/composables/composables-actionstaken';
     import { useHead } from '@unhead/vue'
+
+
+    const Tooltip = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/Tooltip.vue')
+    );
+    const LoadingComponent = defineAsyncComponent(() => 
+        import('@/components/loader/LoadingComponent.vue')
+    );
+    const Pagination = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/Pagination.vue')
+    );
 
     export default{
         components: {

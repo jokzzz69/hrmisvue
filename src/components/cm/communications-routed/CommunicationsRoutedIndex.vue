@@ -60,9 +60,11 @@
                                                 </template>
                                             </span>
                                         </template>
+                                        
                                         <template v-if="routedcommunication.id == routeddetails">
                                             <TooltipArr :arr="routedcommunication.receivers" :msg="'TO'"/>
                                         </template> 
+
                                         <span class="totalactionstaken" title="Total Actions Taken" v-if="routedcommunication.totalactionstaken > 0">
                                             ({{routedcommunication.totalactionstaken}})
                                         </span>                                       
