@@ -278,7 +278,7 @@
        
         
         <div class="form-row">
-            <div class="col mt-3 text-end">
+            <div class="col my-3 text-end">
             	<router-link :to="{name: 'record.index'}" class="btn btn-secondary me-1">Cancel</router-link>
             	<button type="submit" class="btn btn-save">Update</button>
             </div>
