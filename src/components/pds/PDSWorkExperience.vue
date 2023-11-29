@@ -131,7 +131,7 @@
                             </template>  
                             <div class="row  mb-2">
                                 <div class="col text-center">
-                                    <button class="btn btn-primary" @click.prevent="addeligibility">+ Add Work Experience</button>
+                                    <button class="btn btn-semiblue" @click.prevent="addeligibility">+ Add Work Experience</button>
                                 </div>
                             </div>                           
 
@@ -144,7 +144,7 @@
             
             <div class="form-row">
                 <div class="col mt-3 text-end">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-save">Save</button>
                 </div>
             </div>
       

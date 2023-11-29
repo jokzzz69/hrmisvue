@@ -190,7 +190,7 @@
 
             <div class="row mb-2 mt-3">
                 <div class="col text-center">
-                    <button class="btn btn-primary" @click.prevent="addemployment">+ Add Employment</button>
+                    <button class="btn btn-semiblue" @click.prevent="addemployment">+ Add Employment</button>
                 </div>
             </div> 
 
@@ -201,7 +201,7 @@
         <div class="form-row">
             <div class="col mt-3 text-end">
             	<router-link :to="{name: 'record.index'}" class="btn btn-secondary me-1">Cancel</router-link>
-            	<button type="submit" class="btn btn-primary">Save</button>
+            	<button type="submit" class="btn btn-save">Save</button>
             </div>
         </div>
   

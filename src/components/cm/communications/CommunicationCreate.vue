@@ -171,7 +171,7 @@
         <div class="form-row">
             <div class="col mt-3 text-end">
                 <router-link :to="{name: 'communications.index'}" class="btn btn-secondary me-1">Cancel</router-link>
-                <button type="submit" @click.prevent="sendCommunication" class="btn btn-blue"> Send</button>
+                <button type="submit" @click.prevent="sendCommunication" class="btn btn-save"> Send</button>
             </div>
         </div>        
     </form> 

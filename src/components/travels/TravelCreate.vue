@@ -58,7 +58,7 @@
             <div class="col text-end">             
 
                 <router-link :to="{name: 'travels.index'}" class="btn btn-secondary me-1">Cancel</router-link>     
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-save">Save</button>
             </div>
         </div>
   

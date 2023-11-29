@@ -16,7 +16,7 @@
                 </div> 
                 <template v-if="userrole == 'super-admin' || userrole == 'admin' || id == 207 || id == 29 || id == 215">
                     <div class="mt-2 dtredit col col-sm-3">
-                        <button class="btn btn-outline-info" @click="gotoEditDTR">Edit</button>
+                        <button class="btn btn-outline-violet" @click="gotoEditDTR"><i class="fa-regular fa-pen-to-square"></i> Edit</button>
                     </div>
                     <div class="mt-2 col col-sm-7">
                         <button class="btn btn-outline-danger" @click="dlpersonnelDTR"><i class="fa-solid fa-file-pdf"></i> Download</button>

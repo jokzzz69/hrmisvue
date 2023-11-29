@@ -121,7 +121,7 @@
         
         <div class="row" v-if="form.leaveoption == 1">
             <div class="col text-center mt-2">
-                <button class="btn btn-primary" @click.prevent="addduration">+ Add Inclusive Dates</button>
+                <button class="btn btn-semiblue" @click.prevent="addduration">+ Add Inclusive Dates</button>
             </div>
         </div>
 
@@ -129,7 +129,7 @@
         <div class="form-row">
             <div class="col mt-3 text-end">
             	<button class="btn btn-secondary me-1" @click.prevent="cancelback">Cancel</button>
-            	<button type="submit" class="btn btn-primary"> Save</button>
+            	<button type="submit" class="btn btn-save"> Save</button>
             </div>
         </div>
         

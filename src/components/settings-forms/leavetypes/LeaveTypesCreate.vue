@@ -18,7 +18,7 @@
         <div class="form-row">
             <div class="col mt-3 text-end">
             	<router-link :to="{name: 'leavetypes.index'}" class="btn btn-secondary me-1">Cancel</router-link>
-            	<button type="submit" class="btn btn-primary"> Save</button>
+            	<button type="submit" class="btn btn-save"> Save</button>
             </div>
         </div>
         

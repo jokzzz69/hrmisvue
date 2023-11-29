@@ -209,7 +209,6 @@
        				attachfiledetails.attachedfiles.push({name: props.attachments[i].name});
        				attachfiledetails.files.push({name: props.attachments[i].name, size: props.attachments[i].size, loading: 100});
            		}
-                console.log('wewe');
            })
 
  

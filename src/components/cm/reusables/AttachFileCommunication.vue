@@ -124,8 +124,8 @@
                 attachfiledetails.files.splice(index,1);
                 emit('getUploadedFile',attachfiledetails.uploadedfileid);
             }
-            const recheckprops = ref(false);
 
+            const recheckprops = ref(false);
 
             const checkName = (name) =>{
 

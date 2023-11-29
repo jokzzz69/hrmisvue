@@ -13,7 +13,7 @@
                     <div class="at--BoxWrap--actionsButtons">
                         <ul class="at__BoxWrap__actionsButtons__list">
                             <li>
-                                <button class="btn-primary btn btn-submit" @click.prevent="submitActionTaken">Submit</button>
+                                <button class="btn btn-save" @click.prevent="submitActionTaken">Submit</button>
                             </li>
                             <li>                                
                                 <label for="AT-toattach" class="AT-toattach-btn" title="Attach Files"><i class="fa-solid fa-paperclip"></i></label>

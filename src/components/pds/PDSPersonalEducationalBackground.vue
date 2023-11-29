@@ -207,7 +207,7 @@
                             </template>  
                             <div class="row  mb-2">
                                 <div class="col text-center">
-                                    <button class="btn btn-primary" @click.prevent="addvocational">+ Add Vocational</button>
+                                    <button class="btn btn-semiblue" @click.prevent="addvocational">+ Add Vocational</button>
                                 </div>
                             </div>
 
@@ -269,7 +269,7 @@
                             </template>
                             <div class="row  mb-2">
                                 <div class="col text-center">
-                                    <button class="btn btn-primary" @click.prevent="addcollege">+ Add College</button>
+                                    <button class="btn btn-semiblue" @click.prevent="addcollege">+ Add College</button>
                                 </div>
                             </div>
 
@@ -331,7 +331,7 @@
                             </template>
                             <div class="row  mb-2">
                                 <div class="col text-center">
-                                    <button class="btn btn-primary" @click.prevent="addgraduate">+ Add Graduate Studies</button>
+                                    <button class="btn btn-semiblue" @click.prevent="addgraduate">+ Add Graduate Studies</button>
                                 </div>
                             </div>
 
@@ -346,7 +346,7 @@
             
             <div class="form-row">
                 <div class="col mt-3 text-end">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-save">Save</button>
                 </div>
             </div>
       

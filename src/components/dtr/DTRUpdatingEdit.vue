@@ -69,7 +69,7 @@
         </div>
         <div class="row">
         	<div class="col-md-12 mb-5">
-        		<button class="btn btn-primary btn-save px-5 py-2" @click="saveData">Update</button>
+        		<button class="btn btn-save px-5 py-2" @click="saveData">Update</button>
         	</div>
         </div>
     </div>

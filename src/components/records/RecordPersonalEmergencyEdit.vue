@@ -26,7 +26,7 @@
         <div class="form-row">
             <div class="col mt-3 text-end">
                 <router-link :to="{name: 'recordpersonal.show'}" class="btn btn-secondary me-1">Cancel</router-link>
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-save">Update</button>
             </div>
         </div>  
      </form>

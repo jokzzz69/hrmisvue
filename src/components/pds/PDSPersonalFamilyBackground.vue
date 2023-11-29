@@ -111,7 +111,7 @@
                             </template>                                 
                             <div class="row mt-2 mb-2">
                                 <div class="col text-center">
-                                    <button class="btn btn-primary" @click.prevent="addmorechildren">+ Add More</button>
+                                    <button class="btn btn-semiblue" @click.prevent="addmorechildren">+ Add More</button>
                                 </div>
                             </div>
                         </template>
@@ -188,7 +188,7 @@
             
             <div class="form-row">
                 <div class="col mt-3 text-end">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-save">Save</button>
                 </div>
             </div>
       

@@ -74,7 +74,8 @@ body{
 .passwordEye .input-group-text:hover,
 .li-leavedetails li div label:hover,
 .li-leavedetails li div input:hover,
-.AT-toattach-btn:hover{
+.AT-toattach-btn:hover,
+.AT-EditUpload:hover{
 	cursor: pointer;
 }
 .col-chk{
@@ -555,6 +556,41 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown){
     border-color: var(--bs-btn-hover-border-color);
 }
 .btn-semiblue{
+	color: #fff;
+    background: #0084b4;
+    border-color: #0084b4;
+    --bs-rfims-btn-hover-color: #0084b4;
+    --bs-rfims-btn-hover-bg: #fff;
+    --bs-rfims-btn-hover-border-color: #0084b4;
+
+}
+.btn-semiblue:hover{
+	color: var(--bs-rfims-btn-hover-color);
+    background-color: var(--bs-rfims-btn-hover-bg);
+    border-color: var(--bs-rfims-btn-hover-border-color);
+}
+.btn-secondary{
+	--bs-btn-color: #fff;
+    --bs-btn-bg: #6c757d;
+    --bs-btn-border-color: #6c757d;
+    --bs-btn-hover-color: #6c757d;
+    --bs-btn-hover-bg: #fff;
+    --bs-btn-hover-border-color: #565e64;
+    --bs-btn-focus-shadow-rgb: 130,138,145;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #565e64;
+    --bs-btn-active-border-color: #51585e;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #6c757d;
+    --bs-btn-disabled-border-color: #6c757d;
+}
+.btn-secondary:hover{
+	color: var(--bs-btn-hover-color);
+    background-color: var(--bs-btn-hover-bg);
+    border-color: var(--bs-btn-hover-border-color);
+}
+.btn-outline-semiblue{
 	--bs-btn-color: #fff;
     --bs-btn-bg: #506fd9;
     --bs-btn-border-color: #506fd9;
@@ -571,12 +607,34 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown){
     --bs-btn-disabled-border-color: #506fd9;
 }
 
-.btn-semiblue:hover {
+.btn-outline-semiblue:hover {
     color: var(--bs-btn-hover-color);
     background-color: var(--bs-btn-hover-bg);
     border-color: var(--bs-btn-hover-border-color);
 }
+.btn-save{
+	color: #fff;
+    border-color: #0f1b91;
+    background-color: #0f1b91;
+    --bs-btn-hover-color: #0f1b91;
+    --bs-btn-hover-bg: #fff;
+    --bs-btn-hover-border-color: #0f1b91;
+    --bs-btn-focus-shadow-rgb: 255, 193, 7;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #0f1b91;
+    --bs-btn-active-border-color: #0f1b91;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #0f1b91;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #0f1b91;
+    --bs-gradient: none;
+}
 
+.btn-save:hover {
+    color: var(--bs-btn-hover-color);
+    background-color: var(--bs-btn-hover-bg);
+    border-color: var(--bs-btn-hover-border-color);
+}
 .btn-blue{
 	--bs-btn-color: #0f1b91;
     --bs-btn-border-color: #0f1b91;
@@ -2565,6 +2623,7 @@ span.remove button:focus{
 	border-radius: 50%;
 	padding: 3px 8px;
 }
+
 .btn-removeAT:hover,
 .btn-removeAT:focus,
 .at__BoxWrap__actionsButtons__list_btns:hover,
@@ -2572,6 +2631,8 @@ span.remove button:focus{
 	border-color: transparent;
 	background: #ccc;
 }
+
+
 .at--BoxWrap--actionsButtons .btn-submit{
 	border-radius: 1rem;
 }
@@ -2679,6 +2740,9 @@ div.bt{
 .atfileLoader{
 	flex: 0 0 20%;
 	text-align: right;
+}
+.nonReq .mainLabel span{
+	display: none !important;
 }
 /*end coms*/
 

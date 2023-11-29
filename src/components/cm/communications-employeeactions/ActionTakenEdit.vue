@@ -52,10 +52,15 @@
         <div class="form-floating req">                               
             <div class="actiontakenMessage" ref="actxt" v-html="actioncontent.message" contenteditable="true" @blur="getContent"></div>     
         </div>
+
+        <div class="nonReq">
+            <AttachFile :attachments="actioncontent.uploadedfiles" :err="fileattacherr" @getUploadedFile="updateUploaded" /> 
+        </div>
+
         <div class="form-row">
             <div class="col mt-3 text-end">
                 <router-link :to="{name: 'actionstaken.index'}" class="btn btn-secondary me-1">Cancel</router-link>
-                <button type="submit" class="btn btn-blue"> Update</button>
+                <button type="submit" class="btn btn-save"> Update</button>
             </div>
         </div>
         
@@ -64,7 +69,7 @@
 
 <script>
     import { reactive, onMounted, ref, inject,defineAsyncComponent} from "vue";
-
+    import AttachFile from '@/components/cm/reusables/AttachFile.vue';
     import useActionsTaken from "@/composables/composables-actionstaken";
 
     import { useHead } from '@unhead/vue'
@@ -74,7 +79,8 @@
 
     export default {
         components: {
-            LoadingComponentDiv
+            LoadingComponentDiv,
+            AttachFile
         },
         props: {
             id: {
@@ -88,17 +94,27 @@
                 title: 'Edit Actions Taken | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const swal = inject('$swal')
-
+            const fileattacherr = ref('');
             const { errors, editActionTaken, updateActionTaken, actiontaken } = useActionsTaken()
             const actioncontent = reactive({
-                'message':''
+                'message':'',
+                'uploadedfiles': []
             });
+
+
             const hld = ref(true);
             onMounted(
                 () => {
                     editActionTaken(props.id).then(() => {
                         actioncontent.message = actiontaken.value.message;
                         hld.value = false;
+
+                        for (var i of actiontaken.value.attachments) {
+                            const fileSize = (i.filesize < 1024) ? i.filesize +' KB' : (i.filesize / (1024*1024)).toFixed(2)+' MB';
+                            actioncontent.uploadedfiles.push({id: i.id,name: i.filename, size: fileSize,fileextension: i.fileextension, filepath: i.filepath});
+                        }
+
+
                     })
                 }
             )
@@ -125,13 +141,23 @@
             const getContent = (evt) => {
                 actioncontent.message = evt.target.innerHTML;
             }
+            const updateUploaded = (attachids) =>{
+
+                actioncontent.uploadedfiles = [];
+                for(const attachid in attachids){
+                    actioncontent.uploadedfiles.push(attachids[attachid]);
+                }
+                
+            }
             return{
                 errors,
                 actioncontent,
                 actiontaken,
                 saveAction,
                 getContent,
-                hld
+                hld,
+                fileattacherr,
+                updateUploaded
             }
         }
     }

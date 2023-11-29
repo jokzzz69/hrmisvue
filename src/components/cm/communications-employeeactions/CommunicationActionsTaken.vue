@@ -24,7 +24,7 @@
 						</div>
 						<div class="action--taken--message" :id="actiontaken.id" v-html="actiontaken.message" :class="{actiontakenMessage: i === activeItem}" :contenteditable="i === activeItem ? true : false">
 						</div>
-						<div class="comm--AT--attachments">
+						<div class="comm--AT--attachments" v-if="actiontaken.id == selectedEditAT" :id="actiontaken.id">
 		                    <AttachFileCommunication :attachments="bid" @getUploadedFile="updateUploaded"/>
 		                </div>
 
@@ -33,18 +33,19 @@
 							<ul class="list-inline mb-0">
 
 								<template v-if="i === activeItem">
+									
+									<li class="list-inline-item me mt-2">
+										<button class="btn btn-secondary" @click.prevent="cancelat(actiontaken.id)">Cancel</button>
+									</li>
 									<li class="list-inline-item me mt-2">
 										<div class="comm--AT--attachments">
-											<label for="AT-toattach" class="AT-toattach-btn" title="Attach Files"><i class="fa-solid fa-paperclip"></i></label>
+											<label for="AT-toattach" class="AT-EditUpload btn btn-semiblue" title="Attach Files"><i class="fa-solid fa-paperclip"></i> <span>Attach</span></label>
                             				<input type="file" name="drpfiles" id="AT-toattach" class="AT-toattach" multiple @change="atselectedfiles"/>
 			
 					                    </div>
 									</li>
-									<li class="list-inline-item me mt-2">
-										<button class="btn btn-secondary" @click.prevent="cancelat(actiontaken.id)">Cancel</button>
-									</li>
 									<li class="list-inline-item me-0 mt-2">
-										<button class="btn btn-primary" @click.prevent="saveat(actiontaken.id)">Save</button>
+										<button class="btn btn-save" @click.prevent="saveat(actiontaken.id)">Save</button>
 									</li>
 								</template>
 								<template v-else>
@@ -64,7 +65,7 @@
 							</ul>
 
 						</div>
-						<div class="action--taken--attachments">
+						<div class="action--taken--attachments" v-if="selectedEditAT != actiontaken.id">
 							<template v-if="actiontaken.attachments">
 					            <template v-if="actiontaken.attachments.length > 0">
 					                <AttachmentPreview :files="actiontaken.attachments"/>
@@ -138,6 +139,7 @@
 
 			const activeItem = ref();
 			const notificationstore = useNotificationStore();
+			const selectedEditAT = ref(null);
 
 			const form = reactive({
 				'defaultmessage': '',
@@ -158,7 +160,42 @@
 				headers: {
 					xlr: 1
 				}
-			}
+			}		
+
+            notificationstore.$subscribe((m,s) => {
+                if(notificationstore.getnrc.__rc > 0){
+                    reloadActionsTakenList();
+                }
+            })
+            window.Echo.private(`cmsCH`)
+			.listen('.cmdtsactionstaken', (e) =>{
+				reloadActionsTakenList();
+			});
+            watch(()=>bus.value.get('cancelallat'), (val) => {
+                if(val ?? [] > 0){
+                	activeItem.value = null;
+					form.newmessage = '';
+					form.defaultmessage = '';
+					form.uploadedfileids = [];
+                }
+            })
+            const reloadActionsTakenList = async() =>{
+            	const cf = {
+	                headers: {
+	                    'xlr': 1
+	                }
+	            }
+            	getActionTaken(props.id,cf).then(() =>{
+					checkifdata()
+				});
+            }
+			onMounted(() =>{
+				
+				reloadActionsTakenList();
+
+			})			
+
+			
 			const removemyactiontaken = async (id) =>{
                 
                 let x = 0; //trigger
@@ -200,55 +237,27 @@
                 }
                 
             }
-
-            const cancelat = (id) =>{
+			const cancelat = (id) =>{
+            	selectedEditAT.value = null;
+            	bid.value = null;
             	document.getElementById(id).innerHTML = form.defaultmessage;
             	activeItem.value = null;
             }
-
-
-            notificationstore.$subscribe((m,s) => {
-                if(notificationstore.getnrc.__rc > 0){
-                    reloadActionsTakenList();
-                }
-            })
-
-            watch(()=>bus.value.get('cancelallat'), (val) => {
-                if(val ?? [] > 0){
-                	activeItem.value = null;
-					form.newmessage = '';
-					form.defaultmessage = '';
-					form.uploadedfileids = [];
-                }
-            })
-            const reloadActionsTakenList = async() =>{
-            	const cf = {
-	                headers: {
-	                    'xlr': 1
-	                }
-	            }
-            	getActionTaken(props.id,cf).then(() =>{
-					checkifdata()
-				});
-            }
-			onMounted(() =>{
-				
-				reloadActionsTakenList();
-
-			})			
-
-			window.Echo.private(`cmsCH`)
-			.listen('.cmdtsactionstaken', (e) =>{
-				reloadActionsTakenList();
-			});
-
 			const saveat = async(id) => {
 				form.newmessage = document.getElementById(id).innerHTML; 
 				await updateCommunicationActionTaken(id,{...form}).then(() =>{
-					activeItem.value = null;
+
+					reloadActionsTakenList();
+
 					form.newmessage = '';
 					form.defaultmessage = '';
-					reloadActionsTakenList();
+					form.uploadedfileids = [];
+
+					
+
+					activeItem.value = null;
+					selectedEditAT.value = null;
+            		bid.value = null;
 				});
 			}
 
@@ -258,9 +267,12 @@
                 for(const attachid in attachids){
                     form.uploadedfileids.push(attachids[attachid]);
                 }
-
+                console.log(form.uploadedfileids);
             }
+            
+
             const editmyactiontaken = (i, id) =>{
+            	selectedEditAT.value = id;
             	bid.value = [];
             	form.defaultmessage = '';
             	form.defaultmessage = document.getElementById(id).innerHTML;
@@ -292,7 +304,8 @@
 				moment,
 				bid,
 				updateUploaded,
-				atselectedfiles
+				atselectedfiles,
+				selectedEditAT
 			}
 		}
 	}
