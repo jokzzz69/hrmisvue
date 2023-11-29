@@ -80,7 +80,7 @@
     setup(){
       const store = useAuthStore();
       const {bus,emit}=useEventsBus()
-      const leftdisplay = ref();
+      const leftdisplay = ref(null);
 
       const hideonM = () => {
         leftdisplay.value = !leftdisplay.value;
@@ -99,6 +99,7 @@
       const bdropclick = () => {
           leftdisplay.value = !leftdisplay.value;
           emit('leftdisplay', leftdisplay.value);
+
       }
      
       return {

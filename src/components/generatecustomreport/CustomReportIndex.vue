@@ -213,218 +213,234 @@
             </div>
         </div>
     </div>
-    <table class="mtable mt-2 mb-2 table notbllink">
-        <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Middle Name</th>
-                <th>Last Name</th>
-                <th>Name Extension</th>
-                <th v-if="form.employee_type == 2">Employee Type</th>
-                <th v-if="form.fields.indexOf(1) !== -1 || form.fields.indexOf('1') !== -1">Email Address</th>
-                <th v-if="form.fields.indexOf(2) !== -1 || form.fields.indexOf('2') !== -1">Office</th>
-                <th v-if="form.fields.indexOf(3) !== -1 || form.fields.indexOf('3') !== -1 ">Position</th>
-                <th v-if="form.fields.indexOf(4) !== -1 || form.fields.indexOf('4') !== -1">Civil Status</th>
-                <th v-if="form.fields.indexOf(5) !== -1 || form.fields.indexOf('5') !== -1">Gender</th>
-                <th v-if="form.fields.indexOf(6) !== -1 || form.fields.indexOf('6') !== -1">Birthdate</th>
-                <th v-if="form.fields.indexOf(7) !== -1 || form.fields.indexOf('7') !== -1">Residential / Home Address</th>
-                <th v-if="form.fields.indexOf(8) !== -1 || form.fields.indexOf('8') !== -1">Educational Attainment</th>
-                <th v-if="form.fields.indexOf(9) !== -1 || form.fields.indexOf('9') !== -1">School Graduated</th>
-                <th v-if="form.fields.indexOf(10) !== -1 || form.fields.indexOf('10') !== -1">Eligibility</th>
-                <th v-if="form.fields.indexOf(11) !== -1 || form.fields.indexOf('11') !== -1">TIN Number</th>
-                <th v-if="form.fields.indexOf(12) !== -1 || form.fields.indexOf('12') !== -1">Mobile Number</th>
-                <th v-if="form.fields.indexOf(13) !== -1 || form.fields.indexOf('13') !== -1">Date Started</th>
-                <th v-if="form.report_type == 2">Year(s) of Service</th>
-            </tr>
-        </thead>
-        <tbody>
-            <template v-if="officerecords">
-                <template v-for="officerecord in officerecords" :key="officerecord.id">
-                    <tr>
-                        <td>
-                            <template v-if="officerecord.employee">
-                                {{officerecord.employee.employee_fname }}
-                            </template>
-                        </td>
-                        <td>
-                            <template v-if="officerecord.employee">
-                                {{ officerecord.employee.employee_mname }}
-                            </template>
-                        </td>
-                        <td>
-                            <template v-if="officerecord.employee">
-                                {{ officerecord.employee.employee_lname }}
-                            </template>
-                        </td>
-                        <td>
-                            <template v-if="officerecord.employee && officerecord.employee.employee_extname">
-                               <template v-if="checkText(officerecord.employee.employee_extname)">
-                                   {{ officerecord.employee.employee_extname }}
-                               </template>
-                            </template>
-                        </td>
-                        <td v-if="form.employee_type == 2">
-                            <template v-if="officerecord.employments[0].type_id == 1">
-                                Job Order
-                            </template>
-                            <template v-else>
-                                Permanent
-                            </template>
-                        </td>
-                        <td v-if="form.fields.indexOf(1) !== -1 || form.fields.indexOf('1') !== -1">
-                            <template v-if="officerecord.pdspersonalinformation">
-                                {{officerecord.pdspersonalinformation.emailaddress }} 
-                            </template>
-                        </td>     
-                        <td v-if="form.fields.indexOf(2) !== -1 || form.fields.indexOf('2') !== -1">
-                            <template v-if="officerecord.employments">
-                                <template v-if="officerecord.employments[0].office">
-                                    {{officerecord.employments[0].office.offices_name }} 
-                                </template>                                
-                            </template>
-                        </td>
-                        <td v-if="form.fields.indexOf(3) !== -1 || form.fields.indexOf('3') !== -1">
-                            <template v-if="officerecord.position">
-                                {{officerecord.position.name }} 
-                            </template>
-                            <template v-if="officerecord.employments">
-                                <template v-if="officerecord.employments[0].position">
-                                    {{officerecord.employments[0].position.name }} 
-                                </template>                                
-                            </template>
-                        </td>
-                        <td v-if="form.fields.indexOf(4) !== -1 || form.fields.indexOf('4') !== -1">
-                            <template v-if="officerecord.pdspersonalinformation">
-                                <template v-if="officerecord.pdspersonalinformation.civilstatus == 1">
-                                    Single
-                                </template>
-                                <template v-else-if="officerecord.pdspersonalinformation.civilstatus == 2">
-                                    Widowed
-                                </template>
-                                <template v-else-if="officerecord.pdspersonalinformation.civilstatus == 3">
-                                    Married
-                                </template>
-                                <template v-else-if="officerecord.pdspersonalinformation.civilstatus == 4">
-                                    Separated
-                                </template>
-                                <template v-else-if="officerecord.pdspersonalinformation.civilstatus == 5">
-                                    {{officerecord.pdspersonalinformation.civilstatusother}}
-                                </template>
+    <div class="row">
+        <div class="col">
+            <div class="tblWrap mt-2 mb-2 tblscroll" id="tblscroll">
+                <div class="scrollbuttons" v-if="hasScrollLeft">
 
-                            </template>
-                        </td>
-                        <td v-if="form.fields.indexOf(5) !== -1 || form.fields.indexOf('5') !== -1">
-                            <template v-if="officerecord.pdspersonalinformation">
-                                <template v-if="officerecord.pdspersonalinformation.sex == 1">
-                                    Male
-                                </template>
-                                <template v-else-if="officerecord.pdspersonalinformation.sex == 2">
-                                    Female
-                                </template>
-                            </template>
-                        </td>
-                        <td v-if="form.fields.indexOf(6) !== -1 || form.fields.indexOf('6') !== -1">
-                            <template v-if="officerecord.pdspersonalinformation">
-                                <template v-if="officerecord.pdspersonalinformation.birthdate">
-                                    {{moment(new Date(officerecord.pdspersonalinformation.birthdate)).format('MMMM D, Y') }} 
-                                </template>                            
-                            </template>
-                        </td>
-                        <td v-if="form.fields.indexOf(7) !== -1 || form.fields.indexOf('7') !== -1">
-                            <template v-if="officerecord.pdsaddress">                              
-                                <template v-if="officerecord.pdsaddress.residential_street || officerecord.pdsaddress.residential_house_no || officerecord.pdsaddress.residential_subdivision">
-                                    <template v-if="officerecord.pdsaddress.residential_house_no">
-                                        <span>{{officerecord.pdsaddress.residential_house_no}}&nbsp;</span>
-                                    </template>
-                                    <template v-if="officerecord.pdsaddress.residential_street">
-                                        <span> {{officerecord.pdsaddress.residential_street}},&nbsp;</span>
-                                    </template>
-                                    <template v-if="officerecord.pdsaddress.residential_subdivision">
-                                        <span>{{officerecord.pdsaddress.residential_subdivision}},&nbsp;</span>
-                                    </template>    
-                                </template>
-                                <template v-if="officerecord.pdsaddress.residential_barangay">
-                                    <span>{{officerecord.pdsaddress.residential_barangay}},&nbsp;</span>
-                                </template>    
-                                <template v-if="officerecord.pdsaddress.residential_municipality">
-                                    <span>{{officerecord.pdsaddress.pdsaddressres_mun.citymunDesc}},&nbsp;</span>
-                                </template>  
-                                <template v-if="officerecord.pdsaddress.residential_province">
-                                    <span>{{officerecord.pdsaddress.pdsaddressres_prov.provDesc}}&nbsp;</span>
-                                </template>                  
-                            </template>
-                        </td>
-                        <td v-if="form.fields.indexOf(8) !== -1 || form.fields.indexOf('8') !== -1">                            
-                            <template v-if="officerecord.pdseducationalbackgroundtertiary.length > 0">                           
-                                <template v-for="(val,key) in officerecord.pdseducationalbackgroundtertiary">                                        
-                                        <template v-if="val.tertiary_course && checkText(val.tertiary_course)">
-                                            {{val.tertiary_course}}<br/> 
-                                        </template>                                                       
-                                </template>
+                    <template v-if="scrolledtoBottom">
+                        <ul class="list-unstyled p-0 list-inline">
+                            <li class="list-inline-item"><span @click.prevent="scrollLeft"><i class="fa-regular fa-circle-left"></i></span></li>
+                            <li class="list-inline-item"><span @click.prevent="scrollRight"><i class="fa-regular fa-circle-right"></i></span></li>
+                        </ul>
+                    </template>
+                    
+                </div>
+                <table class="mtable table nottbllink tblWNoWrap">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Middle Name</th>
+                            <th>Last Name</th>
+                            <th>Name Extension</th>
+                            <th v-if="form.employee_type == 2">Employee Type</th>
+                            <th v-if="form.fields.indexOf(1) !== -1 || form.fields.indexOf('1') !== -1">Email Address</th>
+                            <th v-if="form.fields.indexOf(2) !== -1 || form.fields.indexOf('2') !== -1">Office</th>
+                            <th v-if="form.fields.indexOf(3) !== -1 || form.fields.indexOf('3') !== -1 ">Position</th>
+                            <th v-if="form.fields.indexOf(4) !== -1 || form.fields.indexOf('4') !== -1">Civil Status</th>
+                            <th v-if="form.fields.indexOf(5) !== -1 || form.fields.indexOf('5') !== -1">Gender</th>
+                            <th v-if="form.fields.indexOf(6) !== -1 || form.fields.indexOf('6') !== -1">Birthdate</th>
+                            <th v-if="form.fields.indexOf(7) !== -1 || form.fields.indexOf('7') !== -1">Residential / Home Address</th>
+                            <th v-if="form.fields.indexOf(8) !== -1 || form.fields.indexOf('8') !== -1">Educational Attainment</th>
+                            <th v-if="form.fields.indexOf(9) !== -1 || form.fields.indexOf('9') !== -1">School Graduated</th>
+                            <th v-if="form.fields.indexOf(10) !== -1 || form.fields.indexOf('10') !== -1">Eligibility</th>
+                            <th v-if="form.fields.indexOf(11) !== -1 || form.fields.indexOf('11') !== -1">TIN Number</th>
+                            <th v-if="form.fields.indexOf(12) !== -1 || form.fields.indexOf('12') !== -1">Mobile Number</th>
+                            <th v-if="form.fields.indexOf(13) !== -1 || form.fields.indexOf('13') !== -1">Date Started</th>
+                            <th v-if="form.report_type == 2">Year(s) of Service</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template v-if="officerecords">
+                            <template v-for="officerecord in officerecords" :key="officerecord.id">
+                                <tr>
+                                    <td>
+                                        <template v-if="officerecord.employee">
+                                            {{officerecord.employee.employee_fname }}
+                                        </template>
+                                    </td>
+                                    <td>
+                                        <template v-if="officerecord.employee">
+                                            {{ officerecord.employee.employee_mname }}
+                                        </template>
+                                    </td>
+                                    <td>
+                                        <template v-if="officerecord.employee">
+                                            {{ officerecord.employee.employee_lname }}
+                                        </template>
+                                    </td>
+                                    <td>
+                                        <template v-if="officerecord.employee && officerecord.employee.employee_extname">
+                                           <template v-if="checkText(officerecord.employee.employee_extname)">
+                                               {{ officerecord.employee.employee_extname }}
+                                           </template>
+                                        </template>
+                                    </td>
+                                    <td v-if="form.employee_type == 2">
+                                        <template v-if="officerecord.employments[0].type_id == 1">
+                                            Job Order
+                                        </template>
+                                        <template v-else>
+                                            Permanent
+                                        </template>
+                                    </td>
+                                    <td v-if="form.fields.indexOf(1) !== -1 || form.fields.indexOf('1') !== -1">
+                                        <template v-if="officerecord.pdspersonalinformation">
+                                            {{officerecord.pdspersonalinformation.emailaddress }} 
+                                        </template>
+                                    </td>     
+                                    <td v-if="form.fields.indexOf(2) !== -1 || form.fields.indexOf('2') !== -1">
+                                        <template v-if="officerecord.employments">
+                                            <template v-if="officerecord.employments[0].office">
+                                                {{officerecord.employments[0].office.offices_name }} 
+                                            </template>                                
+                                        </template>
+                                    </td>
+                                    <td v-if="form.fields.indexOf(3) !== -1 || form.fields.indexOf('3') !== -1">
+                                        <template v-if="officerecord.position">
+                                            {{officerecord.position.name }} 
+                                        </template>
+                                        <template v-if="officerecord.employments">
+                                            <template v-if="officerecord.employments[0].position">
+                                                {{officerecord.employments[0].position.name }} 
+                                            </template>                                
+                                        </template>
+                                    </td>
+                                    <td v-if="form.fields.indexOf(4) !== -1 || form.fields.indexOf('4') !== -1">
+                                        <template v-if="officerecord.pdspersonalinformation">
+                                            <template v-if="officerecord.pdspersonalinformation.civilstatus == 1">
+                                                Single
+                                            </template>
+                                            <template v-else-if="officerecord.pdspersonalinformation.civilstatus == 2">
+                                                Widowed
+                                            </template>
+                                            <template v-else-if="officerecord.pdspersonalinformation.civilstatus == 3">
+                                                Married
+                                            </template>
+                                            <template v-else-if="officerecord.pdspersonalinformation.civilstatus == 4">
+                                                Separated
+                                            </template>
+                                            <template v-else-if="officerecord.pdspersonalinformation.civilstatus == 5">
+                                                {{officerecord.pdspersonalinformation.civilstatusother}}
+                                            </template>
 
-                            </template>  
-                            <template v-else>
-                                <template v-if="officerecord.pdseducationalbackground">
-                                    <template v-if="officerecord.pdseducationalbackground.secondary_course && checkText(officerecord.pdseducationalbackground.secondary_course)">
-                                            {{officerecord.pdseducationalbackground.secondary_course}}<br/> 
-                                        </template>                                     
-                                </template>
-                            </template>                     
-                        </td>
-                        <td v-if="form.fields.indexOf(9) !== -1 || form.fields.indexOf('9') !== -1">
-                            <template v-if="officerecord.pdseducationalbackgroundtertiary.length > 0">                           
-                                <template v-for="(val,key) in officerecord.pdseducationalbackgroundtertiary">
-                                    <template v-if="val.tertiary_school && checkText(val.tertiary_school)">
-                                        {{val.tertiary_school}} <br/>   
-                                    </template>                                                      
-                                </template>
+                                        </template>
+                                    </td>
+                                    <td v-if="form.fields.indexOf(5) !== -1 || form.fields.indexOf('5') !== -1">
+                                        <template v-if="officerecord.pdspersonalinformation">
+                                            <template v-if="officerecord.pdspersonalinformation.sex == 1">
+                                                Male
+                                            </template>
+                                            <template v-else-if="officerecord.pdspersonalinformation.sex == 2">
+                                                Female
+                                            </template>
+                                        </template>
+                                    </td>
+                                    <td v-if="form.fields.indexOf(6) !== -1 || form.fields.indexOf('6') !== -1">
+                                        <template v-if="officerecord.pdspersonalinformation">
+                                            <template v-if="officerecord.pdspersonalinformation.birthdate">
+                                                {{moment(new Date(officerecord.pdspersonalinformation.birthdate)).format('MMMM D, Y') }} 
+                                            </template>                            
+                                        </template>
+                                    </td>
+                                    <td v-if="form.fields.indexOf(7) !== -1 || form.fields.indexOf('7') !== -1">
+                                        <template v-if="officerecord.pdsaddress">                              
+                                            <template v-if="officerecord.pdsaddress.residential_street || officerecord.pdsaddress.residential_house_no || officerecord.pdsaddress.residential_subdivision">
+                                                <template v-if="officerecord.pdsaddress.residential_house_no">
+                                                    <span>{{officerecord.pdsaddress.residential_house_no}}&nbsp;</span>
+                                                </template>
+                                                <template v-if="officerecord.pdsaddress.residential_street">
+                                                    <span> {{officerecord.pdsaddress.residential_street}},&nbsp;</span>
+                                                </template>
+                                                <template v-if="officerecord.pdsaddress.residential_subdivision">
+                                                    <span>{{officerecord.pdsaddress.residential_subdivision}},&nbsp;</span>
+                                                </template>    
+                                            </template>
+                                            <template v-if="officerecord.pdsaddress.residential_barangay">
+                                                <span>{{officerecord.pdsaddress.residential_barangay}},&nbsp;</span>
+                                            </template>    
+                                            <template v-if="officerecord.pdsaddress.residential_municipality">
+                                                <span>{{officerecord.pdsaddress.pdsaddressres_mun.citymunDesc}},&nbsp;</span>
+                                            </template>  
+                                            <template v-if="officerecord.pdsaddress.residential_province">
+                                                <span>{{officerecord.pdsaddress.pdsaddressres_prov.provDesc}}&nbsp;</span>
+                                            </template>                  
+                                        </template>
+                                    </td>
+                                    <td v-if="form.fields.indexOf(8) !== -1 || form.fields.indexOf('8') !== -1">                            
+                                        <template v-if="officerecord.pdseducationalbackgroundtertiary.length > 0">                           
+                                            <template v-for="(val,key) in officerecord.pdseducationalbackgroundtertiary">                                        
+                                                    <template v-if="val.tertiary_course && checkText(val.tertiary_course)">
+                                                        {{val.tertiary_course}}<br/> 
+                                                    </template>                                                       
+                                            </template>
 
-                            </template>  
-                            <template v-else>
-                                <template v-if="officerecord.pdseducationalbackground">
-                                    <template v-if="officerecord.pdseducationalbackground.secondary_school && checkText(officerecord.pdseducationalbackground.secondary_school)">
-                                        {{officerecord.pdseducationalbackground.secondary_school}} <br/>   
-                                    </template>
-                                </template>
-                            </template>       
-                        </td>
-                        <td v-if="form.fields.indexOf(10) !== -1 || form.fields.indexOf('10') !== -1">
-                            <template v-if="officerecord.pdscsc">
-                                <template v-for="val in officerecord.pdscsc">
-                                    {{val.csc_licensename }} 
-                                </template>                            
+                                        </template>  
+                                        <template v-else>
+                                            <template v-if="officerecord.pdseducationalbackground">
+                                                <template v-if="officerecord.pdseducationalbackground.secondary_course && checkText(officerecord.pdseducationalbackground.secondary_course)">
+                                                        {{officerecord.pdseducationalbackground.secondary_course}}<br/> 
+                                                    </template>                                     
+                                            </template>
+                                        </template>                     
+                                    </td>
+                                    <td v-if="form.fields.indexOf(9) !== -1 || form.fields.indexOf('9') !== -1">
+                                        <template v-if="officerecord.pdseducationalbackgroundtertiary.length > 0">                           
+                                            <template v-for="(val,key) in officerecord.pdseducationalbackgroundtertiary">
+                                                <template v-if="val.tertiary_school && checkText(val.tertiary_school)">
+                                                    {{val.tertiary_school}} <br/>   
+                                                </template>                                                      
+                                            </template>
+
+                                        </template>  
+                                        <template v-else>
+                                            <template v-if="officerecord.pdseducationalbackground">
+                                                <template v-if="officerecord.pdseducationalbackground.secondary_school && checkText(officerecord.pdseducationalbackground.secondary_school)">
+                                                    {{officerecord.pdseducationalbackground.secondary_school}} <br/>   
+                                                </template>
+                                            </template>
+                                        </template>       
+                                    </td>
+                                    <td v-if="form.fields.indexOf(10) !== -1 || form.fields.indexOf('10') !== -1">
+                                        <template v-if="officerecord.pdscsc">
+                                            <template v-for="val in officerecord.pdscsc">
+                                                {{val.csc_licensename }} 
+                                            </template>                            
+                                        </template>
+                                    </td>
+                                    <td v-if="form.fields.indexOf(11) !== -1 || form.fields.indexOf('11') !== -1">
+                                        <template v-if="officerecord.pdspersonalinformation">
+                                            {{officerecord.pdspersonalinformation.tin_no    }} 
+                                        </template>
+                                    </td>
+                                    <td v-if="form.fields.indexOf(12) !== -1 || form.fields.indexOf('12') !== -1">
+                                        <template v-if="officerecord.pdspersonalinformation">
+                                            {{officerecord.pdspersonalinformation.mobile_no }} 
+                                        </template>
+                                    </td>
+                                    <td v-if="form.fields.indexOf(13) !== -1 || form.fields.indexOf('13') !== -1">
+                                        <template v-if="officerecord.employments[0].startdate">
+                                            {{moment(new Date(officerecord.employments[0].startdate)).format('MMMM DD, YYYY')}} 
+                                        </template>
+                                    </td>
+                                    <td v-if="form.report_type == 2">
+                                        <template v-if="officerecord.employments[0].yearofservice">                                
+                                            {{convertMtoY(officerecord.employments[0].yearofservice)}}                   
+                                        </template>                            
+                                    </td>
+                                </tr>
                             </template>
-                        </td>
-                        <td v-if="form.fields.indexOf(11) !== -1 || form.fields.indexOf('11') !== -1">
-                            <template v-if="officerecord.pdspersonalinformation">
-                                {{officerecord.pdspersonalinformation.tin_no    }} 
-                            </template>
-                        </td>
-                        <td v-if="form.fields.indexOf(12) !== -1 || form.fields.indexOf('12') !== -1">
-                            <template v-if="officerecord.pdspersonalinformation">
-                                {{officerecord.pdspersonalinformation.mobile_no }} 
-                            </template>
-                        </td>
-                        <td v-if="form.fields.indexOf(13) !== -1 || form.fields.indexOf('13') !== -1">
-                            <template v-if="officerecord.employments[0].startdate">
-                                {{moment(new Date(officerecord.employments[0].startdate)).format('MMMM DD, YYYY')}} 
-                            </template>
-                        </td>
-                        <td v-if="form.report_type == 2">
-                            <template v-if="officerecord.employments[0].yearofservice">                                
-                                {{convertMtoY(officerecord.employments[0].yearofservice)}}                   
-                            </template>                            
-                        </td>
-                    </tr>
-                </template>
-            </template>
-            <template v-else>
-                <tr>
-                    <td :colspan="form.fields.length + 4" class="text-center">No Data Generated</td>
-                </tr>
-            </template>
-        </tbody>
-    </table>
+                        </template>
+                        <template v-else>
+                            <tr>
+                                <td :colspan="form.fields.length + 4" class="text-center">No Data Generated</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </template>
 <script>
     import {onMounted ,ref, computed, inject, reactive} from 'vue';
@@ -458,6 +474,36 @@
             const allFields = ref(false);
             const {generateCustomReport, errors, officerecords, getOfficeRecords, downloadcustomPDF, downloadcustomExcel} = useCustomReport()
             const {getLocations, locations} = useLocations()
+            const scrolledtoBottom = ref(false);
+            const hasScrollLeft = ref(false);
+
+            
+
+            const checkIfhasScroll = () =>{
+                var bodyVal = document.getElementsByTagName("BODY")[0];
+                var div = document.getElementById('tblscroll');
+                var cwrap = document.getElementsByClassName('content-wrap')[0];
+
+
+                var hasHorizontalScrollbar = div.scrollWidth > cwrap.scrollWidth;
+                var hasVerticalScrollbar = bodyVal.scrollHeight > window.innerHeight;
+
+                hasScrollLeft.value = hasHorizontalScrollbar;
+                scrolledtoBottom.value = hasVerticalScrollbar;
+            }
+            const handlescroll = () =>{               
+                
+                window.onscroll = () => {
+                    let bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight
+
+                    if (bottomOfWindow) {
+                        scrolledtoBottom.value = false // replace it with your code
+                    }else{
+                        scrolledtoBottom.value = true;
+                    }
+                }
+            }
+
 
             const form = reactive({
                 'employee_type' : '',
@@ -484,8 +530,19 @@
                 })
                 form.employee_type = 2;
                 form.report_type = 1;
-            })
 
+                handlescroll();
+            })
+            const scrollLeft = () =>{
+                console.log('left');
+                var div = document.getElementById('tblscroll');
+                div.scrollLeft -= 300;
+            }
+            const scrollRight = () =>{
+                console.log('right');
+                var div = document.getElementById('tblscroll');
+                div.scrollLeft += 300;
+            }
 
             const sortTable = (columnName) => {
 
@@ -497,6 +554,7 @@
                 }else{
                     form.fields = [];
                 }
+                checkIfhasScroll();
             }
             const updateCheck = async () => {
                 if(allSelected.value){                    
@@ -519,6 +577,7 @@
                 if(form.fields.length  == 13){
                     allFields.value = true;
                 }
+                checkIfhasScroll();
             }
             const selectChange = async () => {
                 form.yearofservice = '';
@@ -528,7 +587,7 @@
             }
             const generateReport = async() => {
                 await generateCustomReport({ ...form });
-                
+                checkIfhasScroll();
 
             }
             const convertMtoY = (x) => {
@@ -604,7 +663,11 @@
                 downloadgeneratedcustomExcel,
                 downloadgeneratedcustomPDF,
                 authslug,
-                hld
+                hld,
+                scrolledtoBottom,
+                hasScrollLeft,
+                scrollLeft,
+                scrollRight
 			}
 		}
 	}

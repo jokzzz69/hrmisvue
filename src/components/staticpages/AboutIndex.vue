@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 fs-5 p-4">     
+            <div class="col-sm-12 fs-5 p-4 bg-light bg-gradient st-page">     
                <p>The <strong>Human Resource Management Information System</strong> (HRMIS) is an online system designed and developed by BFAR-CAR RFIMC personnel to manage human resource information within the Regional Office. It allows HR staff to manage employees data in a centralized database. The system encompasses several key areas of HR management, including:</p>
                <ol>
                     <li class="ps-2 mt-2">

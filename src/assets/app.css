@@ -75,7 +75,8 @@ body{
 .li-leavedetails li div label:hover,
 .li-leavedetails li div input:hover,
 .AT-toattach-btn:hover,
-.AT-EditUpload:hover{
+.AT-EditUpload:hover,
+.scrollbuttons span{
 	cursor: pointer;
 }
 .col-chk{
@@ -1512,12 +1513,16 @@ tr.disabled{
 }
 .content-wrap{
 	width: 100%;
+	overflow: hidden;
 }
-
+.tblscroll{
+	overflow-x: auto;
+}
 .sidebarleft{
 
 	width: 15%;
 	max-width: calc(15% - 2%);
+	min-width: calc(15% - 2%);
 }
 #sidenav{
 	position: fixed;
@@ -2745,7 +2750,29 @@ div.bt{
 	display: none !important;
 }
 /*end coms*/
-
+.st-page{
+	box-shadow: 0 0 5px #00000026;
+    -moz-box-shadow: 0 0 40px 0 rgba(0,0,0,.15);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+}
+.scrollbuttons{
+	position: fixed;
+	z-index: 999;
+	right: 1rem;
+	bottom: 1rem;
+}
+.scrollbuttons span{
+	font-size: 1.5rem;
+}
+.scrollbuttons span:hover,
+.scrollbuttons span:focus{
+	color: #0084b4;
+}
+.tblWNoWrap{
+	white-space: nowrap;
+}
 /*end content*/
 @media(max-width: 500px){
 

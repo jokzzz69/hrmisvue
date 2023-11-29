@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row">
-                <div class="col-sm-12 fs-5 p-4">     
+                <div class="col-sm-12 fs-5 p-4 bg-light bg-gradient st-page">     
                    <p>The <strong>Communications Monitoring and Document Tracking System</strong> (CMDTS) is an online system designed and developed by BFAR-CAR RFIMC personnel to monitor and track various forms of communication and document exchange within the regional office. It will be used to enhance security, ensure regulatory compliance, and maintain control over sensitive information.</p>
                    <ol>
                         <li class="ps-2 mt-2">
