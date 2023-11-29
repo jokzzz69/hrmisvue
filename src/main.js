@@ -45,7 +45,7 @@ const ls = new SecureLS({encodingType: 'des',isCompression: false, encryptionSec
 //pinia.use(piniaPluginPersistedstate);
 pinia.use(createPersistedState({
 
-	key: id => `__bfarhrmis__${id}`,
+	key: id => `__bfarrfims__${id}`,
 	storage: {
     getItem: key => ls.get(key),
     setItem: (key, value) => ls.set(key, value),
