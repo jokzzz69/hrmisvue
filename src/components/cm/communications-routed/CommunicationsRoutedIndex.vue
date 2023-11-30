@@ -203,6 +203,7 @@
 
 
             notificationstore.$subscribe((m,s) => {
+                
                 if(notificationstore.getnrc.__rc > 0){
                     loadData();
                 }

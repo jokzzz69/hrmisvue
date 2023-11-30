@@ -1,29 +1,26 @@
 <template>
     <div class="row">
-        <div class=" col pb-4 pt-2">
+        <div class="col pb-4 pt-2 rAb">
             <div class="at--BoxWrap">               
-                <div>
-                    <span class="d-block mb-1"><strong>Add Actions Taken</strong></span>
-                    <div class="actiontakenMessage" ref="actxt" contenteditable="true" @blur="getContent"></div>
+                <div class="at--BoxWrap--content">
+                    <div class="actiontakenMessage" ref="actxt" contenteditable="true"  @blur="getContent"></div>
                     <div class="comm--AT--attachments">
                         <AttachFileCommunication :attachments="bid" @getUploadedFile="updateUploaded"/>
                     </div>
                 </div>
-                <div class="mt-2">
-                    <div class="at--BoxWrap--actionsButtons">
-                        <ul class="at__BoxWrap__actionsButtons__list">
-                            <li>
-                                <button class="btn btn-save" @click.prevent="submitActionTaken">Submit</button>
-                            </li>
-                            <li>                                
-                                <label for="AT-toattach" class="AT-toattach-btn" title="Attach Files"><i class="fa-solid fa-paperclip"></i></label>
-                                <input type="file" name="drpfiles" id="AT-toattach" class="AT-toattach" multiple @change="atselectedfiles"/>
-                            </li>
-                        </ul>                        
+                <div class="at--BoxWrap--actions">
+                    <div>
+                        <button class="btn btn-secondary" title="Delete" @click.prevent="removeactiontaken">Cancel</button>
                     </div>
-                    <div class="at--BoxWrap--actionsButtons">
-                        <button class="btn btn-removeAT" title="Delete" @click.prevent="removeactiontaken"><i class="fa-solid fa-trash-can"></i></button>
+                    <div>
+                        <label for="AT-toattach" class="btn btn-semiblue" title="Attach Files"><i class="fa-solid fa-paperclip"></i> Attach</label>
+                        <input type="file" name="drpfiles" id="AT-toattach" class="AT-toattach" multiple @change="atselectedfiles"/>
                     </div>
+                    <div>
+                        <button class="btn btn-save" @click.prevent="submitActionTaken">Submit</button>
+                    </div>
+                    
+                    
                 </div>               
             </div>
         </div>       
@@ -84,6 +81,7 @@
             }
             const removeactiontaken = () =>{
                 emit('actionbox', false);
+                emit('cancelallat', 1);
                 actioncontent.message = '';
             }
             const getContent = (evt) => {

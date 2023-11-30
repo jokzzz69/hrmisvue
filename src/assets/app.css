@@ -6,16 +6,93 @@
 body{
 	font-size: .9rem;
 }
+
+
+.maintenance .modal-container h1,
+.pNotif--message,
+.notificationdate,
+.totalactionstaken,
+.pNotif--message--date{
+	font-family: 'Open Sans', sans-serif;
+}
+.rff,
+#sidenav ul li a,
+.p-title,
+.biomonitoring-user-name,
+.fm,
+.pProfilewrap-title h2,
+.pPDSwrap-title h2,
+.pPDSwrap-title h3,
+.p404,
+.actionsWrapTitle,
+.empNavTitle span{
+	font-family: 'Metropolis Bold';
+}
+.m-error,
+.pds-group-title span span,
+.headingtitle span{
+	font-family: 'Metropolis Regular Italic';
+}
+.modal-container,
+.modal-container.displaypds{
+	font-family: Helvetica, Arial, sans-serif;
+}
+.new__commBTNV,
+.new__commBTN{
+	font-family: "Google Sans",Roboto,RobotoDraft,Helvetica,Arial,sans-serif !important;
+}
+.notification-title{
+	font-family: 'Raleway', sans-serif;
+}
+#w--draftcount{
+	font-family: 'Roboto', sans-serif;
+}
+.unread .sp_agency,
+.unread .sp__suject,
+.unread .sp_disseminator,
+.unread .sp_datein,
+.unread .sp_documentnumber,
+.unread .sp_to span,
+.spFooter span{
+	font-weight: bold;
+}
+.notification-content.is_read strong{
+	font-weight: normal !important;
+}
+.maintenance .modal-container h1,
+.w__c span#w--communication,
+.w__c span#w--routed,
+.empNavTitle span,
+.totalactionstaken,
+.filedescription .title{
+	font-weight: 700;
+}
+.notification-title{
+	font-weight: 600;
+}
+.fileuprow .uploadeddetails,
+.communication--uploaded--by span,
+.action--taken--employee{
+	font-weight: 500;
+}
+.fflabel .inner-div{
+	font-weight: 400;
+}
+.action--taken--employee span.sp-dateSent,
+.pNotif--message--date,
+.notificationdate{
+	font-weight: 300;
+}
+.psSticky > div{
+	position: sticky !important;
+}
 .hbar{
 	overflow: hidden !important;
 }
 .maintenance .modal-container{
 	background: #f1c40f !important;
 }
-.maintenance .modal-container h1{
-	font-family: 'Open Sans', sans-serif;
-	font-weight: 700;
-}
+
 .btn{
 	font-size: .9rem;
 }
@@ -31,9 +108,7 @@ body{
   height: 25px;
   border: solid 3px transparent !important;
 }
-.rff{
-	font-family: 'Metropolis Bold';
-}
+
 .ls-frmbutton{
 	list-style: none;
 	display: block;
@@ -76,7 +151,8 @@ body{
 .li-leavedetails li div input:hover,
 .AT-toattach-btn:hover,
 .AT-EditUpload:hover,
-.scrollbuttons span{
+.scrollbuttons span,
+.pNotifWrap:hover{
 	cursor: pointer;
 }
 .col-chk{
@@ -122,7 +198,7 @@ body{
 }
 #sidenav ul li a{
 	color: #000;
-	font-family: 'Metropolis Bold';
+
 	text-decoration: none;
 	display: block;
 }
@@ -225,9 +301,7 @@ body{
 	
 	background: rgba(109, 201, 247, .3);
 }
-.p-title{
-	font-family: 'Metropolis Bold';
-}
+
 .mtable thead tr th:not(last-child):hover{
 	cursor: pointer;
 }
@@ -353,12 +427,9 @@ body{
    --dp-highlight-color: rgba(0, 92, 178, 0.2);
 }
 .biomonitoring-user-name{
-	font-family: 'Metropolis Bold';
 	font-size: 20px;
 }
-.fm{
-	font-family: 'Metropolis Bold';
-}
+
 .m19{
 	min-height: 30px;
     display: block;
@@ -747,7 +818,6 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown){
 }
 .m-error{
 	font-size: 12px;
-	font-family: 'Metropolis Regular Italic';
 }
 .req{
     position: relative;
@@ -892,7 +962,6 @@ input[type=number] {
 	background: #4e95dd;
 }
 .pds-group-title span span{
-	font-family: 'Metropolis Regular Italic';
 	font-size: 13px;
 	margin-bottom: 0px;
 	padding:0px;
@@ -1024,7 +1093,6 @@ input[type=number] {
 .pPDSwrap-title h2,
 .pPDSwrap-title h3{
 	font-size: 1rem;
-	font-family: 'Metropolis Bold';
 	color: #333;
 }
 .pPDSwrap-title h2{
@@ -1122,7 +1190,6 @@ input[type=number] {
 	margin-bottom: 0px;
 }
 .headingtitle span{
-	font-family: 'Metropolis Regular Italic';
 	font-size: 12px;
 }
 .headingtitle h2,
@@ -1165,8 +1232,54 @@ span.noContent{
 #sidenavtoggler:focus i{
 	color: #ccc;
 }
-.btntopnavbars{
+.notificationContainer{
+	    box-shadow: 0 0 5px #00000026;
+    -moz-box-shadow: 0 0 40px 0 rgba(0,0,0,.15);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+}
 
+.pNotifWrap{
+	display: flex;
+    flex-wrap: wrap;
+}
+.pNotifWrap:hover{
+	border-radius: 5px;
+/*	box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);*/
+    z-index: 2;
+    --bs-table-bg: rgba(80,111,217,.1);
+    background-color: rgba(80,111,217,.1);
+}
+.pNotif--avatar,
+.pNotif--message{
+	flex-shrink: 0;
+	flex: 0 0 auto;
+    max-width: 100%;
+}
+.pNotif--avatar{
+	min-width: 10%;
+}
+.pNotif--avatar{
+	padding: .5rem;
+}
+.pNotif--avatar img{
+	width: 100%;
+	height: auto;
+}
+.pNotif--message{
+	flex: 1 0 0%;
+	padding: .675rem .5rem;
+
+	font-size: .876rem;
+}
+.pNotif--message{
+	display: flex;
+	flex-direction: column;
+}
+.pNotif--message--date{
+	color: #6e7985;
+	font-style: italic;
 }
 .fl{
 	float: left;
@@ -1246,7 +1359,6 @@ span.noContent{
 .spFooter span{
 	float: left;
 	width: 100%;
-	font-weight: bold;
 }
 
 .bg-blue{
@@ -1342,7 +1454,6 @@ td.Sunday{
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
 }
 
 
@@ -1399,7 +1510,7 @@ td.Sunday{
 	background: rgba(109, 201, 247, .1);
 }
 .p404{
-	font-family: 'Metropolis Bold';
+
 	text-align: center;
 }
 .txt404{
@@ -1407,7 +1518,7 @@ td.Sunday{
 	line-height: 90px;
 }
 .actionsWrapTitle{
-	font-family: 'Metropolis Bold';
+
 	font-size: 1.2rem;
 }
 tr.disabled{
@@ -1679,14 +1790,6 @@ ul.cwrap--content--child{
 
 }
 
-.unread .sp_agency,
-.unread .sp__suject,
-.unread .sp_disseminator,
-.unread .sp_datein,
-.unread .sp_documentnumber,
-.unread .sp_to span{
-	font-weight: bold;
-}
 
 tr.nodata{
 	border-color: transparent !important;
@@ -1736,7 +1839,6 @@ tbody tr.read {
 .w__c span#w--communication,
 .w__c span#w--routed{
 	position: absolute;
-	font-weight: 700;
 	font-size: .79em;
 	right: .768em;
 	top:.9em;
@@ -1768,14 +1870,12 @@ tbody tr.read {
     margin-bottom: 5px;
     padding: 0 10px;
     font-size: .9rem;
-    font-weight: 700;
+    
     color: #0f1b91;
-    font-family: 'Metropolis Bold';
 }
 /*endNavemployee*/
 .new__commBTNV,
 .new__commBTN{
-	font-family: "Google Sans",Roboto,RobotoDraft,Helvetica,Arial,sans-serif !important;
 
 	text-align: left;
 }
@@ -1907,12 +2007,9 @@ a#drpnotifs{
 	padding: 10px 15px 8px 15px;
 }
 .notification-title{
-	font-weight: 600;
     font-size: 17px;
     color: #0f1b91;
     margin-bottom: 0;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 600;
 }
 .notification-footer a{
 	color: #506fd9;
@@ -1932,9 +2029,7 @@ a#drpnotifs{
 	display: block;
 	border-radius: 5px;
 }
-.notification-content.is_read strong{
-	font-weight: normal !important;
-}
+
 .notification-item{
 	position: relative;
 }
@@ -1942,7 +2037,6 @@ a#drpnotifs{
 	display: block;
 	    font-size: 12px;
     color: #6e7985;
-    font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;
 }
 .notification-status.new{
 	width: 10px;
@@ -1958,6 +2052,8 @@ a#drpnotifs{
 }
 .notifications-body{
 	font-size: .9rem;
+	overflow-y: auto;
+	max-height: 70vh;
 }
 .min-vh-75 {
     min-height: 75vh;
@@ -2161,7 +2257,6 @@ section .fileuprow-communications:last-child{
 }
 .fileuprow .uploadeddetails{
 	font-size: .7rem;
-	font-weight: 500;
 }
 span.remove i{
 	font-size: 20px;
@@ -2239,7 +2334,6 @@ span.remove button:focus{
 	  width: 100%;
     padding: 0.375rem 0.75rem;
     font-size: 0.9rem;
-    font-weight: 400;
     line-height: 1.6;
 }
 .fflabel .form-control:focus{
@@ -2275,9 +2369,7 @@ span.remove button:focus{
 .communication--uploaded--by{
 	margin-bottom:.5rem;
 }
-.communication--uploaded--by span{
-	font-weight: 500;
-}
+
 .fflabel .badge{
 	font-size: .923rem;
 	background: #0d6efd;
@@ -2287,15 +2379,6 @@ span.remove button:focus{
 	background: #ededed;
 	padding: 15px;
 	border-radius: 3px 25px 3px 25px;
-}
-#w--draftcount {
-    color: #939393;
-    position: absolute;
-    top: 45%;
-    right: 0.7rem;
-    transform: translate(-50%,-50%);
-    font-size: .8rem;
-    font-family: 'roboto';
 }
 .nav-relative {
     position: relative;
@@ -2351,7 +2434,7 @@ span.remove button:focus{
 	margin-right: .5rem;
 }
 .filedescription .title{
-	font-weight: 700;
+
 	font-size: .8rem;
 	line-height: 18px;
 	margin-bottom: .2rem;
@@ -2465,7 +2548,6 @@ span.remove button:focus{
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
 
 }
 .modal-container.is-image{
@@ -2559,6 +2641,7 @@ span.remove button:focus{
 	overflow-y: scroll;
 	position: relative;
 }
+.navbarRight .notifications-body::-webkit-scrollbar,
 .content__card__wrap::-webkit-scrollbar {
   width: 7px;
 }
@@ -2566,21 +2649,24 @@ span.remove button:focus{
 
 
 /* Track */
+.navbarRight .notifications-body::-webkit-scrollbar-track,
 .content__card__wrap::-webkit-scrollbar-track {
   background: rgba(226,229,236, 1.0); 
 }
  
 /* Handle */
+.navbarRight .notifications-body::-webkit-scrollbar-thumb,
 .content__card__wrap::-webkit-scrollbar-thumb {
   background: #888; 
 }
 
 /* Handle on hover */
+.navbarRight .notifications-body::-webkit-scrollbar-thumb:hover,
 .content__card__wrap::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
 .btn--employeeActions{
-	margin:1rem 0 .5rem 0;
+	margin:.5rem 0 0 0;
 }
 .btn--employeeActions button{
 	border-color: #ccc;
@@ -2593,21 +2679,31 @@ span.remove button:focus{
 	background-color: rgba(80,111,217,.1);
 }
 .at--BoxWrap {
-	padding: 15px;
+	padding: 10px;
 	box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 2px 6px 2px rgba(60,64,67,0.149);
     border: 1px solid transparent;
     background: #fff;
     border-radius: 10px;
     display: flex;
 	flex-wrap: wrap;
+}
 
-}
-.at--BoxWrap > div{
+.at--BoxWrap--content,
+.at--BoxWrap--actions{
 	flex: 0 0 auto;
-    width: 100%;
+    max-width: 100%;
 }
-.at--BoxWrap > div:last-child{
+
+.at--BoxWrap--content{
+	    flex: 1 0 0%;
+}
+.at--BoxWrap--actions{
 	display: flex;
+    align-items: center;
+    padding: 0 0.5rem 0 1rem;
+}
+.at--BoxWrap--actions > div{
+	padding: 0 .1rem;
 }
 .at--BoxWrap--actionsButtons{
 	flex: 0 0 auto;
@@ -2654,7 +2750,6 @@ span.remove button:focus{
 	border-bottom: 1px solid rgba(100,121,143,0.122);
 }
 .action--taken--employee{
-	font-weight: 500;
 	margin-bottom: .3rem;
 	font-size: .9rem;
 	position: relative;
@@ -2662,13 +2757,14 @@ span.remove button:focus{
 .action--taken--employee span.sp-dateSent{
 	position: absolute;
 	right: 0;
-	font-weight: 300;
+
 }
 .action--taken--employeeprofile{
 	flex: 0 0 auto;
     width: auto;
 }
-.action--taken--employeeprofile img{
+.action--taken--employeeprofile img,
+.pNotif--avatar img{
 	border-radius: 50%;
 	border:1px solid #999;
 }
@@ -2683,7 +2779,7 @@ span.remove button:focus{
 .actiontakenMessage{
 	border: 1px solid #b0b7ff;
 	border-radius: 5px;
-	min-height: 5rem;
+	min-height: 4rem;
 	padding: .5rem;
 }
 [contenteditable]{
@@ -2703,8 +2799,7 @@ div.bt{
 
 .totalactionstaken{
 	margin-left: .789rem;
-	font-family: 'Open Sans', sans-serif;
-	font-weight: 700;
+
 	color: #bbb;
 }
 .unread .totalactionstaken{
@@ -2749,6 +2844,21 @@ div.bt{
 .nonReq .mainLabel span{
 	display: none !important;
 }
+.prC > .row{
+	position: relative;
+}
+.rAb{
+	position: absolute;
+	z-index: 999;
+	bottom: -8rem;
+	width: 100%;
+}
+.at--BoxWrap--actions{
+	display: flex;
+    align-items: center;
+    padding: 0 0.5rem 0 1rem;
+}
+
 /*end coms*/
 .st-page{
 	box-shadow: 0 0 5px #00000026;
@@ -2773,6 +2883,7 @@ div.bt{
 .tblWNoWrap{
 	white-space: nowrap;
 }
+
 /*end content*/
 @media(max-width: 500px){
 
@@ -3283,6 +3394,9 @@ div.bt{
 	}
 	.w-20{
 		width: 20% !important;	
+	}
+	.notificationContainer{
+		width: 720px;
 	}
 }
 

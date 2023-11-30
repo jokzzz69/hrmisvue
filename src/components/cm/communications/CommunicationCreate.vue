@@ -271,17 +271,17 @@
                 'documenttype': '',
                 'hasinclusive':false,
                 'inclusivedates':'',
-                'classification': '',
-                'commgroupids': [],
+                'classification': '',                
                 'sendto': [],
                 'notes': [],
                 'notesphotocopy': '',
                 'notesreturnforward': [],
                 'actions': [],
                 'remarks': '',                
-                'uploadedfileid': [],
-                'selectedunits': [],
-                'asdraft': false
+                'uploadedfileid': [],                
+                'asdraft': false,
+                'commgroupids': [],
+                'selectedunits': []
 
             });
             const forNotLoaded = ref(true);

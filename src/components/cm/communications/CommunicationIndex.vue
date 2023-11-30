@@ -103,7 +103,7 @@
 </template>
 <script>
     import useCommunications from '@/composables/composables-communications';
-    import {onMounted ,ref, computed, inject, reactive,defineAsyncComponent} from 'vue';
+    import {onMounted ,ref, computed, inject, reactive,defineAsyncComponent, watch} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
     import moment from 'moment'
@@ -114,6 +114,7 @@
     import {useCommunicationStore} from "@/stores/communicationstore.js"
     import {useNotificationStore} from '@/stores/notificationstore.js';
     import { useHead } from '@unhead/vue'
+
 
     const Tooltip = defineAsyncComponent(() => 
         import('@/components/cm/reusables/Tooltip.vue')
@@ -142,6 +143,7 @@
 
             const communicationstore = useCommunicationStore();
             const notificationstore = useNotificationStore();
+
 
             const searchQuery = reactive({
                 'search': ''
@@ -196,6 +198,8 @@
                 }
 
             })
+
+
 
             onMounted(() =>{
                 

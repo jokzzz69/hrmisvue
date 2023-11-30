@@ -24,7 +24,7 @@
 						</div>
 						<div class="action--taken--message" :id="actiontaken.id" v-html="actiontaken.message" :class="{actiontakenMessage: i === activeItem}" :contenteditable="i === activeItem ? true : false">
 						</div>
-						<div class="comm--AT--attachments" v-if="actiontaken.id == selectedEditAT" :id="actiontaken.id">
+						<div class="comm--AT--attachments" v-if="i === activeItem" :id="actiontaken.id">
 		                    <AttachFileCommunication :attachments="bid" @getUploadedFile="updateUploaded"/>
 		                </div>
 
@@ -77,7 +77,14 @@
 				</div>
 
 			</template>
+			<template v-if="!noMorePage">
+				<div class="col pr">
+					<LoadingComponentAC/>
+				</div>               
+		    </template>
 		</template>
+		
+
 		<template v-else>
 			<template v-if="!noData">
 				<div class="col pr">
@@ -88,7 +95,6 @@
 		<template v-if="noData">
 			<div class="col pr mh-75">
 				No Employee Actions
-
 			</div>
 		</template>
 	</div>
@@ -130,7 +136,10 @@
 		setup(props){
 			const bid = ref([]);
 			const noData = ref(false)
-			const {actionstaken,getActionTaken,destroyActionTaken, updateCommunicationActionTaken, editActionTaken, actiontaken} = useActionsTaken()
+			const noMorePage = ref(true)
+			const currentPage = ref(null);
+			const lastPage = ref(0);
+			const {actionstaken,getActionTaken,commactionstakenFromPage,getCommActionTakenPage,destroyActionTaken, updateCommunicationActionTaken, editActionTaken, actiontaken, actiontakenMeta} = useActionsTaken()
 			const profileimageurl = ref();
 			const swal = inject('$swal')
 			const userdetails = useAuthStore();
@@ -173,6 +182,7 @@
 			});
             watch(()=>bus.value.get('cancelallat'), (val) => {
                 if(val ?? [] > 0){
+                	selectedEditAT.value = null;
                 	activeItem.value = null;
 					form.newmessage = '';
 					form.defaultmessage = '';
@@ -187,8 +197,41 @@
 	            }
             	getActionTaken(props.id,cf).then(() =>{
 					checkifdata()
+					currentPage.value = actiontakenMeta.value.current_page;
+					lastPage.value = actiontakenMeta.value.last_page
 				});
             }
+
+               
+            var div = document.getElementById('ccw');
+
+            div.addEventListener('scroll', (e) => {
+
+            	const cf = {
+	                headers: {
+	                    'xlr': 1
+	                }
+	            }
+
+
+            	if(Math.max(div.scrollTop + div.clientHeight) == div.scrollHeight){
+            		if(currentPage.value){
+            			currentPage.value+1;            			
+            			if(currentPage.value <= lastPage.value){
+	            			currentPage.value++;
+	            			noMorePage.value = false;
+	            			getCommActionTakenPage(props.id,currentPage.value,cf).then(() => {	            				
+	            				actionstaken.value.push(...commactionstakenFromPage.value);
+	            				noMorePage.value = true;
+	            			});
+	            		}
+            		}
+            		
+            	}
+            })
+            
+
+
 			onMounted(() =>{
 				
 				reloadActionsTakenList();
@@ -267,12 +310,13 @@
                 for(const attachid in attachids){
                     form.uploadedfileids.push(attachids[attachid]);
                 }
-                console.log(form.uploadedfileids);
             }
             
 
             const editmyactiontaken = (i, id) =>{
             	selectedEditAT.value = id;
+            	emit('actionbox',false);
+
             	bid.value = [];
             	form.defaultmessage = '';
             	form.defaultmessage = document.getElementById(id).innerHTML;
@@ -305,7 +349,9 @@
 				bid,
 				updateUploaded,
 				atselectedfiles,
-				selectedEditAT
+				selectedEditAT,
+				noMorePage
+				
 			}
 		}
 	}

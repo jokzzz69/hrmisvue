@@ -32,7 +32,7 @@
     </div> 
 
 
-    <div class="w-100 plr pt-3 content__card__wrap bg-light" v-sheight id="ccw">
+    <div class="w-100 plr pt-3 content__card__wrap bg-light" v-sheight="290" id="ccw">
         <div class="row">
             <div class="col communication--uploaded--by">
                 Uploaded By: 
@@ -238,22 +238,24 @@
         </template>
         
 
-        <template v-if="communication.id && showActionsBox">
-            <CommunicationAddActionTaken :id="communication.id"/>
-        </template>
         
-        <div class="row"  v-if="!showActionsBox">
-            <div class="col col-sm-12 btn--employeeActions">
-                <ul class="list-inline">
-                    <li class="list-inline-item">
-                        <button class="btn" @click.prevent="btnActionsTaken"><i class="fa-solid fa-plus"></i> Add Actions Taken</button>
-                    </li>
-                </ul>
-            </div>
-        </div>
 
     </div>    
-
+    <template v-if="communication.id && showActionsBox">
+        <div class="prC">
+            <CommunicationAddActionTaken :id="communication.id"/>
+        </div>
+    </template>
+    
+    <div class="row"  v-if="!showActionsBox">
+        <div class="col col-sm-12 btn--employeeActions">
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <button class="btn" @click.prevent="btnActionsTaken"><i class="fa-solid fa-plus"></i> Add Actions Taken</button>
+                </li>
+            </ul>
+        </div>
+    </div>
     
 
 </template>
@@ -388,48 +390,11 @@
                 
 
             })
-
-
-            const saveasDraft = async() =>{
-                await updateCommunicationDraft(props.id,{ ...communicationform }).then(() => {
-                    if(!errors.value){
-                        swal.fire({
-                            toast: true,
-                            position: 'top-end',
-                            title: 'Communication Successfully Created',
-                            showConfirmButton: false,            
-                            icon: 'success',
-                            width: '300',
-                            padding: '.5em 1em',
-                            timerProgressBar: true,
-                            timer:1500,
-                            customClass: {
-                                container: 'swaltopright'
-                            }
-                        })
-                    }
-                });
+            const btnActionsTaken = () =>{
+                showActionsBox.value = !showActionsBox.value;                
+                emit('cancelallat',1);
             }
-            const clickSend = async(id) =>{
-                await updateCommunicationSend(props.id,{ ...communicationform }).then(() => {
-                    if(!errors.value){
-                        swal.fire({
-                            toast: true,
-                            position: 'top-end',
-                            title: 'Communication Successfully Sent',
-                            showConfirmButton: false,            
-                            icon: 'success',
-                            width: '300',
-                            padding: '.5em 1em',
-                            timerProgressBar: true,
-                            timer:1500,
-                            customClass: {
-                                container: 'swaltopright'
-                            }
-                        })
-                    }
-                });
-            }
+
             
             const toindex = () =>{
                 router.push({name: 'communications.index' });
@@ -440,14 +405,7 @@
             })
      
             
-            const btnActionsTaken = () =>{
-                showActionsBox.value = !showActionsBox.value;
-                var x = document.getElementById("ccw");
-                setTimeout(function(){
-                    x.scrollTop = x.scrollHeight;
-                },15)
-                emit('cancelallat',1);
-            }
+            
 
             const checkSentDate = async(sdate) =>{
                 var mdate = moment(sdate);
@@ -461,8 +419,6 @@
             return{
                 communication,
                 communicationgroups,
-                saveasDraft,
-                clickSend,
                 communicationform,
                 errors,
                 photocopy,

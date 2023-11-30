@@ -9,6 +9,9 @@ export default function useNotifications(){
 	const router = useRouter();
 	const errors = ref('');	
 
+	const notificationsMeta = ref([]);
+	const pagenotifications = ref([]);
+
 	const getUnviewed = async () => {
 		axios.defaults.withCredentials = true;
 		let response = await axios.get('/v1/api/guv',{
@@ -57,9 +60,35 @@ export default function useNotifications(){
         }
 	}
 	const getAllMyNotifications = async () => {
-
+		axios.defaults.withCredentials = true;
+		await axios.get('/v1/api/allmynotifications',{
+        	headers: {
+        		'xlr': 1
+        	}
+        }).then(() => {
+        	notifications.value = response.data.data;
+        })
+		
+	}
+	const getMyMainPageNotification = async () => {
+		axios.defaults.withCredentials = true;
+		await axios.get('/v1/api/umpgnotif',{
+        	headers: {
+        		'xlr': 1
+        	}
+        }).then((response) => {
+        	notifications.value = response.data.data;
+        	notificationsMeta.value = response.data.meta;
+        })		
 	}
 	
+	const getMyPageNotifications = async(pageid, config) => {
+		axios.defaults.withCredentials = true;
+		await axios.get(`/v1/api/upgnotif/${pageid}`,config).then((response) => {
+			pagenotifications.value = response.data.data;
+		});
+	}
+
 	return {
 		errors,		
 		getLimitedNotifications,
@@ -69,7 +98,11 @@ export default function useNotifications(){
 		totalunviewed,
 		totalunread,
 		notifications,
-		getAllMyNotifications
+		getAllMyNotifications,
+		getMyMainPageNotification,
+		notificationsMeta,
+		getMyPageNotifications,
+		pagenotifications
 		
 		
 	}

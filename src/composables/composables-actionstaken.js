@@ -7,8 +7,21 @@ export default function useActionsTaken(){
 	const actiontaken = ref([]);
 	const actiontakenLinks = ref([]);
 	const actiontakenMeta = ref([]);
+
+	const commactionstakenFromPage = ref([]);
+	
+	
 	const errors = ref('');
 	const router = useRouter();
+
+
+	const getCommActionTakenPage = async(id,pageid, config) => {
+		axios.defaults.withCredentials = true;
+		await axios.get(`/v1/api/commactiontakenpage/${id}/${pageid}`,config).then((response) => {
+			commactionstakenFromPage.value = response.data.data;
+		});
+	}
+
 
 	const getUserActionsTaken = async() => {
 		axios.defaults.withCredentials = true;
@@ -28,6 +41,7 @@ export default function useActionsTaken(){
 		axios.defaults.withCredentials = true;
 		await axios.get(`/v1/api/actionstaken/${id}`,config).then((response) => {
 			actionstaken.value = response.data.data;
+			actiontakenMeta.value = response.data.meta;
 		});		
 	}
 
@@ -90,6 +104,7 @@ export default function useActionsTaken(){
 		
 	}
 
+
 	return {
 
 		errors,
@@ -106,6 +121,8 @@ export default function useActionsTaken(){
 		editActionTaken,
 		updateActionTaken,
 		updateCommunicationActionTaken,
-		bulkactionsAC
+		bulkactionsAC,
+		commactionstakenFromPage,
+		getCommActionTakenPage
 	}
 }

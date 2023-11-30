@@ -115,7 +115,7 @@
 	   	</template>        
 	   </div>
 	    <div class="notification-footer text-center" v-if="hasnotification">
-	      <router-link :to="{name: 'notifications.index'}" cl>See all notifications</router-link>
+	      <router-link :to="{name: 'notifications.index'}" cl>View all notifications</router-link>
 	    </div>
 	  </ul>
 	
@@ -150,7 +150,9 @@
 
 
 			notificationstore.$subscribe((m,s) => {	
+
 				loadNotif()
+
 			})
 
 
@@ -172,12 +174,11 @@
 			.listen('.incommingcommunications', (e) =>{
 				loadNotif(),
 				notificationstore.fetchNotification()
-
+				console.log('ic');
 			})
 			.listen('.cmdtsactionstaken', (e) =>{
 
 				loadNotif(),
-
 				notificationstore.fetchNotification()
 				
 			});

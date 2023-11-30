@@ -34,7 +34,7 @@
         </div>
 
     </div> 
-    <div class="bg-light mb-3 pb-3 pt-3 px-3 card content__card__wrap" v-sheight="200" id="ccw">
+    <div class="bg-light  pb-3 pt-3 px-3 card content__card__wrap" v-sheight="290" id="ccw">
         <div class="row">
             <div class="col communication--sent--date">
                 <span>
@@ -207,30 +207,35 @@
         </template>
 
 
-        <template v-if="communication.id">
-            <CommunicationActionsTaken :id="communication.id"/>
+        <template v-if="communication.id">            
+            <CommunicationActionsTaken :id="communication.id"/>            
         </template>
         
 
-        <template v-if="communication.id && showActionsBox">
-            <CommunicationAddActionTaken :id="communication.id"/>
-        </template>
+        
 
 
-        <div class="row">
-            <div class="col col-sm-12 btn--employeeActions">
-                <ul class="list-inline">
-                    <li class="list-inline-item" v-if="!showActionsBox">
-                        <button class="btn" @click.prevent="btnActionsTaken"><i class="fa-solid fa-plus"></i> Add Actions Taken</button>
-                    </li>
-                    <li class="list-inline-item">
-                        <button class="btn" @click.prevent="editRoutedCommunication"><i class="fa-solid fa-pen-to-square"></i> Edit and Resend</button>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        
         <div id="bt"></div>     
-    </div>    
+    </div>
+
+    <template v-if="communication.id && showActionsBox">
+        <div class="prC">
+            <CommunicationAddActionTaken :id="communication.id"/>
+        </div>
+    </template>
+    <div class="row" >
+        <div class="col col-sm-12 btn--employeeActions" v-if="!showActionsBox">
+            <ul class="list-inline">
+                <li class="list-inline-item" >
+                    <button class="btn" @click.prevent="btnActionsTaken"><i class="fa-solid fa-plus"></i> Add Actions Taken</button>
+                </li>
+                <li class="list-inline-item">
+                    <button class="btn" @click.prevent="editRoutedCommunication"><i class="fa-solid fa-pen-to-square"></i> Edit and Resend</button>
+                </li>
+            </ul>
+        </div>
+   </div>
 </template>
 
 <script>
@@ -348,7 +353,8 @@
                     hld.value = false;
                     checkSentDate(communication.value.updated_at);
                 })
-               
+                
+
 
             })
 
@@ -362,29 +368,7 @@
                     dateSent.value =  mdate.format('MMM D, h:mm A');
                 }
             }
-
-            const saveasDraft = async() =>{
-                await updateCommunicationDraft(props.id,{ ...communicationform }).then(() => {
-                    if(!errors.value){
-                        swal.fire({
-                            toast: true,
-                            position: 'top-end',
-                            title: 'Communication Successfully Created',
-                            showConfirmButton: false,            
-                            icon: 'success',
-                            width: '300',
-                            padding: '.5em 1em',
-                            timerProgressBar: true,
-                            timer:1500,
-                            customClass: {
-                                container: 'swaltopright'
-                            }
-                        })
-                    }
-                });
-            }
-
-            
+        
         
 
             const toindex = () => {
@@ -401,16 +385,13 @@
 
             const btnActionsTaken = () =>{
                 showActionsBox.value = !showActionsBox.value;
-                var x = document.getElementById("ccw");
-                setTimeout(function(){
-                    x.scrollTop = x.scrollHeight;
-                },15)
-                
+                emit('cancelallat', 1);                
             }
+
+           
 
             return{
                 communication,
-                saveasDraft,
                 communicationform,
                 errors,
                 photocopy,
