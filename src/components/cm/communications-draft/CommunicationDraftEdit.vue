@@ -90,46 +90,17 @@
 
         <div class="row">
             <div class="col-12 mt-4 mainLabel"><h6>FOR / TO:  <span class="text-danger">*</span></h6></div>
-
             <span v-if="errors.sendto" class="text-danger m-error">{{errors.sendto[0]}}</span>   
         </div>
         <div class="row">
-            <div class="col">                
-                <div class="checkboxCG p-2 border" :class="errors.sendto ? 'br-error' : ''">
-                    <ul class="list-unstyled">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="all" id="cglevel-all" @change='checkAll()' v-model="allSelected">
-                            <label class="form-check-label" for="cglevel-all">
-                                <strong>All OUs</strong>
-                            </label>
-                        </div>
-                    </ul>
-                    <ul class="list-unstyled" v-for="(communicationgroup,x) in communicationgroups" :class="`cg-${x}`">
-                        <li>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" :value="communicationgroup.id" :id="`cglevel-${communicationgroup.cg_code}`"  @change='chkparent(communicationgroup.id)' v-model="draftform.commgroupids">
-                              <label class="form-check-label" :for="`cglevel-${communicationgroup.cg_code}`">
-                                <strong>{{communicationgroup.name}}</strong>
-                              </label>
-                            </div>
-
-                            <template v-if="communicationgroup.employees">
-                                <ul class="listcgchilds list-unstyled ps-3">
-                                    <li v-for="(employee,index) in communicationgroup.employees">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" :value="employee.id" 
-                                            :id="`emp-${x}-${employee.id}-${index}`" v-model="draftform.sendto" @change='chkchild(communicationgroup.id)'>
-                                            <label class="form-check-label" :for="`emp-${x}-${employee.id}-${index}`">
-                                                {{employee.name}}
-                                            </label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </template>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <div class="col col-sm-12">                   
+                <div class="checkboxCG p-2 border" :class="errors.sendto ? 'br-error' : ''">                                           
+                    <SubCheckUnitHeads :isDisplayed="false"/>         
+                    <div class="unitgroups">
+                        <SubCheckUnits :isDisplayed="false"/>
+                    </div>
+                </div>               
+            </div>           
         </div>
 
         <div class="row">
@@ -213,12 +184,12 @@
 </template>
 
 <script>
-    import { reactive,inject, ref, onMounted} from "vue";
+    import { reactive,inject, ref, onMounted,defineAsyncComponent } from "vue";
 
 
     import useCommunicationsDraft from '@/composables/composables-communicationsdraft';
 
-    import AttachFile from '@/components/cm/reusables/AttachFile.vue';
+
 
     import useDocumentTypes from '@/composables/composables-documenttypes';
     import useCommunicationGroups from '@/composables/composables-communicationgroups';
@@ -236,9 +207,26 @@
 
     import { useHead } from '@unhead/vue'
 
+    import {useRecipients} from '@/stores/recipients.js'
+    const AttachFile = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/AttachFile.vue')
+    );
+    const LoadingComponentDiv = defineAsyncComponent(() => 
+        import('@/components/loader/LoadingComponentDiv.vue')
+    );
+    const SubCheckUnits = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/SubCheckUnits.vue')
+    );
+    const SubCheckUnitHeads = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/SubCheckUnitHeads.vue')
+    );
+
     export default {
         components: {
-            AttachFile
+            AttachFile,
+            LoadingComponentDiv,
+            SubCheckUnits,
+            SubCheckUnitHeads
         },
         props: {
             id: {
@@ -264,7 +252,7 @@
             const torInclusive = ref(false);
             const {uploadTempAttachment, attachedtemp} = useManageFile()
             const asdraftpage = ref(true);
-
+            const st_recipients = useRecipients();
 
             
             const {getCommunicationDraft, draft, updateCommunicationDraft, errors, sendCommunicationDraft} = useCommunicationsDraft()
@@ -297,13 +285,15 @@
                 'remarks': '',                
                 'uploadedfiles': [],
                 'uploadedfileid': [],
-                'asdraft': false
-
+                'asdraft': false,
+                'selectedunits': []
             });
 
             onMounted(() => {
 
                 getCommunicationDraft(props.id).then(res =>{
+
+
 
                     draftform.datetimein = draft.value.datetimein;
                     draftform.sender = draft.value.sender;
@@ -356,6 +346,10 @@
                         const fileSize = (i.filesize < 1024) ? i.filesize +' KB' : (i.filesize / (1024*1024)).toFixed(2)+' MB';
                         draftform.uploadedfiles.push({id: i.id,name: i.filename, size: fileSize,fileextension: i.fileextension, filepath: i.filepath});
                     }
+
+                    st_recipients.setselectedunitheads(draftform.sendto);
+                    st_recipients.setselectedunitgroups(draftform.selectedunits);
+                    st_recipients.setselectedunitheadgroups(draftform.commgroupids);
 
                 }),
 

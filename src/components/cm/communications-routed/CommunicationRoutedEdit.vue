@@ -363,7 +363,9 @@
                 communicationform.asdraft = false;
 
                 await updateRoutedCommunication(props.id,{ ...communicationform }).then(() => {
+
                     if(!errors.value){
+
                         swal.fire({
                             toast: true,
                             position: 'top-end',
@@ -383,6 +385,8 @@
                             fileattacherr.value = errors.value.uploadedfileid[0];
                         }
                     }
+
+                    st_recipients.reset;
                 });
             }
             

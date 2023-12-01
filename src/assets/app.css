@@ -92,7 +92,10 @@ body{
 .maintenance .modal-container{
 	background: #f1c40f !important;
 }
-
+.np{
+	padding-left: 0px;
+	padding-right: 0px;
+}
 .btn{
 	font-size: .9rem;
 }
@@ -302,7 +305,9 @@ body{
 	background: rgba(109, 201, 247, .3);
 }
 
-.mtable thead tr th:not(last-child):hover{
+.mtable thead tr th:not(last-child):hover,
+#userstbl .form-check:hover,
+#userstbl .form-check input:hover{
 	cursor: pointer;
 }
 .tblcolwid--2btn{
@@ -2883,6 +2888,16 @@ div.bt{
 .tblWNoWrap{
 	white-space: nowrap;
 }
+.bulk--actionsWrap{
+	display: flex;
+}
+.bulk--action__Options{
+	flex: 1 0 0%;
+}
+.bulk--action__Events{
+	flex:0 0 auto;
+	padding-left: .5rem;
+}
 
 /*end content*/
 @media(max-width: 500px){
@@ -2965,7 +2980,7 @@ div.bt{
 		margin-right: .5rem;
 	}
 	.sidebarleft.nd{
-
+		left: -999px;
 		width: 0 !important;
     	overflow: hidden;
 	}

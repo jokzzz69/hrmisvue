@@ -18,7 +18,7 @@ export const useRecipients = defineStore('selun', {
 		},
 		setselectedunitgroups(val){
 			this.recipients.selectedunitgroups = val
-		},
+		}
 
 	},
 	getters: {

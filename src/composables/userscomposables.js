@@ -152,7 +152,18 @@ export default function useUsers(){
 		});
 		
 	}
+	const bulkActionUser = async (data) => {
+		axios.defaults.withCredentials = true;
+        errors.value = ''
 
+        axios.post('/v1/api/bulkactionsuser/', data)
+        .catch((e) => {
+        	console.error(e.response.data);
+            if (e.response.status === 422) {
+                errors.value = e.response.data.errors
+            }
+        })
+    }
 	return{
 		errors,
 		users,
@@ -173,6 +184,7 @@ export default function useUsers(){
 		getPrivacy,
 		privacy,
 		getAuthuser,
-		authuser
+		authuser,
+		bulkActionUser
 	}
 }

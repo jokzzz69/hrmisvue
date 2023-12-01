@@ -13,11 +13,42 @@
 		    		</div>
 		    	</div>
 		    </div>
+		    <div class="row">
+		    	<div class="col col-sm-3 mt-2">
+		    		<div class="bulk--actionsWrap">
+		    			<div class="bulk--action__Options">
+		    				<div class="form-bulkaction">
+				    			<select id="disabledSelect" class="form-select" v-model="bulkactionform.selectedoption">
+							        <option hidden value="">Bulk Actions</option>							        
+							        <option disabled="disabled">--Add  / Update Role--</option>
+							        <option value="7">Communication Encoder</option>
+							        <option value="6">Communication Viewer</option>
+							        <option disabled="disabled">--Change Role--</option>
+							        <option value="2">Admin</option>
+							        <option value="3">HR</option>
+							        <option value="4">Employee</option>
+							        <option disabled="disabled">----</option>
+							        <option value="8"><span class="text-success">Activate</span></option>
+							        <option value="9"><span class="text-danger">Deactivate</span></option>
+							     </select>
+				    		</div>
+		    			</div>
+		    			<div class="bulk--action__Events">
+		    				<button :disabled="!withChecked" class="btn btn-semiblue" @click.prevent="bulkactionsubmit">Apply</button>
+		    			</div>
+
+		    		</div>
+		    	</div>
+		    </div>
 		    <div class="tblWrap mt-2">
 		    	<table class="mtable hasActions table nottbllink" id="userstbl">
 			    	<thead>
 			    		<tr>
-			
+							<th>
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input" name="chkUsersParent" value="chkAllUserChild" @change="pchkUsers" v-model="allcheckedusers">
+								</div>
+							</th>
 			    			<th @click="sortTable('employee_fname')">First Name
 			                    <span v-if="sortColumn == 'employee_fname'" class="material-icons">{{arrowIconName}}</span>
 			                    <span v-else class="material-icons">sort</span>
@@ -46,7 +77,11 @@
 			    		<template v-if="!tblloader">
 			    			<template v-for="employee in filteredEmployees" :key="employee.employee_id">
 				    			<tr v-if="authuser.employee_id != employee.employee_id">
-				    		
+				    				<td>
+				    					<div class="form-check">
+				    						<input type="checkbox" :value="employee.employee_id" class="form-check-input" :name="`chkUser-${employee.employee_id}`" v-model="bulkactionform.selectedusers" @change='checkeduser()'>
+				    					</div>
+				    				</td>
 				    				<td class="ttc">{{employee.employee_fname}}</td>
 					    			<td class="ttc">{{employee.employee_mname}}</td>
 					    			<td class="ttc">{{employee.employee_lname}} <span class="ttu">{{employee.employee_extname}}</span></td>
@@ -126,7 +161,7 @@
 							<template v-else>
 							    <template v-if="!filteredEmployees.length">
 							        <tr class="nodata">
-							            <td colspan="7">
+							            <td colspan="8">
 							                No Entry!
 							            </td>
 							        </tr>
@@ -135,7 +170,7 @@
 						</template>
 						<template v-else>
 						    <tr class="nodata pr">
-						        <td colspan="7">
+						        <td colspan="8">
 						            <LoadingComponent/>
 						        </td>
 						    </tr>
@@ -153,7 +188,7 @@
 	import useEmployees from '@/composables/composables-employees';
 
 
-	import {onMounted ,ref, computed, inject} from 'vue';
+	import {onMounted ,ref, computed, inject, reactive} from 'vue';
 	import { sortBy} from 'lodash';
 	import {useRouter} from 'vue-router'
 	import moment from 'moment';
@@ -169,7 +204,7 @@
                 title: 'Accounts | '+import.meta.env.VITE_BFAR_AGENCY
             })
 			const swal = inject('$swal')
-			const {users, getUsers, activateUser, deactivate, rebootPass, authuser, getAuthuser} = useUser()		
+			const {users, getUsers, activateUser, deactivate, rebootPass, authuser, getAuthuser, bulkActionUser} = useUser()		
 
 			const {biousers, getBioUsers} = useEmployees()	
 
@@ -182,6 +217,12 @@
 			const sortColumn = ref("id");
         	const sortDirection = ref(1);
 			const arrowIconName = ref("arrow_drop_up");					
+			const allcheckedusers = ref(false);
+			const bulkactionform = reactive({
+				'selectedusers': [],
+				'selectedoption': ''
+			})
+			const withChecked = ref(false);
 
 			const filteredEmployees = computed(function(){
 				return biousers.value.filter(
@@ -303,6 +344,61 @@
 				router.push({ name: 'users.edit', params: { id: id } });
 			}
 
+
+			const pchkUsers = () =>{
+
+                if(allcheckedusers.value){
+
+                    bulkactionform.selectedusers = [];
+
+                    for (var x in users.value) {
+                       bulkactionform.selectedusers.push(users.value[x].employee_id);                    
+                    }
+                    if(bulkactionform.selectedusers.length > 0){
+                        withChecked.value = true;
+                    }      
+
+                }else{
+                    bulkactionform.selectedusers = [];
+                    withChecked.value = false;
+                }
+
+
+            }
+            const checkeduser = async () =>{
+                allcheckedusers.value = false;
+
+                if(users.value.length ==  bulkactionform.selectedusers.length){
+                    allcheckedusers.value = true;
+                }
+                if(bulkactionform.selectedusers.length > 0){
+                     withChecked.value = true;
+                }else{
+                     withChecked.value = false;
+                }
+            }
+            const bulkactionsubmit = async() => {
+            	await bulkActionUser({ ...bulkactionform }).then(() => {
+
+                        swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            title: 'Selected Users Successfully Updated',
+                            showConfirmButton: false,            
+                            icon: 'success',
+                            width: '300',
+                            padding: '.5em 1em',
+                            timerProgressBar: true,
+                            timer:1500,
+                            customClass: {
+                                container: 'swaltopright'
+                            }
+                        })
+                    
+                });
+                await getUsers();
+            }
+
 			return{
 				filteredEmployees,
 				searchQuery,
@@ -317,7 +413,13 @@
 				rebootPassword,
 				moment,
 				authuser,
-				tblloader
+				tblloader,
+				allcheckedusers,
+				checkeduser,
+				bulkactionform,
+				pchkUsers,
+				withChecked,
+				bulkactionsubmit
 			}
 		}
 	}

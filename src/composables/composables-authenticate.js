@@ -64,7 +64,7 @@ export default function useAuthenticate(){
 			}else{
 				changepasswordstore.setstate(true);		
 				emit('isChanged', true);
-				router.push({name: 'recordpersonal.show'});
+				router.push({name: 'communications.index'});
 			}
 		});     	
 		

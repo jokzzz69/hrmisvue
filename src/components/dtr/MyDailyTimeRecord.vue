@@ -8,22 +8,22 @@
         </div>
     </div>
     <div class="row justify-content-md-center">       
-        <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-3">     
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 col-xxl-3">     
             <div class="row mli">  
-                <div class="col-sm-10 col">
+                <div class="col-12 col-sm-12 col-md-12">
                     <label class="col-form-label col-12" for="fdate">Select Date</label>                
                     <Datepicker v-model="monthpicked" id="fdate" auto-apply month-picker @update:model-value="getEmployeeBio" :clearable="false" name="monthpicked" :format="format" :month-change-on-arrows="true"></Datepicker> 
                 </div> 
                 <template v-if="userrole == 'super-admin' || userrole == 'admin' || id == 207 || id == 29 || id == 215">
-                    <div class="mt-2 dtredit col col-sm-3">
+                    <div class="mt-2 dtredit col">
                         <button class="btn btn-outline-violet" @click="gotoEditDTR"><i class="fa-regular fa-pen-to-square"></i> Edit</button>
                     </div>
-                    <div class="mt-2 col col-sm-7">
+                    <div class="mt-2 col">
                         <button class="btn btn-outline-danger" @click="dlpersonnelDTR"><i class="fa-solid fa-file-pdf"></i> Download</button>
                     </div>
                 </template>
                 <template v-else>
-                    <div class="mt-2 col col-sm-10" v-if="isPermanent">
+                    <div class="mt-2 col" v-if="isPermanent">
                         <button class="btn btn-outline-danger" @click="dlpersonnelDTR"><i class="fa-solid fa-file-pdf"></i> Download</button>
                     </div>
                 </template>
@@ -32,9 +32,7 @@
         </div>            
     </div>
     <div class="row">
-        <div class="col-md-12 pr"> 
-           
-   
+        <div class="col-md-12 pr">   
 
                 <table class="table border tblborderedgray table-bordered text-center mt-3 tbl-mydtr" v-if="biometricsData.biometricsData">
                     <thead>

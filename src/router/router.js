@@ -1145,7 +1145,7 @@ router.beforeEach((to, from, next) => {
 
      if(to.name == 'login.index' && userslug){
 
-      next({name: 'recordpersonal.show'})
+      next({name: 'communications.index'})
      }else{       
 
         next()

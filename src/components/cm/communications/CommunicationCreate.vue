@@ -295,7 +295,10 @@
                     forNotLoaded.value =false;
                 })           
 
-                
+                st_recipients.setselectedunitheads(null);
+                st_recipients.setselectedunitheadgroups(null);
+                st_recipients.setselectedunitgroups(null);
+
             })
             const checkifHasData = () =>{
                 if(communicationform.datetimein != '' || communicationform.sender !='' || communicationform.agency != '' || communicationform.subject != '' ||communicationform.venue != '' || communicationform.documenttype != '' || communicationform.inclusivedates != '' ||communicationform.classification != '' || communicationform.notesphotocopy != '' || communicationform.remarks != '' ||communicationform.commgroupids.length != 0 || communicationform.sendto.length != 0 ||communicationform.notes.length != 0 ||communicationform.notesreturnforward.length != 0 || communicationform.actions.length != 0 || communicationform.uploadedfileid.length != 0){
@@ -318,7 +321,8 @@
                 asdraftpage.value = false;
 
                 await storeCommunication({ ...communicationform }).then(() => {
-                    if(!errors.value){
+                    if(!errors.value){                       
+                        
                         swal.fire({
                             toast: true,
                             position: 'top-end',
@@ -338,7 +342,12 @@
                             fileattacherr.value = errors.value.uploadedfileid[0];
                         }
                     }
+
+                    
+
                 })
+
+
             }
 
             
