@@ -4,10 +4,8 @@
             <ul class="d-flex list-unstyled align-items-center mh-45 mb-2">
                 <li class="col col-auto me-4"><h2 class="ps-1">Communications</h2></li>
                 <li class="col col-sm-5 pAgeEmail__input">
-                    <div class="input-group">
-                      <div class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></div>
-                      <input name="s" type="text" class="form-control" placeholder="Search" v-model="searchQuery.search" @keypress.enter="searchData" />
-                    </div>
+                    <SearchCommunication/>
+                                       
                 </li>
             </ul>
         </div>
@@ -35,8 +33,7 @@
                     <tbody>
 
                         <template v-if="communications.length > 0">
-                            <template v-for="communication in communications" :key="communication.id">
-                                
+                            <template v-for="communication in communications" :key="communication.id">                                
                                 <tr @click="show(communication.id)"  :class="communication.unreadcount < 1 ? '' : 'unread'">
                                     <td>
                                         <span class="pin--comm" 
@@ -114,7 +111,8 @@
     import {useCommunicationStore} from "@/stores/communicationstore.js"
     import {useNotificationStore} from '@/stores/notificationstore.js';
     import { useHead } from '@unhead/vue'
-
+    import useDocumentTypes from '@/composables/composables-documenttypes';
+    import useClassifications from '@/composables/composables-classifications';
 
     const Tooltip = defineAsyncComponent(() => 
         import('@/components/cm/reusables/Tooltip.vue')
@@ -125,12 +123,15 @@
     const Pagination = defineAsyncComponent(() => 
         import('@/components/cm/reusables/Pagination.vue')
     );
-
+    const SearchCommunication = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/SearchCommunications.vue')
+    );
     export default{
         components: {
             Pagination,
             Tooltip,
-            LoadingComponent            
+            LoadingComponent,
+            SearchCommunication
         },
         setup(){
             useHead({
@@ -145,9 +146,7 @@
             const notificationstore = useNotificationStore();
 
 
-            const searchQuery = reactive({
-                'search': ''
-            });
+            
             const totals = ref();
             const formData = reactive({
                 'selectedCommunication': [],
@@ -220,16 +219,7 @@
 
 
 
-            const searchData = async() => {            
-
-                if(searchQuery.search){
-                    if(searchQuery.search.trim().length !== 0){
-                        const tosearch = searchQuery.search.replace(/\s/g, "+");
-                        router.push({name: 'communications.search', params: { content: tosearch}});
-                    }
-                }
-                              
-            }
+            
 
             const showPage = (n) => {
                 if(n == 1){
@@ -260,7 +250,7 @@
                 communications,
                 formatmaildate,
                 moment,
-                searchQuery,
+
                 show,
                 allcheckedcommunication,
                 formData,
@@ -268,7 +258,6 @@
                 communicationMeta,
                 metaString,
                 showPage,
-                searchData,
                 hasPrev,
                 hasNext,
                 noData,

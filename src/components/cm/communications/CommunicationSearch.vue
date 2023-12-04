@@ -7,7 +7,6 @@
                     <div class="input-group">
                       <div class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></div>
                       <input type="text" class="form-control" placeholder="Search" v-model="searchQuery.search" @keypress.enter="searchData">
-
                     </div>
                 </li>
             </ul>
@@ -102,7 +101,7 @@
     import useCommunications from '@/composables/composables-communications';
     import {onMounted ,ref, computed, inject, reactive,defineAsyncComponent} from 'vue';
     import { sortBy} from 'lodash';
-    import {useRouter} from 'vue-router'
+    import {useRouter, useRoute} from 'vue-router'
     import moment from 'moment'
     import {formatmaildate} from '@/helper/formatmaildate'
 
@@ -116,17 +115,12 @@
     );
 
     export default{
-        props: {
-            content: {
-                required: true,
-                type: String
-            }
-        },
         components: {
             TooltipArr,
             LoadingComponent
         },
-        setup(props){
+        setup(){
+
             useHead({
                 title: 'Communications Inbox Search | '+import.meta.env.VITE_BFAR_AGENCY
             })
@@ -135,10 +129,12 @@
             const noData = ref(false)
             const details = ref();
             const searchQuery = reactive({
-                'search': props.content.replaceAll("+"," ")
+                // 'search': props.content.replaceAll("+"," ")
+                'search': ''
             });
 
             const router = useRouter()
+            const route = useRoute();
 
             const formData = reactive({
                 'selectedCommunication': [],
@@ -147,8 +143,9 @@
 
     
 
-            const reloadSearch = (cnt,config) => {
-                search(cnt,config).then(res =>{
+            const reloadSearch = (cnt) => {
+
+                search(cnt).then(res =>{
                     if(communications.value.length > 0){
                         noData.value = false;
                     }else{
@@ -157,9 +154,9 @@
                 })
             }
 
-            onMounted(() =>{
-
-                reloadSearch(props.content);
+            onMounted(() =>{  
+                console.log(route.query);
+                reloadSearch(route.query);
             })
 
            const show = (id) => {
@@ -189,7 +186,7 @@
                     }
                 }
                 await pincommunication(id);
-                await reloadSearch(props.content, config);
+                await reloadSearch('', config);
             }
            return {
                 communications,

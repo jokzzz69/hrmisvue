@@ -968,7 +968,7 @@ const routes = [
   },
 
   {
-    path: '/communicationsearch/:content',
+    path: '/communicationsearch/',
     name: 'communications.search',
     component: () => import('@/components/cm/communications/CommunicationSearch.vue'),
     props: true,

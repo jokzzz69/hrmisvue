@@ -155,13 +155,33 @@ body{
 .AT-toattach-btn:hover,
 .AT-EditUpload:hover,
 .scrollbuttons span,
-.pNotifWrap:hover{
+.pNotifWrap:hover,
+.lcIGT:hover{
 	cursor: pointer;
 }
 .col-chk{
 	text-align: center;
 }
-
+.inSearch{
+	border-right-color: transparent;
+}
+.lcIGT{
+	padding: 0;
+	border-radius: 0px 20px 20px 0px !important;
+	overflow: hidden;
+	text-align: center;
+	vertical-align: ;
+}
+.lcIGT i{
+	height: 100%;
+    width: 3rem;
+    display: inline-grid;
+    align-items: center;
+    border-right: none;
+}
+.lcIGT i:hover{
+	background: #ebebeb;
+}
 /**/
 .mainwrap{
 	display: flex;
@@ -2390,6 +2410,7 @@ span.remove button:focus{
 }
 .pAgeEmail__input{
 	width: 40%;
+	position: relative;
 }
 .pAgeEmail__input .input-group{
 	border-radius: 20px;
@@ -2397,7 +2418,7 @@ span.remove button:focus{
 .pAgeEmail__input .input-group-text{
 	border-radius: 20px 0px 0px 20px;
 }
-.pAgeEmail__input input{
+.pAgeEmail__input > div.input-group input{
 	border-radius: 0px 20px 20px 0px;
 	border-left: 1px solid transparent;
 	font-size: 1.1rem;
@@ -2863,7 +2884,80 @@ div.bt{
     align-items: center;
     padding: 0 0.5rem 0 1rem;
 }
+.filterContentsWrap{
+	position: absolute;
+	z-index: 999;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	padding: .75rem;
+	background: #fff;
+	box-shadow: 0 0 10px #00000026;
+    -moz-box-shadow: 0 0 10px 0 rgba(0,0,0,.15);
+    -webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,.15);
+    -o-box-shadow: 0 0 10px 0 rgba(0,0,0,.15);
+    -ms-box-shadow: 0 0 10px 0 rgba(0,0,0,.15);
+    border-radius: 1rem;
+}
 
+.pfilterContent{
+	display: flex;
+}
+.filterContentsWrap>*{
+	width: 100%;
+    max-width: 100%;
+    flex-shrink: 0;
+}
+.pfilterContentLabel,
+.pfilterContentInput{
+	flex: 0 0 auto;
+    width: auto;
+    padding: .275rem .5rem;
+}
+.pfilterContentInput{
+	flex: 1 0 0%;
+}
+.pfilterContentInput input[type="text"], 
+.searchdatepick .dp__input_wrap input,
+.pfilterContentInput select{
+	border: 1px solid #dee2e6;
+	border-top-color: transparent;
+	border-left-color: transparent;
+	border-right-color: transparent;
+
+	border-radius: 0;
+	font-size: 1rem;
+}
+
+.pfilterContentInput input[type="text"],
+.pfilterContentInput select{
+	padding: 0;
+}
+.searchdatepick .dp__input_wrap input{
+	padding-inline-start:35px;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+.searchdatepick .dp__input_wrap .dp__input_icons{
+	padding-left: 0;
+}
+.pfilterContentInput select:focus{
+	box-shadow: none;
+	border-color: transparent;
+}
+.pfilterContentInput input[type="text"]:focus,
+.pfilterContentInput select:focus,
+.searchdatepick .dp__input_wrap input:focus{
+	border-bottom-color: #0f1b91 !important;
+}
+.pfilterContentLabel.single{
+	min-width: 105px;
+}
+.pfilterSubmit{
+	margin-top: 1rem;
+	display: flex;
+	justify-content: flex-end;
+}
 /*end coms*/
 .st-page{
 	box-shadow: 0 0 5px #00000026;
