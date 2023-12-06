@@ -22,7 +22,7 @@
         </div>
         <div class="pfilterContent">
             <div class="pfilterContentLabel single">
-                <span>Has the words</span>
+                <span>Search word(s)</span>
             </div>
             <div class="pfilterContentInput">
                    <input type="text" name="wordTosearch" v-model="searchQuery.search" class="form-control">
@@ -42,7 +42,7 @@
 
         <div class="pfilterContent">
             <div class="pfilterContentLabel single">
-                <span>Classifications</span>
+                <span>Classification</span>
             </div>
             <div class="pfilterContentInput">
                 <select name="classification" placeholder="classification" id="classification" class="form-select" v-model="searchQuery.classification">
@@ -67,15 +67,15 @@
 <script>
 
 	import {onMounted ,ref, computed, inject, reactive, watch} from 'vue';
-	import {useRouter } from 'vue-router'
+	import {useRouter,useRoute} from 'vue-router'
 	import useDocumentTypes from '@/composables/composables-documenttypes';
 	import useClassifications from '@/composables/composables-classifications';
-
+    import moment from 'moment'
 
 	export default{
 		setup(){
 			const router = useRouter()
-			
+			const route = useRoute();
 
 			const showFilter = ref(false);
 			const {classifications, getClassifications} = useClassifications()
@@ -96,15 +96,15 @@
             	let cs = 'all';
             	let sf = 'all';
             	let st = 'all';
-            	let search = 'all';
+            	let search = '';
             	if(searchQuery.search){
             		search = searchQuery.search;
             	}
             	if(searchQuery.searchFrom){
-            		sf = searchQuery.searchFrom;
+            		sf = moment(searchQuery.searchFrom).format('YYYY-MM-DD');
             	}
             	if(searchQuery.searchTo){
-            		st = searchQuery.searchTo;
+            		st = moment(searchQuery.searchTo).format('YYYY-MM-DD');
             	}
             	if(searchQuery.documenttype){
             		dt = searchQuery.documenttype;
@@ -150,7 +150,27 @@
             }
             onMounted(() => {
             	getClassifications();
-                getDocumentTypes();
+                getDocumentTypes().then(() =>{
+                    if(route.query){
+
+                        searchQuery.search = route.query.search;
+                        
+                        if(route.query.from && route.query.from != 'all'){
+                            searchQuery.searchFrom = route.query.from;
+                        }
+                        if(route.query.to && route.query.to != 'all'){
+                            searchQuery.searchTo = route.query.to;
+                        }
+                        if(route.query.documenttypes && route.query.documenttypes != 'all'){
+                            searchQuery.documenttype = route.query.documenttypes;
+                        }
+                        if(route.query.classifications && route.query.classifications != 'all'){
+                            searchQuery.classification = route.query.classifications;
+                        }
+                    }
+
+                });
+                
             })
             return {
             	searchData,

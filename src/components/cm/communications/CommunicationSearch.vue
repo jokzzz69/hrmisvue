@@ -1,13 +1,11 @@
 <template>
-    <div class="row">
+    <div class="row shts">
         <div class="col pAgeEmail--title">
             <ul class="d-flex list-unstyled align-items-center mh-45 mb-2">
                 <li class="col col-auto me-4"><h2 class="ps-1">Communications</h2></li>
                 <li class="col col-sm-5 pAgeEmail__input">
-                    <div class="input-group">
-                      <div class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></div>
-                      <input type="text" class="form-control" placeholder="Search" v-model="searchQuery.search" @keypress.enter="searchData">
-                    </div>
+                    <SearchCommunication/>
+                                       
                 </li>
             </ul>
         </div>
@@ -23,10 +21,8 @@
                             <th>Date / Time in</th>                
                             <th>Agency, Sender</th>
                             <th>Subject - Venue</th>      
-                            <th>Type - Classification</th>   
-
+                            <th>Type - Classification</th>
                             <th></th>
-
                         </tr>
                     </thead>
                     <tbody>
@@ -113,11 +109,14 @@
     const LoadingComponent = defineAsyncComponent(() => 
         import('@/components/loader/LoadingComponent.vue')
     );
-
+    const SearchCommunication = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/SearchCommunications.vue')
+    );
     export default{
         components: {
             TooltipArr,
-            LoadingComponent
+            LoadingComponent,
+            SearchCommunication
         },
         setup(){
 
@@ -155,7 +154,7 @@
             }
 
             onMounted(() =>{  
-                console.log(route.query);
+
                 reloadSearch(route.query);
             })
 

@@ -79,7 +79,7 @@ export default function useCommunications(){
 	}
 	const search = async (search) => {
 		axios.defaults.withCredentials = true;
-		console.log(search);
+
 		let response = await axios.get(`/v1/api/communicationsearch/`,{params: {search}});		
 		communications.value = response.data.data;
 	}

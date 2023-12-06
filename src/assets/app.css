@@ -2886,6 +2886,7 @@ div.bt{
 }
 .filterContentsWrap{
 	position: absolute;
+	width: 100%;
 	z-index: 999;
 	display: flex;
 	flex-wrap: wrap;
