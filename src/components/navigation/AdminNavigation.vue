@@ -1,9 +1,9 @@
 <template>
 
   <li>
-    <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#employeerecords-collapse" aria-expanded="true"><i class="fa-solid fa-users-rectangle"></i> <span>Employees Records</span> <i class="cvright fa-solid fa-angle-right"></i>
+    <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#employeerecords-collapse" aria-expanded="false"><i class="fa-solid fa-users-rectangle"></i> <span>Employees Records</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
-    <div class="collapse navdrpdwn show" id="employeerecords-collapse" style="">
+    <div class="collapse navdrpdwn" id="employeerecords-collapse" style="">
       <ul class="btn-toggle-nav list-unstyled small">
           <li class="nav-link"><router-link :to="{ name: 'monitoring.index' }">Employees DTR</router-link></li>
           <li class="nav-link"><router-link :to="{ name: 'record.index'}">Employees Information</router-link></li>
@@ -13,9 +13,7 @@
           <li class="nav-link"><router-link :to="{name: 'travels.index'}">Employees Travels</router-link></li>
           <li class="nav-link"><router-link :to="{name: 'archives.index'}">Employees Archived</router-link></li>
           <li class="nav-link"><router-link :to="{name: 'leaverecords.index'}">Employees Absent <template v-if="usertype != 1"> / Leave</template></router-link></li>
-
           <li class="nav-link"><a href="#" class="text-danger">Employees Assessment</a></li>               
-
       </ul>
     </div>          
   </li>
@@ -26,9 +24,7 @@
       <ul class="btn-toggle-nav list-unstyled small">
           <li class="nav-link">
             <router-link :to="{ name: 'mydailytimerecord.index' }">My DTR</router-link>
-
           </li>
-
           <li class="nav-link"><router-link :to="{ name: 'recordpersonal.show' }">My Information</router-link></li>
           <li class="nav-link"><router-link :to="{ name: 'pdsmydata.show' }">My PDS</router-link></li>
           <li class="nav-link"><router-link :to="{name: 'myleaverecords.index'}">My Absent <template v-if="usertype != 1"> / Leave</template> Records</router-link></li>

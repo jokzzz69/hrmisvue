@@ -27,16 +27,18 @@ export default function useAuthenticate(){
 	const currentUser = async() => {
 		axios.defaults.withCredentials = true;	
 		const pluck = (arr, key) => arr.map(i => i[key]);
+
 		await axios.get('/v1/api/cu',{
             	headers: {
             		'xlr': 1
             	}
             }).then(response =>{
 
+            	const roleSlugs = pluck(response.data.data.roles,'slug');
             	if(response.data.data.userinformation){
             		desc.value = [
             			response.data.data.employee_id,
-            			pluck(response.data.data.roles,'slug'),
+            			roleSlugs,
             			true,
             			response.data.data.employments[0].type_id,
             			response.data.data.permissions,
@@ -47,25 +49,30 @@ export default function useAuthenticate(){
             	}
 
 
-			store.setdetails(desc.value);
+				store.setdetails(desc.value);
 
-			emit('isLoggedin', true);
+				emit('isLoggedin', true);
 
-			if(response.data.data.userinformation){
-				navigationstore.setname(response.data.data.userinformation.cname);
-				emit('userLoggedIn', response.data.data.userinformation.cname);
-			}
+				if(response.data.data.userinformation){
+					navigationstore.setname(response.data.data.userinformation.cname);
+					emit('userLoggedIn', response.data.data.userinformation.cname);
+				}
 
-			if(response.data.data.password_changed != 1){	
-				changepasswordstore.setstate(false);
-				emit('isChanged', false);
-				router.push({name: 'changepasswordlogin.index'});
+				if(response.data.data.password_changed != 1){	
+					changepasswordstore.setstate(false);
+					emit('isChanged', false);
+					router.push({name: 'changepasswordlogin.index'});
 
-			}else{
-				changepasswordstore.setstate(true);		
-				emit('isChanged', true);
-				router.push({name: 'communications.index'});
-			}
+				}else{
+					changepasswordstore.setstate(true);		
+					emit('isChanged', true);
+					if(roleSlugs.includes('communicationviewer') || roleSlugs.includes('communicationencoder') || roleSlugs.includes('super-admin') || roleSlugs.includes('admin')){
+						router.push({name: 'communications.index'});
+					}else{
+						router.push({name: 'recordpersonal.show'});
+					}
+					
+				}
 		});     	
 		
 	}

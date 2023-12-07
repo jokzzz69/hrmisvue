@@ -46,17 +46,17 @@ export default function useCommunicationsRouted(){
 		axios.defaults.withCredentials = true;
 		errors.value = ''
 
-            await axios.post('/v1/api/routedcommunicationsbulkactions/', data).then(() => {
-            	router.push({ name: 'communications-routed.index' })
-            }).catch((e) => {
-            	if (e.response.status === 422) {
-	                errors.value = e.response.data.errors
-	            }
-            })
+        await axios.post('/v1/api/routedcommunicationsbulkactions/', data).then(() => {
+        	router.push({ name: 'communications-routed.index' })
+        }).catch((e) => {
+        	if (e.response.status === 422) {
+                errors.value = e.response.data.errors
+            }
+        })
 	}
-	const searchRouted = async (data) => {
+	const searchroutedfile = async (search) => {
 		axios.defaults.withCredentials = true;
-		await axios.get(`/v1/api/routedcommunicationssearch/${data}`).then((response) => {
+		await axios.get(`/v1/api/routedcommunicationssearch/`,{params:{search}}).then((response) => {
 			communications.value = response.data.data
 		});		
 		
@@ -106,7 +106,7 @@ export default function useCommunicationsRouted(){
 		getCommunicationRouted,
 		getCommunicationsRouted,
 		setPageRouted,		
-		searchRouted,
+		searchroutedfile,
 		updateRoutedCommunication,
 		pinrouted
 

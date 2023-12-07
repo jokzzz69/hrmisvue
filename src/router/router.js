@@ -1052,7 +1052,7 @@ const routes = [
     }
   },
   {
-    path: '/routedcommunicationssearch/:content',
+    path: '/routedcommunicationssearch/',
     name: 'communications-routed.search',
     component: () => import('@/components/cm/communications-routed/CommunicationRoutedSearch.vue'),
     props: true,

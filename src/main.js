@@ -28,6 +28,7 @@ import App from './App.vue'
 import vSelect from 'vue-select'
 import directives from "./directives/index";
 import screenresizedirective from "./directives/screenResize";
+import clickOutside from "@/directives/clickOutside";
 
 import Echo from 'laravel-echo';
 
@@ -39,9 +40,11 @@ const app = createApp(App)
 
 directives(app);
 screenresizedirective(app);
+app.directive('click-outside',clickOutside);
 
 const pinia = createPinia()
 const ls = new SecureLS({encodingType: 'des',isCompression: false, encryptionSecret: 'x7i55ebK@aS!Sgzx'});
+
 //pinia.use(piniaPluginPersistedstate);
 pinia.use(createPersistedState({
 

@@ -1,4 +1,5 @@
 <template>
+
     <footer>        
         <div class="container-fluid">
             <div class="row">
@@ -10,7 +11,9 @@
     </footer>
 </template>
 <script>
+    
     export default{
+
         setup(){
 
         }

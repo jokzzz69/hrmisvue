@@ -53,6 +53,7 @@
   </nav>
 
   </aside>
+  <PrivacyModal/>
 </template>
 <script>
   import {ref,watch} from 'vue'
@@ -66,6 +67,9 @@
   import AdminCommunicationViewer from '@/components/navigation/AdminCommunicationViewer.vue';
   import CommunicationEncoder from '@/components/navigation/CommunicationEncoder.vue';
   import CommunicationViewer from '@/components/navigation/CommunicationViewer.vue';
+  import PrivacyModal from '@/components/privacy/PrivacyModal.vue';
+
+
 
   export default{
     components: {
@@ -75,7 +79,8 @@
       AdminCommunicationEncoder,
       AdminCommunicationViewer,
       CommunicationEncoder,
-      CommunicationViewer
+      CommunicationViewer,
+      PrivacyModal
     },
     setup(){
       const store = useAuthStore();

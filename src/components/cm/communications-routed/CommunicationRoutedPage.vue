@@ -4,10 +4,7 @@
             <ul class="d-flex list-unstyled align-items-center mh-45 mb-2">
                 <li class="col col-auto me-4"><h2 class="ps-1">Routed</h2></li>
                 <li class="col col-sm-5 pAgeEmail__input">
-                    <div class="input-group">
-                      <div class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></div>
-                      <input type="text" class="form-control" placeholder="Search" v-model="searchQuery.search" @keypress.enter="searchData" />
-                    </div>
+                    <SearchRouted/>
                 </li>
             </ul>
         </div>
@@ -100,7 +97,7 @@
                         <template v-else>
                             <template v-if="!noData">
                                 <tr class="pr nodata">
-                                    <td colspan="6">
+                                    <td colspan="8">
                                         <LoadingComponent/>
                                     </td>
                                 </tr>
@@ -108,7 +105,7 @@
                         </template>
                         <template v-if="noData">                                
                             <tr class="nodata">
-                                <td colspan="6"> No Sent Communications</td>
+                                <td colspan="8"> No Sent Communications</td>
                             </tr>
                         </template>                    
                     </tbody>
@@ -119,15 +116,30 @@
 </template>
 <script>
     import useCommunicationsRouted from '@/composables/composables-communicationsrouted';
-    import {onMounted ,ref, computed, inject, reactive} from 'vue';
+    import {onMounted ,ref, computed, inject, reactive,defineAsyncComponent} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
     import moment from 'moment'
-    import Pagination from '@/components/cm/reusables/Pagination.vue';
+
     import {formatmaildate} from '@/helper/formatmaildate'
-    import TooltipArr from "@/components/cm/reusables/TooltipArr.vue";
-    import LoadingComponent from '@/components/loader/LoadingComponent.vue';
+
+
     import { useHead } from '@unhead/vue'
+
+
+    const SearchRouted = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/SearchRouted.vue')
+    );
+
+    const TooltipArr = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/TooltipArr.vue')
+    );
+    const LoadingComponent = defineAsyncComponent(() => 
+        import('@/components/loader/LoadingComponent.vue')
+    );
+    const Pagination = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/Pagination.vue')
+    );
 
     export default{
         props: {
@@ -139,7 +151,8 @@
         components: {
             Pagination,
             TooltipArr,
-            LoadingComponent
+            LoadingComponent,
+            SearchRouted
         },
         setup(props){
             useHead({
@@ -148,10 +161,7 @@
             const {communications, getCommunicationsRouted, communicationLinks, setPageRouted, communicationMeta, pinrouted} = useCommunicationsRouted()
             const swal = inject('$swal')
             const routeddetails = ref();
-            const searchQuery = reactive({
-                'search': ''
-            });
-
+  
 
 
             const noData = ref(false)
@@ -181,15 +191,6 @@
             })
 
 
-            const searchData = async() => {
-                if(searchQuery.search){
-                    if(searchQuery.search.trim().length !== 0){
-                        const tosearch = searchQuery.search.replace(/\s/g, "+");
-                        router.push({name: 'communications-routed.search', params: { content: tosearch}});
-                    }
-                }
-
-            }
 
            const show = (id) => {
                 router.push({name: 'communications-routed.show', params: { id: id }});
@@ -229,7 +230,6 @@
            return {
                 communications,
                 moment,
-                searchQuery,
                 show,
                 communicationLinks,
                 communicationMeta,
@@ -237,7 +237,6 @@
                 metaString,
                 hasPrev,
                 hasNext,
-                searchData,
                 noData,
                 formatmaildate,
                 routeddetails,

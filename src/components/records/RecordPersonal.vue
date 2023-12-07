@@ -220,9 +220,6 @@
             </template>
         </div>
     </div>
-    
-    
-    <PrivacyModal/>
 
 </template>
 
@@ -232,7 +229,7 @@ import { onMounted, ref, inject, reactive, watch} from 'vue';
 
 
 import useOfficerecord from '@/composables/composables-record';
-import PrivacyModal from '@/components/privacy/PrivacyModal.vue';
+
 
 import moment from 'moment'
 import { useAuthStore } from '@/stores/store.js'
@@ -244,7 +241,7 @@ import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
 
 export default{
     components: {
-        PrivacyModal,
+
         LoadingComponentDiv
      },
     setup (){

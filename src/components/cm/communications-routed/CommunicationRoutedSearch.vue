@@ -4,10 +4,7 @@
             <ul class="d-flex list-unstyled align-items-center mh-45 mb-2">
                 <li class="col col-auto me-4"><h2 class="ps-1">Routed</h2></li>
                 <li class="col col-sm-5 pAgeEmail__input">
-                    <div class="input-group">
-                      <div class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></div>
-                      <input type="text" class="form-control" placeholder="Search" v-model="searchQuery.search" @keypress.enter="searchData">
-                    </div>
+                    <SearchRouted/>
                 </li>
             </ul>
         </div>
@@ -112,46 +109,47 @@
 </template>
 <script>
     import useCommunicationsRouted from '@/composables/composables-communicationsrouted';
-    import {onMounted ,ref, computed, inject, reactive} from 'vue';
+    import {onMounted ,ref, computed, inject, reactive,defineAsyncComponent} from 'vue';
     import { sortBy} from 'lodash';
-    import {useRouter} from 'vue-router'
+    import {useRouter, useRoute} from 'vue-router'
     import moment from 'moment'
     import {formatmaildate} from '@/helper/formatmaildate'
-    import TooltipArr from "@/components/cm/reusables/TooltipArr.vue";
-    import LoadingComponent from '@/components/loader/LoadingComponent.vue';
+
     import { useHead } from '@unhead/vue'
 
+
+    const SearchRouted = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/SearchRouted.vue')
+    );
+    const LoadingComponent = defineAsyncComponent(() => 
+        import('@/components/loader/LoadingComponent.vue')
+    );
+    const TooltipArr = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/TooltipArr.vue')
+    );
+
+
     export default{
-        props: {
-            content: {
-                required: true,
-                type: String
-            }
-        },
         components: {
             TooltipArr,
-            LoadingComponent
+            LoadingComponent,
+            SearchRouted
         },
-        setup(props){
+        setup(){
             useHead({
                 title: 'Communications Routed Search | '+import.meta.env.VITE_BFAR_AGENCY
             })
-            const {communications, getCommunicationsRouted, communicationLinks,  communicationMeta,searchRouted,pinrouted} = useCommunicationsRouted()
+            const {communications, getCommunicationsRouted, communicationLinks,  communicationMeta,searchroutedfile,pinrouted} = useCommunicationsRouted()
             const swal = inject('$swal')
             const noData = ref(false)
             const sentdetails = ref();
-            const searchQuery = reactive({
-                'search': props.content.replaceAll("+"," ")
-            });
 
             const router = useRouter()
 
-
-
-    
+            const route = useRoute();    
 
             const searchLoad = async(data) => {
-                searchRouted(data).then(res =>{
+                searchroutedfile(data).then(res =>{
                     if(communications.value.length > 0){
                         noData.value = false;
                     }else{
@@ -161,32 +159,13 @@
             }
 
             onMounted(() =>{
-                
-                searchLoad(props.content);
-        
-               
+                searchLoad(route.query);               
             })
 
-           const show = (id) => {
+            const show = (id) => {
                 router.push({name: 'communications-routed.show', params: { id: id }});
             }
-
-
-
-
-
-
-
-            const searchData = async() => {              
-                if(searchQuery.search){
-                    if(searchQuery.search.trim().length !== 0){
-                        const tosearch = searchQuery.search.replace(/\s/g, "+");
-                        router.push({name: 'communications-routed.search', params: { content: tosearch}});
-                        searchLoad(tosearch);
-                    }
-                }
-            }
-            
+        
             const pin = async(id) => {
                 const cf = {
                     headers: {
@@ -194,18 +173,16 @@
                     }
                 }
                 await pinrouted(id);
-                await reloadRouted(props.id, cf);
+                await searchLoad(route.query, cf);
             }
             
            return {
                 communications,
 
                 moment,
-                searchQuery,
                 show,
                 communicationLinks,
                 communicationMeta,
-                searchData,
                 sentdetails,
                 formatmaildate,
                 noData,

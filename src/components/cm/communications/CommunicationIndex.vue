@@ -235,6 +235,7 @@
             }
         
             const pin = async(id) => {
+
                 const cf = {
                     headers: {
                         'xlr': 1

@@ -127,10 +127,6 @@
             const swal = inject('$swal')
             const noData = ref(false)
             const details = ref();
-            const searchQuery = reactive({
-                // 'search': props.content.replaceAll("+"," ")
-                'search': ''
-            });
 
             const router = useRouter()
             const route = useRoute();
@@ -153,8 +149,7 @@
                 })
             }
 
-            onMounted(() =>{  
-
+            onMounted(() =>{
                 reloadSearch(route.query);
             })
 
@@ -162,22 +157,6 @@
                 router.push({name: 'communications.show', params: { id: id }});
             }
 
-
-
-
-
-            const searchData = async() => {
-                if(searchQuery.search){
-                    if(searchQuery.search.trim().length !== 0){
-                        const tosearch = searchQuery.search.replace(/\s/g, "+");
-                        router.push({name: 'communications.search', params: { content: tosearch}});
-                        reloadSearch(searchQuery.search);
-                    }
-
-                }else{
-                    router.push({name: 'communications.index'});
-                }
-            }
             const pin = async(id) => {
                 const config = {
                     headers: {
@@ -185,17 +164,14 @@
                     }
                 }
                 await pincommunication(id);
-                await reloadSearch('', config);
+                await reloadSearch(route.query, config);
             }
            return {
                 communications,
-
                 moment,
-                searchQuery,
                 show,
                 communicationLinks,
                 communicationMeta,
-                searchData,
                 formData,
                 details,
                 formatmaildate,

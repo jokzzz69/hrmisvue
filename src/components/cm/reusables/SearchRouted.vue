@@ -74,6 +74,9 @@
 
 	export default{
 		setup(){
+
+
+
 			const router = useRouter()
 			const route = useRoute();
 
@@ -82,6 +85,8 @@
             const {documenttypes, getDocumentTypes} = useDocumentTypes()
 
             const ekSearchData = () => {
+            	searchQuery.nf = false;
+
             	if(searchQuery.search){
             		if(searchQuery.search.trim().length !== 0){
 	            		searchData(searchQuery.search);
@@ -89,7 +94,8 @@
             	}
             }
             const frmSearchData = () => {
-	
+                
+            	searchQuery.nf = true;
             	let dt = 'all';
             	let cs = 'all';
             	let sf = 'all';
@@ -114,19 +120,19 @@
             	}
 
                 if(searchQuery.search || searchQuery.searchFrom ||searchQuery.searchTo || searchQuery.documenttype || searchQuery.classification){
-                    router.push({name: 'communications.search', query: { search : search,
+                    router.push({name: 'communications-routed.search', query: { search : search,
                         from: sf,
                         to: st,
                         classifications: cs,
                         documenttypes: dt }
                     });
-                }
-            	
+                }        	
+            }
 
-            }
 			const searchData = async(tosearch) => {               
-                router.push({name: 'communications.search', query: { search: tosearch}});                                                          
+                router.push({name: 'communications-routed.search', query: { search: tosearch}});                                                          
             }
+
             const searchQuery = reactive({
                 'search': '',
                 'searchFrom': '',
@@ -172,6 +178,7 @@
                     }
 
                 });
+
                 
             })
             return {

@@ -72,11 +72,7 @@ export default function useCommunications(){
     	axios.defaults.withCredentials = true;
 		await axios.delete('/v1/api/communications/' + id)
 	}
-	const searchWithFilter = async (data,config) => {
-		axios.defaults.withCredentials = true;
-		let response = await axios.get(`/v1/api/cmsearch/${data}`,config);		
-		communications.value = response.data.data;
-	}
+
 	const search = async (search) => {
 		axios.defaults.withCredentials = true;
 
@@ -111,7 +107,8 @@ export default function useCommunications(){
 			headers: {
         		'xlr': 1
         	}
-		});
+
+		})
 	}
 	
 	return {
@@ -129,8 +126,7 @@ export default function useCommunications(){
 		search,
 		bulkactions,
 		setPage,
-		pincommunication,
-		searchWithFilter
+		pincommunication
 	}
 }
 

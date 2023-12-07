@@ -1,8 +1,8 @@
 <template>
   <li>
-    <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#communications" aria-expanded="false"><i class="fa-solid fa-tower-cell"></i> <span>Communications</span> <i class="cvright fa-solid fa-angle-right"></i>
+    <a href="#" @click.prevent.stop class="nav-link btn-toggle align-items-center collapsed" data-bs-toggle="collapse" data-bs-target="#communications" aria-expanded="true"><i class="fa-solid fa-tower-cell"></i> <span>Communications</span> <i class="cvright fa-solid fa-angle-right"></i>
     </a>
-    <div class="collapse navdrpdwn" id="communications" style="">
+    <div class="collapse navdrpdwn show" id="communications" style="">
       <ul class="btn-toggle-nav list-unstyled small wid--ic">
           <li class="nav-link">
             <router-link :to="{ name: 'communications.create' }" class="btn btn-blue w-100 mt-2 new__commBTN"> 

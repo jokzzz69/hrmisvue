@@ -4,10 +4,7 @@
             <ul class="d-flex list-unstyled align-items-center mh-45 mb-2">
                 <li class="col col-auto me-4"><h2 class="ps-1">Routed</h2></li>
                 <li class="col col-sm-5 pAgeEmail__input">
-                    <div class="input-group">
-                      <div class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></div>
-                      <input name="s" type="text" class="form-control" placeholder="Search" v-model="searchQuery.search" @keypress.enter="searchData" />
-                    </div>
+                    <SearchRouted/>
                 </li>
             </ul>
         </div>
@@ -17,7 +14,6 @@
             <div class="bg-mid-trans tblWrap f85 mb-3 pb-3" v-sheight>
                 <table class="tbl tblEmail--Wrap routed table">
                     <thead>
-
                         <tr>
                             <th></th>
                             <th></th>
@@ -126,25 +122,36 @@
 <script>
     import useCommunicationsRouted from '@/composables/composables-communicationsrouted';
 
-    import {onMounted ,ref, computed, inject, reactive, watch} from 'vue';
+    import {onMounted ,ref, computed, inject, reactive, watch, defineAsyncComponent} from 'vue';
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
     import moment from 'moment'
     import Pagination from '@/components/cm/reusables/Pagination.vue';
     import {formatmaildate} from '@/helper/formatmaildate';
-    import LoadingComponent from '@/components/loader/LoadingComponent.vue';
-    import TooltipArr from "@/components/cm/reusables/TooltipArr.vue";
+
+
+
     import {useRoutedStore} from "@/stores/routedstore.js"
     import useEventsBus from '@/components/helper/Eventbus';
     import {useNotificationStore} from '@/stores/notificationstore.js'
     import { useHead } from '@unhead/vue'
 
+    const SearchRouted = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/SearchRouted.vue')
+    );
+    const LoadingComponent = defineAsyncComponent(() => 
+        import('@/components/loader/LoadingComponent.vue')
+    );
+    const TooltipArr = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/TooltipArr.vue')
+    );
 
     export default{
         components: {
             Pagination,
-            TooltipArr,
-            LoadingComponent
+            LoadingComponent,
+            SearchRouted,
+            TooltipArr
         },
         setup(){
             useHead({
@@ -196,29 +203,21 @@
                     }
                 })
             }
+            
             onMounted(() =>{
                 loadData();                
             })
 
-
-
-            notificationstore.$subscribe((m,s) => {
-                
+            notificationstore.$subscribe((m,s) => {                
                 if(notificationstore.getnrc.__rc > 0){
                     loadData();
                 }
             })
 
-
-
-
-           const show = (id) => {
+            const show = (id) => {
                 routedstore.setinitialrouted(1);
                 router.push({name: 'communications-routed.show', params: { id: id}});
             }
-
-
-
 
             const searchData = async() => {
                 if(searchQuery.search){
@@ -238,7 +237,6 @@
                     router.push({name: 'communications-routedpage.show', params: { id: id[id.length-1] }});
                 }
             }
-
             
             const pin = async(id) => {
                 const cf = {
@@ -249,7 +247,7 @@
                 await pinrouted(id);
                 await loadData(cf);
             }
-
+            
            return {
                 communications,
                 formatmaildate,

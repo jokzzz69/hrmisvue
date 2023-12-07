@@ -1,13 +1,11 @@
 <template>
-    <div class="row">
+    <div class="row shts">
         <div class="col pAgeEmail--title">
             <ul class="d-flex list-unstyled align-items-center mh-45 mb-2">
                 <li class="col col-auto me-4"><h2 class="ps-1">Communications</h2></li>
                 <li class="col col-sm-5 pAgeEmail__input">
-                    <div class="input-group">
-                      <div class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></div>
-                      <input type="text" class="form-control" placeholder="Search" v-model="searchQuery.search" @keypress.enter="searchData" />
-                    </div>
+                    <SearchCommunication/>
+                                       
                 </li>
             </ul>
         </div>
@@ -112,6 +110,9 @@
     import {formatmaildate} from '@/helper/formatmaildate';
 
     import { useHead } from '@unhead/vue'
+    const SearchCommunication = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/SearchCommunications.vue')
+    );
 
     const Tooltip = defineAsyncComponent(() => 
         import('@/components/cm/reusables/Tooltip.vue')
@@ -134,7 +135,8 @@
         components: {
             Pagination,
             Tooltip,
-            LoadingComponent
+            LoadingComponent,
+            SearchCommunication
         },
         setup(props){
             useHead({
@@ -147,9 +149,7 @@
 
             const swal = inject('$swal')
             const details = ref();
-            const searchQuery = reactive({
-                'search': ''
-            });
+
 
             const formData = reactive({
                 'selectedCommunication': [],
@@ -189,10 +189,7 @@
             onMounted(() =>{
                 reloadPage(props.id);                    
 
-            })
-
-
-            
+            })   
 
 
            const show = (id) => {
@@ -201,16 +198,6 @@
 
     
 
-            const searchData = async() => {            
-
-                if(searchQuery.search){
-                    if(searchQuery.search.trim().length !== 0){
-                        const tosearch = searchQuery.search.replace(/\s/g, "+");
-                        router.push({name: 'communications.search', params: { content: tosearch}});
-                    }
-                }
-                              
-            }
 
             const showPage = (n) => {
                 let id = null;
@@ -242,7 +229,6 @@
                 communications,
                 formatmaildate,
                 moment,
-                searchQuery,
                 show,
 
                 formData,
@@ -250,7 +236,6 @@
                 communicationMeta,
                 metaString,
                 showPage,
-                searchData,
                 hasPrev,
                 hasNext,
                 noData,
