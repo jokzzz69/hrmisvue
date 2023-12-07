@@ -6,7 +6,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-		    <div class="row align-items-end">
+		    <div class="row align-items-end travelFilter">
 		    	<div class="col-auto">
 		    		<router-link :to="{ name: 'travel.create' }" class="btn btn-blue">New Travel <i class="fa-solid fa-plus"></i></router-link>
 		    	</div>
@@ -28,7 +28,7 @@
 		    	</div>
 		    </div>
 		    <div class="mtmb tblWrap mt-2 mb-2">
-		    	<table class="mtable table nottbllink">
+		    	<table class="mtable table nottbllink tblTravel">
 		    	<thead>
 		    		<tr>
 		    			<th @click="sortTable('id')" v-if="userrole == 'super-admin'"  class="w-5">ID
@@ -51,15 +51,15 @@
 		                    <span v-if="sortColumn == 'travelend'" class="material-icons">{{arrowIconName}}</span>
 		                    <span v-else class="material-icons">sort</span>
 		                </th>
-		                <th @click="sortTable('location')">Location
+		                <th @click="sortTable('location')" class="h-t">Location
 		                    <span v-if="sortColumn == 'location'" class="material-icons">{{arrowIconName}}</span>
 		                    <span v-else class="material-icons">sort</span>
 		                </th>
-		                <th class="w-20" @click="sortTable('purpose')">Purpose
+		                <th class="w-20 h-t" @click="sortTable('purpose')">Purpose
 		                    <span v-if="sortColumn == 'purpose'" class="material-icons">{{arrowIconName}}</span>
 		                    <span v-else class="material-icons">sort</span>
 		                </th>
-		                <th @click="sortTable('createdby')">Created By
+		                <th @click="sortTable('createdby')" class="h-t">Created By
 		                    <span v-if="sortColumn == 'createdby'" class="material-icons">{{arrowIconName}}</span>
 		                    <span v-else class="material-icons">sort</span>
 		                </th>
@@ -97,13 +97,13 @@
 			    						{{moment(new Date(travel.travelend)).format('MMMM D, Y')}}
 			    					</template>	  
 			    				</td>
-			    				<td>
+			    				<td class="h-t">
 			    					{{travel.location}}
 			    				</td>
-			    				<td>
+			    				<td class="h-t">
 			    					{{travel.purpose}}
 			    				</td>
-			    				<td>
+			    				<td class="h-t">
 			    					<template v-if="travel.createdby">
 			    						{{travel.createdby.name}}
 			    					</template>
@@ -113,10 +113,10 @@
 			    						<li class="mb-1">
 			    							<router-link title="Edit" :to="{name: 'travel.edit', params : {id: travel.id}}" class="btn btn-violet"><i class="sm-icons fa-solid fa-pen-to-square"></i> <span  class="lg-text">Edit</span></router-link>
 			    						</li>
-		                  <li>
-		                  	<button title="delete" class="btn btn-outline-danger" @click="deleteTravel(travel.id)"><i class="sm-icons fa-solid fa-trash-can"></i> <span class="lg-text">Delete</span></button>
-		                  </li>
-		                </ul>
+						                  <li>
+						                  	<button title="delete" class="btn btn-outline-danger" @click="deleteTravel(travel.id)"><i class="sm-icons fa-solid fa-trash-can"></i> <span class="lg-text">Delete</span></button>
+						                  </li>
+						                </ul>
 			    					
 			    				</td>
 			    			</tr>

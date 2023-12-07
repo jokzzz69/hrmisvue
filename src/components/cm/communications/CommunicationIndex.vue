@@ -1,11 +1,10 @@
 <template>
     <div class="row shts">
         <div class="col pAgeEmail--title">
-            <ul class="d-flex list-unstyled align-items-center mh-45 mb-2">
-                <li class="col col-auto me-4"><h2 class="ps-1">Communications</h2></li>
-                <li class="col col-sm-5 pAgeEmail__input">
-                    <SearchCommunication/>
-                                       
+            <ul class="pAgeEmail--title__wrap">
+                <li class="pAgeEmail--title__content"><h2 class="ps-1">Communications</h2></li>
+                <li class="pAgeEmail__input pAgeEmail--title__search">
+                    <SearchCommunication/>                                       
                 </li>
             </ul>
         </div>
@@ -17,11 +16,11 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Document #</th>
-                            <th>Date / Time in</th>                
-                            <th>Agency, Sender</th>
-                            <th>Subject - Venue</th>      
-                            <th>Type - Classification</th>  
+                            <th><span>Document #</span></th>
+                            <th><span>Date / Time in</span></th>                
+                            <th><span>Agency, Sender</span></th>
+                            <th><span>Subject - Venue</span></th>      
+                            <th><span>Type - Classification</span></th>  
                                                
                             <th class="text-end">
                                 <template v-if="communicationMeta.last_page > 1">                     
@@ -35,7 +34,7 @@
                         <template v-if="communications.length > 0">
                             <template v-for="communication in communications" :key="communication.id">                                
                                 <tr @click="show(communication.id)"  :class="communication.unreadcount < 1 ? '' : 'unread'">
-                                    <td>
+                                    <td class="cmP">
                                         <span class="pin--comm" 
                                         :class="communication.communicationstatus.pinned_at ? 'pinned': ''"
                                         @click.stop @click.prevent="pin(communication.id)" 
@@ -43,15 +42,15 @@
                                             <i class="fa-solid fa-thumbtack"></i>
                                         </span>
                                     </td>
-                                    <td>
+                                    <td class="cmD">
                                         <span class="sp_documentnumber">{{communication.documentnumber}}</span>
                                         <span class="totalactionstaken" title="Total Actions Taken" v-if="communication.totalactionstaken > 0">
                                             ({{communication.totalactionstaken}})
                                         </span>     
                                     </td>
-                                    <td><span class="sp_datein">{{moment(new Date(communication.datetimein)).format('MMMM D, Y hh:mm A')}}</span></td>
-                                    <td><span class="sp_agency">{{communication.agency}}, {{communication.sender}}</span></td>
-                                    <td>
+                                    <td class="cmDT"><span class="sp_datein">{{moment(new Date(communication.datetimein)).format('MMMM D, Y hh:mm A')}}</span></td>
+                                    <td class="cmAS"><span class="sp_agency">{{communication.agency}}, {{communication.sender}}</span></td>
+                                    <td class="cmSV">
                                         <template v-if="communication.subject">
                                             <span class="sp__suject" >{{communication.subject}}</span> 
                                         </template>
@@ -62,7 +61,7 @@
                                             <span class="sp__subjectUB"> - {{communication.venue}}</span>
                                         </template>
                                     </td>
-                                    <td>
+                                    <td class="cmDC">
                                         <template v-if="communication.documenttype">
                                             {{communication.documenttype.name}}
                                         </template>
@@ -71,7 +70,7 @@
                                         </template>                                        
                                     </td>                                
                                     
-                                    <td class="text-end" title="Date / Time Sent"><span>{{formatmaildate(communication.updated_at)}}</span></td>
+                                    <td class="text-end cmDS" title="Date / Time Sent"><span>{{formatmaildate(communication.updated_at)}}</span></td>
                                 </tr>
                             </template>
                               <!-- {{communicationLinks}} -->
@@ -187,7 +186,8 @@
                         noData.value = false;
                     }else{
                         noData.value = true;
-                    }                    
+                    }       
+                                
                 })
             }
 

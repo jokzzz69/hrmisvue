@@ -18,7 +18,7 @@
 
     </div>
     <div class="tblWrap mt-2 mb-2">
-        <table class="mtable hasActions table tbl-leave nottbllink">
+        <table class="mtable hasActions table tblLeave nottbllink">
             <thead>
                 <tr>
                     <th>
@@ -30,7 +30,7 @@
                     <th>
                         Inclusive Dates
                     </th>
-                    <th>
+                    <th class="h-t">
                         Created By
                     </th>
 
@@ -68,7 +68,7 @@
                                     </template>
                                 </template>
                             </td>
-                            <td>
+                            <td class="h-t">
                                 <template v-if="leaverecord.owner">
                                     {{leaverecord.creator.name}}
                                 </template>

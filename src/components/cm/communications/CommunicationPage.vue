@@ -1,11 +1,10 @@
 <template>
     <div class="row shts">
         <div class="col pAgeEmail--title">
-            <ul class="d-flex list-unstyled align-items-center mh-45 mb-2">
-                <li class="col col-auto me-4"><h2 class="ps-1">Communications</h2></li>
-                <li class="col col-sm-5 pAgeEmail__input">
-                    <SearchCommunication/>
-                                       
+            <ul class="pAgeEmail--title__wrap">
+                <li class="pAgeEmail--title__content"><h2 class="ps-1">Communications</h2></li>
+                <li class="pAgeEmail__input pAgeEmail--title__search">
+                    <SearchCommunication/>                                       
                 </li>
             </ul>
         </div>

@@ -14,7 +14,7 @@
 		    	</div>
 		    </div>
 		    <div class="mtmb mt-2 mb-2 tblWrap">
-		    	<table class="mtable table tbllink">
+		    	<table class="mtable table tbllink tblPDS">
 			    	<thead>
 			    		<tr>
 			    			<th class="col" @click="sortTable('employee_fname')">Name
@@ -43,13 +43,13 @@
 					    			<td @click.stop>
 					    				<ul class="ls-frmbutton text-end">
 					    					<li>
-					    						<button class="btn btn-download btn-outline-danger" @click.prevent="downloadselectedpds(employee.employee_id, employee.cname)">
-					    							Download
+					    						<button class="btn btn-download btn-outline-danger" title="Download" @click.prevent="downloadselectedpds(employee.employee_id, employee.cname)"><i class="fa-solid fa-download"></i> <span class="actionText">Download</span>
+					    							
 					    						</button>
 					    					</li>
 			                               	<li v-if="userrole == 'super-admin'" >
 		                                        <button title="Reset Data" class="btn btn-teal" @click="resetPDS(employee.employee_id)">
-		                                            <i class="fa-solid fa-eraser"></i> Reset
+		                                            <i class="fa-solid fa-eraser"></i> <span class="actionText">Reset</span>
 		                                        </button>
 		                                    </li>                               	
 			                            </ul>

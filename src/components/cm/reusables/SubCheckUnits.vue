@@ -7,7 +7,7 @@
             </label>
         </div>
     </div>
-    <ul class="listchchilds list-unstyled ps-3">
+    <ul class="listchchilds list-unstyled">
         <li v-for="(unit,i) in units">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" :disabled="props.isDisplayed" :name="`ou-${i}`" :value="unit.id" :id="`ou-${i}`" v-model="selectedunits" @change="checkunit()">

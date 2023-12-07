@@ -1709,10 +1709,10 @@ tr.disabled{
   background: #555; 
 }
 /*end grid layout*/
-.tbl-leave thead th:last-child{
+.tblLeave thead th:last-child{
 	width: auto;
 }
-.tbl-leave span.italic{
+.tblLeave span.italic{
 	font-style: italic;
 	color: #766969;
 }
@@ -1769,6 +1769,9 @@ ul.cwrap--content--child{
 .tblEmail--Wrap,
 .tbl.actionstaken{
 	font-size: .9rem;
+}
+.tbl.actionstaken thead th{
+	border-color: tr;
 }
 .tblEmail--Wrap thead{
 	background-color: #0f1b91 !important;
@@ -1883,6 +1886,18 @@ tbody tr.read {
 }
 .pAgeEmail--title--sub {
     margin-top: 1.09rem;
+}
+.pAgeEmail--title__wrap{
+	display: flex;
+	padding: 0;
+	list-style: none;
+}
+
+
+.pAgeEmail--title__content{
+	flex: 0 0 auto;
+    width: auto;
+    margin-right: 1rem;
 }
 
 /*navEmployee*/
@@ -3026,8 +3041,11 @@ div.bt{
 		display: none;
 	}
 }
+/*mobz*/
 @media(max-width: 767px){
-
+	.h-m{
+		display: none !important;
+	}
 	.pstTime span,
 	.spfltxt{
 		display: none;
@@ -3053,6 +3071,10 @@ div.bt{
 	.empNavTitle{
 		display: none;
 	}
+	.tblWrap{
+		overflow-x: auto;
+	}
+
 }
 
 @media (max-width: 767.98px){
@@ -3236,8 +3258,11 @@ div.bt{
 	div.mm-b{
 		margin-bottom: .5rem;
 	}
+	.tblGroupsIndex{
+		white-space: nowrap;
+	}
 }
-
+/*tabs*/
 @media (min-width: 768px) {
 
 	/*delete for old navbar*/
@@ -3401,12 +3426,18 @@ div.bt{
 	.communication--uploaded--date{
 		text-align: right;		
 	}
-	.communication--uploaded--date{
-		
+	.spactionText{
+		display: none;
+	}
+	.listcgchilds{
+		padding-left: 1rem;
 	}
 }	
 
 @media(min-width: 768px) and (max-width:991px){
+	.h-t{
+		display: none !important;
+	}
 	.nb-mob{
 		display: block !important;
 	}
@@ -3421,11 +3452,193 @@ div.bt{
 	    max-width: calc(27% - 2%);
 	}
 	#sidenav ul li a{
-		font-size: .76rem;
+		font-size: .66rem;
+	}
+	.checkboxCG div.unitgroups,
+	.listcgchilds{
+		padding:0 1rem;
+	}
+	.checkboxCG div.unitgroups .listchchilds{
+		display: flex;
+		flex-wrap: wrap;
+		padding-left: 0;
+	}
+	.checkboxCG div.unitgroups .listchchilds > li{
+		flex: 0 0 auto;
+		width: 25%;
+	}
+	.checkboxCG div.unitheads,
+	.checkboxCG div.unitgroups{
+		width: 100%;		
+	}
+	.checkboxCG div.unitheads{
+		border: none;
+	}
+	.checkboxCG div.unitheads > ul{
+		width: 50%;
+	}
+	.checkboxCG div.unitheads > ul li .form-check-label span.lbl-unitsTitle{
+		display: block;
+	}
+	section .fileuprow{
+		width: calc(50% - .8rem);
+	}
+	.tbl--emp--info thead th:last-child,
+	.tblPDS thead th:last-child,
+	.tblTravel thead th:last-child,
+	.tblArchive thead th:last-child,
+	.tblLeave thead th:last-child{
+		width: 35%;
+	}
+	.tblPDSPersonal thead th:last-child{
+		width: 70%;
+	}
+	.tblPDS tbody tr td:last-child li,
+	.tblArchive tbody tr td:last-child li{
+		margin-bottom: .3rem;
+	}
+	.tbl--emp--info .actionText{
+		display: none;
+	}
+	.cvright{
+		top: 2px;
+	}
+	.pAgeEmail--title__wrap{
+		flex-wrap: wrap;
+	}
+	.pAgeEmail--title__search,
+	.pAgeEmail--title__content
+	{
+		width: 100%;
+	}
+	.travelFilter > div{
+		width: 50%;
+	}
+	.travelFilter > div:first-child,
+	.travelFilter > div:nth-child(2){
+		width: 100%;
+		flex: 0 0 auto;
+	}
+	.travelFilter > div:first-child{
+		margin-top: .3rem;
+	}
+
+	.navbar-expand-md .navbar-nav .dropdown-menu.notifications{
+    	transform: translate(-200px, 0px);
+	}
+
+
+	table.communications thead{
+		display: flex;
+		min-height: 2rem;
+	}
+	table.communications thead tr{
+		border-color: transparent;
+	}
+	table.communications thead 
+	table.communications,
+	table.communications tbody{
+		display: block;
+	}
+	table.communications tbody tr{
+		display: flex;
+		flex-wrap: wrap;
+		position: relative;
+	}
+	table.communications tbody tr td{
+		flex: 0 0 auto;
+		border-color: transparent;		
+	}
+	table.communications thead tr span{
+		display: none;
+	}
+	table.communications tr.nodata td{
+		width: 100%;
+	}
+	.cmP{
+		order:1;
+	}
+	.cmD{
+		width: 18%;
+		order:1;
+	}
+	.cmDT{
+		width: 36%;
+		order:3;
+		margin-left: calc(18% + 38px);
+	}
+	.cmAS{
+		width: calc(100% - 18% - 38px);
+		order:1;
+		padding-top: .3rem;		
+	}
+	.cmDT{
+		padding-top: 0 !important;
+	}
+	.cmP,
+	.cmD,
+	.cmAS{
+		padding-bottom: 0 !important;
+	}
+	.cmDC,
+	.cmSV{
+		padding-top: 0 !important;
+		padding-bottom: 0 !important;
+	}
+	.cmSV{
+		order:2;
+		margin-left: calc(18% + 38px);
+		border-right:1px solid #ccc !important;
+		
+	}
+	.cmDC{
+		order: 2;
+	}
+	.cmDS{
+		position: absolute;
+		right: 0;
+		top: 0;
+		font-size: .8rem;
+	}
+	.files__wrap{
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.files__wrap > li,
+	.file--content.list-inline-item{
+		flex: 0 0 auto;
+		width: calc(50% - 0.8rem);
+	}
+	.comm--AT--attachments .attachedfiles{
+		width: 100%;
+	}
+	.comm--AT--attachments section .fileuprow{
+		width: 100%;
+	}
+	.attachedfiles .loading-area .details{
+		flex-wrap: wrap;
+	}
+	.atfileName{
+		flex: 0 0 80%;
+		order: 1;
+	}
+	.atfileLoader{
+		flex: 0 0 20%;
+		order: 1;
+	}
+	.atfileDetails{
+		order: 2;
+		flex: 0 0 100%;
+	}
+	.at--BoxWrap--actions{
+		flex: 0 0 100%;
+		margin-top: .5rem;
 	}
 }
 @media(min-width: 992px) and (max-width:1024px){
-
+	.h-sl{
+		display: none !important;
+	}
 	.sm-50{
 		width: 50%;
 	}
@@ -3440,6 +3653,9 @@ div.bt{
 
 }
 @media(min-width: 1025px) and (max-width:1199px){
+	.h-ml{
+		display: none !important;
+	}
 	.sidebarleft {
 
 	    width: 27%;
@@ -3447,6 +3663,9 @@ div.bt{
 	}
 }
 @media(min-width: 1200px) and (max-width:1320px){
+	.h-ll{
+		display: none !important;
+	}
 	.sidebarleft {
 
 	    width: 25%;
@@ -3454,12 +3673,14 @@ div.bt{
 	}
 }
 @media(min-width: 1321px) and (max-width:1599px){
+
 	.sidebarleft {
 	    width: 23%;
 	    max-width: calc(20% - 2%);
 	}
 }
 @media(min-width: 1600px) and (max-width:1680px){
+
 	.sidebarleft {
 	    width: 23%;
 	    max-width: calc(20% - 2%);
@@ -3478,8 +3699,9 @@ div.bt{
 	.col-chk{
 		width: 4%;
 	}
+	.tblGroupsIndex thead th:first-child,
 	.tblGroupsIndex thead th:nth-child(3){
-		width: 40%;
+		width: 30%;
 	}
 	.th-15{
 		width: 15%;
@@ -3511,7 +3733,9 @@ div.bt{
 }
 
 @media (min-width: 1200px) {
-
+	.h-d{
+		display: none !important;
+	}
 }
 
 @media (min-width: 1400px) {

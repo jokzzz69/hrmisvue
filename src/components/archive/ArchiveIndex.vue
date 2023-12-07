@@ -16,7 +16,7 @@
             </div>
         </div>    </div>
 	   <div class="mtmb mt-2 mb-2 tblWrap">
-        <table class="mtable table tbllink">
+        <table class="mtable table tbllink tblArchive">
             <thead>
                 <tr>
                     <th @click="sortTable('name')">Name

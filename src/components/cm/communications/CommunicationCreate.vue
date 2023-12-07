@@ -9,7 +9,7 @@
     </div>
     <form class="bg-light my-3 pb-3 pt-3 px-3 card cardCommunication" :class="errors ? 'has-Error' : '' ">
         <div class="row">
-            <div class="col-3">
+            <div class="col col-sm-5 col-lg-3">
                 <Datepicker class="dp-floating no-autoapply" :teleport="true" :class="errors.datetimein ? 'is-invalid' : ''" v-model="communicationform.datetimein"  week-start="0" :is-24="false" time-picker-inline  name="datetimein" placeholder="Date / Time In"></Datepicker>  
                 <span v-if="errors.datetimein" class="text-danger m-error">{{errors.datetimein[0]}}</span>  
             </div>
@@ -102,7 +102,7 @@
         </div>
 
         <div class="row">
-            <div class="col col-sm-6">
+            <div class="col col-sm-12 col-lg-6">
                 <div class="mt-4 mainLabel">
                     <h6>Note: <span class="text-danger">*</span></h6>
                 </div>
@@ -136,7 +136,7 @@
                 </div>
             </div>
 
-            <div class="col col-sm-6">
+            <div class="col col-sm-12 col-lg-6">
                 <div class="mt-4 mainLabel">
                     <h6>Actions: <span class="text-danger">*</span></h6>
                 </div>

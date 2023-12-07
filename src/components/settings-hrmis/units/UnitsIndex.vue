@@ -59,22 +59,22 @@
                                         </div>
                                     </td>                                    
                                     <td @click.stop>
-                                        <ul class="list-inline text-end mb-0">
+                                        <ul class="list-inline text-end mb-0 spactionList">
 
                                             <li class="list-inline-item">
                                                 <router-link :to="{ name: 'units.employees', params: { id: filteredUnit.id } }" class="btn btn-outline-success" title="Add Employees"> 
-                                                    <i class="fa-solid fa-people-group"></i> <span class="actionText">Edit Employees</span>
+                                                    <i class="fa-solid fa-people-group"></i> <span class="spactionText">Edit Employees</span>
                                                 </router-link>
                                             </li>
                                             
                                             <li class="list-inline-item">
                                                 <router-link :to="{ name: 'units.edit', params: { id: filteredUnit.id } }" class="btn btn-outline-violet" title="Edit"> 
-                                                    <i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
+                                                    <i class="fa-solid fa-user-pen"></i> <span class="spactionText">Edit</span>
                                                 </router-link>
                                             </li>
                                             <template v-if="userrole.includes('super-admin') || userrole.includes('admin')"> 
                                                <li class="list-inline-item">
-                                                    <button title="delete" class="btn btn-outline-danger" @click="deleteunit(filteredUnit.id)"><i class="fa-solid fa-trash-can"></i> Delete</button>
+                                                    <button title="delete" class="btn btn-outline-danger" @click="deleteunit(filteredUnit.id)"><i class="fa-solid fa-trash-can"></i> <span class="spactionText">Delete</span></button>
                                                 </li> 
                                             </template>                                        
                                         </ul>                                    

@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="row mb-2">    
-            <div class="col col-sm-1">
+            <div class="col col-sm-2 col-lg-1">
                 <div class="form-floating lblform-floating">    
                     <span class="form-control formfloatinglblT" id="empid">{{officerecord.employee_id}}</span>
                     <span class="form-span formfloatinglblB">ID Number</span>

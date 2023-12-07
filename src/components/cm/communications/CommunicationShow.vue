@@ -50,19 +50,19 @@
         </div>
         <div class="content__card--contents plr pt-2 pb-1">
             <div class="row">
-                <div class="col mb-1">
+                <div class="col col-sm-6 col-lg-4 mb-1">
                     <div class="form-floating fflabel">
                         <span class="form-control">{{communication.documentnumber}}</span>
                         <span class="sp-label">Document Number</span>
                     </div>
                 </div>
-                <div class="col mb-1">
+                <div class="col col-sm-6 col-lg-4 mb-1">
                     <div class="form-floating fflabel">
                         <span class="form-control">{{moment(new Date(communication.datetimein)).format('LLLL')}}</span>
                         <span class="sp-label">Date Time In:</span>
                     </div>
                 </div>
-                <div class="col mb-1">
+                <div class="col col-sm-6 col-lg-4 mb-1">
                     <div class="form-floating fflabel">
                         <span class="form-control">
                             <template v-if="communication.documenttype">
@@ -148,7 +148,7 @@
         
 
         <div class="row">
-            <div class="col">
+            <div class="col col-sm-12 col-lg-6">
                 <div class="cardwrap pt-2 pb-1 mt-2">
                     <div class="col">
                         <div class="card--title"><strong>Note:</strong></div>
@@ -186,7 +186,7 @@
                     
                 </div>
             </div>
-            <div class="col">
+            <div class="col col-sm-12 col-lg-6">
                 <div class="cardwrap pt-2 pb-1 mt-2">
                     <div class="col">
                         <div class="card--title"><strong>Actions:</strong></div>

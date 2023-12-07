@@ -26,7 +26,7 @@
                     </template>
 	            </div>                
 	            <template v-if="communicationgroup.employees">
-	                <ul class="listcgchilds list-unstyled ps-3">
+	                <ul class="listcgchilds list-unstyled">
 	                    <li v-for="(employee,index) in communicationgroup.employees">
 	                        <div class="form-check">
 	                            <input class="form-check-input" type="checkbox" :value="employee.id" 
@@ -36,15 +36,17 @@
 	                            <label class="form-check-label" :for="`emp-${x}-${employee.id}-${index}`">
 	                                {{employee.name}}
 	                                <template v-if="communicationgroup.groupsemployeeoffice == 1 || communicationgroup.groupsemployeeunits == 1">
-	                                    (<span v-if="communicationgroup.groupsemployeeoffice == 1">
-	                                            <strong>{{employee.employments[0].office.offices_name}}</strong>
-	                                            <template v-if="communicationgroup.groupsemployeeunits == 1">, </template>
-	                                        </span>
-	                                        <span v-if="communicationgroup.groupsemployeeunits == 1">
-	                                            <template v-for="(unit,unitindex) in employee.units">           
-	                                                <strong>{{unit.slug}}</strong><template v-if="unitindex+1 < employee.units.length">, </template>
-	                                            </template>  
-	                                        </span>)
+	                                    <span class="lbl-unitsTitle">(
+                                             <span v-if="communicationgroup.groupsemployeeoffice == 1">
+                                                    <strong>{{employee.employments[0].office.offices_name}}</strong>
+                                                    <template v-if="communicationgroup.groupsemployeeunits == 1">, </template>
+                                                </span>
+                                                <span v-if="communicationgroup.groupsemployeeunits == 1">
+                                                    <template v-for="(unit,unitindex) in employee.units">           
+                                                        <strong>{{unit.slug}}</strong><template v-if="unitindex+1 < employee.units.length">, </template>
+                                                    </template>  
+                                                </span>   
+                                        )</span>
 	                                </template> 
 	                            </label>
 	                        </div>

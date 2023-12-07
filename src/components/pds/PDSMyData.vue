@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col">
             <div class="tblWrap mt-2">
-                <table class="mtable table nottbllink">
+                <table class="mtable table tblPDSPersonal nottbllink">
                 <thead>
                     <tr>
                         <th>Details</th>

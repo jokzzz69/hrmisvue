@@ -18,7 +18,7 @@
 		    	</div>
 		    </div>
 		    <div class="mtmb tblWrap mt-2 mb-2">
-		    	<table class="mtable  table nottbllink">
+		    	<table class="mtable  table nottbllink tbl--emp--info">
 			    	<thead>
 			    		<tr>
 			    			<th @click="sortTable('employee_id')">ID
@@ -33,11 +33,11 @@
 			                    <span v-if="sortColumn == 'emergency_contactperson'" class="material-icons">{{arrowIconName}}</span>
 			                    <span v-else class="material-icons">sort</span>
 			                </th>
-			                <th @click="sortTable('type')">Type
+			                <th @click="sortTable('type')" class="h-t">Type
 			                    <span v-if="sortColumn == 'type'" class="material-icons">{{arrowIconName}}</span>
 			                    <span v-else class="material-icons">sort</span>
 			                </th>
-			                <th @click="sortTable('status')">Status
+			                <th @click="sortTable('status')" class="h-t">Status
 			                    <span v-if="sortColumn == 'status'" class="material-icons">{{arrowIconName}}</span>
 			                    <span v-else class="material-icons">sort</span>
 			                </th>
@@ -45,11 +45,11 @@
 			                    <span v-if="sortColumn == 'position'" class="material-icons">{{arrowIconName}}</span>
 			                    <span v-else class="material-icons">sort</span>
 			                </th>
-			                <th @click="sortTable('office')">Office
+			                <th @click="sortTable('office')" class="h-t">Office
 			                    <span v-if="sortColumn == 'office'" class="material-icons">{{arrowIconName}}</span>		                    
 			                    <span v-else class="material-icons">sort</span>
 			                </th>
-			                <th @click="sortTable('startdate')">Start Date
+			                <th @click="sortTable('startdate')" class="h-t">Start Date
 			                    <span v-if="sortColumn == 'startdate'" class="material-icons">{{arrowIconName}}</span>		                    
 			                    <span v-else class="material-icons">sort</span>
 			                </th>
@@ -89,14 +89,14 @@
 				    				<td class="ttc">
 				    					{{officerecord.emergency_contactperson}}<template v-if="officerecord.emergency_contactnumber"><br/>0{{officerecord.emergency_contactnumber}}</template>
 				    				</td>
-				    				 <td>
+				    				 <td class="h-t">
 				    				 	<template v-if="officerecord.employments.length > 0">
 				    				 		<template v-if="officerecord.employments[0].type">
 				    				 			{{officerecord.employments[0].type.name}}
 				    				 		</template>		    				 		
 				    				 	</template>
 				    				 </td>
-				    				 <td>
+				    				 <td class="h-t">
 				    				 	<template v-if="officerecord.employments.length > 0">
 				    				 		<template v-if="officerecord.employments[0].status">
 				    				 			{{officerecord.employments[0].status.name}}
@@ -110,14 +110,14 @@
 				    				 		</template>		    				 		
 				    				 	</template>
 				    				 </td>
-					    			<td>
+					    			<td class="h-t">
 					    				<template v-if="officerecord.employments.length > 0">
 				    				 		<template v-if="officerecord.employments[0].office">
 				    				 			{{officerecord.employments[0].office.offices_name}}
 				    				 		</template>		    				 		
 				    				 	</template>
 					    			</td>
-					    			<td>
+					    			<td class="h-t">
 					    				<template v-if="officerecord.employments.length > 0">
 				    				 		<template v-if="officerecord.employments[0].startdate">
 				    				 			{{moment(new Date(officerecord.employments[0].startdate)).format('MMMM D, Y')}}
@@ -133,9 +133,9 @@
 											    </button>
 											</li>
 					    					<li class="me-1 mb-1" v-if="authid != officerecord.employee_id">
-					    						<button class="btn btn-dyellow" @click="archiveEmployee(officerecord.employee_id,officerecord.employments[0].status.id)"><i class="fa-solid fa-box-archive"></i> Archive</button>
+					    						<button class="btn btn-dyellow" @click="archiveEmployee(officerecord.employee_id,officerecord.employments[0].status.id)"><i class="fa-solid fa-box-archive"></i> <span class="actionText">Archive</span></button>
 					    					</li>
-			                                <li  v-if="userrole == 'super-admin'"><button title="delete" class="btn btn-outline-danger" @click="deleteOfficeRecord(officerecord.employee_id)"><i class="fa-solid fa-trash-can"></i> Delete</button></li>
+			                                <li  v-if="userrole == 'super-admin'"><button title="delete" class="btn btn-outline-danger" @click="deleteOfficeRecord(officerecord.employee_id)"><i class="fa-solid fa-trash-can"></i> <span class="actionText">Delete</span></button></li>
 			                            </ul>
 					    			</td>
 				    			</tr>
