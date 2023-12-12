@@ -8,20 +8,20 @@
         <div class="row mb-2">            
             <div class="col-12 mb-2">                
                 <div class="form-floating">
-                    <input type="number" name="telephone_no" placeholder="enter first name" id="telephone_no" class="form-control" v-model="officerecord.pdspersonalinformation.telephone_no">
+                    <input type="text" name="telephone_no" placeholder="enter first name" id="telephone_no" class="form-control" v-model="officerecord.pdspersonalinformation.telephone_no">
                     <label for="telephone_no" class="form-label">Telephone Number</label>
                 </div>         
             </div>  
             <div class="col-12 mb-2">                
                 <div class="form-floating w-countrycode">
-                    <input type="text" name="contactnumber" placeholder="enter middle name" id="contactnumber" class="form-control" v-model="officerecord.pdspersonalinformation.mobile_no"  maxlength="10" @keypress="ismobile($event)">
+                    <input type="text" name="contactnumber" placeholder="enter middle name" id="contactnumber" class="form-control" v-model="officerecord.employee.employee_activemobile"  maxlength="10" @keypress="ismobile($event)">
                     <label for="contactnumber" class="form-label">Mobile Number</label>
                     <div class="spmobilecountrycode">(+63)</div>
                 </div>
             </div> 
             <div class="col-12 mb-2">                
                 <div class="form-floating">
-                    <input type="text" name="emailaddress" placeholder="enter middle name" id="emailaddress" class="form-control" v-model="officerecord.pdspersonalinformation.emailaddress"  :class="errors['employee.emailaddress'] ? 'error-input' : ''">
+                    <input type="emailaddress" name="emailaddress" placeholder="enter middle name" id="emailaddress" class="form-control" v-model="officerecord.pdspersonalinformation.emailaddress"  :class="errors['employee.emailaddress'] ? 'error-input' : ''">
                     <label for="emailaddress" class="form-label">Email Address</label>                    
                     <span v-if="errors['emailaddress']" class="text-danger m-error">{{errors['emailaddress'][0]}}</span>
                 </div>

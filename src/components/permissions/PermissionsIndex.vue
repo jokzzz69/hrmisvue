@@ -37,7 +37,7 @@
 			    	<tbody>
 			    		<template v-if="!tblloader">
 			    			<template v-for="permission in filteredPermissions" :key="permission.id">
-				    			<tr v-if="permission.id !== 1">
+				    			<tr>
 				    				<td>
 				    					{{permission.name}}
 				    				</td>

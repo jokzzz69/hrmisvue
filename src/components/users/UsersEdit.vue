@@ -25,7 +25,7 @@
                 </div>                  
             </div> 
             <div class="row">
-                <template v-if="userrole == 'super-admin'">
+                <template v-if="userrole.includes('super-admin')">
                     <div class="col mb-2 txtuser req">
                         <div class="form-floating">
                             <input class="form-control" type="text" name="username" id="username" v-model="form.username" :class="errors.username ? 'error-input' : ''">
@@ -63,7 +63,8 @@
                         </div>
                         <div class="cwrap--content">
                             <ul class="list-unstyled">
-                                <li v-for="role in roles" :key="role.id">
+                                <template v-for="role in roles" :key="role.id">
+                                    <li>                                    
                                     <div class="form-check form-switch fpar">
                                       <input class="form-check-input"  v-model="form.userroles" type="checkbox" role="switch" 
                                       :id="'role-'+role.id" 
@@ -71,26 +72,20 @@
                                       @change="checkid(role.id)">
                                       <label class="form-check-label" :for="'role-'+role.id">{{role.name}}</label>
                                     </div>
-
                                     <ul class="list-unstyled cwrap--content--child list-inline">
                                         <template v-for="permission in permissions" :key="permission.id">
                                             <li class="list-inline-item" v-if="permission.roles[0].id == role.id">
-                                                <div class="form-check form-switch">
-                                                  
-
-                                                  <template v-if="permission.id != 21">
-                                                      <input class="form-check-input" v-model="form.userpermissions" type="checkbox" role="switch" :id="permission.id" :value="permission.id" disabled>
+                                                <div class="form-check form-switch">                                                 
+                                                  <template v-if="enabledIDS.includes(permission.id)">
+                                                      <input class="form-check-input" v-model="form.userpermissions" type="checkbox" role="switch" :id="permission.id" :value="permission.id">
                                                   </template>
-                                                  <template v-else>
-                               
-                                                          <input class="form-check-input" v-model="form.userpermissions" type="checkbox" role="switch" :id="permission.id" :value="permission.id">
-                      
+                                                  <template v-else>                               
+                                                        <input class="form-check-input" v-model="form.userpermissions" type="checkbox" role="switch" :id="permission.id" :value="permission.id" disabled>                      
                                                   </template>
-                                                  <label class="form-check-label" :for="permission.id">{{permission.name}}</label>
+                                                  <label class="form-check-label" :for="permission.id" :class="permission.id == 37 ? 'text-danger' : ''">{{permission.name}}</label>
                                                 </div>
                                             </li>
-                                        </template>
-                                        
+                                        </template>                                        
                                     </ul>
 
                                     <template v-if="role.id == 5">
@@ -105,6 +100,8 @@
                                         </div>
                                     </template>
                                 </li>
+                                </template>
+                                
                             </ul>
 
 
@@ -164,6 +161,12 @@ export default{
         const store = useAuthStore();
 
         const userrole = ref(store.details[1]);
+    
+        const enabledIDS = ref([21,32,33,34,35,36]);
+
+        if(userrole.value.includes('super-admin')){
+            enabledIDS.value = [21,32,33,34,35,36,37];
+        }
 
         const form = reactive({
             'userroles': [],
@@ -226,6 +229,10 @@ export default{
                 var arrCV = [24,25,26,27];
                 var arrCE = [28,29,30,31];
 
+
+                var arrIncludes = [32,33,34,35,36,37];
+
+
             if(form.userroles.includes(id)){
                 if(id < 6){
                     for (var x = 1; x < 6; x++) {
@@ -237,11 +244,20 @@ export default{
                         }                    
                     }
                     for (var i = 1; i < 22; i++) {
-                        var index = form.userpermissions.indexOf(i);                    
+                        var index = form.userpermissions.indexOf(i);
+
                         if(index > -1){
                             form.userpermissions.splice(index, 1);
-                        }  
+                        }
                     }
+
+                    for (var i = 0; i < arrIncludes.length; i++) {
+                        var index = form.userpermissions.indexOf(arrIncludes[i]);
+                        if(index > -1){
+                            form.userpermissions.splice(index, 1);
+                        }
+                    }
+
 
                 }else{
                     for (var x = 6; x < 8; x++) {
@@ -266,7 +282,7 @@ export default{
                 }else if(id == 3){
                     form.userpermissions.push(9,10,11,12);
                 }else if(id == 4){
-                    form.userpermissions.push(13,14,15,16,21);
+                    form.userpermissions.push(13,14,15,16);
                 }else if(id == 5){
                     form.userpermissions.push(17,18,19,20);
                 }else if(id == 6){
@@ -275,7 +291,12 @@ export default{
                     form.userpermissions.push(28,29,30,31);
                 }
 
-            }else{              
+            }else{        
+
+                arrE = [13,14,15,16,21,32,33];
+                arrH = [9,10,11,12,34];
+                arrA = [5,6,7,8,36,37];
+                arrO = [17,18,19,20,35];
 
                 if(id==1){                    
                     for (var i = 0; i < arrS.length; i++) {
@@ -292,6 +313,7 @@ export default{
                         }
                     }
                 }else if(id==3){                    
+
                     for (var i = 0; i < arrH.length; i++) {
                         var index = form.userpermissions.indexOf(arrH[i]);
                         if(index > -1){
@@ -346,7 +368,8 @@ export default{
             getPermissions,
             permissions,
             checkid,
-            pageLoader
+            pageLoader,
+            enabledIDS
         
         }
     }

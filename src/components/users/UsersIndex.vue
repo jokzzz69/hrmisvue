@@ -98,15 +98,31 @@
 					    					
 					    				</template>
 					    			</td>
-					    			<td>
-
+					    			<td>	
+					    				{{ getSlug(employee.employee_id) }}			    		
 					    				<template v-for="user in users" :key="user.employee_id">
 					    					<template v-if="user.employee_id == employee.employee_id">
 					    						<template v-if="user.roles.length">
 					    							<template v-for="userrole in user.roles" :key="userrole.id">
-					    								<span :class="userrole.slug" class="badge text-bg-primary me-1">
-							    							{{userrole.name}}
-							    						</span> 
+					    								<template v-if="currentuserrole.includes('super-admin')">
+					    									<span :class="userrole.slug" class="badge text-bg-primary me-1">
+								    							{{userrole.name}}
+								    						</span> 
+					    								</template>
+					    								<template v-else>
+					    									<template v-if="userrole.id == 1">
+					    										<span class="badge admin text-bg-primary me-1">
+									    							Admin
+									    						</span> 
+					    									</template>
+					    									<template v-else>
+					    										<span :class="userrole.slug" class="badge text-bg-primary me-1">
+									    							{{userrole.name}}
+									    						</span> 
+					    									</template>
+					    								</template>
+
+					    								
 					    							</template>			    							
 					    						</template>
 					    					</template>
@@ -115,7 +131,7 @@
 
 					    			<td class="text-end">
 					    				<ul class="ls-frmbutton">		    					
-					    				
+					    					
 						    				<template v-if="employee.useraccount != null">
 						    					<li>
 						    						<router-link :to="{ name: 'logs.show', params: { id: employee.employee_id } }" class="btn btn-lightblue" title="View Logs"> 
@@ -194,7 +210,8 @@
 	import moment from 'moment';
 	import LoadingComponent from '@/components/loader/LoadingComponent.vue'
 	import { useHead } from '@unhead/vue'
-	
+	import { useAuthStore } from '@/stores/store.js'
+
 	export default{		
 		components: {
             LoadingComponent
@@ -207,6 +224,8 @@
 			const {users, getUsers, activateUser, deactivate, rebootPass, authuser, getAuthuser, bulkActionUser} = useUser()		
 
 			const {biousers, getBioUsers} = useEmployees()	
+			const store = useAuthStore();
+			const currentuserrole = ref(store.details[1]);
 
 			const checkActivated = ref(false);
 			const searchQuery = ref("");
@@ -237,7 +256,7 @@
 			});
 			const tblloader = ref(true);
 			onMounted(() => {
-				getUsers(),
+				getUsers().then(),
 				getBioUsers(),
 				getAuthuser().then(() => {
 					tblloader.value = false;
@@ -398,7 +417,50 @@
                 });
                 await getUsers();
             }
+            const pluck = (arr, key) => arr.map(i => i[key]);
 
+            const getSlug = async(id) => {
+
+            	for (var user of users.value) {
+            		if(user.id == id){
+            			if(user.roles.length){
+            				for (var userrole of user.roles) {
+            					if(currentuserrole.value.includes('super-admin')){
+            						//no loop
+            					}
+            				}
+            			}
+            		}
+            	}
+
+            	// <template v-for="user in users" :key="user.employee_id">
+				// 	<template v-if="user.employee_id == employee.employee_id">
+				// 		<template v-if="user.roles.length">
+				// 			<template v-for="userrole in user.roles" :key="userrole.id">
+				// 				<template v-if="currentuserrole.includes('super-admin')">
+				// 					<span :class="userrole.slug" class="badge text-bg-primary me-1">
+		    	// 						{{userrole.name}}
+		    	// 					</span> 
+				// 				</template>
+				// 				<template v-else>
+				// 					<template v-if="userrole.id == 1">
+				// 						<span class="badge admin text-bg-primary me-1">
+			    // 							Admin
+			    // 						</span> 
+				// 					</template>
+				// 					<template v-else>
+				// 						<span :class="userrole.slug" class="badge text-bg-primary me-1">
+			    // 							{{userrole.name}}
+			    // 						</span> 
+				// 					</template>
+				// 				</template>
+
+								
+				// 			</template>			    							
+				// 		</template>
+				// 	</template>
+				// </template>
+            }
 			return{
 				filteredEmployees,
 				searchQuery,
@@ -419,7 +481,10 @@
 				bulkactionform,
 				pchkUsers,
 				withChecked,
-				bulkactionsubmit
+				bulkactionsubmit,
+				pluck,
+				currentuserrole,
+				getSlug
 			}
 		}
 	}

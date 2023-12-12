@@ -53,6 +53,26 @@
       </ul>
     </div>
 </li>
+<li v-if="userslug.includes('communicationencoder')">
+    <a href="#" class="nav-link btn-toggle align-items-center collapsed emplinks"  data-bs-toggle="collapse" data-bs-target="#emprec-collapse" aria-expanded="true">
+      <i class="fa-regular fa-id-badge pe-1"></i><span>Settings</span> <i class="cvright fa-solid fa-angle-right"></i>
+    </a>
+    <div class="empNavTitle">
+      <span class="lblM lbl-left-nav">Settings</span>
+    </div>
+    <div  class="collapse navdrpdwn show empnav" id="emprec-collapse" >
+      <ul class="btn-toggle-nav list-unstyled small wid--ic">           
+                      
+        <li class="nav-link">            
+          <router-link :to="{ name: 'units.index' }"><i class="fa-solid fa-hand-holding-heart"></i> <span>Units</span></router-link>
+        </li>       
+        <li class="nav-link">            
+          <router-link :to="{ name: 'communicationgroups.index' }"><i class="fa-solid fa-users-gear"></i> <span>Individual Groups</span></router-link>
+        </li>
+
+      </ul>
+    </div>
+</li>
 <li>
     <div class="empNavTitle">
       <span class="lblM lbl-left-nav">About</span>

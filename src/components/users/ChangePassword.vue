@@ -82,6 +82,8 @@ export default{
         const swal = inject('$swal')
         const { getUserLoginProfile, profile, errors, updatePasswordonLogin, getAuthuser, authuser } = useUsers()
 
+        const pluck = (arr, key) => arr.map(i => i[key]);
+
         onMounted(() => 
             getUserLoginProfile(id.value),
             getAuthuser()
@@ -126,7 +128,8 @@ export default{
         }
 
         const saveProfile = async () => {
-            await updatePasswordonLogin(id.value,{...form},authuser.value.roles[0].slug).then(() => {
+
+            await updatePasswordonLogin(id.value,{...form},pluck(authuser.value.roles,'slug')).then(() => {
                 if(!errors.value){
                     swal.fire({
                         toast: true,

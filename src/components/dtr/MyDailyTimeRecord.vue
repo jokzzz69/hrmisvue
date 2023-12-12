@@ -14,20 +14,17 @@
                     <label class="col-form-label col-12" for="fdate">Select Date</label>                
                     <Datepicker v-model="monthpicked" id="fdate" auto-apply month-picker @update:model-value="getEmployeeBio" :clearable="false" name="monthpicked" :format="format" :month-change-on-arrows="true"></Datepicker> 
                 </div> 
-                <template v-if="userrole == 'super-admin' || userrole == 'admin' || id == 207 || id == 29 || id == 215">
+                <template v-if="userrole.includes('super-admin') || userrole.includes('admin') || userslugs.includes('update') || userslugs.includes('update-hr') || userslugs.includes('update-admin') || userslugs.includes('update-supervisor')">
                     <div class="mt-2 dtredit col">
                         <button class="btn btn-outline-violet" @click="gotoEditDTR"><i class="fa-regular fa-pen-to-square"></i> Edit</button>
                     </div>
+                </template>
+                <template v-if="userrole.includes('super-admin') || userrole.includes('admin') || userslugs.includes('download-dtr') || isPermanent">
                     <div class="mt-2 col">
                         <button class="btn btn-outline-danger" @click="dlpersonnelDTR"><i class="fa-solid fa-file-pdf"></i> Download</button>
                     </div>
-                </template>
-                <template v-else>
-                    <div class="mt-2 col" v-if="isPermanent">
-                        <button class="btn btn-outline-danger" @click="dlpersonnelDTR"><i class="fa-solid fa-file-pdf"></i> Download</button>
-                    </div>
-                </template>
-                
+                </template> 
+            
             </div>
         </div>            
     </div>
@@ -189,6 +186,8 @@
             const store = useAuthStore();
             const id = ref(store.details[0]);
             const userrole = ref(store.details[1]);
+            const userslugs = ref(store.details[4]);
+
             const isPermanent = ref(false);
 
             if(store.details[3] != 1){
@@ -280,7 +279,8 @@
                 userrole,
                 isPermanent,
                 dlpersonnelDTR,
-                hld
+                hld,
+                userslugs
             }
         }
     }

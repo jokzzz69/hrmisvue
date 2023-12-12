@@ -30,17 +30,15 @@ export default function useUsers(){
 	const updatePasswordonLogin = async(id,data,slug) => {
 		axios.defaults.withCredentials = true;	
 		errors.value = ''
-
 	    try {
 	        await axios.patch(`/v1/api/changepassword/${id}`, data)
-	        if(slug == 'super-admin'){
-	        	await router.push({ name: 'dashboard.index'})
+	        if(slug.includes('communicationviewer') || slug.includes('communicationencoder') || slug.includes('super-admin') || slug.includes('admin')){
+	        	await router.push({name: 'communications.index'});
 	        	await router.go({ force:true })
 	        }else{
-	        	await router.push({ name: 'recordpersonal.show'})
+	        	await router.push({name: 'recordpersonal.show'});
 	        	await router.go({ force:true })
-	        }
-	        
+	        }        
 
 	    } catch (e) {
 	        if (e.response.status === 422) {

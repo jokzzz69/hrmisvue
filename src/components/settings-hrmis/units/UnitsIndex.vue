@@ -111,8 +111,10 @@
                     </tbody>
                 </table>   
             </div>
-        </div>   
-        <RightNavHrmis/>
+        </div>
+        <template v-if="userrole.includes('super-admin') || userrole.includes('admin')">
+            <RightNavHrmis/>
+        </template>
     </div>
 </template>
 <script>
@@ -151,6 +153,10 @@
 
             const store = useAuthStore();
             const userrole = ref(store.getdetails[1]);
+
+
+            const rightNav = ref(false);
+
             const displayonCom = reactive({
                 'check': ''
             });
@@ -171,8 +177,8 @@
             const filteredUnits = computed(function(){
                 return units.value.filter(
                     (unit) => unit.name.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ||
-                                            unit.slug.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1
-                                            //callback(unit.employees, searchQuery.value)
+                                            unit.slug.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 || 
+                                            callback(unit.employees, searchQuery.value)
                 );
             });
 
@@ -194,6 +200,8 @@
                 getUnits().then(res =>{
                     tblloader.value = false;
                 })
+
+
             })
 
             const deleteunit = async (id) =>{

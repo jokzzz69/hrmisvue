@@ -83,6 +83,21 @@ export default function useDebug(){
                 errors.value = e.response.data.errors
             }
         }
+    } //
+    const clearUnattached = async (data) => {
+        nProgress.start();
+        axios.defaults.withCredentials = true;
+        errors.value = ''
+        try {
+            await axios.post('/v1/api/debugclearunattached/', data)
+            await router.push({name: 'cmi.index'})
+            
+        } catch (e) {
+            console.error(e.response.data);
+            if (e.response.status === 422) {
+                errors.value = e.response.data.errors
+            }
+        }
     }
     return {
 		errors,
@@ -90,7 +105,8 @@ export default function useDebug(){
 		clearCommunications,
         clearNotifications,
         clearActionsTaken,
-        clearDrafts
+        clearDrafts,
+        clearUnattached
 	
 	}
 }

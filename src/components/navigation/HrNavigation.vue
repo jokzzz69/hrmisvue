@@ -50,6 +50,7 @@
       <ul class="btn-toggle-nav list-unstyled small wid--ic">             
         <li class="nav-link"><router-link :to="{ name: 'offices.index' }"><i class="fa-solid fa-sitemap"></i> HRMIS</router-link></li>
         <li class="nav-link"><router-link :to="{ name: 'leavetypes.index' }"><i class="fa-brands fa-wpforms"></i> Forms</router-link></li>
+        <li class="nav-link" v-if="userroles.includes('communicationencoder')"><router-link :to="{ name: 'communicationgroups.index' }"><i class="fa-solid fa-sliders"></i> Communication</router-link></li>
       </ul>
     </div>
 </li>
@@ -61,8 +62,10 @@
     setup(){
       const store = useAuthStore();
       const usertype = ref(store.details[3]);
+      const userroles = ref(store.details[1]);
       return{
-        usertype
+        usertype,
+        userroles
       }
     }
   }

@@ -35,7 +35,7 @@
 			    	<tbody>
 			    		<template v-if="!tblloader">
 			    			<template v-for="role in filteredRoles" :key="role.id">
-				    			<tr v-if="role.id !== 1">
+				    			<tr>
 				    				<td>
 				    					{{role.name}}
 				    				</td>

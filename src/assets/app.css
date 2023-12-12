@@ -490,6 +490,7 @@ body{
 .sl2-floating .vs__dropdown-toggle{
 	height: calc(3.5rem + 2px);
 	line-height: 2.5;
+	overflow-y: scroll;
 }
 .sl2-floating li.select2-selection__choice{
 	background: #212529 !important;

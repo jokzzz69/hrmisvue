@@ -122,7 +122,9 @@
                 </table>   
             </div>
         </div>   
-        <RightNavCommunications/>
+        <template v-if="userrole.includes('super-admin') || userrole.includes('admin')">
+            <RightNavCommunications/>
+        </template>
     </div>
 </template>
 <script>

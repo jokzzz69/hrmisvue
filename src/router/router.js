@@ -132,7 +132,7 @@ const routes = [
     name: 'units.create',
     component: () => import('@/components/settings-hrmis/units/UnitsCreate.vue'),
     meta: {
-      middleware: ['super-admin','admin','hr']
+      middleware: ['super-admin','admin','communicationencoder']
     }
   },
   {
@@ -141,7 +141,7 @@ const routes = [
     component: () => import('@/components/settings-hrmis/units/UnitsEdit.vue'),
     props: true,
     meta: {
-      middleware: ['super-admin','admin','hr']
+      middleware: ['super-admin','admin','communicationencoder']
     }
   },
   {
@@ -150,7 +150,7 @@ const routes = [
     component: () => import('@/components/settings-hrmis/units/UnitsAddEmployee.vue'),
     props: true,
     meta: {
-      middleware: ['super-admin','admin','hr']
+      middleware: ['super-admin','admin','communicationencoder']
     }
   },
 
@@ -803,7 +803,7 @@ const routes = [
     name: 'documenttypes.index',
     component: () => import('@/components/settings-communication/documenttypes/DocumentTypesIndex.vue'),
     meta: {
-      middleware: ['communicationencoder','super-admin','admin']
+      middleware: ['super-admin','admin']
     }
   },
   {
@@ -811,7 +811,7 @@ const routes = [
     name: 'documenttypes.create',
     component: () => import('@/components/settings-communication/documenttypes/DocumentTypesCreate.vue'),
     meta: {
-      middleware: ['communicationencoder','super-admin','admin']
+      middleware: ['super-admin','admin']
     }
   },
   {
@@ -820,7 +820,7 @@ const routes = [
     component: () => import('@/components/settings-communication/documenttypes/DocumentTypesEdit.vue'),
     props: true,
     meta: {
-      middleware: ['communicationencoder','super-admin','admin']
+      middleware: ['super-admin','admin']
     }
   },
   {
@@ -828,7 +828,7 @@ const routes = [
     name: 'classifications.index',
     component: () => import('@/components/settings-communication/classifications/ClassificationsIndex.vue'),
     meta: {
-      middleware: ['communicationencoder','super-admin','admin']
+      middleware: ['super-admin','admin']
     }
   },
   {
@@ -836,7 +836,7 @@ const routes = [
     name: 'classifications.create',
     component: () => import('@/components/settings-communication/classifications/ClassificationsCreate.vue'),
     meta: {
-      middleware: ['communicationencoder','super-admin','admin']
+      middleware: ['super-admin','admin']
     }
   },
   {
@@ -845,7 +845,7 @@ const routes = [
     component: () => import('@/components/settings-communication/classifications/ClassificationsEdit.vue'),
     props: true,
     meta: {
-      middleware: ['communicationencoder','super-admin','admin']
+      middleware: ['super-admin','admin']
     }
   },
   {
@@ -853,7 +853,7 @@ const routes = [
     name: 'notes.index',
     component: () => import('@/components/settings-communication/notes/NotesIndex.vue'),
     meta: {
-      middleware: ['communicationencoder','super-admin','admin']
+      middleware: ['super-admin','admin']
     }
   },
   {
@@ -861,7 +861,7 @@ const routes = [
     name: 'notes.create',
     component: () => import('@/components/settings-communication/notes/NotesCreate.vue'),
     meta: {
-      middleware: ['communicationencoder','super-admin','admin']
+      middleware: ['super-admin','admin']
     }
   },
   {
@@ -870,7 +870,7 @@ const routes = [
     component: () => import('@/components/settings-communication/notes/NotesEdit.vue'),
     props: true,
     meta: {
-      middleware: ['communicationencoder','super-admin','admin']
+      middleware: ['super-admin','admin']
     }
   },
   {
@@ -878,7 +878,7 @@ const routes = [
     name: 'actions.index',
     component: () => import('@/components/settings-communication/actions/ActionsIndex.vue'),
     meta: {
-      middleware: ['communicationencoder','super-admin','admin']
+      middleware: ['super-admin','admin']
     }
   },
   {
@@ -1031,6 +1031,9 @@ const routes = [
   {
     path: '/routedcommunications',
     name: 'communications-routed.index',
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin','communicationviewer']
+    },
     component: () => import('@/components/cm/communications-routed/CommunicationsRoutedIndex.vue'),
   },
   {

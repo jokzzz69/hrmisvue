@@ -20,7 +20,7 @@
                 <li class="nav-link">
                   <router-link :to="{name: 'biometrics.index'}">Biometrics</router-link>
 
-                    <ul class="list-unstyled">
+                    <ul class="list-unstyled" v-if="userroles.includes('super-admin') || userroles.includes('admin')">
                         <li class="nav-link">
                           <router-link :to="{name: 'biometricsuser.index'}">Biometrics Users</router-link>
                         </li>
@@ -40,7 +40,7 @@ import usePDS from '@/composables/composables-pds';
     export default{
         setup(){
             const store = useAuthStore();
-            const userslug = ref(store.details[1]);
+            const userroles = ref(store.details[1]);
             const usertype = ref(store.details[3]);
             const rshow = ref('');
             const iconname = ref('arrow_forward');
@@ -65,7 +65,7 @@ import usePDS from '@/composables/composables-pds';
                             }
                         }
             return {
-                userslug,
+                userroles,
                 usertype,
                 iconname,
                 mshow,

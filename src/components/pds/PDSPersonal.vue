@@ -54,12 +54,11 @@
                                 <label for="employee_extname" class="form-label">Name Extension</label>
                             </div>                    
                         </div>
-                    </div> 
-
+                    </div>
                     <template v-if="officerecord.pdspersonalinformation">
                          <div class="row mb-2">
                             <div class="col c_p rpl mb-2">                                            
-                                <Datepicker auto-apply week-start="0" :clearable="false" :enable-time-picker="false" v-model="officerecord.pdspersonalinformation.birthdate" @update:model-value="handleDate" name="birthdate" class="date-form-floating" placeholder="Date of Birth"></Datepicker>                           
+                                <Datepicker :teleport="true" auto-apply week-start="0" :clearable="false" :enable-time-picker="false" v-model="officerecord.pdspersonalinformation.birthdate" @update:model-value="handleDate" name="birthdate" class="date-form-floating" placeholder="Date of Birth"></Datepicker>                           
                             </div> 
                             <div class="col col-sm-7 c_p col-xxl-8 mb-2">
                                 <div class="form-floating">                        
@@ -213,6 +212,7 @@
                             </div>
                         </div>     
                         <div class="row">
+                            
                             <div class="col c_p rpl mb-2">
                                 <div class="form-floating mb-2">                        
                                     <input type="text" name="telephone_no" class="form-control" placeholder="enter telephone number" v-model="officerecord.pdspersonalinformation.telephone_no">    
@@ -438,6 +438,14 @@ export default{
                         getperProvMun(officerecord.value.pdsaddress.permanent_province);
                     }
                 }
+                if(officerecord.value.pdspersonalinformation){
+                    if(officerecord.value.pdspersonalinformation.mobile_no == null || officerecord.value.pdspersonalinformation.mobile_no == ''){
+                        if(officerecord.value.employee.employee_activemobile){
+                            officerecord.value.pdspersonalinformation.mobile_no = officerecord.value.employee.employee_activemobile;
+                        }                        
+                    }
+                }
+
             }),
             getProvinces(),
             getCountries()

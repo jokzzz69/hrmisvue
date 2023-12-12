@@ -77,31 +77,36 @@
                 
             </div>       
         </div> 
-        <div class="row mb-2" v-if="officerecord.pdspersonalinformation">    
-            <div class="col mb-2" v-if="officerecord.pdspersonalinformation.telephone_no || officerecord.pdspersonalinformation.mobile_no">
+        <div class="row mb-2" v-if="officerecord.pdspersonalinformation">
+
+            <div class="col mb-2">
                 <div class="form-floating lblform-floating">                    
                     <span class="form-control formfloatinglblT" id="cnumber">                   
-                           <template v-if="officerecord.pdspersonalinformation.mobile_no">
-                               <template v-if="checkText(officerecord.pdspersonalinformation.mobile_no)">
-                                    {{officerecord.pdspersonalinformation.mobile_no}}
+                           <template v-if="officerecord.employee">
+                               <template v-if="officerecord.employee.employee_activemobile">
+                                    (+63) {{officerecord.employee.employee_activemobile}}
                                 </template>  
-                           </template>  
-                           <template v-if="officerecord.pdspersonalinformation.mobile_no && officerecord.pdspersonalinformation.telephone_no">
-                                <template v-if="checkText(officerecord.pdspersonalinformation.mobile_no) && checkText(officerecord.pdspersonalinformation.telephone_no)">     
-                                   /
-                               </template>
-                           </template>             
+                           </template>                                     
+                    </span>
+                    <span class="form-span formfloatinglblB">Mobile Number <span class="text-warning">(active)</span></span>
+                </div>
+            </div>
+            <div class="col mb-2" v-if="officerecord.pdspersonalinformation.telephone_no">
+                <div class="form-floating lblform-floating">                    
+                    <span class="form-control formfloatinglblT" id="cnumber">                   
                            <template v-if="officerecord.pdspersonalinformation.telephone_no">
                                 <template v-if="checkText(officerecord.pdspersonalinformation.telephone_no)">
                                     {{officerecord.pdspersonalinformation.telephone_no}}
                                 </template>                              
-                           </template>
+                           </template>                                     
+                           
                     </span>
-                    <span class="form-span formfloatinglblB">Contact Number</span>
+
+                    <span class="form-span formfloatinglblB">Telephone Number</span>
                 </div>
             </div>
-            
-            <div class="col mb-2" v-if="officerecord.pdspersonalinformation.emailaddress">
+
+            <div class="col mb-2">
                 <div class="form-floating lblform-floating">                    
                     <span class="form-control formfloatinglblT" id="emailaddress">
 
@@ -113,7 +118,7 @@
                     <span class="formfloatinglblB">Email Address</span>
                 </div>
             </div>
-            <div class="col-auto align-self-center col-edit pi-edit" v-if="officerecord.pdspersonalinformation.emailaddress || officerecord.pdspersonalinformation.telephone_no || officerecord.pdspersonalinformation.mobile_no">
+            <div class="col-auto align-self-center col-edit pi-edit">
                 <router-link :to="{ name: 'recordpersonalcontact.edit'}"><i class="fas fa-edit"></i> <span>Edit</span></router-link>
             </div>
         </div> 

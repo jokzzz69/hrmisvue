@@ -35,6 +35,7 @@ export default function useAuthenticate(){
             }).then(response =>{
 
             	const roleSlugs = pluck(response.data.data.roles,'slug');
+            	
             	if(response.data.data.userinformation){
             		desc.value = [
             			response.data.data.employee_id,
