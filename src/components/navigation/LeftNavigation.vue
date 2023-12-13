@@ -5,6 +5,7 @@
     <div class="bdrop" v-if="leftdisplay" @click="bdropclick"></div>
     <nav id="sidenav" class="flex-column flex-shrink-0 text-white">
       <ul class="nav nav-pills flex-column mb-auto leftnav-wrap"  @click.prevent="hideonM"> 
+        
       <template v-if="userslug.includes('super-admin') || userslug.includes('admin')">
         <AdminCommunicationEncoder/>
       </template>

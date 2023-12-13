@@ -64,7 +64,7 @@
       <ul class="btn-toggle-nav list-unstyled small wid--ic">           
                       
         <li class="nav-link">            
-          <router-link :to="{ name: 'units.index' }"><i class="fa-solid fa-hand-holding-heart"></i> <span>Units</span></router-link>
+          <router-link :to="{ name: 'units.index' }"><i class="fa-solid fa-boxes-stacked"></i> <span>Units</span></router-link>
         </li>       
         <li class="nav-link">            
           <router-link :to="{ name: 'communicationgroups.index' }"><i class="fa-solid fa-users-gear"></i> <span>Individual Groups</span></router-link>

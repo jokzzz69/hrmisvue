@@ -25,7 +25,7 @@
                         <span class="d-block text-danger mb-2">* Ask Developer!</span>
                     </div>
                     <div class="col-2">
-                        <div class="card p-2 bg-danger">
+                        <div class="card p-2 bg-danger mb-2">
                             <form @submit.prevent="clearTempAttachment">
                                 <span class="d-block fs-2 text-center text-light"><i class="fa-solid fa-triangle-exclamation"></i></span>
                                 <span class="form-label w-100 text-center f-left d-block text-light">Clear Temporary Attachment</span>
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="col-2">
-                        <div class="card p-2 bg-danger">
+                        <div class="card p-2 bg-danger mb-2">
                             <form @submit.prevent="clearAllCommunications">
                                 <span class="d-block fs-2 text-center text-light"><i class="fa-solid fa-triangle-exclamation"></i></span>
                                 <span class="form-label w-100 text-center f-left d-block text-light">Clear All Communications</span>
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class="col-2">
-                        <div class="card p-2 bg-danger">
+                        <div class="card p-2 bg-danger mb-2">
                             <form @submit.prevent="clearAllNotifications">
                                 <span class="d-block fs-2 text-center text-light"><i class="fa-solid fa-triangle-exclamation"></i></span>
                                 <span class="form-label w-100 text-center f-left d-block text-light">Clear All Notifications</span>
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="col-2">
-                        <div class="card p-2 bg-danger">
+                        <div class="card p-2 bg-danger mb-2">
                             <form @submit.prevent="clearAllDraft">
                                 <span class="d-block fs-2 text-center text-light"><i class="fa-solid fa-triangle-exclamation"></i></span>
                                 <span class="form-label w-100 text-center f-left d-block text-light">Clear All Draft</span>
@@ -65,10 +65,30 @@
                         </div>
                     </div>
                     <div class="col-2">
-                        <div class="card p-2 bg-danger">
+                        <div class="card p-2 bg-danger mb-2">
                             <form @submit.prevent="ClearAllActionsTaken">
                                 <span class="d-block fs-2 text-center text-light"><i class="fa-solid fa-triangle-exclamation"></i></span>
                                 <span class="form-label w-100 text-center f-left d-block text-light">Clear All Actions Taken</span>
+                                <button type="submit" class="btn btn-secondary w-100" title="Clear All Actions Taken"> Clear</button>        
+                            </form>
+                            
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="card p-2 bg-danger mb-2">
+                            <form @submit.prevent="clearAllRevisions">
+                                <span class="d-block fs-2 text-center text-light"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                                <span class="form-label w-100 text-center f-left d-block text-light">Clear All Revisions</span>
+                                <button type="submit" class="btn btn-secondary w-100" title="Clear All Actions Taken"> Clear</button>        
+                            </form>
+                            
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="card p-2 bg-danger mb-2">
+                            <form @submit.prevent="clearAllTrash">
+                                <span class="d-block fs-2 text-center text-light"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                                <span class="form-label w-100 text-center f-left d-block text-light">Clear All Trash</span>
                                 <button type="submit" class="btn btn-secondary w-100" title="Clear All Actions Taken"> Clear</button>        
                             </form>
                             
@@ -81,7 +101,7 @@
     </div>
 </template>
 <script>
-    import { reactive,inject} from "vue";
+    import { reactive,inject,ref} from "vue";
 
     import useDebug from "@/composables/composables-zzdebug";
     
@@ -94,14 +114,11 @@
 
             const swal = inject('$swal')
             
-            const { errors, clearAttachment, clearCommunications,clearNotifications, clearActionsTaken, clearDrafts,clearUnattached} = useDebug()
+            const { errors, clearAttachment, clearCommunications,clearNotifications, clearActionsTaken, clearDrafts,clearUnattached,
+            clearRevisions, clearTrash} = useDebug()
+            const swalfire = async () =>{
 
-            const clearTempAttachment = async () => {
-                form.data = 'Clear Temporary Attachment';
-
-                await clearAttachment({ ...form }).then(() => {
-                    if(!errors.value){
-                        swal.fire({
+                swal.fire({
                             toast: true,
                             position: 'top-end',
                             title: 'Successfully Cleared',
@@ -115,6 +132,13 @@
                                 container: 'swaltopright-del'
                             }
                         })
+            };
+            const clearTempAttachment = async () => {
+                form.data = 'Clear Temporary Attachment';
+
+                await clearAttachment({ ...form }).then(() => {
+                    if(!errors.value){
+                        swalfire();
                     }
                 });
             }
@@ -123,20 +147,7 @@
 
                 await clearCommunications({ ...form }).then(() => {
                     if(!errors.value){
-                        swal.fire({
-                            toast: true,
-                            position: 'top-end',
-                            title: 'Successfully Cleared',
-                            showConfirmButton: false,            
-                            icon: 'success',
-                            width: '300',
-                            padding: '.5em 1em',
-                            timerProgressBar: true,
-                            timer:1500,
-                            customClass: {
-                                container: 'swaltopright-del'
-                            }
-                        })
+                        swalfire();
                     }
                 });
             }
@@ -146,20 +157,7 @@
 
                 await clearNotifications({ ...form }).then(() => {
                     if(!errors.value){
-                        swal.fire({
-                            toast: true,
-                            position: 'top-end',
-                            title: 'Successfully Cleared',
-                            showConfirmButton: false,            
-                            icon: 'success',
-                            width: '300',
-                            padding: '.5em 1em',
-                            timerProgressBar: true,
-                            timer:1500,
-                            customClass: {
-                                container: 'swaltopright-del'
-                            }
-                        })
+                        swalfire();
                     }
                 });
             }
@@ -169,20 +167,7 @@
 
                 await clearDrafts({ ...form }).then(() => {
                     if(!errors.value){
-                        swal.fire({
-                            toast: true,
-                            position: 'top-end',
-                            title: 'Successfully Cleared',
-                            showConfirmButton: false,            
-                            icon: 'success',
-                            width: '300',
-                            padding: '.5em 1em',
-                            timerProgressBar: true,
-                            timer:1500,
-                            customClass: {
-                                container: 'swaltopright-del'
-                            }
-                        })
+                        swalfire();
                     }
                 });
             }
@@ -191,20 +176,7 @@
 
                 await clearActionsTaken({ ...form }).then(() => {
                     if(!errors.value){
-                        swal.fire({
-                            toast: true,
-                            position: 'top-end',
-                            title: 'Successfully Cleared',
-                            showConfirmButton: false,            
-                            icon: 'success',
-                            width: '300',
-                            padding: '.5em 1em',
-                            timerProgressBar: true,
-                            timer:1500,
-                            customClass: {
-                                container: 'swaltopright-del'
-                            }
-                        })
+                        swalfire();
                     }
                 });
             }
@@ -213,23 +185,27 @@
 
                 await clearUnattached({...form}).then(() =>{
                     if(!errors.value){
-                        swal.fire({
-                            toast: true,
-                            position: 'top-end',
-                            title: 'Successfully Cleared',
-                            showConfirmButton: false,            
-                            icon: 'success',
-                            width: '300',
-                            padding: '.5em 1em',
-                            timerProgressBar: true,
-                            timer:1500,
-                            customClass: {
-                                container: 'swaltopright-del'
-                            }
-                        })
+                        swalfire();
                     }
                 })
             }
+            const clearAllRevisions = async () =>{
+                form.data = 'Clear Revisions';
+                await clearRevisions({...form}).then(() =>{
+                    if(!errors.value){
+                        swalfire();
+                    }
+                })
+            }
+            const clearAllTrash = async () =>{
+                form.data = 'Clear Trash';
+                await clearTrash({...form}).then(() =>{
+                    if(!errors.value){
+                        swalfire();
+                    }
+                })
+            }
+
             return{
                 form,
                 errors,
@@ -238,7 +214,9 @@
                 clearAllNotifications,
                 ClearAllActionsTaken,
                 clearAllDraft,
-                ClearAllUnattached
+                ClearAllUnattached,
+                clearAllRevisions,
+                clearAllTrash
             }
         }
     }

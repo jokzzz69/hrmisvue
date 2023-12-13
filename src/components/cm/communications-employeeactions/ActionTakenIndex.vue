@@ -107,15 +107,12 @@
     import { sortBy} from 'lodash';
     import {useRouter} from 'vue-router'
     import moment from 'moment'
-
-    import {formatmaildate} from '@/helper/formatmaildate';
-    
+    import {formatmaildate} from '@/helper/formatmaildate';    
     import useEventsBus from '@/components/helper/Eventbus';
     import {useActionTakenStore} from "@/stores/actiontakenstore.js"
     import {useNotificationStore} from '@/stores/notificationstore.js'
     import useActionsTaken from '@/composables/composables-actionstaken';
     import { useHead } from '@unhead/vue'
-
 
     const Tooltip = defineAsyncComponent(() => 
         import('@/components/cm/reusables/Tooltip.vue')
@@ -138,13 +135,11 @@
             useHead({
                 title: 'Actions Taken | '+import.meta.env.VITE_BFAR_AGENCY
             })
+
             const {getUserActionsTaken, actionstaken, actiontakenLinks, actiontakenMeta, bulkactionsAC} = useActionsTaken()
-
-
             const {bus}=useEventsBus()
             const swal = inject('$swal')
             const details = ref();
-
             const actiontakenstore = useActionTakenStore();
             const notificationstore = useNotificationStore();
 

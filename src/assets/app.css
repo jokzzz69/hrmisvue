@@ -2975,6 +2975,14 @@ div.bt{
 	display: flex;
 	justify-content: flex-end;
 }
+.pAgeEmail--title .btn__back{
+	border-radius: 50%;
+}
+.pAgeEmail--title .btn__back:hover,
+.pAgeEmail--title .btn__back:focus{
+	background: #ccc;
+	border-color: #ccc;
+}
 /*end coms*/
 .st-page{
 	box-shadow: 0 0 5px #00000026;

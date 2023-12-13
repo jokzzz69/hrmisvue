@@ -959,6 +959,14 @@ const routes = [
     component: () => import('@/components/cm/communications/CommunicationIndex.vue')
   },
   {
+    path: '/allcommunications',
+    name: 'communications.all',
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin','communicationencoder','employee','hr']
+    },
+    component: () => import('@/components/cm/communications/CommunicationsAll.vue')
+  },
+  {
     path: '/communications/create',
     name: 'communications.create',
     meta: {

@@ -21,16 +21,30 @@
         
         </div>
     </div>
+
+
     <div class="row justify-content-md-center">       
-        <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-3">     
-            <ul class="ulwidback">  
-                <li>
-                    <span class="col-form-label col-12">Select Date</span>                
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 col-xxl-3">     
+            <div class="row mli">  
+                <div class="col-12 col-sm-12 col-md-12">
+                    <label class="col-form-label col-12" for="fdate">Select Date</label>                
                     <Datepicker v-model="monthpicked" id="fdate" auto-apply month-picker @update:model-value="getEmployeeBio" :clearable="false" name="monthpicked" :format="format" :month-change-on-arrows="true"></Datepicker> 
-                </li> 
-            </ul>
+                </div> 
+                <template v-if="userrole.includes('super-admin') || userslugs.includes('update-all')">
+                    <div class="mt-2 dtredit col">
+                        <button class="btn btn-outline-violet" @click="gotoEditDTR"><i class="fa-regular fa-pen-to-square"></i> Edit</button>
+                    </div>
+                </template>
+                <template v-if="userrole.includes('super-admin') || userslugs.includes('update-all')">
+                    <div class="mt-2 col">
+                        <button class="btn btn-outline-danger" @click="dlpersonnelDTR"><i class="fa-solid fa-file-pdf"></i> Download</button>
+                    </div>
+                </template> 
+            
+            </div>
         </div>            
     </div>
+
     <div class="row">
         <div class="col-md-12 pr">    
             
@@ -181,6 +195,9 @@
     import moment from 'moment';
     import { useHead } from '@unhead/vue'
     import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
+    import useGeneratedtr from '@/composables/composables-generatedtr';
+    import { useAuthStore } from '@/stores/store.js'
+
     export default{
         components:{
             LoadingComponentDiv
@@ -199,9 +216,23 @@
             useHead({
                 title: 'Employee DTR | '+import.meta.env.VITE_BFAR_AGENCY
             })
+
+            const form = reactive({
+                'empID': props.id,
+                'dtrmonthtype': 3,
+                'monthpicked': '',
+                'name': ''
+             })
+            
+            const store = useAuthStore();
+            const userrole = ref(store.details[1]);
+            const userslugs = ref(store.details[4]);
+
+
             const {employee, getEmployee} = useEmployees()
             const {biometricsData, getEmployeemonthBio} = useMonitoring()
-            
+            const {downloadperEmployeeDTR} = useGeneratedtr()
+
             let sort = ref(false);
             let updatedList = ref([])
             const router = useRouter()
@@ -224,6 +255,9 @@
 
                 getEmployeemonthBio(props.id,monthpicked.value.month+'-'+monthpicked.value.year).then(() =>{
                     hld.value = false;
+                    if(biometricsData.value['name'][0]){
+                        form.name = biometricsData.value['name'][0];
+                    }
                 }),
                 getEmployee(props.id)
 
@@ -251,7 +285,16 @@
             const currentDate = new Date();     
 
 
+            const gotoEditDTR = () => {
 
+               const sm = monthpicked.value.month+'-'+monthpicked.value.year;
+               router.push({ name: 'dtrupdating.edit', params: { id: props.id, mf: sm} });
+            }
+            
+            const dlpersonnelDTR = async() =>{
+                form.monthpicked = monthpicked.value;
+                await downloadperEmployeeDTR({...form}, form.name);
+            }
 
 
             return{
@@ -264,7 +307,11 @@
                 format,
                 employee,
                 currentDate,
-                hld
+                hld,
+                gotoEditDTR,
+                dlpersonnelDTR,
+                userrole,
+                userslugs
             }
         }
     }

@@ -134,6 +134,8 @@ import usePermissions from '@/composables/composables-permissions';
 import { useAuthStore } from '@/stores/store.js'
 import { useHead } from '@unhead/vue'
 import LoadingComponentDiv from '@/components/loader/LoadingComponentDiv.vue';
+import {useRouter} from 'vue-router'
+
 
 
 
@@ -157,16 +159,14 @@ export default{
         const {getOffices, offices} = useOffices()
         const {roles, getRoles} = useRoles()
         const {permissions, getPermissions} = usePermissions()
-
+        const router = useRouter();
         const store = useAuthStore();
 
         const userrole = ref(store.details[1]);
     
-        const enabledIDS = ref([21,32,33,34,35,36]);
+        const enabledIDS = ref([]);
 
-        if(userrole.value.includes('super-admin')){
-            enabledIDS.value = [21,32,33,34,35,36,37];
-        }
+        
 
         const form = reactive({
             'userroles': [],
@@ -178,8 +178,11 @@ export default{
         
         const pageLoader = ref(true);
         onMounted(() => {
+
             getUser(props.id).then(res => {
-                
+                if(user.value.rolesids.includes(1) && !(userrole.value.includes('super-admin'))){
+                    router.push({name: 'forbidden.index'})
+                }
                 form.office_head = user.value.office_head;
                 form.username = user.value.username;             
 
@@ -187,7 +190,7 @@ export default{
                 form.userroles = user.value.rolesids;
                 form.userpermissions = user.value.permissionsids;
                 
-  
+                
             }), 
             getOffices(),
             getRoles(),
@@ -227,13 +230,18 @@ export default{
                 var arrE = [13,14,15,16,21];
                 var arrO = [17,18,19,20];
                 var arrCV = [24,25,26,27];
-                var arrCE = [28,29,30,31];
+                var arrCE = [28,29,30,31,38];
 
 
-                var arrIncludes = [32,33,34,35,36,37];
 
+
+                var arrIncludes = [21,32,33,34,35,36,37,40];
+                var comIncludes = [38];
+
+                
 
             if(form.userroles.includes(id)){
+
                 if(id < 6){
                     for (var x = 1; x < 6; x++) {
                         if(id != x){
@@ -252,13 +260,19 @@ export default{
                     }
 
                     for (var i = 0; i < arrIncludes.length; i++) {
-                        var index = form.userpermissions.indexOf(arrIncludes[i]);
+                        var index = form.userpermissions.indexOf(arrIncludes[i]);           
                         if(index > -1){
                             form.userpermissions.splice(index, 1);
                         }
                     }
-
-
+                    for (var i = 0; i < arrIncludes.length; i++) {
+                        var index = enabledIDS.value.indexOf(arrIncludes[i]);           
+                        if(index > -1){
+                            enabledIDS.value.splice(index, 1);
+                        }
+                    }
+          
+                    
                 }else{
                     for (var x = 6; x < 8; x++) {
                         if(id != x){
@@ -273,24 +287,54 @@ export default{
                         if(index > -1){
                             form.userpermissions.splice(index, 1);
                         }  
-                    } 
+                    }
+                    for (var i = 0; i < comIncludes.length; i++) {
+                        var index = form.userpermissions.indexOf(comIncludes[i]);
+                        if(index > -1){
+                            form.userpermissions.splice(index, 1);
+                        }
+                    }
+                    for (var i = 0; i < comIncludes.length; i++) {
+                        var index = enabledIDS.value.indexOf(arrIncludes[i]);           
+                        if(index > -1){
+                            enabledIDS.value.splice(index, 1);
+                        }
+                    }
                 }
+
+
+
+                //admin - 36, 37
+                //hr - 34
+                //employee - 21 32 33
+                //supervisor - 35
+                
+
                 if(id == 1){
                     form.userpermissions.push(1,2,3,4);
                 }else if(id == 2){
                     form.userpermissions.push(5,6,7,8);
+                    enabledIDS.value.push(36,40);
+                    if(userrole.value.includes('super-admin')){
+                        enabledIDS.value.push(37);
+                    }
                 }else if(id == 3){
                     form.userpermissions.push(9,10,11,12);
+                    enabledIDS.value.push(34);
                 }else if(id == 4){
                     form.userpermissions.push(13,14,15,16);
+                    enabledIDS.value.push(21,32,33);
                 }else if(id == 5){
                     form.userpermissions.push(17,18,19,20);
+                    enabledIDS.value.push(35);
                 }else if(id == 6){
                     form.userpermissions.push(24,25,26,27);
+                    enabledIDS.value.push(39);
                 }else if(id == 7){
                     form.userpermissions.push(28,29,30,31);
+                    enabledIDS.value.push(38);
                 }
-
+    
             }else{        
 
                 arrE = [13,14,15,16,21,32,33];
@@ -298,7 +342,8 @@ export default{
                 arrA = [5,6,7,8,36,37];
                 arrO = [17,18,19,20,35];
 
-                if(id==1){                    
+                if(id==1){   
+
                     for (var i = 0; i < arrS.length; i++) {
                         var index = form.userpermissions.indexOf(arrS[i]);
                         if(index > -1){

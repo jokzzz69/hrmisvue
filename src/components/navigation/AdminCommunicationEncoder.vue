@@ -4,9 +4,14 @@
     </a>
     <div class="collapse navdrpdwn show" id="communications" style="">
       <ul class="btn-toggle-nav list-unstyled small wid--ic">
-          <li class="nav-link">
+          <li class="nav-link"> 
             <router-link :to="{ name: 'communications.create' }" class="btn btn-blue w-100 mt-2 new__commBTN"> 
               <i class="fa-solid fa-plus"></i> New Communication
+            </router-link>
+          </li>
+          <li class="nav-link w__c" v-if="permissions.includes('all-communications') || userslug.includes('super-admin')">
+            <router-link :to="{ name: 'communications.all' }">
+              <i class="fa-regular fa-comments"></i> <span>All Communications</span><CommunicationCount/>
             </router-link>
           </li>
           <li class="nav-link w__c">
@@ -36,6 +41,8 @@
   import DraftCount from '@/components/cm/navigationcount/DraftCount.vue';
   import CommunicationCount from '@/components/cm/navigationcount/CommunicationCount.vue';
   import RoutedCount from '@/components/cm/navigationcount/RoutedCount.vue';
+  import { useAuthStore } from '@/stores/store.js'
+  import {ref} from 'vue'
 
   export default{
     components: {
@@ -44,7 +51,13 @@
       RoutedCount
     },
     setup(){
-
+      const store = useAuthStore()
+      const permissions = ref(store.details[4]);
+      const userslug = ref(store.details[1]);
+      return {
+        permissions,
+        userslug
+      }
     }
   }
 </script>

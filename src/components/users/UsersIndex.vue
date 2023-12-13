@@ -99,34 +99,28 @@
 					    				</template>
 					    			</td>
 					    			<td>	
-					    				{{ getSlug(employee.employee_id) }}			    		
-					    				<template v-for="user in users" :key="user.employee_id">
-					    					<template v-if="user.employee_id == employee.employee_id">
-					    						<template v-if="user.roles.length">
-					    							<template v-for="userrole in user.roles" :key="userrole.id">
-					    								<template v-if="currentuserrole.includes('super-admin')">
-					    									<span :class="userrole.slug" class="badge text-bg-primary me-1">
-								    							{{userrole.name}}
-								    						</span> 
-					    								</template>
-					    								<template v-else>
-					    									<template v-if="userrole.id == 1">
-					    										<span class="badge admin text-bg-primary me-1">
-									    							Admin
-									    						</span> 
-					    									</template>
-					    									<template v-else>
-					    										<span :class="userrole.slug" class="badge text-bg-primary me-1">
-									    							{{userrole.name}}
-									    						</span> 
-					    									</template>
-					    								</template>
-
-					    								
-					    							</template>			    							
-					    						</template>
+					    				<template v-if="employee.useraccount">
+					    					<template v-for="role in employee.useraccount.roles">
+					    						<template v-if="currentuserrole.includes('super-admin')">
+			    									<span :class="role.slug" class="badge text-bg-primary me-1">
+						    							{{role.name}}
+						    						</span> 
+			    								</template>
+			    								<template v-else>
+			    									<template v-if="role.id == 1">
+			    										<span class="badge admin text-bg-primary me-1">
+							    							Admin
+							    						</span> 
+			    									</template>
+			    									<template v-else>
+			    										<span :class="role.slug" class="badge text-bg-primary me-1">
+							    							{{role.name}}
+							    						</span> 
+			    									</template>
+			    								</template>
 					    					</template>
 					    				</template>
+		
 					    			</td>
 
 					    			<td class="text-end">
@@ -138,19 +132,41 @@
 														<i class="fa-solid fa-clipboard-list"></i> <span class="actionText">Logs</span>
 													</router-link>
 												</li>
-						    					<li>
-						    						<router-link :to="{ name: 'users.edit', params: { id: employee.employee_id } }" class="btn btn-violet" title="Edit"> 
-														<i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
-													</router-link>
-												</li>
-												<li>
-													<button class="btn btn-outline-warning" @click="rebootPassword(employee.employee_id)" title="Reset Password"><i class="fa-solid fa-arrows-rotate"></i> <span class="actionText">Reset Password</span></button>
-												</li>
-				                                <li>
-				                                	<button class="btn btn-outline-danger" @click="deactivateAccount(employee.employee_id)"  title="Deactivate Accout">
-				                                		<i class="fa-solid fa-user-lock"></i> <span class="actionText">Deactivate</span>
-				                                	</button>
-				                                </li>			    					
+						    					
+						    						<template v-if="employee.useraccount.rslug.includes('super-admin')">
+						    							<template v-if="currentuserrole.includes('super-admin')">
+						    								<li>
+							    								<router-link :to="{ name: 'users.edit', params: { id: employee.employee_id } }" class="btn btn-violet" title="Edit"> 
+																	<i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
+																</router-link>
+															</li>
+															<li>
+																<button class="btn btn-outline-warning" @click="rebootPassword(employee.employee_id)" title="Reset Password"><i class="fa-solid fa-arrows-rotate"></i> <span class="actionText">Reset Password</span></button>
+															</li>
+							                                <li>
+							                                	<button class="btn btn-outline-danger" @click="deactivateAccount(employee.employee_id)"  title="Deactivate Accout">
+							                                		<i class="fa-solid fa-user-lock"></i> <span class="actionText">Deactivate</span>
+							                                	</button>
+							                                </li>	
+						    							</template>
+						    						</template>
+						    						<template v-else>
+						    							<li>
+						    								<router-link :to="{ name: 'users.edit', params: { id: employee.employee_id } }" class="btn btn-violet" title="Edit"> 
+																<i class="fa-solid fa-user-pen"></i> <span class="actionText">Edit</span>
+															</router-link>
+						    							</li>
+						    							<li>
+															<button class="btn btn-outline-warning" @click="rebootPassword(employee.employee_id)" title="Reset Password"><i class="fa-solid fa-arrows-rotate"></i> <span class="actionText">Reset Password</span></button>
+														</li>
+						                                <li>
+						                                	<button class="btn btn-outline-danger" @click="deactivateAccount(employee.employee_id)"  title="Deactivate Accout">
+						                                		<i class="fa-solid fa-user-lock"></i> <span class="actionText">Deactivate</span>
+						                                	</button>
+						                                </li>	
+						    						</template>
+								
+														    					
 						    				</template>
 
 						    				<template v-else>
@@ -168,7 +184,7 @@
 							<template v-if="searchQuery">
 							    <template v-if="!filteredEmployees.length">
 							        <tr class="nodata">
-							            <td colspan="7">
+							            <td colspan="8">
 							                No Results Found
 							            </td>
 							        </tr>
@@ -252,6 +268,7 @@
 							  (biouser.employee_extname && biouser.employee_extname.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1) ||
 							  (biouser.useraccount && biouser.useraccount.username.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1) ||
 							  (biouser.useraccount && biouser.useraccount.last_login && moment(biouser.useraccount.last_login).format('MMMM DD, yyyy hh:mm A').toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1)
+
 				);
 			});
 			const tblloader = ref(true);
@@ -419,48 +436,7 @@
             }
             const pluck = (arr, key) => arr.map(i => i[key]);
 
-            const getSlug = async(id) => {
-
-            	for (var user of users.value) {
-            		if(user.id == id){
-            			if(user.roles.length){
-            				for (var userrole of user.roles) {
-            					if(currentuserrole.value.includes('super-admin')){
-            						//no loop
-            					}
-            				}
-            			}
-            		}
-            	}
-
-            	// <template v-for="user in users" :key="user.employee_id">
-				// 	<template v-if="user.employee_id == employee.employee_id">
-				// 		<template v-if="user.roles.length">
-				// 			<template v-for="userrole in user.roles" :key="userrole.id">
-				// 				<template v-if="currentuserrole.includes('super-admin')">
-				// 					<span :class="userrole.slug" class="badge text-bg-primary me-1">
-		    	// 						{{userrole.name}}
-		    	// 					</span> 
-				// 				</template>
-				// 				<template v-else>
-				// 					<template v-if="userrole.id == 1">
-				// 						<span class="badge admin text-bg-primary me-1">
-			    // 							Admin
-			    // 						</span> 
-				// 					</template>
-				// 					<template v-else>
-				// 						<span :class="userrole.slug" class="badge text-bg-primary me-1">
-			    // 							{{userrole.name}}
-			    // 						</span> 
-				// 					</template>
-				// 				</template>
-
-								
-				// 			</template>			    							
-				// 		</template>
-				// 	</template>
-				// </template>
-            }
+            
 			return{
 				filteredEmployees,
 				searchQuery,
@@ -483,8 +459,7 @@
 				withChecked,
 				bulkactionsubmit,
 				pluck,
-				currentuserrole,
-				getSlug
+				currentuserrole
 			}
 		}
 	}

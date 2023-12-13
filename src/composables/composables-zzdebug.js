@@ -99,6 +99,36 @@ export default function useDebug(){
             }
         }
     }
+    const clearRevisions = async (data) => {
+        nProgress.start();
+        axios.defaults.withCredentials = true;
+        errors.value = ''
+        try {
+            await axios.post('/v1/api/debugclearclearrevisions/', data)
+            await router.push({name: 'cmi.index'})
+            
+        } catch (e) {
+            console.error(e.response.data);
+            if (e.response.status === 422) {
+                errors.value = e.response.data.errors
+            }
+        }
+    }
+    const clearTrash = async (data) => {
+        nProgress.start();
+        axios.defaults.withCredentials = true;
+        errors.value = ''
+        try {
+            await axios.post('/v1/api/debugclearcleartrash/', data)
+            await router.push({name: 'cmi.index'})
+            
+        } catch (e) {
+            console.error(e.response.data);
+            if (e.response.status === 422) {
+                errors.value = e.response.data.errors
+            }
+        }
+    }
     return {
 		errors,
 		clearAttachment,
@@ -106,7 +136,9 @@ export default function useDebug(){
         clearNotifications,
         clearActionsTaken,
         clearDrafts,
-        clearUnattached
+        clearUnattached,
+        clearRevisions,
+        clearTrash
 	
 	}
 }

@@ -7,7 +7,11 @@
     </div>
     <div class="collapse navdrpdwn show" id="communications" style="">
       <ul class="btn-toggle-nav list-unstyled small wid--ic">
-
+          <li class="nav-link w__c" v-if="permissions.includes('all-communications')">
+            <router-link :to="{ name: 'communications.all' }">
+              <i class="fa-regular fa-comments"></i> <span>All Communications</span><CommunicationCount/>
+            </router-link>
+          </li>
           <li class="nav-link w__c">
             <router-link :to="{ name: 'communications.index' }">
               <i class="fa-solid fa-envelope-open-text"></i> <span>Inbox</span><CommunicationCount/>
@@ -24,17 +28,22 @@
   </li>
 </template>
 <script>
-
+  import {ref} from 'vue'
   import CommunicationCount from '@/components/cm/navigationcount/CommunicationCount.vue';
   import RoutedCount from '@/components/cm/navigationcount/RoutedCount.vue';
-
+  import { useAuthStore } from '@/stores/store.js'
+  
   export default{
     components: {
       CommunicationCount,
       RoutedCount
     },
     setup(){
-
+      const store = useAuthStore()
+      const permissions = ref(store.details[4]);
+      return {
+        permissions
+      }
     }
   }
 </script>

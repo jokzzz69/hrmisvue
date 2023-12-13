@@ -13,6 +13,7 @@ export default function useCommunications(){
 	const getAllCommunications = async () => {
 		axios.defaults.withCredentials = true;
 		let response = await axios.get('/v1/api/allcommunications')
+		
 		communicationLinks.value = response.data.links;
 		communicationMeta.value = response.data.meta;		
 		communications.value = response.data.data;	
