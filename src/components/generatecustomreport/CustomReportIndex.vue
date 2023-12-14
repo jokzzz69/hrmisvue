@@ -534,12 +534,12 @@
                 handlescroll();
             })
             const scrollLeft = () =>{
-                console.log('left');
+ 
                 var div = document.getElementById('tblscroll');
                 div.scrollLeft -= 300;
             }
             const scrollRight = () =>{
-                console.log('right');
+
                 var div = document.getElementById('tblscroll');
                 div.scrollLeft += 300;
             }

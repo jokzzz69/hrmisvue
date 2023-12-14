@@ -54,6 +54,9 @@
           <li class="nav-link">
             <router-link  :to="{ name: 'customreport.index' }"> Employees Record</router-link>
           </li>
+          <li class="nav-link">
+            <router-link  :to="{ name: 'generatecommunications.index' }"> Communications</router-link>
+          </li>
       </ul>
     </div>        
 </li>

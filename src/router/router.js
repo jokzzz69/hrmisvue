@@ -249,6 +249,14 @@ const routes = [
     }
   },
   {
+    path: '/generatecommunications',
+    name: 'generatecommunications.index',
+    component: () => import('@/components/generatecommunications/GenerateCommunicationsIndex.vue'),
+    meta: {
+      middleware: ['communicationencoder','super-admin','admin']
+    }
+  },
+  {
     path: '/settings-hrmis/employeetypes',
     name: 'employeetype.index',
     component: () => import('@/components/settings-hrmis/employeetypes/EmployeeTypeIndex.vue'),
