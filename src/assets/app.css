@@ -534,8 +534,14 @@ body{
 .dateerror input{
 	border-color: #ff0000 !important;
 }
-#fdate .dp__input{
+#fdate .dp__input,
+.frmGenCom .dp__input{
 	border-color: #0f1b91;
+}
+.btnWrapGenCom button{
+	width: 100%;
+	min-height: calc(3rem + calc(var(--bs-border-width) * 2));
+	font-size: 1rem;
 }
 .error-input input{
 	border-color: #dc3545 !important;

@@ -4,16 +4,19 @@ import {useRouter} from 'vue-router'
 
 export default function useGenerateCommunications(){	
 
-	const datagenerated = ref([]);
+	const generated = ref([]);
 
 
-	const generateDTRfromData = async (data) => {	
+	const generateCommunication = async (data) => {	
         axios.defaults.withCredentials = true;      
-        let response = await axios.post(`/v1/api/datagenerated/`,data);
-        datagenerated.value = response.data.data;   
+        await axios.post(`/v1/api/generatecommunications/`,data).then((response) => {
+            genCommunications.value = response.data.data;   
+        });        
     }
+
     
     return{
-    	
+    	generated,
+        generateCommunication
     }
 }
