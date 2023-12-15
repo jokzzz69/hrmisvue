@@ -286,7 +286,9 @@
                 'uploadedfiles': [],
                 'uploadedfileid': [],
                 'asdraft': false,
-                'selectedunits': []
+                'selectedunits': [],
+                'allunits': '',
+                'allgroups': ''
             });
 
             onMounted(() => {
@@ -302,6 +304,9 @@
                     draftform.venue = draft.value.venue;
                     draftform.documenttype = draft.value.documenttype_id;
                     draftform.classification = draft.value.classification_id;
+                    draftform.allunits = draft.value.allunits;
+                    draftform.allgroups = draft.value.allgroups;
+
 
                     if(draft.value.withinclusivedates == 1){
 
@@ -350,6 +355,8 @@
                     st_recipients.setselectedunitheads(draftform.sendto);
                     st_recipients.setselectedunitgroups(draftform.selectedunits);
                     st_recipients.setselectedunitheadgroups(draftform.commgroupids);
+                    st_recipients.setallunits(draftform.allunits);
+                    st_recipients.setallgroups(draftform.allgroups);
 
                 }),
 

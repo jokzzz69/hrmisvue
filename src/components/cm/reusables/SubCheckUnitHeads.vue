@@ -111,6 +111,10 @@
                     if(st_recipients.getselectedunitheadgroups){
                         recipients.commgroupids = st_recipients.getselectedunitheadgroups;
                     }
+                    if(st_recipients.getallunits){
+                        allgroupsNunits.value = true;
+                        allgroups.value = true;
+                    }
                     
                 })
 
@@ -121,6 +125,8 @@
                 st_recipients.setselectedunitheads(recipients.sendto);
                 st_recipients.setselectedunitheadgroups(recipients.commgroupids);
                 st_recipients.setselectedunitgroups(selectedgroups.value);
+                st_recipients.setallunits(allgroupsNunits.value);
+                st_recipients.setallgroups(allgroups.value);
             }
             const checkStatusall = async() =>{
                 if(allgroups.value == true && allunitheads.value == true){

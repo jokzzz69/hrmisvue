@@ -7,6 +7,8 @@ export const useRecipients = defineStore('selun', {
 			selectedunitheads: null,
 			selectedunitheadgroups: null,
 			selectedunitgroups: null,
+			allunits: null,
+			allgroups: null
 		}
 	}),
 	actions: {
@@ -18,6 +20,12 @@ export const useRecipients = defineStore('selun', {
 		},
 		setselectedunitgroups(val){
 			this.recipients.selectedunitgroups = val
+		},
+		setallunits(val){
+			this.recipients.allunits = val
+		},
+		setallgroups(val){
+			this.recipients.allgroups = val
 		}
 
 	},
@@ -30,6 +38,12 @@ export const useRecipients = defineStore('selun', {
 		},
 		getselectedunitgroups: (state) => {
 			return state.recipients.selectedunitgroups
+		},
+		getallunits: (state) => {
+			return state.recipients.allunits
+		},
+		getallgroups: (state) => {
+			return state.recipients.allgroups
 		}
 	}
 })

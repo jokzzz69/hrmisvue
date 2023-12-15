@@ -143,10 +143,7 @@
                   </div>
                 </div>
             </div>
-        </div>
-
-        
-
+        </div>   
         <div class="row">
             <div class="col col-sm-12 col-lg-6">
                 <div class="cardwrap pt-2 pb-1 mt-2">
@@ -155,13 +152,11 @@
                         <div class="fflabel">
                             <div class="inner-div nb">
                                 <template v-if="communication.notes">
-
                                     <template v-for="note in communication.notes">
                                         <template v-if="note.id != 8 && note.id != 15">
                                             <span class="badge badgeRed me-1 mb-2">{{note.name}}</span>
                                         </template>
                                     </template>
-
                                     <template v-if="communication.noteHasPhotocopy > 0">
                                         <span class="badgeRed badge">{{photocopy.title}} - {{photocopy.value}}</span>
                                     </template>
@@ -350,45 +345,40 @@
 
             const hld = ref(true);
 
-            onMounted(() => {
-                
-
+            onMounted(() => {               
                 getCommunication(props.id).then(() =>{
+                    if(communication.value.length){
+                        if(communication.value.receivers.length > 0){
+                            communicationform.sendto = communication.value.receivers.map(i => parseInt(i['id']));
+                            
+                            communicationform.selectedunits = communication.value.units.map(i => parseInt(i['id']));
 
-    
-                    if(communication.value.receivers.length > 0){
-                        communicationform.sendto = communication.value.receivers.map(i => parseInt(i['id']));
-                        
-                        communicationform.selectedunits = communication.value.units.map(i => parseInt(i['id']));
-
-                    } 
-                    if(communication.value.noteHasPhotocopy){
-                        if(communication.value.noteCopies > 1){
-                            photocopy.value = communication.value.noteCopies+' Copies';
-                        }else{
-                            photocopy.value = communication.value.noteCopies+' Copy';
+                        } 
+                        if(communication.value.noteHasPhotocopy){
+                            if(communication.value.noteCopies > 1){
+                                photocopy.value = communication.value.noteCopies+' Copies';
+                            }else{
+                                photocopy.value = communication.value.noteCopies+' Copy';
+                            }
                         }
+                        if(communication.value.subject){
+                            noSubject.value = false;
+                        }else{
+                            noSubject.value = true;
+                        }
+
+                        notificationstore.fetchNotification();
+        
+                        st_recipients.setselectedunitheads(communicationform.sendto);
+                        st_recipients.setselectedunitgroups(communicationform.selectedunits);
+
+
+                        checkSentDate(communication.value.updated_at);
                     }
-                    if(communication.value.subject){
-                        noSubject.value = false;
-                    }else{
-                        noSubject.value = true;
-                    }
-
-                    notificationstore.fetchNotification();
-    
-                    st_recipients.setselectedunitheads(communicationform.sendto);
-                    st_recipients.setselectedunitgroups(communicationform.selectedunits);
-
-
-                    checkSentDate(communication.value.updated_at);
                 }),
                 getCommunicationGroups().then(() => {
                     hld.value = false;
-                })
-
-
-                
+                })                
 
             })
             const btnActionsTaken = () =>{
@@ -405,8 +395,7 @@
                 [showActionsBox.value] = val ?? []
             })
      
-            
-            
+                    
 
             const checkSentDate = async(sdate) =>{
                 var mdate = moment(sdate);

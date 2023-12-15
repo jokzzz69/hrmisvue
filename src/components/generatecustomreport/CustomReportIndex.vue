@@ -483,11 +483,9 @@
                 var bodyVal = document.getElementsByTagName("BODY")[0];
                 var div = document.getElementById('tblscroll');
                 var cwrap = document.getElementsByClassName('content-wrap')[0];
-
-
                 var hasHorizontalScrollbar = div.scrollWidth > cwrap.scrollWidth;
                 var hasVerticalScrollbar = bodyVal.scrollHeight > window.innerHeight;
-
+                
                 hasScrollLeft.value = hasHorizontalScrollbar;
                 scrolledtoBottom.value = hasVerticalScrollbar;
             }

@@ -281,7 +281,9 @@
                 'uploadedfileid': [],                
                 'asdraft': false,
                 'commgroupids': [],
-                'selectedunits': []
+                'selectedunits': [],
+                'allunits': '',
+                'allgroups': ''
 
             });
             const forNotLoaded = ref(true);
@@ -298,6 +300,8 @@
                 st_recipients.setselectedunitheads(null);
                 st_recipients.setselectedunitheadgroups(null);
                 st_recipients.setselectedunitgroups(null);
+                st_recipients.setallunits(null);
+                st_recipients.setallgroups(null);
 
             })
             const checkifHasData = () =>{
@@ -316,9 +320,13 @@
                 communicationform.selectedunits = st_recipients.getselectedunitgroups;
                 communicationform.commgroupids = st_recipients.getselectedunitheadgroups;
                 communicationform.sendto = st_recipients.getselectedunitheads;
+                communicationform.allunits = st_recipients.getallunits;
+                communicationform.allgroups = st_recipients.getallgroups;
 
                 communicationform.asdraft = false;
                 asdraftpage.value = false;
+
+     
 
                 await storeCommunication({ ...communicationform }).then(() => {
                     if(!errors.value){                       

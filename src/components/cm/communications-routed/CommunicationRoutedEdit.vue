@@ -276,7 +276,9 @@
                 'uploadedfiles': [],
                 'uploadedfileid': [],
                 'asdraft': false,
-                'selectedunits': []
+                'selectedunits': [],                
+                'allunits': '',
+                'allgroups': ''
 
             });
 
@@ -291,7 +293,8 @@
                     communicationform.venue = communication.value.venue;
                     communicationform.documenttype = communication.value.documenttype_id;
                     communicationform.classification = communication.value.classification_id;
-
+                    communicationform.allunits = communication.value.allunits;
+                    communicationform.allgroups = communication.value.allgroups;
                     if(communication.value.withinclusivedates == 1){
 
                         communicationform.hasinclusive = true;
@@ -340,6 +343,8 @@
                     st_recipients.setselectedunitheads(communicationform.sendto);
                     st_recipients.setselectedunitgroups(communicationform.selectedunits);
                     st_recipients.setselectedunitheadgroups(communicationform.commgroupids);
+                    st_recipients.setallunits(communicationform.allunits);
+                    st_recipients.setallgroups(communicationform.allgroups);
                     
                 }),
 
@@ -358,7 +363,8 @@
                 communicationform.selectedunits = st_recipients.getselectedunitgroups;
                 communicationform.commgroupids = st_recipients.getselectedunitheadgroups;
                 communicationform.sendto = st_recipients.getselectedunitheads;
-
+                communicationform.allunits = st_recipients.getallunits;
+                communicationform.allgroups = st_recipients.getallgroups;
 
                 communicationform.asdraft = false;
 

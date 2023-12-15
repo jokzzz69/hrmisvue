@@ -70,7 +70,8 @@
 		        emit('selectedgroups', selectedunits.value);
 	        })
 			const checkallgroups = () => {	
-				selectedunits.value = [];		
+				selectedunits.value = [];
+
 		        if(allgroups.value){
 		            selectedunits.value = [];
 		            for (var unit of units.value) {
@@ -98,7 +99,10 @@
 		    	getActiveUnits().then(() => {
 		    		if(st_recipients.getselectedunitgroups){
 		    			selectedunits.value = st_recipients.getselectedunitgroups;
-		    		}		    		
+		    		}
+		    		if(st_recipients.getallgroups){
+                        allgroups.value = true;
+                    }
 		    	})
 
 

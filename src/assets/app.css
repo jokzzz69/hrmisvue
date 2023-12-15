@@ -1658,7 +1658,8 @@ tr.disabled{
 	width: 100%;
 	overflow: hidden;
 }
-.tblscroll{
+.tblscroll,
+.tblWrapReportTable{
 	overflow-x: auto;
 }
 .sidebarleft{
@@ -3010,7 +3011,8 @@ div.bt{
 .scrollbuttons span:focus{
 	color: #0084b4;
 }
-.tblWNoWrap{
+.tblWNoWrap,
+.communicationReportTable{
 	white-space: nowrap;
 }
 .bulk--actionsWrap{
@@ -3023,7 +3025,11 @@ div.bt{
 	flex:0 0 auto;
 	padding-left: .5rem;
 }
-
+.communicationReportTable thead tr td{
+	vertical-align: middle;
+	text-align: center;
+	border:1px solid #1f29a9;
+}
 /*end content*/
 @media(max-width: 500px){
 

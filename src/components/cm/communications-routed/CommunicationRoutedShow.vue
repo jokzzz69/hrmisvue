@@ -81,10 +81,10 @@
                     <span class="form-control">
                         <template v-if="communication.withinclusivedates > 0">
                             <template v-if="communication.inclusivedatestart == communication.inclusivedateend">
-                                <strong>{{moment(communication.inclusivedatestart).format('MMMM D, YYYY')}} </strong>
+                                <strong>{{moment(new Date(communication.inclusivedatestart)).format('MMMM D, YYYY')}} </strong>
                             </template>
                             <template v-else>
-                                <strong>{{moment(communication.inclusivedatestart).format('MMMM D, YYYY')}}</strong> to <strong>{{moment(communication.inclusivedateend).format('MMMM D, YYYY')}}</strong>
+                                <strong>{{moment(new Date(communication.inclusivedatestart)).format('MMMM D, YYYY')}}</strong> to <strong>{{moment(new Date(communication.inclusivedateend)).format('MMMM D, YYYY')}}</strong>
                             </template>                                       
                         
                         </template>                        
