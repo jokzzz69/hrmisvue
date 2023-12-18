@@ -110,7 +110,7 @@
 
         <div class="row">
             <div class="col">
-                <div class="checkBoxcgDisp p-2 mt-2 border" :class="errors.sendto ? 'br-error' : ''">
+                <div class="checkBoxcgDisp p-2 mt-2 border showOnlyChk" :class="errors.sendto ? 'br-error' : ''">
                     <div class="card--title"><strong>Recipients:</strong></div>
                     <div class="row">
                         <div class="col col-sm-12">                   

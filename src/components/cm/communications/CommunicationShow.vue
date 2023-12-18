@@ -128,7 +128,7 @@
                                   
                   </button>
                 </h2>
-                <div id="collapseRecipients" class="accordion-collapse collapse" aria-labelledby="headingRecipients" data-bs-parent="#accRecipients">
+                <div id="collapseRecipients" class="accordion-collapse collapse showOnlyChk" aria-labelledby="headingRecipients" data-bs-parent="#accRecipients">
                   <div class="accordion-body">
                     <div class="row">
                         <div class="col col-sm-12">                   

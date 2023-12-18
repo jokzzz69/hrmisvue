@@ -161,7 +161,7 @@
 }
 .spNamesRight{
   top:1rem;
-  left:2rem;
+  left:-12rem;
 }
 .spNames:before {
   content: " ";
