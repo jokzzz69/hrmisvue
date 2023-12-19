@@ -99,6 +99,7 @@
 		    	getActiveUnits().then(() => {
 		    		if(st_recipients.getselectedunitgroups){
 		    			selectedunits.value = st_recipients.getselectedunitgroups;
+
 		    		}
 		    		if(st_recipients.getallgroups){
                         allgroups.value = true;

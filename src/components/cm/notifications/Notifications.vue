@@ -174,7 +174,6 @@
 			.listen('.incommingcommunications', (e) =>{
 				loadNotif(),
 				notificationstore.fetchNotification()
-				console.log('ic');
 			})
 			.listen('.cmdtsactionstaken', (e) =>{
 

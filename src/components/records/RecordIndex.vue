@@ -53,6 +53,10 @@
 			                    <span v-if="sortColumn == 'startdate'" class="material-icons">{{arrowIconName}}</span>		                    
 			                    <span v-else class="material-icons">sort</span>
 			                </th>
+			                <th @click="sortTable('employee_activemobilenumber')" class="h-t" v-if="userrole == 'super-admin'">Active #
+			                    <span v-if="sortColumn == 'employee_activemobilenumber'" class="material-icons">{{arrowIconName}}</span>		                    
+			                    <span v-else class="material-icons">sort</span>
+			                </th>
 		
 			                <th class="th-20"></th>
 			    		</tr>
@@ -124,7 +128,11 @@
 				    				 		</template>		    				 		
 				    				 	</template>
 					    			</td>
-	
+									<td v-if="userrole == 'super-admin'">
+										<template v-if="officerecord.employee">
+											{{officerecord.employee.employee_activemobile}}
+										</template>
+									</td>
 					    			<td @click.stop class="tblcolwid--2btn">
 					    				<ul class="ls-frmbutton text-end">
 					    					<li class="list-inline-item">
@@ -144,7 +152,7 @@
 			    		<template v-else>
                             <template v-if="!noData">
                                 <tr class="pr nodata">
-                                	<td colspan="9">
+                                	<td :colspan="colsp">
 	                                	<template v-if="searchQuery && !filteredOfficeRecords.length">               
 					                    	No Result Found		                
 					                    </template>
@@ -157,7 +165,7 @@
                         </template>
                         <template v-if="noData">                                
                             <tr class="nodata pr">
-                                <td colspan="9"><span class="nodata">Record is Empty </span>
+                                <td :colspan="colsp"><span class="nodata">Record is Empty </span>
                                 </td>
                             </tr>
                         </template>
@@ -191,6 +199,9 @@
             const userrole = ref(store.getdetails[1]);
             const authid = ref(store.getdetails[0]);
 
+            const colsp = ref(9);
+
+
 			const {officerecords, getOfficerecords, destroyOfficerecord }= useOfficerecord()
 			const {setArchive} = useArchive();
 
@@ -213,6 +224,9 @@
                         noData.value = true;
                     }
 				})
+				if(userrole.value == 'super-admin'){
+					colsp.value = 10;
+				}
 			})		
 
 			const archiveForm = reactive({
@@ -476,7 +490,8 @@
 				moment,
 				userrole,
 				authid,
-				noData
+				noData,
+				colsp
 			}
 		}
 	}

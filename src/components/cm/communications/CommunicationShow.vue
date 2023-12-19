@@ -347,8 +347,10 @@
 
             onMounted(() => {               
                 getCommunication(props.id).then(() =>{
-                    if(communication.value.length){
+                    if(communication.value){
+
                         if(communication.value.receivers.length > 0){
+
                             communicationform.sendto = communication.value.receivers.map(i => parseInt(i['id']));
                             
                             communicationform.selectedunits = communication.value.units.map(i => parseInt(i['id']));
@@ -368,6 +370,7 @@
                         }
 
                         notificationstore.fetchNotification();
+
         
                         st_recipients.setselectedunitheads(communicationform.sendto);
                         st_recipients.setselectedunitgroups(communicationform.selectedunits);

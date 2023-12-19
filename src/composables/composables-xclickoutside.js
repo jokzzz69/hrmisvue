@@ -30,7 +30,6 @@ export default function useClickOutside(
 
   onMounted(() => {
     window.addEventListener('click', listener)
-    console.log('test');
   })
 
   onBeforeUnmount(() => {
