@@ -14,8 +14,23 @@
                                 <span class="d-block fs-2 text-center text-light"><i class="fa-solid fa-broom"></i></span>
                                 <span class="form-label w-100 text-center f-left d-block text-light">Clear All Unattached Files</span>
                                 <button type="submit" class="btn btn-info w-100" title="Clear All Unattached Files"> Clear</button>        
-                            </form>
-                            
+                            </form>                            
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="card p-2 bg-success">
+                            <form @submit.prevent="smsStatusClick">
+                                <span class="d-block fs-2 text-center text-light"><i class="fa-solid fa-broom"></i></span>
+                                <span class="form-label w-100 text-center f-left d-block text-light">SMS Status</span>
+                                <button type="submit" class="btn btn-info w-100" title="Clear All Unattached Files">
+                                    <template v-if="formSMS.smstatus == 1">                                        
+                                        <span class="text-danger">Disable</span>                                        
+                                    </template>
+                                    <template v-else>
+                                        Enable
+                                    </template>
+                                </button>        
+                            </form>                            
                         </div>
                     </div>
                 </div>
@@ -101,7 +116,7 @@
     </div>
 </template>
 <script>
-    import { reactive,inject,ref} from "vue";
+    import { reactive,inject,ref, onMounted} from "vue";
 
     import useDebug from "@/composables/composables-zzdebug";
     
@@ -115,7 +130,17 @@
             const swal = inject('$swal')
             
             const { errors, clearAttachment, clearCommunications,clearNotifications, clearActionsTaken, clearDrafts,clearUnattached,
-            clearRevisions, clearTrash} = useDebug()
+            clearRevisions, clearTrash, getSMSStatus, smstatus, updateSMSStatus} = useDebug()
+
+            const formSMS = reactive({
+                'smsstatus' : ''
+            });
+            onMounted(() => {
+                getSMSStatus().then(() => {
+                    formSMS.smstatus = smstatus.value.smstatus;
+                    
+                });
+            })
             const swalfire = async () =>{
 
                 swal.fire({
@@ -205,7 +230,33 @@
                     }
                 })
             }
+            const smsStatusClick = async() => {
 
+                if(formSMS.smstatus == 1){
+                    formSMS.smstatus = 0;
+                }else{
+                    formSMS.smstatus = 1;
+                }
+
+                await updateSMSStatus({...formSMS}).then(() =>{
+                    if(!errors.value){
+                        swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            title: 'Successfully Updated',
+                            showConfirmButton: false,            
+                            icon: 'success',
+                            width: '300',
+                            padding: '.5em 1em',
+                            timerProgressBar: true,
+                            timer:1500,
+                            customClass: {
+                                container: 'swaltopright-del'
+                            }
+                        })
+                    }
+                });
+            }
             return{
                 form,
                 errors,
@@ -216,7 +267,10 @@
                 clearAllDraft,
                 ClearAllUnattached,
                 clearAllRevisions,
-                clearAllTrash
+                clearAllTrash,
+                formSMS,
+                smstatus,
+                smsStatusClick
             }
         }
     }

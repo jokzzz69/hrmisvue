@@ -7,8 +7,30 @@ export default function useDebug(){
 
 	const router = useRouter();
 	const errors = ref('');
+    const smstatus = ref([]);
 
-	
+	const updateSMSStatus = async(data) => {
+        
+        const id = 1;
+
+        try {
+            await axios.patch(`/v1/api/smssettingupdate/${id}`, data)
+            await router.push({ name: 'cmi.index' })
+        } catch (e) {
+            if (e.response.status === 422) {
+                for (const key in e.response.data.errors) {
+                    errors.value = e.response.data.errors
+                }
+            }
+        }
+    }
+    const getSMSStatus = async(data) => {
+        axios.defaults.withCredentials = true;
+        await axios.get('/v1/api/smssettings').then((response) => {
+            smstatus.value  = response.data;
+        });
+
+    }
 	const clearAttachment = async (data) => {
         nProgress.start();
         axios.defaults.withCredentials = true;
@@ -138,7 +160,10 @@ export default function useDebug(){
         clearDrafts,
         clearUnattached,
         clearRevisions,
-        clearTrash
+        clearTrash,
+        updateSMSStatus,
+        getSMSStatus,
+        smstatus
 	
 	}
 }
