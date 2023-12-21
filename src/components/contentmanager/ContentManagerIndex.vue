@@ -4,7 +4,7 @@
             <h2>Debug</h2>
         </div>
     </div>
-   	<BiometricsDebug/>
+    
 	<CommunicationsDebug/>
 </template>
 

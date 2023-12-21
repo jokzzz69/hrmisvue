@@ -3376,6 +3376,7 @@ div.bt{
 	}
 	
 	/*end delete*/
+
 	.unitheads{
 		border-right: 1px solid #ccc;
 	}
@@ -3455,6 +3456,12 @@ div.bt{
 	}
 	.listcgchilds{
 		padding-left: 1rem;
+	}
+	.mh-ls{
+		min-height: 118px;
+	}
+	textarea#reasons{
+		height: 150px;
 	}
 }	
 

@@ -315,6 +315,22 @@ const routes = [
     }
   },
   {
+    path: '/mylocatorslips',
+    name: 'mylocatorslips.index',
+    component: () => import('@/components/forms/locatorslip/MyLocatorSlip.vue'),
+    meta: {
+      middleware: ['hr','super-admin','admin','employee','office-head']
+    }
+  },
+  {
+    path: '/locatorslip/create',
+    name: 'locatorslips.create',
+    component: () => import('@/components/forms/locatorslip/LocatorSlipCreate.vue'),
+    meta: {
+      middleware: ['hr','super-admin','admin','employee','office-head']
+    }
+  },
+  {
     path: '/settings-forms/leavetypes',
     name: 'leavetypes.index',
     component: () => import('@/components/settings-forms/leavetypes/LeaveTypesIndex.vue'),

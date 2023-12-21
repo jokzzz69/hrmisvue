@@ -28,6 +28,7 @@
           <li class="nav-link"><router-link :to="{ name: 'recordpersonal.show' }">My Information</router-link></li>
           <li class="nav-link"><router-link :to="{ name: 'pdsmydata.show' }">My PDS</router-link></li>
           <li class="nav-link"><router-link :to="{name: 'myleaverecords.index'}">My Absent <template v-if="usertype != 1"> / Leave</template> Records</router-link></li>
+          <li class="nav-link"><router-link :to="{name: 'mylocatorslips.index'}">My Locator Slip</router-link></li>
           <li class="nav-link"><a href="#" class="text-danger">My Office ID</a></li>
           <li class="nav-link"><a href="#" class="text-danger">My Payslip</a></li>
           <li class="nav-link"><a href="#" class="text-danger">My Contract</a></li>
@@ -37,7 +38,9 @@
           <li class="nav-link"><a href="#" class="text-danger">My COE</a></li>
           <li class="nav-link"><a href="#" class="text-danger">My Clearance</a></li>
           <li class="nav-link"><a href="#" class="text-danger">My Assessment</a></li>
-          <li class="nav-link"><a href="#" class="text-danger">My Locator Slip</a></li>
+
+
+
       </ul>
     </div>
     
