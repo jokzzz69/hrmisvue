@@ -125,8 +125,13 @@
                 st_recipients.setselectedunitheads(recipients.sendto);
                 st_recipients.setselectedunitheadgroups(recipients.commgroupids);
                 st_recipients.setselectedunitgroups(selectedgroups.value);
+
                 st_recipients.setallunits(allgroupsNunits.value);
+
+
                 st_recipients.setallgroups(allgroups.value);
+
+
             }
             const checkStatusall = async() =>{
                 if(allgroups.value == true && allunitheads.value == true){

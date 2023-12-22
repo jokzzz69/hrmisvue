@@ -47,6 +47,11 @@ export default function useEmployees(){
     	let response = await axios.get('/v1/api/bioemployeesselect');
 		employees.value = response.data.data;
     }
+    const getRegularEmployeeOptions = async() => {   
+    	axios.defaults.withCredentials = true;	 	
+    	let response = await axios.get('/v1/api/bioemployeesregselect');
+		employees.value = response.data.data;
+    }
 	const destroyEmployee = async (id) => {
 		axios.defaults.withCredentials = true;	
 		await axios.delete('/v1/api/bioemployees/' + id)
@@ -107,6 +112,7 @@ export default function useEmployees(){
 		getBioUsers,
 		updateEmployeePDS,
 		getEmployeeOptions,
+		getRegularEmployeeOptions,
 		getBioIDS,
 		getAvailableIDS,
 		availableids,

@@ -11,7 +11,16 @@
     		<div class="row">
     			<div class="col">
     				<div class="col-auto">
-			    		<router-link :to="{ name: 'locatorslips.create' }" class="btn btn-blue">New Locator Slip <i class="fa-solid fa-plus"></i></router-link>
+                        <div class="dropdown">
+                          <button class="btn btn-blue dropdown-toggle" type="button" id="dropdown-ls" data-bs-toggle="dropdown" aria-expanded="false">
+                            Add Locator Slip
+                          </button>
+                          <ul class="dropdown-menu dropdown__ls" aria-labelledby="dropdown-ls">
+                            <li><router-link :to="{ name: 'locatorslips.create' }" class="dropdown-item">Create New </router-link></li>
+                            <li><router-link :to="{ name: 'locatorslips.addexisting' }" class="dropdown-item">Add already Approved</router-link></li>                            
+                          </ul>
+                        </div>
+			    		
 			    	</div>
     			</div>
     		</div>
@@ -54,7 +63,7 @@
 
 			onMounted(() => {
 				getMyLocatorSlips().then(() => {
-					console.log('weee');
+
 				})
 			})
 			return{

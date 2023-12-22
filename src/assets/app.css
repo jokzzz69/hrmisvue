@@ -483,6 +483,9 @@ body{
 .p-15{
 	padding: 15px;
 }
+.sl2-floating.single .vs__dropdown-toggle{
+	overflow: hidden;
+}
 .error-inputsl .vs__dropdown-toggle,
 .br-error{
 	border-color: #ff0000 !important;
@@ -868,6 +871,14 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown){
     content:" *";
     color: red;
 }
+.form-floating.req>.form-select~label::after,
+.form-floating.req>.form-control:focus~label::after,
+.form-floating.req>.form-control:not(:placeholder-shown)~label::after{
+    content: " *" !important;
+    color: red;
+    inset: unset !important;
+    margin-left:3px;
+}
 .noreq:after{
 	content:"" !important;
 }
@@ -1077,8 +1088,22 @@ input[type=number] {
 .rytviewsidenav ul li a:hover{
 	text-decoration: underline;
 }
-.top-navbar .dropdown-menu{
+.top-navbar .dropdown-menu,
+.dropdown__ls{
 	border-color: #0f1b91;
+}
+.dropdown__ls li{
+	font-size: .858rem;
+}
+.dropdown__ls li a:hover,
+.ul-dptop li a:hover,
+.ul-dptop li button:hover{
+	background: #506fd91a !important;
+}
+.dropdown__ls li a:active,
+.ul-dptop li a:active,
+.ul-dptop li button:active{
+	color:#0f1b91;
 }
 .ul-dptop{
 	padding-left: 0px;
@@ -1198,10 +1223,15 @@ input[type=number] {
 .vs__selected{
 	background: rgb(68 94 184 / 15%) !important;
 }
-.vs__dropdown-menu{
-	position: relative !important;
+.select-sl-approved .vs__dropdown-menu{
+	position: absolute !important;
 	z-index: 99999 !important;
 }
+.vs__dropdown-menu{
+	position: relative;
+	z-index: 99999 !important;
+}
+
 .form-floating .sp-label {
     position: absolute;
     top: 0;

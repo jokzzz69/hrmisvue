@@ -331,6 +331,14 @@ const routes = [
     }
   },
   {
+    path: '/locatorslip/approved',
+    name: 'locatorslips.addexisting',
+    component: () => import('@/components/forms/locatorslip/LocatorSlipExisting.vue'),
+    meta: {
+      middleware: ['hr','super-admin','admin','employee','office-head']
+    }
+  },
+  {
     path: '/settings-forms/leavetypes',
     name: 'leavetypes.index',
     component: () => import('@/components/settings-forms/leavetypes/LeaveTypesIndex.vue'),

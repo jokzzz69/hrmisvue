@@ -72,9 +72,10 @@
         </div>
         <div class="row">
             <div class="col mb-2">
-                <div class="form-floating">
-                    <input type="text" name="subject" placeholder="enter subject" id="subject" class="form-control" v-model="communicationform.subject">
+                <div class="form-floating req">
+                    <input type="text" name="subject" placeholder="enter subject" id="subject" class="form-control" :class="errors.subject ? 'is-invalid' : ''" v-model="communicationform.subject">
                     <label for="subject" class="form-label">Subject</label>
+                    <span v-if="errors.subject" class="text-danger m-error">{{errors.subject[0]}}</span>
                 </div>
             </div>
             <div class="col mb-2">
