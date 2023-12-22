@@ -56,18 +56,7 @@ export default function useCommunications(){
             }
         })
     }    
-    const updateCommunication = async (id,data) => {
-    	axios.defaults.withCredentials = true;
-        errors.value = ''
 
-        await axios.patch(`/v1/api/communications/${id}`, data).catch((e) => {
-	        if (e.response.status === 422) {
-	            for (const key in e.response.data.errors) {
-	                errors.value = e.response.data.errors
-	            }
-	        }
-    	});
-    }
 
     const destroyCommunication = async (id) => {
     	axios.defaults.withCredentials = true;
@@ -120,7 +109,6 @@ export default function useCommunications(){
 		getCommunications,
 		storeCommunication,
 		destroyCommunication,
-		updateCommunication,
 		communicationLinks,
 		communicationMeta,
 		getAllCommunications,
