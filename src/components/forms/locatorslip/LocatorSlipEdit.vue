@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-md-12 p-title">
-            <h2>Approved Locator Slip</h2>
+            <h2>Edit Approved Locator Slip</h2>
         </div>
     </div>
     <form v-on:submit.prevent="saveLocatorSlip">
@@ -100,15 +100,14 @@
             </div>
         </div>
         <div class="row">
-            <div class="col mt-2 text-end">     
-                <router-link :to="{name: 'mylocatorslips.index'}" class="btn btn-secondary me-1">Cancel</router-link>
+            <div class="col mt-2 text-end">
+                <button @click="$router.go(-1)" class="btn btn-secondary me-1">Cancel</button>
                 <button type="submit" class="btn btn-save">Save</button>
             </div>
         </div>  
     </form>
 </template>
 <script>
-    
     import { reactive ,inject, onMounted} from "vue";
     import { useHead } from '@unhead/vue'
     import moment from 'moment'
@@ -117,15 +116,21 @@
     
     import 'vue-select/dist/vue-select.css';
     export default {
-        setup(){
+        props: {
+            id: {
+                required: true,
+                type: String
+            }
+        },
+        setup(props){
             useHead({
-                title: 'Create Locator Slip | '+import.meta.env.VITE_BFAR_AGENCY
+                title: 'Edit Locator Slip | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const form = reactive({
                 'obaddress': '',
                 'lsstatus': 3,
                 'obtype': '',
-                'durationtype': 1,
+                'durationtype': '',
                 'datestart': '',
                 'dateend': '',
                 'datehourly': '',
@@ -139,20 +144,54 @@
 
             const swal = inject('$swal')
 
-            const {storeLocatorSlip, errors} = useLocatorSlips();
+            const {updateLocatorSlip, locatorslip, errors, getLocatorSlip} = useLocatorSlips();
 
             const {employees, getRegularEmployeeOptions} = useEmployees()
 
             onMounted(() => {
-                getRegularEmployeeOptions()
+                getRegularEmployeeOptions(),
+                getLocatorSlip(props.id).then(() =>{
+
+                    if(locatorslip.value.durationtype != 1){
+                        form.durationtype = 2;
+                    }else{
+                        form.durationtype = 1;
+                    }
+
+                    form.datecreated = locatorslip.value.lsdatecreated;
+                    form.supervisor = locatorslip.value.actionedby;
+
+
+                    if(locatorslip.value.durationtype == 1){
+                        form.datehourly = moment(new Date(locatorslip.value.datestart)).format('YYYY-MM-DD');
+                        form.timestart = {
+                            'hours' : new Date(locatorslip.value.datestart).getHours(),
+                            'minutes' : new Date(locatorslip.value.datestart).getMinutes(),
+                            'seconds' : new Date(locatorslip.value.datestart).getSeconds(),
+                        }
+                        form.timeend = {
+                            'hours' : new Date(locatorslip.value.dateend).getHours(),
+                            'minutes' : new Date(locatorslip.value.dateend).getMinutes(),
+                            'seconds' : new Date(locatorslip.value.dateend).getSeconds(),
+                        }
+                    }else{
+                        form.datestart  = moment(new Date(locatorslip.value.datestart)).format('YYYY-MM-DD');      
+                        form.dateend = moment(new Date(locatorslip.value.dateend)).format('YYYY-MM-DD'); 
+                    }
+
+                    form.obtype = locatorslip.value.obtype;
+                    form.obaddress = locatorslip.value.lslocation;
+                    form.reason = locatorslip.value.reason;
+                })
             })
-            const saveLocatorSlip = async () => {                
-                await storeLocatorSlip({ ...form }).then(() => {
+            const saveLocatorSlip = async () => {   
+           
+                await updateLocatorSlip(props.id,{ ...form }).then(() => {
                     if(!errors.value){
                         swal.fire({
                             toast: true,
                             position: 'top-end',
-                            title: 'Successfully Created',
+                            title: 'Successfully Updated',
                             showConfirmButton: false,            
                             icon: 'success',
                             width: '300',
@@ -237,7 +276,8 @@
                 getmaxtime,
                 getmintime,
                 employees,
-                radbtnChange
+                radbtnChange,
+                locatorslip
             }
         }
     }
