@@ -59,9 +59,10 @@
 </template>
 <script>
 	import useCommunicationGroups from '@/composables/composables-communicationgroups';
-	import { reactive,inject, ref, onMounted, watch} from "vue";
+	import { reactive,inject, ref, onMounted, watch, nextTick } from "vue";
     import useEventsBus from '@/components/helper/Eventbus';
     import {useRecipients} from "@/stores/recipients.js"
+
 	export default{
         props: {
             isDisplayed: {
@@ -80,7 +81,9 @@
             const allgroupsNunits = ref(false);
             const allgroups = ref(false);
             const allunitheads = ref(false);
-            const selectedgroups = ref(false);
+            const emittedSelectedUnits = ref([]);
+
+
 
 
             const recipients = reactive({
@@ -88,8 +91,8 @@
             	'sendto': []
             })
 
-            watch(()=>bus.value.get('selectedgroups'), (val) => {
-                [selectedgroups.value] = val ?? []                 
+            watch(()=>bus.value.get('emitterselectedUnits'), (val) => {
+                [emittedSelectedUnits.value] = val ?? []
                 setStoreValue();
             })
 
@@ -101,13 +104,22 @@
             })
 
 			onMounted(() =>{
+
 				getActiveCommunicationGroups().then(res =>{
                     for (var i in communicationgroups.value) {
                         totalEmpinGroups.total = parseInt(totalEmpinGroups.total  + communicationgroups.value[i].employees.length);
                     }
+                    
+                    if(st_recipients.getselectedunitgroups){
+                        emittedSelectedUnits.value = st_recipients.getselectedunitgroups;
+                    }  
+
                     if(st_recipients.getselectedunitheads){
+
                         recipients.sendto = st_recipients.getselectedunitheads;
                     }
+
+
                     if(st_recipients.getselectedunitheadgroups){
                         recipients.commgroupids = st_recipients.getselectedunitheadgroups;
                     }
@@ -115,16 +127,18 @@
                         allgroupsNunits.value = true;
                         allgroups.value = true;
                     }
-                    
+
+
+
                 })
-
-
-
 			})
+
+
             const setStoreValue = async() => {
+ 
                 st_recipients.setselectedunitheads(recipients.sendto);
                 st_recipients.setselectedunitheadgroups(recipients.commgroupids);
-                st_recipients.setselectedunitgroups(selectedgroups.value);
+                st_recipients.setselectedunitgroups(emittedSelectedUnits.value);
 
                 st_recipients.setallunits(allgroupsNunits.value);
 

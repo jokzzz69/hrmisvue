@@ -2184,13 +2184,15 @@ a#drpnotifs{
 	background: #f1f1f1;
 }
 .file-attach-invalid .drgDrp,
-.file-attach-invalid .fileUploadedWrap{
+.file-attach-invalid .fileUploadedWrap,
+.cardCommunication.has-Error{
 	border-color: #dc3545 !important;
 }
 
 .cardCommunication {
     border-color: #445eb8;
 }
+
 .checkBoxcgDisp .form-check-input:disabled{
 	opacity: .5;
 }

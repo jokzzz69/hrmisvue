@@ -67,7 +67,8 @@
 		        }else{
 		        	selectedunits.value = [];	        
 		        }
-		        emit('selectedgroups', selectedunits.value);
+
+		        emit('emitterselectedUnits', selectedunits.value);
 	        })
 			const checkallgroups = () => {	
 				selectedunits.value = [];
@@ -82,7 +83,7 @@
 		        	selectedunits.value = [];	        
 		        }
 		        emit('allgroupsstatus',allgroups.value);
-		        emit('selectedgroups', selectedunits.value);
+		        emit('emitterselectedUnits', selectedunits.value);
 		    }
 		    const checkunit = () => {
 		    	const tempr = selectedunits.value;
@@ -91,8 +92,9 @@
 		        }else{		
 		            allgroups.value = false;		            
 		        }
+
 		        emit('allgroupsstatus',allgroups.value);
-		        emit('selectedgroups', selectedunits.value);
+		        emit('emitterselectedUnits', selectedunits.value);
 		    }
 
 		    onMounted(() =>{

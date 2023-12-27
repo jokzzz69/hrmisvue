@@ -208,6 +208,7 @@
     import { useHead } from '@unhead/vue'
 
     import {useRecipients} from '@/stores/recipients.js'
+    import useEventsBus from '@/components/helper/Eventbus';
 
     const SubCheckUnits = defineAsyncComponent(() => 
         import('@/components/cm/reusables/SubCheckUnits.vue')
@@ -239,7 +240,7 @@
             const fileattacherr = ref('');
             const st_recipients = useRecipients();
             const hld = ref(true);
-
+            const {emit,bus}=useEventsBus()
             const {classifications, getClassifications} = useClassifications()
             const {documenttypes, getDocumentTypes} = useDocumentTypes()
 
@@ -297,7 +298,6 @@
                     communicationform.allunits = communication.value.allunits;
                     communicationform.allgroups = communication.value.allgroups;
                     if(communication.value.withinclusivedates == 1){
-
                         communicationform.hasinclusive = true;
                         communicationform.inclusivedates = [communication.value.inclusivedatestart, communication.value.inclusivedateend];
                         torInclusive.value = true;
@@ -308,9 +308,11 @@
                         torInclusive.value = false;
                     }
 
-                    if(communication.value.receivers.length > 0){
+                    if(communication.value.receiversunitheads.length > 0){
 
-                        communicationform.sendto = communication.value.receivers.map(i => parseInt(i['id']));
+                       communicationform.sendto = communication.value.receiversunitheads.map(i => parseInt(i['id'])); 
+                    }
+                    if(communication.value.units.length > 0){
                         communicationform.selectedunits = communication.value.units.map(i => parseInt(i['id']));
                     }
     
@@ -342,11 +344,10 @@
                     }
 
                     st_recipients.setselectedunitheads(communicationform.sendto);
-                    st_recipients.setselectedunitgroups(communicationform.selectedunits);
                     st_recipients.setselectedunitheadgroups(communicationform.commgroupids);
+                    st_recipients.setselectedunitgroups(communicationform.selectedunits);                    
                     st_recipients.setallunits(communicationform.allunits);
-                    st_recipients.setallgroups(communicationform.allgroups);
-                    
+                    st_recipients.setallgroups(communicationform.allgroups);                  
                 }),
 
                 getDocumentTypes(),
@@ -357,12 +358,14 @@
                     hld.value = false;
                 })
 
+                console.log(communicationform);
+
             })
 
             const reSend = async(id) =>{
 
 
-
+                
                 communicationform.selectedunits = st_recipients.getselectedunitgroups;
                 communicationform.commgroupids = st_recipients.getselectedunitheadgroups;
                 communicationform.sendto = st_recipients.getselectedunitheads;
@@ -370,6 +373,7 @@
                 communicationform.allgroups = st_recipients.getallgroups;
 
                 communicationform.asdraft = false;
+                console.log(communicationform);
 
                 await updateRoutedCommunication(props.id,{ ...communicationform }).then(() => {
 

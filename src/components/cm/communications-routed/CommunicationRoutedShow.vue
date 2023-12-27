@@ -328,10 +328,16 @@
 
             onMounted(() => {
                 getCommunicationRouted(props.id).then(() =>{
-                    if(communication.value.receivers.length > 0){
-                        communicationform.sendto = communication.value.receivers.map(i => parseInt(i['id']));
+
+                    if(communication.value.units.length > 0){
+                        
                         communicationform.selectedunits = communication.value.units.map(i => parseInt(i['id']));
                     } 
+                    if(communication.value.receiversunitheads.length > 0){
+
+                        communicationform.sendto = communication.value.receiversunitheads.map(i => parseInt(i['id']));
+
+                    }
                     if(communication.value.noteHasPhotocopy){
                         if(communication.value.noteCopies > 1){
                             photocopy.value = communication.value.noteCopies+' Copies';
@@ -352,6 +358,7 @@
 
                     hld.value = false;
                     checkSentDate(communication.value.updated_at);
+
                 })
                 
 
