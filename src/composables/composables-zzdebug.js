@@ -7,14 +7,14 @@ export default function useDebug(){
 
 	const router = useRouter();
 	const errors = ref('');
-    const smstatus = ref([]);
+    const smsstatuscommunications = ref([]);
 
-	const updateSMSStatus = async(data) => {
+	const updateSMSStatusCommunications = async(data) => {
         
         const id = 1;
 
         try {
-            await axios.patch(`/v1/api/smssettingupdate/${id}`, data)
+            await axios.patch(`/v1/api/smssettingupdatecommunications/${id}`, data)
             await router.push({ name: 'cmi.index' })
         } catch (e) {
             if (e.response.status === 422) {
@@ -24,10 +24,12 @@ export default function useDebug(){
             }
         }
     }
-    const getSMSStatus = async(data) => {
+    const getSMSStatusCommunications = async(data) => {
         axios.defaults.withCredentials = true;
-        await axios.get('/v1/api/smssettings').then((response) => {
-            smstatus.value  = response.data;
+        await axios.get('/v1/api/smssettingscommunications').then((response) => {
+
+            smsstatuscommunications.value  = response.data;
+
         });
 
     }
@@ -161,9 +163,9 @@ export default function useDebug(){
         clearUnattached,
         clearRevisions,
         clearTrash,
-        updateSMSStatus,
-        getSMSStatus,
-        smstatus
+        updateSMSStatusCommunications,
+        getSMSStatusCommunications,
+        smsstatuscommunications
 	
 	}
 }

@@ -131,7 +131,7 @@
                     <template v-if="showReturnForward">
                          <ul class="list-unstyled">
                              <li><p class="mb-0">Return / Forward to:</p></li>
-                             <li><v-select multiple class="sp2wrap  sl2-floating" placeholder="Select Employee" v-model="communicationform.notesreturnforward" :reduce="employees => employees.id" :options="employees"/></li>
+                             <li><v-select multiple class="sp2wrap sl2-floating rel-drp" placeholder="Select Employee" v-model="communicationform.notesreturnforward" :reduce="employees => employees.id" :options="employees"/></li>
                          </ul>
                     </template>
                 </div>

@@ -9,7 +9,7 @@
             <div class="col">
                 <div class="req">
                     <span class="form-label mb-1">Employees <i class="text-danger">*</i></span>
-                       <v-select class="sp2wrap  sl2-floating" multiple placeholder="Select Employees" v-model="form.employees" :reduce="employees => employees.id" :options="employees" :class="errors.employees ? 'error-inputsl' : ''"/>
+                       <v-select class="sp2wrap  sl2-floating rel-drp" multiple placeholder="Select Employees" v-model="form.employees" :reduce="employees => employees.id" :options="employees" :class="errors.employees ? 'error-inputsl' : ''"/>
                 </div>
                 <span v-if="errors.employees" class="text-danger m-error">{{errors.employees[0]}}</span> 
             </div>

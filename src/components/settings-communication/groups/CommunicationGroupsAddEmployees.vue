@@ -26,7 +26,7 @@
             </div>
             
             <span for="mu" class="mb-2 f-left w-100 mt-2">Employees</span>
-            <v-select class="sp2wrap sl2-floating" name="mu" multiple placeholder="Select Employees" 
+            <v-select class="sp2wrap sl2-floating rel-drp" name="mu" multiple placeholder="Select Employees" 
                 v-model="form.employees" 
                 :reduce="employees => employees.id" 
                 :options="employees" 

@@ -1227,8 +1227,8 @@ input[type=number] {
 	position: absolute !important;
 	z-index: 99999 !important;
 }
-.vs__dropdown-menu{
-	position: relative;
+.rel-drp .vs__dropdown-menu{
+	position: relative !important;
 	z-index: 99999 !important;
 }
 

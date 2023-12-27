@@ -29,7 +29,7 @@
                 <div class="col mt-2 mb-2">
                     <div class="req">
                         <span class="form-label mb-1">Select Employee </span>
-                           <v-select class="sp2wrap  sl2-floating"  placeholder="Select Employees" v-model="form.employee_id" :reduce="employees => employees.id" :options="employees" :class="errors.employees ? 'error-inputsl' : ''"/>
+                           <v-select class="sp2wrap  sl2-floating rel-drp"  placeholder="Select Employees" v-model="form.employee_id" :reduce="employees => employees.id" :options="employees" :class="errors.employees ? 'error-inputsl' : ''"/>
                     </div>
                     <span v-if="errors.employees" class="text-danger m-error">{{errors.employees[0]}}</span> 
                 </div>

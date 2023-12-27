@@ -13,7 +13,7 @@
             <div class="col">
                 <div class="req">
                     <span class="form-label d-block">Employees <i class="text-danger">*</i></span>              
-                        <v-select class="sp2wrap  sl2-floating"  multiple placeholder="Select Employees" 
+                        <v-select class="sp2wrap  sl2-floating rel-drp"  multiple placeholder="Select Employees" 
                             v-model="form.employees"    
                             :options="employees" 
                             :reduce="employees => employees.id"                     

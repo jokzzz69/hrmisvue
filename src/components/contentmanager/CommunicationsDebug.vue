@@ -18,12 +18,12 @@
                         </div>
                     </div>
                     <div class="col-2">
-                        <div class="card p-2 bg-success">
-                            <form @submit.prevent="smsStatusClick">
+                        <div class="card p-2 bg-success" :class="formSMS.communicationsms == 1 ? 'bg-success' : 'bg-danger'">
+                            <form @submit.prevent="smsStatusClickCommunications">
                                 <span class="d-block fs-2 text-center text-light"><i class="fa-solid fa-broom"></i></span>
-                                <span class="form-label w-100 text-center f-left d-block text-light">SMS Status</span>
+                                <span class="form-label w-100 text-center f-left d-block text-light">SMS Status Communications</span>
                                 <button type="submit" class="btn btn-info w-100" title="Clear All Unattached Files">
-                                    <template v-if="formSMS.smstatus == 1">                                        
+                                    <template v-if="formSMS.communicationsms == 1">                                        
                                         <span class="text-danger">Disable</span>                                        
                                     </template>
                                     <template v-else>
@@ -130,15 +130,16 @@
             const swal = inject('$swal')
             
             const { errors, clearAttachment, clearCommunications,clearNotifications, clearActionsTaken, clearDrafts,clearUnattached,
-            clearRevisions, clearTrash, getSMSStatus, smstatus, updateSMSStatus} = useDebug()
+            clearRevisions, clearTrash, getSMSStatusCommunications, smsstatuscommunications, updateSMSStatusCommunications} = useDebug()
 
             const formSMS = reactive({
-                'smsstatus' : ''
+                'communicationsms' : ''
             });
             onMounted(() => {
-                getSMSStatus().then(() => {
-                    formSMS.smstatus = smstatus.value.smstatus;
-                    
+                getSMSStatusCommunications().then(() => {
+
+                    formSMS.communicationsms = smsstatuscommunications.value.smsstatus;
+
                 });
             })
             const swalfire = async () =>{
@@ -230,15 +231,15 @@
                     }
                 })
             }
-            const smsStatusClick = async() => {
+            const smsStatusClickCommunications = async() => {
 
-                if(formSMS.smstatus == 1){
-                    formSMS.smstatus = 0;
+                if(formSMS.communicationsms == 1){
+                    formSMS.communicationsms = 0;
                 }else{
-                    formSMS.smstatus = 1;
+                    formSMS.communicationsms = 1;
                 }
 
-                await updateSMSStatus({...formSMS}).then(() =>{
+                await updateSMSStatusCommunications({...formSMS}).then(() =>{
                     if(!errors.value){
                         swal.fire({
                             toast: true,
@@ -255,6 +256,11 @@
                             }
                         })
                     }
+
+                    getSMSStatusCommunications().then(() => {
+                        formSMS.communicationsms = smsstatuscommunications.value.smsstatus;
+                        console.log(formSMS.communicationsms);
+                    });
                 });
             }
             return{
@@ -269,8 +275,7 @@
                 clearAllRevisions,
                 clearAllTrash,
                 formSMS,
-                smstatus,
-                smsStatusClick
+                smsStatusClickCommunications
             }
         }
     }
