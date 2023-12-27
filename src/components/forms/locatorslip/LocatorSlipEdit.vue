@@ -101,7 +101,7 @@
         </div>
         <div class="row">
             <div class="col mt-2 text-end">
-                <button @click="$router.go(-1)" class="btn btn-secondary me-1">Cancel</button>
+                <router-link :to="{name: 'mylocatorslips.index'}" class="btn btn-secondary me-1">Cancel</router-link>
                 <button type="submit" class="btn btn-save">Save</button>
             </div>
         </div>  

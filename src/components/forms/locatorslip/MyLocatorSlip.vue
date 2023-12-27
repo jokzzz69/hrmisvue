@@ -1,15 +1,14 @@
 <template>
 	<div class="row">
-        <div class="col pAgeEmail--title">
-            <ul class="pAgeEmail--title__wrap">
-                <li class="pAgeEmail--title__content"><h2 class="ps-1">My Locator Slip</h2></li>
-            </ul>
+        <div class="col-md-12 p-title">
+            <h2>My Locator Slip</h2>
         </div>
+
     </div>
     <div class="row">
     	<div class="col-sm-12 mb-2">
     		<div class="row">
-    			<div class="col">
+    			<div class="col-auto">
     				<div class="col-auto">
                         <div class="dropdown">
                           <button class="btn btn-blue dropdown-toggle" type="button" id="dropdown-ls" data-bs-toggle="dropdown" aria-expanded="false">
@@ -30,6 +29,11 @@
 			    		
 			    	</div>
     			</div>
+                <div class="col">
+                    <div class="form-group">
+                        <input type="text" name="inputSearch" placeholder="search..." class="form-control border-blue" v-model="searchQuery">
+                    </div>
+                </div>
     		</div>
     	</div>
     </div>
@@ -155,12 +159,19 @@
 
 			onMounted(() => {
 				getMyLocatorSlips().then(() => {
-                   
+                   if(locatorslips.value.length > 0){
+                        noData.value = false;
+                    }else{
+                        noData.value = true;
+                    }
 				})
 			})
             const filteredLocatorSlips = computed(function(){
                 return locatorslips.value.filter(
-                    (locatorslip) => locatorslip.lslocation.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1
+                    (locatorslip) => locatorslip.lslocation.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 || 
+                                     moment(locatorslip.datestart).format('MMMM D, Y hh:mm A').toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 || 
+                                     moment(locatorslip.dateend).format('MMMM D, Y hh:mm A').toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1 ||
+                                     (locatorslip.approvedby && locatorslip.approvedby.formattedName && locatorslip.approvedby.formattedName.toLowerCase().indexOf(searchQuery.value.toLowerCase()) > -1) 
                 );
             });
             const setLSType = (type) => {
