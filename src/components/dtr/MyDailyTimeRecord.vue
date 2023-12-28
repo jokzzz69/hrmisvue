@@ -138,6 +138,7 @@
                                                         <template v-else>
                                                             <template v-if="biometricsData.biometricsData[k-1]">
                                                                 <template v-if="biometricsData.biometricsData[k-1].locatorslipid != dtr.locatorslipid">
+                                                                    
                                                                     <td class="bg-lightgray noboxshadow ps-3" :rowspan="dtr.locatorsliptotaldays" valign="middle">
                                                                         <strong>LS</strong>
                                                                     </td>
