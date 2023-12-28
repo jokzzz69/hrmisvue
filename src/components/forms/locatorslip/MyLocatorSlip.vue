@@ -14,16 +14,17 @@
                           <button class="btn btn-blue dropdown-toggle" type="button" id="dropdown-ls" data-bs-toggle="dropdown" aria-expanded="false">
                             Add Locator Slip
                           </button>
-                          <ul class="dropdown-menu dropdown__ls" aria-labelledby="dropdown-ls">                            
+                          <ul class="dropdown-menu dropdown__ls" aria-labelledby="dropdown-ls">
+                            <li><router-link :to="{ name: 'locatorslips.addexisting' }" class="dropdown-item">Approved LS</router-link></li>                        
                             <li>
                                 <template v-if="userslug == 'super-admin'">                               
                                     <router-link :to="{ name: 'locatorslips.create' }" class="dropdown-item">Create New (For Approval)</router-link>
                                 </template>
                                 <template v-else>
-                                    <span>Create New (For Approval)</span>
+                                    <span class="dropdown-item spccc" @click.stop>Create New (For Approval)</span>
                                 </template>
                             </li>
-                            <li><router-link :to="{ name: 'locatorslips.addexisting' }" class="dropdown-item">Approved LS</router-link></li>                            
+                                                        
                           </ul>
                         </div>
 			    		
@@ -66,8 +67,9 @@
                                         {{setLSDuration(locatorslip.durationtype,locatorslip.datestart, locatorslip.dateend)}}
                                     </td>
                                     <td>
-
-                                        {{locatorslip.lslocation}}
+                                        {{gettypeOfLS(locatorslip.obtype)}}
+                                        <strong>{{locatorslip.lslocation}}</strong>
+                                        
                                     </td>
                                     <td>
                                         {{locatorslip.reason}}
@@ -144,6 +146,7 @@
             const arrowIconName = ref("arrow_drop_up");     
             const sortColumn = ref("id");
             const sortDirection = ref(1);
+            
 
             const sortTable = (columnName) => {
                 sortColumn.value = columnName;
@@ -181,6 +184,7 @@
                     return 'Day(s)'
                 }
             }
+
             const setLSDuration = (type, start, end) => {
                 if(type == 1){
                     if(moment(new Date(start)).format('Y-m-d') == moment(new Date(end)).format('Y-m-d')){
@@ -195,6 +199,7 @@
                 }
             }
             const deleteLS = async(id) => {
+
                 let x = 0; //trigger
 
                 await swal.fire({
@@ -210,6 +215,8 @@
                     x = 1;
                   }
                 })
+
+
                 if (x > 0) {
                     await destroyLocatorSlip(id);
                     await getMyLocatorSlips().then(() => {
@@ -230,6 +237,13 @@
                     })
                 }
             }
+            const gettypeOfLS = (obtype) => {
+                if(obtype == 0){
+                    return 'Fieldwork / OB at ';
+                }else{
+                    return 'Personal Matter at ';
+                }
+            }
 			return{
 				userslug,
                 filteredLocatorSlips,
@@ -241,7 +255,8 @@
                 noData,
                 setLSType,
                 setLSDuration,
-                deleteLS
+                deleteLS,
+                gettypeOfLS
 			}
 		}
 	}

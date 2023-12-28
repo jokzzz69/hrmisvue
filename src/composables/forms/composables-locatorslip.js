@@ -23,7 +23,7 @@ export default function useLocatorSlips(){
         errors.value = ''
         try {
             await axios.post('/v1/api/locatorslips/', data);
-            router.go(-1);
+            //router.go(-1);
         } catch (e) {
         	console.error(e.response.data);
             if (e.response.status === 422) {

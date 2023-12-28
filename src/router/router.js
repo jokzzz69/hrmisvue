@@ -327,7 +327,7 @@ const routes = [
     name: 'locatorslips.create',
     component: () => import('@/components/forms/locatorslip/LocatorSlipCreate.vue'),
     meta: {
-      middleware: ['hr','super-admin','admin','employee','office-head']
+      middleware: ['super-admin']
     }
   },
   {

@@ -248,6 +248,13 @@ body{
     position: relative;
     color: #ccc;
 }
+.spccc,
+.spccc:hover,
+.spccc:focus,
+.spccc:active{
+	color: #ccc;
+	background: transparent;
+}
 .innerwrap h1{
 	margin-top: 15px;
 	margin-bottom: 20px;

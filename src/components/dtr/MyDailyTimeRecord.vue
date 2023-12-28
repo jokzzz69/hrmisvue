@@ -58,8 +58,9 @@
                                     <td :class="dtr.status">  
                                         {{dtr.d}}
                                     </td>
-                                </template>                       
-                                <template v-if="dtr.travelid">                               
+                                </template>
+
+                                <template v-if="dtr.travelid">
                                     <template v-if="dtr.d == 1">                                        
                                             <td class="bg-lightgray noboxshadow ps-3" :rowspan="dtr.totaldays" valign="middle">
                                                 T.O. <strong>{{dtr.travelorder}}</strong>
@@ -84,9 +85,10 @@
                                                 <td></td>
                                                 <td></td>
                                             </template>
-                                        </template>  
+                                        </template>
                                     </template>                                  
                                 </template>
+                                
                                 <template v-else>
                                     <template v-if="dtr.leaveid">
                                         <template v-if="dtr.d == 1">                                        
@@ -129,26 +131,252 @@
                                         </template>
 
                                         <template v-else>
-                                            <td>
-                                                <template v-if="dtr.dtr_timeinam">
-                                                    {{moment(dtr.dtr_timeinam,'HH:mm').format('hh:mm')}}
-                                                </template>                                
-                                            </td>
-                                            <td>
-                                                <template v-if="dtr.dtr_timeoutam">
-                                                    {{moment(dtr.dtr_timeoutam,'HH:mm').format('hh:mm')}}
-                                                </template>
-                                            </td>
-                                            <td>
-                                                <template v-if="dtr.dtr_timeinpm">
-                                                    {{moment(dtr.dtr_timeinpm,'HH:mm').format('hh:mm')}}
-                                                </template>
-                                            </td>
-                                            <td>
-                                                <template v-if="dtr.dtr_timeoutpm">
-                                                    {{moment(dtr.dtr_timeoutpm,'HH:mm').format('hh:mm')}}
-                                                </template>
-                                            </td>
+
+                                            <template v-if="dtr.locatorslipid">
+                                                    <template v-if="dtr.locatorsliptotalhours < 1 && dtr.locatorsliptype != 1"><!--Daily LS-->  
+                                                        <template v-if="dtr.d == 1"></template>
+                                                        <template v-else>
+                                                            <template v-if="biometricsData.biometricsData[k-1]">
+                                                                <template v-if="biometricsData.biometricsData[k-1].locatorslipid != dtr.locatorslipid">
+                                                                    <td class="bg-lightgray noboxshadow ps-3" :rowspan="dtr.locatorsliptotaldays" valign="middle">
+                                                                        <strong>LS</strong>
+                                                                    </td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </template>
+                                                                <template v-else>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </template>
+                                                            </template>
+                                                            
+                                                        </template>                                                        
+                                                    </template>
+                                                    <template v-else><!--hourly LS-->                        
+                                                        <template v-if="dtr.locatorslipcolstart > 0">
+                                                            <template v-if="dtr.locatorslipcolstart == 1 && dtr.locatorslipcolend == 1">
+                                                                <td>LS</td>
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeoutam">
+                                                                        {{moment(dtr.dtr_timeoutam,'HH:mm').format('hh:mm')}}
+                                                                    </template>
+                                                                </td>
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeinpm">
+                                                                        {{moment(dtr.dtr_timeinpm,'HH:mm').format('hh:mm')}}
+                                                                    </template>
+                                                                </td>
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeoutpm">
+                                                                        {{moment(dtr.dtr_timeoutpm,'HH:mm').format('hh:mm')}}
+                                                                    </template>
+                                                                </td>
+                                                            </template>
+                                                            <template v-else-if="dtr.locatorslipcolstart == 1 && dtr.locatorslipcolend == 2">
+                                                                <td :colspan="dtr.locatorslipcolend">LS</td>
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeinpm">
+                                                                        {{moment(dtr.dtr_timeinpm,'HH:mm').format('hh:mm')}}
+                                                                    </template>
+                                                                </td>
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeoutpm">
+                                                                        {{moment(dtr.dtr_timeoutpm,'HH:mm').format('hh:mm')}}
+                                                                    </template>
+                                                                </td>
+                                                            </template>
+                                                            <template v-else-if="dtr.locatorslipcolstart == 1 && dtr.locatorslipcolend == 3">
+                                                                <td :colspan="dtr.locatorslipcolend">LS</td>
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeoutpm">
+                                                                        {{moment(dtr.dtr_timeoutpm,'HH:mm').format('hh:mm')}}
+                                                                    </template>
+                                                                </td>
+                                                            </template>
+                                                            <template v-else-if="dtr.locatorslipcolstart == 1 && dtr.locatorslipcolend == 4">
+                                                                <td :colspan="dtr.locatorslipcolend">LS</td>
+                                                            </template>
+                                                            <template v-else-if="dtr.locatorslipcolstart == 2 && dtr.locatorslipcolend == 2">
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeinam">
+                                                                        {{moment(dtr.dtr_timeinam,'HH:mm').format('hh:mm')}}
+                                                                    </template>                                
+                                                                </td>
+                                                                <td :colspan="dtr.locatorslipcolend">LS</td>
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeinpm">
+                                                                        {{moment(dtr.dtr_timeinpm,'HH:mm').format('hh:mm')}}
+                                                                    </template>
+                                                                </td>
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeoutpm">
+                                                                        {{moment(dtr.dtr_timeoutpm,'HH:mm').format('hh:mm')}}
+                                                                    </template>
+                                                                </td>
+                                                            </template>
+                                                            <template v-else-if="dtr.locatorslipcolstart == 2 && dtr.locatorslipcolend == 3">
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeinam">
+                                                                        {{moment(dtr.dtr_timeinam,'HH:mm').format('hh:mm')}}
+                                                                    </template>                                
+                                                                </td>
+                                                                <td :colspan="dtr.locatorslipcolend">LS</td>
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeoutpm">
+                                                                        {{moment(dtr.dtr_timeoutpm,'HH:mm').format('hh:mm')}}
+                                                                    </template>
+                                                                </td>
+                                                            </template>
+                                                            <template v-else-if="dtr.locatorslipcolstart == 2 && dtr.locatorslipcolend == 4">
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeinam">
+                                                                        {{moment(dtr.dtr_timeinam,'HH:mm').format('hh:mm')}}
+                                                                    </template>                                
+                                                                </td>
+                                                                <td :colspan="dtr.locatorslipcolend">LS</td>
+                                                            </template>
+                                                            <template v-else-if="dtr.locatorslipcolstart == 3 && dtr.locatorslipcolend == 3">
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeinam">
+                                                                        {{moment(dtr.dtr_timeinam,'HH:mm').format('hh:mm')}}
+                                                                    </template>                                
+                                                                </td>
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeoutam">
+                                                                        {{moment(dtr.dtr_timeoutam,'HH:mm').format('hh:mm')}}
+                                                                    </template>
+                                                                </td>
+                                                                <td :colspan="dtr.locatorslipcolend">LS</td>
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeoutpm">
+                                                                        {{moment(dtr.dtr_timeoutpm,'HH:mm').format('hh:mm')}}
+                                                                    </template>
+                                                                </td>
+                                                            </template>
+                                                            <template v-else-if="dtr.locatorslipcolstart == 3 && dtr.locatorslipcolend == 4">
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeinam">
+                                                                        {{moment(dtr.dtr_timeinam,'HH:mm').format('hh:mm')}}
+                                                                    </template>                                
+                                                                </td>
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeoutam">
+                                                                        {{moment(dtr.dtr_timeoutam,'HH:mm').format('hh:mm')}}
+                                                                    </template>
+                                                                </td>
+                                                                <td :colspan="dtr.locatorslipcolend">LS</td>
+                                                            </template>
+                                                            <template v-else-if="dtr.locatorslipcolstart == 4 && dtr.locatorslipcolend == 4">
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeinam">
+                                                                        {{moment(dtr.dtr_timeinam,'HH:mm').format('hh:mm')}}
+                                                                    </template>                                
+                                                                </td>
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeoutam">
+                                                                        {{moment(dtr.dtr_timeoutam,'HH:mm').format('hh:mm')}}
+                                                                    </template>
+                                                                </td>
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeinpm">
+                                                                        {{moment(dtr.dtr_timeinpm,'HH:mm').format('hh:mm')}}
+                                                                    </template>
+                                                                </td>
+                                                                <td :colspan="dtr.locatorslipcolend">LS</td>
+                                                            </template>
+                                                        </template>
+                                                        <template v-else>
+                                                            <template v-if="dtr.locatorslipcolend == 2">
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeinam">
+                                                                        {{moment(dtr.dtr_timeinam,'HH:mm').format('hh:mm')}}
+                                                                    </template> 
+                                                                </td>
+                                                                <td>LS</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </template>
+                                                            <template v-else-if="dtr.locatorslipcolend == 3">
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeinam">
+                                                                        {{moment(dtr.dtr_timeinam,'HH:mm').format('hh:mm')}}
+                                                                    </template> 
+                                                                </td>
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeoutam">
+                                                                        {{moment(dtr.dtr_timeoutam,'HH:mm').format('hh:mm')}}
+                                                                    </template>
+                                                                </td>
+                                                                <td>LS</td>
+                                                                <td></td>
+                                                            </template>
+                                                            <template v-else-if="dtr.locatorslipcolend == 4">
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeinam">
+                                                                        {{moment(dtr.dtr_timeinam,'HH:mm').format('hh:mm')}}
+                                                                    </template> 
+                                                                </td>
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeoutam">
+                                                                        {{moment(dtr.dtr_timeoutam,'HH:mm').format('hh:mm')}}
+                                                                    </template>
+                                                                </td>
+                                                                <td>
+                                                                    <template v-if="dtr.dtr_timeinpm">
+                                                                        {{moment(dtr.dtr_timeinpm,'HH:mm').format('hh:mm')}}
+                                                                    </template>
+                                                                </td>
+                                                                <td>LS</td>
+                                                            </template>
+                                                        </template>
+                                                    </template><!--END hourly LS-->                      
+                
+                                            </template>
+                                            <template v-else>
+                                                <td>
+                                                    <template v-if="dtr.dtr_timeinam">
+                                                        {{moment(dtr.dtr_timeinam,'HH:mm').format('hh:mm')}}
+                                                    </template>                                
+                                                </td>
+                                                <td>
+                                                    <template v-if="dtr.dtr_timeoutam">
+                                                        {{moment(dtr.dtr_timeoutam,'HH:mm').format('hh:mm')}}
+                                                    </template>
+                                                </td>
+                                                <td>
+                                                    <template v-if="dtr.dtr_timeinpm">
+                                                        {{moment(dtr.dtr_timeinpm,'HH:mm').format('hh:mm')}}
+                                                    </template>
+                                                </td>
+                                                <td>
+                                                    <template v-if="dtr.dtr_timeoutpm">
+                                                        {{moment(dtr.dtr_timeoutpm,'HH:mm').format('hh:mm')}}
+                                                    </template>
+                                                </td>
+                                            </template>
+
+
+
+
+
+                                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                         </template>
                                     </template>
                                 </template>                            
@@ -265,7 +493,9 @@
                 form.monthpicked = monthpicked.value;
                 await downloadperEmployeeDTR({...form}, form.name);
             }
+            const getColspan = (start,date,totalhours) => {
 
+            }
             return{
                 moment,
                 biometricsData,
@@ -280,7 +510,8 @@
                 isPermanent,
                 dlpersonnelDTR,
                 hld,
-                userslugs
+                userslugs,
+                getColspan
             }
         }
     }
