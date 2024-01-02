@@ -230,7 +230,7 @@
                 <li class="list-inline-item" >
                     <button class="btn" @click.prevent="btnActionsTaken"><i class="fa-solid fa-plus"></i> Add Actions Taken</button>
                 </li>
-                <li class="list-inline-item">
+                <li class="list-inline-item" v-if="isCreator">
                     <button class="btn" @click.prevent="editRoutedCommunication"><i class="fa-solid fa-pen-to-square"></i> Edit and Resend</button>
                 </li>
             </ul>
@@ -254,6 +254,8 @@
     
     import { useHead } from '@unhead/vue'
     import {useRecipients} from '@/stores/recipients.js'
+
+    import {useAuthStore} from '@/stores/store.js'
 
 
     const AttachmentPreview = defineAsyncComponent(() => 
@@ -297,6 +299,10 @@
             useHead({
                 title: 'Communication Routed | '+import.meta.env.VITE_BFAR_AGENCY
             })
+            const store = useAuthStore()
+            const userid = store.getdetails[0];
+            const userrole = ref(store.details[1]);
+
             const swal = inject('$swal')
             const showActionsBox = ref(false);
             const {emit,bus}=useEventsBus()
@@ -325,6 +331,7 @@
                 'selectedunits': []
             });
             const dateSent = ref('');
+            const isCreator = ref(false);
 
             onMounted(() => {
                 getCommunicationRouted(props.id).then(() =>{
@@ -359,6 +366,11 @@
                     hld.value = false;
                     checkSentDate(communication.value.updated_at);
 
+                    if(communication.value.createdby == userid || userrole.value.includes('super-admin') || userrole.value.includes('admin')){
+                        isCreator.value = true;
+                    }else{
+                        isCreator.value = false;
+                    }
                 })
                 
 
@@ -411,7 +423,8 @@
                 showActionsBox,
                 btnActionsTaken,
                 hld,
-                dateSent
+                dateSent,
+                isCreator
             }
         }
     }

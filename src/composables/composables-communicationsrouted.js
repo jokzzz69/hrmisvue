@@ -28,9 +28,25 @@ export default function useCommunicationsRouted(){
 			}
 		});       	
 
-    }
+    	}
 
+    	const editCommunicationRouted = async (id) => {
+		axios.defaults.withCredentials = true;
+		await axios.get(`/v1/api/routedcommunicationsedit/${id}`).then((response) =>{
+			communication.value = response.data.data;
 
+		}).catch((e) => {
+
+			if (e.response.status === 403) {
+			    router.push({ name: 'forbidden.index' });
+			}else if(e.response.status === 404){
+				router.push({ name: 'force.index' });
+			}else if(e.response.status === 307){
+				router.push({name: 'communications.show', params: { id: id }});
+			}
+		});       	
+
+    	}
 	const getCommunicationsRouted = async (cf) => {
 		axios.defaults.withCredentials = true;
 		await axios.get('/v1/api/routedcommunications',cf).then((response) => {
@@ -105,6 +121,7 @@ export default function useCommunicationsRouted(){
 		bulkactionsRouted,
 		getCommunicationRouted,
 		getCommunicationsRouted,
+		editCommunicationRouted,
 		setPageRouted,		
 		searchroutedfile,
 		updateRoutedCommunication,

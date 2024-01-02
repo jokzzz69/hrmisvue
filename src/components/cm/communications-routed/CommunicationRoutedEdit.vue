@@ -253,7 +253,7 @@
             const {uploadTempAttachment, attachedtemp} = useManageFile()
             
 
-            const {  errors, getCommunicationRouted,communication,updateRoutedCommunication} = useCommunicationsRouted()
+            const {  errors, editCommunicationRouted,communication,updateRoutedCommunication} = useCommunicationsRouted()
 
 
             const fileSize = ref(0);
@@ -286,7 +286,7 @@
 
             onMounted(() => {
 
-                getCommunicationRouted(props.id).then(res =>{
+                editCommunicationRouted(props.id).then(res =>{
 
                     communicationform.datetimein = communication.value.datetimein;
                     communicationform.sender = communication.value.sender;
