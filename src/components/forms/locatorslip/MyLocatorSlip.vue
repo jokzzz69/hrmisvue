@@ -126,7 +126,7 @@
 	
     import {useAuthStore} from '@/stores/store.js'
     import moment from 'moment'
-    import {formatTime} from '@/helper/formatTime.js'
+    import {formatTime} from '@/helper/formattime.js'
     import {dualdateformat} from '@/helper/dualdateformat.js'
     const LoadingComponent = defineAsyncComponent(() => 
         import('@/components/loader/LoadingComponent.vue')
