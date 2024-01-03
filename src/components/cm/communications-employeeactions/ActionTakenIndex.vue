@@ -207,6 +207,7 @@
                 loadData()
             })
 
+
             onMounted(() =>{               
                 loadData();
 
@@ -216,9 +217,10 @@
                         withChecked.value = true;
                     }
                 }
-                
+
 
             })
+
 
 
            const show = (id) => {
@@ -286,6 +288,8 @@
                      withChecked.value = false;
                 }
             }
+            
+
             const deleteSelected = async() =>{
 
                formData.current_page = actiontakenMeta.value.current_page
@@ -377,6 +381,7 @@
                 checkParentAC,
                 withChecked,
                 deleteSelected
+
            }
         }
     }

@@ -30,7 +30,6 @@
                         </tr>
                     </thead>
                     <tbody>
-
                         <template v-if="communications.length > 0">
                             <template v-for="communication in communications" :key="communication.id">                                
                                 <tr @click="show(communication.id)"  :class="communication.unreadcount < 1 ? '' : 'unread'">

@@ -27,13 +27,17 @@ import App from './App.vue'
 
 import vSelect from 'vue-select'
 import directives from "./directives/index";
-import screenresizedirective from "./directives/screenResize";
+import screenResize from "./directives/screenResize";
 import clickOutside from "@/directives/clickOutside";
 
 import Echo from 'laravel-echo';
 
 
 axios.defaults.baseURL = import.meta.env.VITE_BFAR_BASE
+
+
+const {screenresizedirective} = screenResize()
+
 
 const head = createHead()
 const app = createApp(App)

@@ -1738,22 +1738,29 @@ tr.disabled{
 .mli > div:not(:first-child) button{
 	width: 100%;
 }
-#sidenav::-webkit-scrollbar {
-  width: 3px;
+#sidenav::-webkit-scrollbar,
+.bg-mid-trans::-webkit-scrollbar{
+  width: 5px;
 }
 
 /* Track */
-#sidenav::-webkit-scrollbar-track {
+#sidenav::-webkit-scrollbar-track,
+.bg-mid-trans::-webkit-scrollbar-track {
   background: rgba(226,229,236, 1.0); 
+
 }
+
  
 /* Handle */
-#sidenav::-webkit-scrollbar-thumb {
+#sidenav::-webkit-scrollbar-thumb,
+.bg-mid-trans::-webkit-scrollbar-thumb {
   background: #888; 
+
 }
 
 /* Handle on hover */
-#sidenav::-webkit-scrollbar-thumb:hover {
+#sidenav::-webkit-scrollbar-thumb:hover,
+.bg-mid-trans::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
 /*end grid layout*/
@@ -1818,8 +1825,12 @@ ul.cwrap--content--child{
 .tbl.actionstaken{
 	font-size: .9rem;
 }
-.tbl.actionstaken thead th{
-	border-color: tr;
+.bg-mid-trans table thead tr th{
+	background-color: #0f1b91;
+	position: sticky;
+	position: -webkit-sticky;
+	top: 0;
+	z-index: 2;
 }
 .tblEmail--Wrap thead{
 	background-color: #0f1b91 !important;
@@ -2713,6 +2724,7 @@ span.remove button:focus{
     overflow-y: auto;
     height: calc(100vh - 155px);
 }
+
 .modal-body.archive-modal .form-floating > label{
 	padding-left: 0px;
 }
@@ -2924,6 +2936,10 @@ div.bt{
 	width: 15%;
 }
 
+.actionstaken.table thead {
+    width: calc( 100% - 1em )
+}
+
 .totalactionstaken{
 	margin-left: .789rem;
 
@@ -3107,6 +3123,9 @@ div.bt{
 	vertical-align: middle;
 	text-align: center;
 	border:1px solid #1f29a9;
+}
+.bg-mid-trans{
+	overflow-y: auto;
 }
 /*end content*/
 @media(max-width: 500px){
