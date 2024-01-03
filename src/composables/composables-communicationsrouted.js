@@ -110,6 +110,10 @@ export default function useCommunicationsRouted(){
 	}
     
 
+	const deleteCommunicationRouted = async (id) => {
+		axios.defaults.withCredentials = true;
+		await axios.delete('/v1/api/routedcommunicationsdelete/' + id)
+    	}
 	
 
 	return {
@@ -125,7 +129,8 @@ export default function useCommunicationsRouted(){
 		setPageRouted,		
 		searchroutedfile,
 		updateRoutedCommunication,
-		pinrouted
+		pinrouted,
+		deleteCommunicationRouted
 
 
 		

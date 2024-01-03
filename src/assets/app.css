@@ -1836,9 +1836,15 @@ ul.cwrap--content--child{
     min-width: 38px;
     text-align: center;
 }
+.tblEmail--Wrap tbody tr td:last-child{
+	position: relative;
+}
 .tblEmail--Wrap tbody tr td,
 .tblEmail--Wrap thead tr th{
 	background: transparent;
+}
+.tblEmail--Wrap tbody tr:hover .btn-remove__routed{
+	display: block;
 }
 .tblEmail--Wrap tbody tr:hover,
 .tblEmail--Wrap thead tr th:hover,
@@ -1918,6 +1924,27 @@ tbody tr.read {
 	font-size: .79em;
 	right: .768em;
 	top:.9em;
+}
+.btn-remove__routed{
+	position: absolute;
+	top:1rem;
+	right: .5rem;
+	z-index: 999;
+	display: none;
+}
+.btn-remove__routed .btn-deleteRouted{
+	color: #6e6969;
+	border-radius: 5rem;
+	padding: ;
+	padding: 0.2rem 0.5rem;
+
+}
+
+.btn-remove__routed .btn-deleteRouted:hover,
+.btn-remove__routed .btn-deleteRouted:focus{
+	background: rgba(110, 105, 105, .5);
+	color: #dd4949;
+	
 }
 .pin--comm{
 	width: 100%;

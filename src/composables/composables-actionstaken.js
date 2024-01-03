@@ -100,8 +100,7 @@ export default function useActionsTaken(){
 		axios.defaults.withCredentials = true;
 		await axios.get(`/v1/api/actionstakensearch/${data}`,config).then((response) =>{
 			actionstaken.value = response.data.data;
-		});		
-		
+		});
 	}
 
 

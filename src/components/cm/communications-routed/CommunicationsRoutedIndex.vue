@@ -89,10 +89,20 @@
                                     </td>                                
                                     
                                     <td class="text-end" title="Date / Time Sent">
-                                        <template v-if="routedcommunication.sent">
+                                        <ul class="list-unstyled mb-0">
+                                            <li>
+                                                <template v-if="routedcommunication.sent">
                                             <span>{{formatmaildate(routedcommunication.sent.sent_at)}}</span>
-                                        </template>                                      
+                                        </template> 
+                                            </li>
+                                            <li @click.stop class="btn-remove__routed" v-if="userslug.includes('super-admin')">
+                                                <button class="btn btn-deleteRouted" @click.prevent="destroyRouted(routedcommunication.id)"><i class="fa-solid fa-trash"></i></button>
+                                            </li>
+                                        </ul>     
+
+
                                     </td>
+
                                 </tr>
                             </template>
                               <!-- {{communicationLinks}} -->
@@ -146,6 +156,10 @@
         import('@/components/cm/reusables/TooltipArr.vue')
     );
 
+    import {useAuthStore} from '@/stores/store.js'
+
+
+            
     export default{
         components: {
             Pagination,
@@ -157,11 +171,16 @@
             useHead({
                 title: 'Communications Routed | '+import.meta.env.VITE_BFAR_AGENCY
             })
-            const {communications, getCommunicationsRouted, communicationLinks,  communicationMeta, pinrouted} = useCommunicationsRouted()
+            const {communications, getCommunicationsRouted, communicationLinks,  communicationMeta, pinrouted, deleteCommunicationRouted} = useCommunicationsRouted()
 
             const routedstore = useRoutedStore();
             const notificationstore = useNotificationStore();
    
+            const store = useAuthStore();   
+
+            const userslug = ref(store.getdetails[1]); 
+
+
 
             const {bus}=useEventsBus()
             const swal = inject('$swal')
@@ -247,6 +266,30 @@
                 await pinrouted(id);
                 await loadData(cf);
             }
+            const destroyRouted = async(id) => {
+            
+                let x = 0; //trigger
+
+                await swal.fire({
+                  title: 'Are you sure?',
+                  text: "You won't be able to revert this!",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                  if (result.isConfirmed) {         
+                    x = 1;
+                  }
+                })
+                if (x > 0) {
+                    await deleteCommunicationRouted(id);
+                    await loadData();
+                }
+                
+            
+            }
             
            return {
                 communications,
@@ -264,7 +307,9 @@
                 hasNext,
                 noData,
                 routeddetails,
-                pin
+                pin,
+                destroyRouted,
+                userslug
            }
         }
     }
