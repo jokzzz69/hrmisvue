@@ -156,7 +156,12 @@
                
                                         </div>
                                     </template>
+
+                                    <template v-if="communication.notes.length < 1">
+                                        None
+                                    </template>
                                 </template>
+
                             </div>
                           
                         </div>
@@ -190,7 +195,7 @@
                     </div>                    
                     <div class="col mb-2">  
                         <template v-if="communication.remarks">
-                            <div class="text-danger" v-html="communication.remarks"></div>
+                            <div class="remarks__content" v-html="communication.remarks"></div>
                         </template>
                         <template v-else>
                             No Remarks

@@ -106,7 +106,7 @@
         <div class="row">
             <div class="col col-sm-6">
                 <div class="mt-4 mainLabel">
-                    <h6>Note: <span class="text-danger">*</span></h6>
+                    <h6>Note:</h6>
                 </div>
                 <span v-if="errors.notes" class="text-danger m-error">{{errors.notes[0]}}</span>  
                 <div class="chkNoteWrap border p-2"  :class="errors.notes ? 'br-error' : ''">
@@ -164,7 +164,7 @@
                 <div class="mt-4 mainLabel">
                     <h6>Remarks:</h6>
                 </div>
-                <textarea name="remarks" class="form-control" v-model="draftform.remarks" placeholder="enter remarks here"></textarea>
+                <div class="remarksInput" ref="comdrfttxt" contenteditable="true" v-html="draftform.remarks" @blur="getContent"></div>
             </div>
         </div>
         
@@ -553,6 +553,10 @@
                 }
                 
             }
+            const comdrfttxt = ref();
+            const getContent = (evt) => {
+                draftform.remarks = evt.target.innerHTML;
+            }   
             return{
                 documenttypes,
                 classifications,
@@ -578,7 +582,9 @@
                 props,
                 updateUploaded,
                 fileattacherr,
-                sendUpdatedDraft
+                sendUpdatedDraft,
+                getContent,
+                comdrfttxt
             }
         }
     }

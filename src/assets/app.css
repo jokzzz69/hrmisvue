@@ -1925,6 +1925,9 @@ tbody tr.read {
 	right: .768em;
 	top:.9em;
 }
+.remarks__content{
+	white-space: break-spaces;
+}
 .btn-remove__routed{
 	position: absolute;
 	top:1rem;
@@ -2900,6 +2903,12 @@ span.remove button:focus{
 	min-height: 4rem;
 	padding: .5rem;
 }
+.remarksInput{
+	border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color)!important;
+	border-radius: 5px;
+	min-height: 4rem;
+	padding: .5rem;
+}
 [contenteditable]{
 	
 	outline: 0px solid transparent;
@@ -3351,6 +3360,11 @@ div.bt{
 	.tblGroupsIndex{
 		white-space: nowrap;
 	}
+	.files__wrap > li,
+	.file--content.list-inline-item{
+		flex: 0 0 auto;
+		width: calc(50% - 0.8rem);
+	}
 }
 /*tabs*/
 @media (min-width: 768px) {
@@ -3747,6 +3761,11 @@ div.bt{
 	    width: 30%;
 	    max-width: calc(25% - 2%);
 	}
+	.files__wrap > li,
+	.file--content.list-inline-item{
+		flex: 0 0 auto;
+		width: calc(50% - 0.8rem);
+	}
 
 }
 @media(min-width: 1025px) and (max-width:1199px){
@@ -3758,6 +3777,11 @@ div.bt{
 	    width: 27%;
 	    max-width: calc(24% - 2%);
 	}
+	.files__wrap > li,
+	.file--content.list-inline-item{
+		flex: 0 0 auto;
+		width: calc(33% - 0.4rem);
+	}
 }
 @media(min-width: 1200px) and (max-width:1320px){
 	.h-ll{
@@ -3768,12 +3792,22 @@ div.bt{
 	    width: 25%;
 	    max-width: calc(22% - 2%);
 	}
+	.files__wrap > li,
+	.file--content.list-inline-item{
+		flex: 0 0 auto;
+		width: calc(33% - 0.4rem);
+	}
 }
 @media(min-width: 1321px) and (max-width:1599px){
 
 	.sidebarleft {
 	    width: 23%;
 	    max-width: calc(20% - 2%);
+	}
+	.files__wrap > li,
+	.file--content.list-inline-item{
+		flex: 0 0 auto;
+		width: calc(25% - 0.8rem);
 	}
 }
 @media(min-width: 1600px) and (max-width:1680px){

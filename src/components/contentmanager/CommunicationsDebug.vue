@@ -259,7 +259,7 @@
 
                     getSMSStatusCommunications().then(() => {
                         formSMS.communicationsms = smsstatuscommunications.value.smsstatus;
-                        console.log(formSMS.communicationsms);
+
                     });
                 });
             }

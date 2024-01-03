@@ -105,7 +105,7 @@
         <div class="row">
             <div class="col col-sm-12 col-lg-6">
                 <div class="mt-4 mainLabel">
-                    <h6>Note: <span class="text-danger">*</span></h6>
+                    <h6>Note: </h6>
                 </div>
                 <span v-if="errors.notes" class="text-danger m-error">{{errors.notes[0]}}</span>  
                 <div class="chkNoteWrap border p-2"  :class="errors.notes ? 'br-error' : ''">
@@ -163,7 +163,7 @@
                 <div class="mt-4 mainLabel">
                     <h6>Remarks:</h6>
                 </div>
-                <textarea name="remarks" class="form-control" v-model="communicationform.remarks" placeholder="enter remarks here"></textarea>
+                <div class="remarksInput" ref="comtxt" contenteditable="true"  @blur="getContent"></div>
             </div>
         </div>
         
@@ -227,6 +227,8 @@
                 title: 'New Communication | '+import.meta.env.VITE_BFAR_AGENCY
             })
             const {emit}=useEventsBus()
+
+            const comtxt = ref();
 
             const st_recipients = useRecipients();
  
@@ -415,7 +417,9 @@
                 }                
             }
 
-                     
+            const getContent = (evt) => {
+                communicationform.remarks = evt.target.innerHTML;
+            }          
             return{
                 documenttypes,
                 classifications,
@@ -440,7 +444,9 @@
                 updateUploaded,
                 fileattacherr,
                 bid,
-                forNotLoaded
+                forNotLoaded,
+                comtxt,
+                getContent
                 
             }
         }

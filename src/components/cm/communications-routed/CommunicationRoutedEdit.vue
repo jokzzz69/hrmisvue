@@ -111,10 +111,10 @@
         <div class="row">
             <div class="col col-sm-6">
                 <div class="mt-4 mainLabel">
-                    <h6>Note: <span class="text-danger">*</span></h6>
+                    <h6>Note: </h6>
                 </div>
-                <span v-if="errors.notes" class="text-danger m-error">{{errors.notes[0]}}</span>  
-                <div class="chkNoteWrap border p-2"  :class="errors.notes ? 'br-error' : ''">
+
+                <div class="chkNoteWrap border p-2">
                     <template v-if="notes">
                         <ul class="list-unstyled ulnotes">
                             <li v-for="note in notes">
@@ -127,6 +127,7 @@
                             </li>
                         </ul>
                     </template>
+                    
                     <hr v-if="shoWCopies || showReturnForward">
                     <template v-if="shoWCopies">
                         <ul class="mb-0 list-inline">
@@ -168,8 +169,10 @@
             <div class="col">
                 <div class="mt-4 mainLabel">
                     <h6>Remarks:</h6>
+                </div>              
+                <div class="form-floating req">                               
+                    <div class="remarksInput" ref="actxt" v-html="communicationform.remarks" contenteditable="true" @blur="getContent"></div>     
                 </div>
-                <textarea name="remarks" class="form-control" v-model="communicationform.remarks" placeholder="enter remarks here"></textarea>
             </div>
         </div>
         
@@ -358,7 +361,7 @@
                     hld.value = false;
                 })
 
-                console.log(communicationform);
+
 
             })
 
@@ -373,7 +376,7 @@
                 communicationform.allgroups = st_recipients.getallgroups;
 
                 communicationform.asdraft = false;
-                console.log(communicationform);
+
 
                 await updateRoutedCommunication(props.id,{ ...communicationform }).then(() => {
 
@@ -455,6 +458,10 @@
                 }
                 
             }
+            const getContent = (evt) => {
+                communicationform.remarks = evt.target.innerHTML;
+
+            }
             return{
                 documenttypes,
                 classifications,
@@ -476,7 +483,8 @@
                 props,
                 updateUploaded,
                 fileattacherr,
-                hld
+                hld,
+                getContent
             }
         }
     }
