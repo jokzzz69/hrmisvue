@@ -3,15 +3,20 @@ import { defineStore } from 'pinia'
 
 export const useRecipients = defineStore('selun', {
 	state:() => ({
-		recipients: {			
+		recipients: {
+			specificemployees: null,
 			selectedunitheads: null,
 			selectedunitheadgroups: null,
 			selectedunitgroups: null,
 			allunits: null,
 			allgroups: null
+
 		}
 	}),
 	actions: {
+		setspecificemployees(val){
+			this.recipients.specificemployees = val
+		},
 		setselectedunitheads(val){
 			this.recipients.selectedunitheads = val
 		},
@@ -28,8 +33,12 @@ export const useRecipients = defineStore('selun', {
 			this.recipients.allgroups = val
 		}
 
+
 	},
 	getters: {
+		getspecificemployees: (state) => {
+			return state.recipients.specificemployees
+		},
 		getselectedunitheads: (state) => {
 			return state.recipients.selectedunitheads
 		},
@@ -45,5 +54,6 @@ export const useRecipients = defineStore('selun', {
 		getallgroups: (state) => {
 			return state.recipients.allgroups
 		}
-	}
+	},
+	persist: true,
 })

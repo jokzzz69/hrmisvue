@@ -9,6 +9,7 @@
             </div>
         </ul>
     </div>
+    
     <div class="unitheads"> 
 		<ul class="list-unstyled" v-for="(communicationgroup,x) in communicationgroups" :class="`cg-${x}`">
 	        <li>
@@ -55,15 +56,27 @@
 	            </template>
 	        </li>
 	    </ul>
+        <!-- <div class="specificreceiver">
+            <span class="sp-frmtitle d-block"><strong>Other Employees:</strong></span>
+            <SubCheckCustom/>
+        </div> -->
 	</div>
 </template>
 <script>
 	import useCommunicationGroups from '@/composables/composables-communicationgroups';
-	import { reactive,inject, ref, onMounted, watch, nextTick } from "vue";
+	import { reactive,inject, ref, onMounted, watch, nextTick, defineAsyncComponent} from "vue";
+
     import useEventsBus from '@/components/helper/Eventbus';
+
     import {useRecipients} from "@/stores/recipients.js"
 
+    const SubCheckCustom = defineAsyncComponent(() => 
+        import('@/components/cm/reusables/SubCheckCustom.vue')
+    );
 	export default{
+        components: {
+            SubCheckCustom
+        },
         props: {
             isDisplayed: {
                 type: Boolean,
@@ -104,7 +117,7 @@
             })
 
 			onMounted(() =>{
-
+                
 				getActiveCommunicationGroups().then(res =>{
                     for (var i in communicationgroups.value) {
                         totalEmpinGroups.total = parseInt(totalEmpinGroups.total  + communicationgroups.value[i].employees.length);

@@ -99,6 +99,7 @@
 
 		    onMounted(() =>{
 		    	getActiveUnits().then(() => {
+		    		
 		    		if(st_recipients.getselectedunitgroups){
 		    			selectedunits.value = st_recipients.getselectedunitgroups;
 

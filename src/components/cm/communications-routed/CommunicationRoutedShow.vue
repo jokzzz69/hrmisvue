@@ -108,7 +108,7 @@
             
         </div>
 
-        <div class="row">
+        <div class="row" v-if="stupdated">
             <div class="col">
                 <div class="checkBoxcgDisp p-2 mt-2 border showOnlyChk" :class="errors.sendto ? 'br-error' : ''">
                     <div class="card--title"><strong>Recipients:</strong></div>
@@ -244,7 +244,7 @@
 </template>
 
 <script>
-    import { reactive,inject, ref, onMounted,watch, defineAsyncComponent} from "vue";
+    import { reactive,inject, ref, onMounted,watch, defineAsyncComponent,onUnmounted} from "vue";
     import useCommunicationsRouted from '@/composables/composables-communicationsrouted';
 
     import 'vue-select/dist/vue-select.css';
@@ -337,13 +337,17 @@
             });
             const dateSent = ref('');
             const isCreator = ref(false);
+            const stupdated = ref(false);
 
             onMounted(() => {
+
                 getCommunicationRouted(props.id).then(() =>{
 
                     if(communication.value.units.length > 0){
                         
                         communicationform.selectedunits = communication.value.units.map(i => parseInt(i['id']));
+
+
                     } 
                     if(communication.value.receiversunitheads.length > 0){
 
@@ -367,8 +371,10 @@
                     st_recipients.setselectedunitheads(communicationform.sendto);
                     st_recipients.setselectedunitgroups(communicationform.selectedunits);
 
+                    stupdated.value = true;
 
                     hld.value = false;
+
                     checkSentDate(communication.value.updated_at);
 
                     if(communication.value.createdby == userid || userrole.value.includes('super-admin') || userrole.value.includes('admin')){
@@ -382,6 +388,9 @@
 
             })
 
+            onUnmounted(() => {
+                st_recipients.$reset();
+            })
  
             const checkSentDate = async(sdate) =>{
                 var mdate = moment(sdate);
@@ -429,7 +438,8 @@
                 btnActionsTaken,
                 hld,
                 dateSent,
-                isCreator
+                isCreator,
+                stupdated
             }
         }
     }

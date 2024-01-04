@@ -56,6 +56,15 @@ export default function useEmployees(){
 		axios.defaults.withCredentials = true;	
 		await axios.delete('/v1/api/bioemployees/' + id)
 	}
+
+	const getNonUnitHeadsEmployees = async () => {
+		axios.defaults.withCredentials = true;
+		let response = await axios.get('/v1/api/bioemployeesnonunitheads');
+		employees.value = response.data.data;
+
+
+	}
+
 	const storeEmployee = async (data) => {
 		axios.defaults.withCredentials = true;	
         errors.value = ''
@@ -117,7 +126,8 @@ export default function useEmployees(){
 		getAvailableIDS,
 		availableids,
 		getAvailableIDSwithcurrentID,
-		availablewcids
+		availablewcids,
+		getNonUnitHeadsEmployees
 	
 	}
 }

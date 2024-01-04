@@ -184,7 +184,7 @@
 </template>
 
 <script>
-    import { reactive,inject, ref, onMounted,defineAsyncComponent } from "vue";
+    import { reactive,inject, ref, onMounted,defineAsyncComponent} from "vue";
 
 
     import useCommunicationsDraft from '@/composables/composables-communicationsdraft';
@@ -320,10 +320,17 @@
                         torInclusive.value = false;
                     }
 
-                    if(draft.value.receivers.length > 0){
+                    if(draft.value.units.length > 0){
+                        
+                        draftform.selectedunits = communication.value.units.map(i => parseInt(i['id']));
+                    } 
+                    if(draft.value.receiversunitheads.length > 0){
+                        
+                        draftform.sendto = communication.value.receiversunitheads.map(i => parseInt(i['id']));
 
-                        draftform.sendto = draft.value.receivers.map(i => parseInt(i['id']));
                     }
+
+
     
                     if(draft.value.notes.length > 0){
                         draftform.notes = draft.value.notes.map(i => parseInt(i['id']));

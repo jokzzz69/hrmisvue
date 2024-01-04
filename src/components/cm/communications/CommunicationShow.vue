@@ -112,7 +112,7 @@
             </div>
         </div>
 
-        <div class="accordion mt-1" id="accRecipients">
+        <div class="accordion mt-1" id="accRecipients" v-if="stupdated">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingRecipients">
                   <button id="btnRecipients" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRecipients" aria-expanded="false" aria-controls="collapseRecipients" @click="showrecipient = !showrecipient">
@@ -121,7 +121,7 @@
                         <template v-if="!showrecipient">
                             <span class="ms-1 ps-1 pt-1 me-2 border-bottom w-100">
                                 <template v-for="(x,y) in communication.receivers">
-                                    {{x.formattedName}}<template v-if="y != communication.receivers.length -1">, </template>
+                                    <span class="badge-recipients">{{x.formattedName}}</span><template v-if="y != communication.receivers.length -1">, </template>
                                 </template>
                             </span> 
                         </template>                        
@@ -263,7 +263,7 @@
 <script>
     import moment from 'moment';
 
-    import { reactive,inject, ref, onMounted,onUnmounted, watch, defineAsyncComponent} from "vue";
+    import { reactive,inject, ref, onMounted,onUnmounted, watch, defineAsyncComponent } from "vue";
     import useCommunications from '@/composables/composables-communications';
     import useCommunicationGroups from '@/composables/composables-communicationgroups';
     import 'vue-select/dist/vue-select.css';
@@ -315,6 +315,9 @@
             })
             const swal = inject('$swal')
             const st_recipients = useRecipients();
+
+            
+
             const showActionsBox = ref(false);
 
             const {communicationgroups, getCommunicationGroups} = useCommunicationGroups()
@@ -349,18 +352,19 @@
 
 
             const hld = ref(true);
+            const stupdated = ref(false);
 
-            onMounted(() => {               
+            onMounted(() => { 
+
                 getCommunication(props.id).then(() =>{
-                    if(communication.value){
 
-                        if(communication.value.receivers.length > 0){
-
-                            communicationform.sendto = communication.value.receivers.map(i => parseInt(i['id']));
-                            
+                    if(communication.value){                       
+                        if(communication.value.units.length > 0){                        
                             communicationform.selectedunits = communication.value.units.map(i => parseInt(i['id']));
-
                         } 
+                        if(communication.value.receivers.length > 0){                            
+                            communicationform.sendto = communication.value.receivers.map(i => parseInt(i['id']));
+                        }
                         if(communication.value.noteHasPhotocopy){
                             if(communication.value.noteCopies > 1){
                                 photocopy.value = communication.value.noteCopies+' Copies';
@@ -368,6 +372,7 @@
                                 photocopy.value = communication.value.noteCopies+' Copy';
                             }
                         }
+
                         if(communication.value.subject){
                             noSubject.value = false;
                         }else{
@@ -375,11 +380,11 @@
                         }
 
                         notificationstore.fetchNotification();
-
         
                         st_recipients.setselectedunitheads(communicationform.sendto);
                         st_recipients.setselectedunitgroups(communicationform.selectedunits);
 
+                        stupdated.value = true;
 
                         checkSentDate(communication.value.updated_at);
                     }
@@ -388,6 +393,9 @@
                     hld.value = false;
                 })                
 
+            })
+            onUnmounted(() => {
+                st_recipients.$reset();
             })
             const btnActionsTaken = () =>{
                 showActionsBox.value = !showActionsBox.value;                
@@ -429,7 +437,8 @@
                 btnActionsTaken,
                 showActionsBox,
                 hld,
-                dateSent
+                dateSent,
+                stupdated
             }
         }
     }

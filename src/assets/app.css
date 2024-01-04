@@ -490,6 +490,38 @@ body{
 .p-15{
 	padding: 15px;
 }
+.specificEmployees-wrap .vs__dropdown-toggle{
+	border-top-color: transparent;
+	border-left-color: transparent;
+	border-right-color: transparent;
+	overflow-y: hidden !important;
+	border-radius: 0px;
+	min-height: calc(2.5rem + 2px) !important;
+}
+.specificEmployees-wrap .vs__actions{
+	display: none;
+}
+.specificEmployees-wrap .vs__selected,
+.specificEmployees-wrap .vs__search,
+.specificEmployees-wrap .vs__search:focus{
+	font-size: .875rem;
+}
+.specificEmployees-wrap .vs__selected{
+	background: #fff !important;
+}
+.v-select-returnforward .vs__selected,
+.specificEmployees-wrap .vs__selected{
+	border-radius: 20px;
+	padding: 0 1em;
+}
+
+
+.vs__dropdown-option--selected {
+    background: #c6daef !important;
+    color: #919191 !important;
+
+}
+
 .sl2-floating.single .vs__dropdown-toggle{
 	overflow: hidden;
 }
@@ -648,7 +680,14 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown){
     -o-box-shadow: 0 0 40px 0 rgba(0,0,0,.15);
     -ms-box-shadow: 0 0 40px 0 rgba(0,0,0,.15);
 }
-.badge-violet {
+.badge-recipients{
+	border:1px solid #ccc;
+	padding: .2rem .6rem;
+	display: inline-block;
+	margin-bottom: .2rem;
+	border-radius: 21px;
+}
+.badge-violet{
     background: #5a3e93!important;
 }
 .btn-outline-violet {
@@ -2248,18 +2287,28 @@ a#drpnotifs{
     cursor: default;
     opacity: 1;
 }
-.checkboxCG div.allunits{
+.checkboxCG div.allunits,
+.checkboxCG div.unitheads,
+.checkboxCG div.unitgroups,
+.checkboxCG div.specificreceiver{
 	flex: 0 0 auto;
+}
+.checkboxCG div.specificreceiver{
+	width: 100%;
+	padding-right: .5rem;
+	margin-bottom: 1rem;
+}
+.checkboxCG div.allunits
+{
     width: 100%;
 }
 .checkboxCG div.unitheads{
-	flex: 0 0 auto;
     width: 85%;
 }
 .checkboxCG div.unitgroups{
-	flex: 0 0 auto;
     width: 15%;
 }
+
 .unitgroups{
 	padding:0 2rem;
 }
@@ -2428,7 +2477,7 @@ span.remove button:focus{
 
 
 
-.rforwardto .vs__search::-webkit-input-placeholder{
+.v-select-returnforward .vs__search::-webkit-input-placeholder{
 	font-size: 13px;
 }
 .sprForwardTitle,

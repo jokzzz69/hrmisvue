@@ -138,7 +138,7 @@
                     <template v-if="showReturnForward">
                          <ul class="list-unstyled">
                              <li><p class="mb-0">Return / Forward to:</p></li>
-                             <li><v-select multiple class="rforwardto" placeholder="Select Employee" v-model="communicationform.notesreturnforward" :reduce="employees => employees.id" :options="employees"/></li>
+                             <li><v-select multiple class="rforwardto v-select-returnforward" placeholder="Select Employee" v-model="communicationform.notesreturnforward" :reduce="employees => employees.id" :options="employees"/></li>
                          </ul>
                     </template>
 
@@ -350,7 +350,7 @@
                     st_recipients.setselectedunitheadgroups(communicationform.commgroupids);
                     st_recipients.setselectedunitgroups(communicationform.selectedunits);                    
                     st_recipients.setallunits(communicationform.allunits);
-                    st_recipients.setallgroups(communicationform.allgroups);                  
+                    st_recipients.setallgroups(communicationform.allgroups); 
                 }),
 
                 getDocumentTypes(),

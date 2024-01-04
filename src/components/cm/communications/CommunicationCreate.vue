@@ -98,6 +98,7 @@
                     <div class="unitgroups">
                         <SubCheckUnits :isDisplayed="false"/>
                     </div>
+
                 </div>               
             </div>           
         </div>
@@ -131,7 +132,7 @@
                     <template v-if="showReturnForward">
                          <ul class="list-unstyled">
                              <li><p class="mb-0">Return / Forward to:</p></li>
-                             <li><v-select multiple class="sp2wrap sl2-floating rel-drp" placeholder="Select Employee" v-model="communicationform.notesreturnforward" :reduce="employees => employees.id" :options="employees"/></li>
+                             <li><v-select multiple class="sp2wrap v-select-returnforward" placeholder="Select Employee" v-model="communicationform.notesreturnforward" :reduce="employees => employees.id" :options="employees"/></li>
                          </ul>
                     </template>
                 </div>
@@ -214,13 +215,14 @@
         import('@/components/cm/reusables/SubCheckUnitHeads.vue')
     );
 
-
+    
     export default {
         components: {
             AttachFile,
             LoadingComponentDiv,
             SubCheckUnits,
             SubCheckUnitHeads
+
         },
         setup(){
             useHead({
@@ -305,6 +307,7 @@
                 st_recipients.setselectedunitgroups(null);
                 st_recipients.setallunits(null);
                 st_recipients.setallgroups(null);
+                st_recipients.setspecificemployees(null);
 
             })
             const checkifHasData = () =>{
