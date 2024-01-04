@@ -159,7 +159,9 @@
             }
 
             onMounted(() =>{
-                searchLoad(route.query);               
+                searchLoad(route.query); 
+
+                console.log(route.query);        
             })
 
             const show = (id) => {

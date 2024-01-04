@@ -179,7 +179,7 @@
             const store = useAuthStore();   
 
             const userslug = ref(store.getdetails[1]); 
-
+            
 
 
             const {bus}=useEventsBus()
